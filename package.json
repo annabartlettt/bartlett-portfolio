@@ -1,0 +1,11 @@
+{
+  "name": "bartlett-portfolio",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Anna Bartlett — Research Cabinet portfolio (Next.js web + Sanity studio)",
+  "scripts": {
+    "dev:web": "npm --prefix web run dev",
+    "dev:studio": "npm --prefix studio run dev",
+    "build:web": "npm --prefix web run build"
+  }
+}

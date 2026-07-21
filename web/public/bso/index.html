@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BSO Poster System — Interactive Sketch</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<style>
+  :root{
+    --ink:#161513; --panel:#1a1a17; --panel-bar:#26261f;
+    --cream:#e6dcc2; --muted:#b3b0a6; --line:#3a3a32; --accent:#99db8a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;}
+  body{
+    background:var(--ink); color:var(--cream);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    display:flex; min-height:100vh; align-items:flex-start; justify-content:center;
+    gap:34px; padding:44px 32px; flex-wrap:wrap;
+  }
+  /* ---- stage ---- */
+  #stage{display:flex; flex-direction:column; gap:14px; align-items:flex-start;}
+  #holder{border-radius:6px; overflow:hidden; box-shadow:0 18px 50px rgba(0,0,0,.45); line-height:0;}
+  .stage-meta{max-width:480px;}
+  .stage-meta .kick{font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600;}
+  .stage-meta h1{font-family:Georgia,"Times New Roman",serif; font-weight:500; font-size:26px; margin:6px 0 4px; color:var(--cream);}
+  .stage-meta p{font-size:13.5px; line-height:1.5; color:var(--muted); margin:0;}
+  /* ---- control panel ---- */
+  #panel{width:340px; background:var(--panel); border:1px solid var(--line); border-radius:9px; overflow:hidden; align-self:flex-start;}
+  .bar{background:var(--panel-bar); padding:10px 16px; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:#a9a99f;}
+  .body{padding:14px 16px 18px;}
+  .presets{display:grid; grid-template-columns:repeat(2,1fr); gap:7px; margin-bottom:16px;}
+  .preset{border:1px solid var(--line); background:#141410; color:var(--cream); font-size:12px;
+    padding:8px 6px; border-radius:5px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:.15s;}
+  .preset:hover{border-color:#585850;}
+  .preset.active{border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent);}
+  .swatch{width:12px; height:12px; border-radius:3px; flex:0 0 auto;}
+  .row{display:flex; align-items:center; justify-content:space-between; margin:11px 0 4px; font-size:12px;}
+  .row label{color:#c9c6bc;}
+  .row .val{color:var(--accent); font-variant-numeric:tabular-nums; font-size:11.5px;}
+  input[type=range]{-webkit-appearance:none; width:100%; height:4px; border-radius:2px; background:#2f2f2a; outline:none; margin:2px 0 2px;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:13px; height:13px; border-radius:50%; background:var(--cream); cursor:pointer; box-shadow:0 0 0 3px rgba(153,219,138,.25);}
+  input[type=range]::-moz-range-thumb{width:13px; height:13px; border:none; border-radius:50%; background:var(--cream); cursor:pointer;}
+  .divider{height:1px; background:var(--line); margin:16px 0 4px;}
+  .toggles{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;}
+  .tg{flex:1; min-width:90px; border:1px solid var(--line); background:#141410; color:#c9c6bc; font-size:11.5px; padding:7px; border-radius:5px; cursor:pointer; text-align:center;}
+  .tg.on{border-color:var(--accent); color:var(--accent);}
+  .actions{display:flex; gap:8px; margin-top:16px;}
+  .btn{flex:1; border:none; border-radius:5px; padding:9px; font-size:12.5px; font-weight:600; cursor:pointer;}
+  .btn.primary{background:var(--accent); color:#12130f;}
+  .btn.ghost{background:#141410; color:var(--cream); border:1px solid var(--line);}
+  .foot{font-size:11px; color:#6f6d64; margin-top:14px; line-height:1.5;}
+  .foot b{color:#8f8d83; font-weight:600;}
+</style>
+</head>
+<body>
+  <div id="stage">
+    <div id="holder"></div>
+    <div class="stage-meta">
+      <div class="kick">Boston Symphony Orchestra · generative season</div>
+      <h1 id="posterTitle">Mahler — Symphony No. 4</h1>
+      <p>One p5.js sketch, five signatures. Nothing is drawn by hand — every poster is the same grid of nested shapes resolved through Perlin noise. Drag a parameter and the field re-composes live.</p>
+    </div>
+  </div>
+
+  <div id="panel">
+    <div class="bar">BSO_POSTER · parameters</div>
+    <div class="body">
+      <div class="presets" id="presets"></div>
+
+      <div class="row"><label>gridScale</label><span class="val" id="v_grid"></span></div>
+      <input type="range" id="s_grid" min="6" max="30" step="1">
+
+      <div class="row"><label>noiseScale</label><span class="val" id="v_noise"></span></div>
+      <input type="range" id="s_noise" min="0.004" max="0.09" step="0.002">
+
+      <div class="row"><label>noiseOctaves</label><span class="val" id="v_oct"></span></div>
+      <input type="range" id="s_oct" min="1" max="6" step="1">
+
+      <div class="row"><label>maxLayers</label><span class="val" id="v_layers"></span></div>
+      <input type="range" id="s_layers" min="2" max="14" step="1">
+
+      <div class="row"><label>layerInset</label><span class="val" id="v_inset"></span></div>
+      <input type="range" id="s_inset" min="0.4" max="1" step="0.02">
+
+      <div class="row"><label>rotation°</label><span class="val" id="v_rot"></span></div>
+      <input type="range" id="s_rot" min="0" max="90" step="1">
+
+      <div class="row"><label>strokeWeight</label><span class="val" id="v_sw"></span></div>
+      <input type="range" id="s_sw" min="0.4" max="3" step="0.1">
+
+      <div class="row"><label>strokeAlpha</label><span class="val" id="v_sa"></span></div>
+      <input type="range" id="s_sa" min="10" max="150" step="2">
+
+      <div class="divider"></div>
+      <div class="toggles">
+        <div class="tg" id="tg_geo">geometry: square</div>
+        <div class="tg" id="tg_glow">glow: off</div>
+        <div class="tg" id="tg_anim">motion: off</div>
+        <div class="tg" id="tg_type">type: on</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn ghost" id="btn_seed">↻ new seed</button>
+        <button class="btn primary" id="btn_save">⤓ export PNG</button>
+      </div>
+      <div class="foot">Same code that generated the final season. <b>Presets</b> are five saved parameter states — everything past that is you turning the dials.</div>
+    </div>
+  </div>
+
+<script>
+// ---------- the five final-poster signatures ----------
+const GEOS = ["square","diamond","chevron"];
+const PRESETS = [
+  { name:"Mahler — Symphony No. 4", swatch:"#6e9c9a",
+    bg:[110,158,156], stroke:[231,226,207],
+    grid:15, noise:0.03, oct:4, layers:9, inset:0.82, rot:66, sw:0.8, sa:60, geo:"chevron", glow:false },
+  { name:"Opening Night — Mozart & Strauss", swatch:"#5a6485",
+    bg:[90,100,133], stroke:[221,223,211],
+    grid:20, noise:0.05, oct:3, layers:7, inset:0.9, rot:6, sw:0.7, sa:52, geo:"square", glow:false },
+  { name:"American Composers Program", swatch:"#8c7aa0",
+    bg:[140,122,160], stroke:[229,224,210],
+    grid:12, noise:0.028, oct:4, layers:8, inset:0.86, rot:45, sw:0.9, sa:58, geo:"diamond", glow:false },
+  { name:"Tchaikovsky — Symphony No. 5", swatch:"#6e2447",
+    bg:[110,36,71], stroke:[232,201,138],
+    grid:13, noise:0.035, oct:5, layers:8, inset:0.85, rot:45, sw:0.8, sa:60, geo:"diamond", glow:true },
+  { name:"125th Anniversary — Missa Solemnis", swatch:"#7e9377",
+    bg:[126,147,119], stroke:[221,225,206],
+    grid:11, noise:0.02, oct:4, layers:7, inset:0.9, rot:45, sw:0.9, sa:34, geo:"diamond", glow:false },
+];
+
+const CW = 480, CH = 720, MARGIN = 0;
+let P = {}, activePreset = 0, seed = 1234, sketch;
+let showType = true, animate = false;
+
+function applyPreset(i){
+  const p = PRESETS[i]; activePreset = i;
+  P = { bg:p.bg.slice(), stroke:p.stroke.slice(), grid:p.grid, noise:p.noise, oct:p.oct,
+        layers:p.layers, inset:p.inset, rot:p.rot, sw:p.sw, sa:p.sa, geo:p.geo, glow:p.glow };
+  document.getElementById("posterTitle").textContent = p.name;
+  syncUI();
+  drawActive();
+}
+
+// ---------- p5 sketch ----------
+const s = (pg)=>{
+  pg.setup = ()=>{
+    const c = pg.createCanvas(CW, CH);
+    c.parent("holder");
+    pg.noLoop(); pg.rectMode(pg.CENTER);
+  };
+  pg.draw = ()=>{
+    pg.noiseSeed(seed);
+    pg.background(P.bg[0], P.bg[1], P.bg[2]);
+    const cols = P.grid, rows = Math.round(P.grid * (CH/CW));
+    const cw = (CW - MARGIN*2)/cols, ch = (CH - MARGIN*2)/rows;
+    const t = animate ? pg.frameCount*0.008 : 0;
+    pg.noFill();
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        const nx = c*P.noise, ny = r*P.noise;
+        const n = fbm(pg, nx, ny, t, P.oct);
+        const layers = Math.max(1, Math.round(pg.map(n, 0, 1, 1, P.layers)));
+        const cx = MARGIN + c*cw + cw/2, cy = MARGIN + r*ch + ch/2;
+        const base = Math.max(cw, ch) * 1.35;
+        drawUnit(pg, cx, cy, base, layers, pg.radians(P.rot), P.geo, n);
+        if(P.glow && n > 0.62){
+          pg.noStroke();
+          pg.fill(P.stroke[0], P.stroke[1], P.stroke[2], (n-0.62)*520);
+          pg.circle(cx, cy, base*0.12);
+          pg.noFill();
+        }
+      }
+    }
+    if(showType) drawType(pg);
+  };
+};
+
+function drawUnit(pg, x, y, s, layers, rot, mode, n){
+  pg.push(); pg.translate(x,y); pg.rotate(rot + (mode==="square"? (n-0.5)*0.5 : 0));
+  pg.stroke(P.stroke[0], P.stroke[1], P.stroke[2], P.sa);
+  pg.strokeWeight(P.sw);
+  for(let i=0;i<layers;i++){
+    const f = 1 - (i/layers)*(1-(1-P.inset));
+    const ss = s * (1 - i*(1-P.inset)/Math.max(1,layers));
+    if(ss<=1) break;
+    if(mode==="chevron"){
+      pg.beginShape();
+      pg.vertex(-ss/2, ss/2); pg.vertex(0,-ss/2); pg.vertex(ss/2, ss/2);
+      pg.endShape();
+    } else {
+      pg.rect(0,0,ss,ss);
+    }
+  }
+  pg.pop();
+}
+
+// fractal brownian motion over p5 noise
+function fbm(pg, x, y, t, oct){
+  let amp=0.5, freq=1, sum=0, norm=0;
+  for(let o=0;o<oct;o++){
+    sum += amp * pg.noise(x*freq, y*freq, t*freq);
+    norm += amp; amp*=0.5; freq*=2;
+  }
+  return sum/norm;
+}
+
+function drawType(pg){
+  const p = PRESETS[activePreset];
+  const parts = p.name.split(" — ");
+  pg.push();
+  pg.textAlign(pg.LEFT, pg.BASELINE);
+  pg.noStroke();
+  pg.fill(P.stroke[0], P.stroke[1], P.stroke[2], 245);
+  pg.textFont("Georgia");
+  pg.textSize(46);
+  pg.text(parts[0], 34, 150);
+  if(parts[1]){
+    pg.textFont("Helvetica");
+    pg.textSize(22);
+    pg.fill(P.stroke[0], P.stroke[1], P.stroke[2], 220);
+    pg.text(parts[1], 34, 184);
+  }
+  pg.textFont("Helvetica");
+  pg.textSize(13);
+  pg.fill(P.stroke[0], P.stroke[1], P.stroke[2], 200);
+  pg.text("Symphony Hall · Boston, MA", 34, CH-90);
+  pg.text("André Nelsons, conductor", 34, CH-68);
+  pg.text("Thu, Oct 2 2025 · 7:30 PM", 34, CH-46);
+  pg.pop();
+}
+
+sketch = new p5(s);
+function drawActive(){ sketch.redraw(); }
+
+// ---------- UI wiring ----------
+function el(id){ return document.getElementById(id); }
+const bind = [
+  ["s_grid","v_grid","grid", v=>v],
+  ["s_noise","v_noise","noise", v=>(+v).toFixed(3)],
+  ["s_oct","v_oct","oct", v=>v],
+  ["s_layers","v_layers","layers", v=>v],
+  ["s_inset","v_inset","inset", v=>(+v).toFixed(2)],
+  ["s_rot","v_rot","rot", v=>v+"°"],
+  ["s_sw","v_sw","sw", v=>(+v).toFixed(1)],
+  ["s_sa","v_sa","sa", v=>v],
+];
+bind.forEach(([sid,vid,key,fmt])=>{
+  el(sid).addEventListener("input", e=>{
+    P[key] = key==="noise"||key==="inset"||key==="sw" ? parseFloat(e.target.value) : parseInt(e.target.value);
+    el(vid).textContent = fmt(e.target.value);
+    drawActive();
+  });
+});
+function syncUI(){
+  bind.forEach(([sid,vid,key,fmt])=>{ el(sid).value = P[key]; el(vid).textContent = fmt(P[key]); });
+  el("tg_geo").textContent = "geometry: " + P.geo;
+  el("tg_glow").classList.toggle("on", P.glow); el("tg_glow").textContent = "glow: " + (P.glow?"on":"off");
+  el("tg_anim").classList.toggle("on", animate); el("tg_anim").textContent = "motion: " + (animate?"on":"off");
+  el("tg_type").classList.toggle("on", showType); el("tg_type").textContent = "type: " + (showType?"on":"off");
+  document.querySelectorAll(".preset").forEach((n,i)=>n.classList.toggle("active", i===activePreset));
+}
+el("tg_geo").onclick = ()=>{ const i=GEOS.indexOf(P.geo); P.geo=GEOS[(i+1)%GEOS.length]; el("tg_geo").textContent="geometry: "+P.geo; drawActive(); };
+el("tg_glow").onclick = ()=>{ P.glow=!P.glow; syncUI(); drawActive(); };
+el("tg_type").onclick = ()=>{ showType=!showType; syncUI(); drawActive(); };
+el("tg_anim").onclick = ()=>{ animate=!animate; syncUI(); animate? sketch.loop() : (sketch.noLoop(), drawActive()); };
+el("btn_seed").onclick = ()=>{ seed = Math.floor(Math.random()*99999); drawActive(); };
+el("btn_save").onclick = ()=>{ sketch.saveCanvas("bso_poster", "png"); };
+
+// build preset buttons
+const pc = el("presets");
+PRESETS.forEach((p,i)=>{
+  const b = document.createElement("div");
+  b.className="preset";
+  b.innerHTML = `<span class="swatch" style="background:${p.swatch}"></span>${p.name.split(" — ")[0]}`;
+  b.onclick = ()=>applyPreset(i);
+  pc.appendChild(b);
+});
+
+applyPreset(0);
+</script>
+</body>
+</html>
