@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-// Deployed on Vercel with Root Directory = web
+// Deployed on Vercel · Root Directory = web · Framework Preset = Next.js
 const nextConfig: NextConfig = {
   async redirects() {
     return [
