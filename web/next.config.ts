@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 
+// Deployed on Vercel with Root Directory = web
 const nextConfig: NextConfig = {
   async redirects() {
     return [
