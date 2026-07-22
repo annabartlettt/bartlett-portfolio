@@ -31,7 +31,13 @@ export const section = defineType({
       type: "string",
       description: "Hex color for this section's accent, e.g. #363A5E",
     }),
-    defineField({ name: "image", type: "image", options: { hotspot: true } }),
+    defineField({ name: "image", title: "Legacy single image", type: "image", options: { hotspot: true } }),
+    defineField({
+      name: "images",
+      title: "Visuals — drop each Figma image into its labeled slot",
+      type: "array",
+      of: [defineArrayMember({ type: "captionedImage" })],
+    }),
     defineField({
       name: "stats",
       type: "array",

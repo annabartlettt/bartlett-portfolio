@@ -6,6 +6,7 @@ import { section } from "./objects/section";
 import { stat } from "./objects/stat";
 import { drawer } from "./objects/drawer";
 import { brand } from "./objects/brand";
+import { captionedImage } from "./objects/captionedImage";
 
 export const schemaTypes = [
   // documents
@@ -18,4 +19,5 @@ export const schemaTypes = [
   stat,
   drawer,
   brand,
+  captionedImage,
 ];

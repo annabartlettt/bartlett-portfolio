@@ -13,6 +13,12 @@ export type SanityImage = {
   crop?: unknown;
 };
 
+export type CaptionedImage = {
+  _key?: string;
+  caption?: string;
+  image?: SanityImage;
+};
+
 export type Stat = { value?: string; label?: string };
 
 export type Drawer = { label?: string; content?: unknown[] };
@@ -26,6 +32,7 @@ export type Section = {
   rhythm?: string;
   accent?: string;
   image?: SanityImage;
+  images?: CaptionedImage[];
   stats?: Stat[];
   drawer?: Drawer;
 };

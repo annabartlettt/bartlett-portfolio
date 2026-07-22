@@ -138,6 +138,32 @@ export default async function ProjectPage({
             />
           )}
 
+          {(() => {
+            const filled = (s.images ?? []).filter((im) => im.image?.asset);
+            if (filled.length === 0) return null;
+            return (
+              <div
+                className={`mt-8 grid gap-5 ${filled.length > 1 ? "sm:grid-cols-2" : ""}`}
+              >
+                {filled.map((im, i) => (
+                  <figure key={im._key ?? i} className="m-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={urlFor(im.image!).width(1400).auto("format").url()}
+                      alt={im.caption ?? s.title ?? ""}
+                      className="w-full rounded-xl border border-[var(--kraft)]"
+                    />
+                    {im.caption && (
+                      <figcaption className="mono mt-2 text-[11px] tracking-wide opacity-60">
+                        {im.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                ))}
+              </div>
+            );
+          })()}
+
           {s.stats && s.stats.length > 0 && (
             <div className="mt-8 flex flex-wrap gap-10">
               {s.stats.map((st, i) => (
