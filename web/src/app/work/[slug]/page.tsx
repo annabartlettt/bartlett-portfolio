@@ -4,6 +4,7 @@ import { PortableText } from "next-sanity";
 import type { PortableTextBlock } from "next-sanity";
 import Drawer from "@/components/Drawer";
 import EarlyLofis from "@/components/EarlyLofis";
+import BsoSketch from "@/components/BsoSketch";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -196,6 +197,9 @@ export default async function ProjectPage({
           )}
         </section>
         {slug === "anosity" && s.number === "02" && <EarlyLofis />}
+        {slug === "boston-symphony-orchestra" && s.number === "04" && (
+          <BsoSketch accent={brand.secondary ?? primary} />
+        )}
         </Fragment>
       ))}
 
