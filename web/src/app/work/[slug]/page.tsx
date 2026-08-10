@@ -5,7 +5,7 @@ import type { PortableTextBlock } from "next-sanity";
 import Drawer from "@/components/Drawer";
 import EarlyLofis from "@/components/EarlyLofis";
 import { urlFor } from "@/sanity/image";
-import { Fragment } from "react";
+import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Project } from "@/sanity/types";
@@ -125,7 +125,12 @@ export default async function ProjectPage({
             {s.number} · {s.kicker}
           </p>
           <h2 className="display mt-3 text-3xl">{s.title}</h2>
-          <div className="serif mt-4 text-lg leading-relaxed opacity-90">
+          <div
+            className="rich serif mt-4 text-lg leading-relaxed opacity-90"
+            style={
+              { "--rich-accent": s.accent ?? primary } as CSSProperties
+            }
+          >
             <PortableText value={(s.body ?? []) as PortableTextBlock[]} />
           </div>
 
@@ -200,7 +205,7 @@ export default async function ProjectPage({
           <p className="mono text-[11px] tracking-widest opacity-70">
             CASE STUDY NOTES
           </p>
-          <div className="serif mt-3 text-lg italic opacity-80">
+          <div className="rich serif mt-3 text-lg italic opacity-80">
             <PortableText value={p.notes as PortableTextBlock[]} />
           </div>
         </section>

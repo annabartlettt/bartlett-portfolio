@@ -28,7 +28,7 @@ export default function Drawer({
       </button>
       {open && content && (
         <div
-          className="rounded-b-xl rounded-tr-xl border p-6 text-sm leading-relaxed"
+          className="rich rounded-b-xl rounded-tr-xl border p-6 text-sm leading-relaxed"
           style={{ borderColor: color, background: "var(--paper)" }}
         >
           <PortableText value={content as PortableTextBlock[]} />

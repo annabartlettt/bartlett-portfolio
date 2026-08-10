@@ -39,3 +39,24 @@ a {
 .hand {
   font-family: var(--font-hand), cursive;
 }
+
+/* Long-form case-study prose. Tailwind's preflight strips margins from p and
+   blockquote, so Portable Text needs its own rhythm. */
+.rich p,
+.rich ul,
+.rich ol {
+  margin: 0 0 1.1em;
+}
+
+.rich > *:last-child {
+  margin-bottom: 0;
+}
+
+.rich blockquote {
+  margin: 1.75em 0;
+  padding-left: 1.35rem;
+  border-left: 3px solid var(--rich-accent, var(--kraft));
+  font-size: 1.12em;
+  font-style: italic;
+  line-height: 1.5;
+}
