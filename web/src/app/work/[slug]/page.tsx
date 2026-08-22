@@ -156,7 +156,7 @@ export default async function ProjectPage({
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={urlFor(im.image!).width(1400).auto("format").url()}
-                      alt={im.caption ?? s.title ?? ""}
+                      alt={im.alt ?? im.caption ?? s.title ?? ""}
                       className="w-full rounded-xl border border-[var(--kraft)]"
                     />
                     {im.caption && (
@@ -196,7 +196,7 @@ export default async function ProjectPage({
             />
           )}
         </section>
-        {slug === "anosity" && s.number === "02" && <EarlyLofis />}
+        {slug === "anosity" && s.number === "03" && <EarlyLofis />}
         {slug === "boston-symphony-orchestra" && s.number === "04" && (
           <BsoSketch accent={brand.secondary ?? primary} />
         )}

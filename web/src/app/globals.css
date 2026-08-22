@@ -52,6 +52,29 @@ a {
   margin-bottom: 0;
 }
 
+/* Preflight also strips list markers and indentation. */
+.rich ul {
+  list-style: disc;
+  padding-left: 1.4rem;
+}
+
+.rich ol {
+  list-style: decimal;
+  padding-left: 1.6rem;
+}
+
+.rich li {
+  margin-bottom: 0.5em;
+}
+
+.rich li::marker {
+  color: var(--rich-accent, var(--kraft));
+}
+
+.rich strong {
+  font-weight: 600;
+}
+
 .rich blockquote {
   margin: 1.75em 0;
   padding-left: 1.35rem;
