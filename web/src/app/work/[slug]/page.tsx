@@ -5,6 +5,7 @@ import type { PortableTextBlock } from "next-sanity";
 import Drawer from "@/components/Drawer";
 import EarlyLofis from "@/components/EarlyLofis";
 import BsoSketch from "@/components/BsoSketch";
+import LoomEmbed from "@/components/LoomEmbed";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -199,6 +200,16 @@ export default async function ProjectPage({
         {slug === "anosity" && s.number === "03" && <EarlyLofis />}
         {slug === "boston-symphony-orchestra" && s.number === "04" && (
           <BsoSketch accent={brand.secondary ?? primary} />
+        )}
+        {slug === "storybridge" && s.number === "04" && (
+          <LoomEmbed
+            id="f90ed4bac3354529a95fb042162b1a76"
+            kicker="WALKTHROUGH · THE WORKING PROTOTYPE"
+            title="Five minutes inside StoryBridge."
+            blurb="The roles above, in motion — an author drafting a story, a reader browsing the cards, and the adapted copy sitting beside the original rather than replacing it."
+            caption="StoryBridge: AI Matched Stories for Students · 4:58"
+            accent={brand.primary ?? primary}
+          />
         )}
         </Fragment>
       ))}
