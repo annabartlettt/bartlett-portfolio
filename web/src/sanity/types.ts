@@ -16,6 +16,7 @@ export type SanityImage = {
 export type CaptionedImage = {
   _key?: string;
   caption?: string;
+  alt?: string;
   image?: SanityImage;
 };
 

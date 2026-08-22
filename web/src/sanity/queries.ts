@@ -42,7 +42,7 @@ export const PROJECT_QUERY = defineQuery(`
     "methods": methods[]->name,
     sections[]{
       number, kicker, title, body, rhythm, accent, image,
-      images[]{ _key, caption, image },
+      images[]{ _key, caption, alt, image },
       stats[]{ value, label },
       drawer{ label, content }
     }
