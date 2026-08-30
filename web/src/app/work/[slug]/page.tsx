@@ -6,6 +6,7 @@ import Drawer from "@/components/Drawer";
 import EarlyLofis from "@/components/EarlyLofis";
 import BsoSketch from "@/components/BsoSketch";
 import LoomEmbed from "@/components/LoomEmbed";
+import InstagramEmbed from "@/components/InstagramEmbed";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -212,31 +213,14 @@ export default async function ProjectPage({
           />
         )}
         {slug === "central-co-op" && s.number === "02" && (
-          <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-16">
-            <p
-              className="mono text-[12px] font-bold tracking-widest"
-              style={{ color: brand.primary ?? primary }}
-            >
-              MOTION · ON THE FEED
-            </p>
-            <h2 className="display mt-3 text-3xl">
-              Some of that reach was video.
-            </h2>
-            <p className="serif mt-4 text-lg leading-relaxed opacity-90">
-              Alongside the stills, I shot and edited motion work for the two
-              accounts. Instagram only renders its embeds for logged-in
-              visitors, so this one opens in a new tab.
-            </p>
-            <a
-              href="https://www.instagram.com/p/DDhoqSUOqrj/"
-              target="_blank"
-              rel="noopener"
-              className="mono mt-6 inline-block rounded-xl border px-5 py-3 text-[12px] tracking-widest"
-              style={{ borderColor: brand.primary ?? primary }}
-            >
-              WATCH ON INSTAGRAM ↗
-            </a>
-          </section>
+          <InstagramEmbed
+            code="DDhoqSUOqrj"
+            kicker="MOTION · ON THE FEED"
+            title="Some of that reach was video."
+            blurb="Alongside the stills, I shot and edited motion work for the two accounts. This one ran on the Central Co-op feed."
+            caption="Central Co-op · Instagram"
+            accent={brand.primary ?? primary}
+          />
         )}
         </Fragment>
       ))}

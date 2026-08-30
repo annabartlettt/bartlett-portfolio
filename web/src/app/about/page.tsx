@@ -21,8 +21,9 @@ export default function AboutPage() {
           seeing.
         </p>
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
-          I&rsquo;m a Northeastern BFA design student and researcher, currently
-          working toward computational design and AI in education.
+          I&rsquo;m a designer and researcher. I finished my BFA in Design at
+          Northeastern in April 2026 and moved to the DC area. The work points
+          toward computational design and AI in education.
         </p>
         <a
           className="mono mt-8 inline-block underline"
