@@ -77,7 +77,15 @@ export default function CabinetHome({
         style={{ background: "var(--paper)" }}
       >
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 py-12 sm:px-10">
-            <h1 className="display text-3xl leading-[1.15] sm:text-4xl md:text-5xl">
+            {/* The first thing a reviewer needs answered: what is this person.
+                The questions underneath are the idea; this is the fact. */}
+            <p className="serif max-w-3xl text-lg leading-snug sm:text-xl">
+              <b className="display">Anna Bartlett</b> is a designer in
+              Washington DC working across brand and communications, product,
+              and motion.
+            </p>
+
+            <h1 className="display mt-7 text-3xl leading-[1.15] sm:text-4xl md:text-5xl">
               What do you already know?
               <span className="mt-1 block sm:ml-[12%] md:ml-[18%]">
                 What do you need next?
