@@ -1,25 +1,30 @@
 "use client";
 
-import { useState } from "react";
 import FolderCard from "./FolderCard";
 import type { Project, Category } from "@/sanity/types";
 
-const DISCIPLINES = [
-  { title: "Motion & Video", value: "motion" },
-  { title: "Marketing & Comms", value: "marcomm" },
-  { title: "User Experience", value: "ux" },
-  { title: "Computational Design", value: "computational" },
-];
+import { DISCIPLINES } from "./CabinetHome";
 
+/**
+ * Controlled by CabinetHome, because the doors on the landing page and the
+ * pills in here move the same two filters.
+ */
 export default function Cabinet({
   projects,
   categories,
+  craft,
+  onCraft,
+  theme: active,
+  onTheme: setActive,
 }: {
   projects: Project[];
   categories: Category[];
+  craft: string | null;
+  onCraft: (v: string | null) => void;
+  theme: string | null;
+  onTheme: (v: string | null) => void;
 }) {
-  const [active, setActive] = useState<string | null>(null);
-  const [craft, setCraft] = useState<string | null>(null);
+  const setCraft = onCraft;
 
   const filtered = projects.filter(
     (p) =>
