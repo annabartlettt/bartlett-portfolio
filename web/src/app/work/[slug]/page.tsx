@@ -120,7 +120,8 @@ export default async function ProjectPage({
       {p.sections?.map((s) => (
         <Fragment key={s._key}>
         <section
-          className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-16"
+          id={`s${s.number}`}
+          className="mx-auto max-w-4xl scroll-mt-20 border-b border-[var(--kraft)] px-6 py-16"
         >
           <p
             className="mono text-[12px] font-bold tracking-widest"

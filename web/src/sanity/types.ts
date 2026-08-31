@@ -82,3 +82,30 @@ export type Essay = {
   sources?: unknown[];
   relatedProject?: { title?: string; slug?: string };
 };
+
+export type SearchData = {
+  work: {
+    title: string;
+    slug: string;
+    invisibleSystem?: string;
+    madeTangible?: string;
+    themeTags?: string[];
+    category?: string;
+    methods?: string[];
+    notes?: string;
+    sections?: {
+      number?: string;
+      kicker?: string;
+      title?: string;
+      text?: string;
+    }[];
+  }[];
+  thinking: {
+    title: string;
+    slug: string;
+    dek?: string;
+    topics?: string[];
+    credit?: string;
+    text?: string;
+  }[];
+};

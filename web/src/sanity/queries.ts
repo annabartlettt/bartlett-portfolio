@@ -102,3 +102,26 @@ export const ESSAY_QUERY = defineQuery(`
 export const ESSAY_SLUGS_QUERY = defineQuery(`
   *[_type == "essay" && status != "draft" && defined(slug.current)]{ "slug": slug.current }
 `);
+
+// Everything with words in it, flattened for site search.
+export const SEARCH_QUERY = defineQuery(`{
+  "work": *[_type == "project" && defined(slug.current)]{
+    title,
+    "slug": slug.current,
+    invisibleSystem,
+    madeTangible,
+    themeTags,
+    "category": category->name,
+    "methods": methods[]->name,
+    "notes": pt::text(notes),
+    "sections": sections[]{ number, kicker, title, "text": pt::text(body) }
+  },
+  "thinking": *[_type == "essay" && status != "draft" && defined(slug.current)]{
+    title,
+    "slug": slug.current,
+    dek,
+    topics,
+    credit,
+    "text": pt::text(body)
+  }
+}`);
