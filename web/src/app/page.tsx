@@ -18,16 +18,14 @@ export default async function Home() {
           01 · INDEX · OPENING THE CABINET
         </p>
         <h1 className="display mt-4 text-5xl leading-[1.05] md:text-6xl">
-          The subject changes.
+          What do you already know?
           <br />
-          The problem doesn&rsquo;t.
+          What do you need next?
         </h1>
         <p className="serif mt-6 max-w-2xl text-xl italic opacity-80">
-          Design school taught me a way of asking, not a set of tools: what does
-          a person already know, what do they need next, what should they leave
-          with. I have pointed those questions at mobility data, anxiety,
-          literacy, a symphony season, and a brand new university office. They
-          keep working.
+          The questions design school taught me, pointed at mobility data,
+          anxiety, literacy, a symphony season, and a brand new university
+          office. I have never once needed different ones.
         </p>
         <a
           href="#cabinet"
