@@ -93,7 +93,7 @@ export default function SiteSearch({ data }: { data: SearchData }) {
         id="site-search"
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Search everything — soil carbon, p5.js, stigma, beekeeping…"
+        placeholder="Search everything — p5.js, stigma, Echelman, 900%…"
         className="w-full rounded-lg border-2 bg-[var(--paper)] px-4 py-3 text-base outline-none transition focus:border-[var(--ink)]"
         style={{ borderColor: "var(--charcoal)" }}
       />
