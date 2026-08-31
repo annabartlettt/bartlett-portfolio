@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     title: "Anna Bartlett — Research Cabinet",
-    description: "I make invisible systems visible.",
+    description: "Design is a way of asking, not a subject. The subject changes; the problem doesn't.",
     url: SITE_URL,
     siteName: "Anna Bartlett",
     type: "website",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Anna Bartlett — Research Cabinet",
-    description: "I make invisible systems visible.",
+    description: "Design is a way of asking, not a subject. The subject changes; the problem doesn't.",
   },
 };
 
@@ -109,7 +109,7 @@ export default function RootLayout({
         <footer className="mt-24 border-t-2 border-[var(--charcoal)] bg-[var(--ink)] px-6 py-12 text-[var(--cream)]">
           <div className="mx-auto max-w-6xl">
             <p className="serif text-2xl italic">
-              I make invisible systems visible.
+              The subject changes. The problem doesn&rsquo;t.
             </p>
             <p className="mono mt-3 text-[11px] tracking-widest opacity-70">
               ANNA BARTLETT · {new Date().getFullYear()}

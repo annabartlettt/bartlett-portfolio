@@ -9,16 +9,16 @@ export default function AboutPage() {
         <p className="mono text-xs tracking-widest opacity-70">ABOUT</p>
         <h1 className="display mt-4 text-4xl md:text-5xl">Anna Bartlett</h1>
         <p className="serif mt-6 text-xl italic opacity-85">
-          I investigate complex human systems — emotional, learning, structural,
-          algorithmic — and turn them into experiences people can understand,
-          question, and act on.
+          Design is not a subject I work in. It is the way I work on whatever
+          subject is in front of me.
         </p>
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
-          This site is a research cabinet. Each folder is a system I found, mapped
-          instead of pathologized, and made tangible — from a hand-woven map of
-          economic mobility to an anxiety app that refuses to flatten its users.
-          The through-line isn&rsquo;t a medium or a job title; it&rsquo;s a way of
-          seeing.
+          This site is a research cabinet. The folders look unrelated on purpose:
+          a hand-woven map of economic mobility, an anxiety app that refuses to
+          flatten its users, a generative identity for a symphony season, the
+          brand and social presence of a new university office. What they share
+          is not a medium or a job title. It is a way of seeing, and it transfers
+          faster than any single tool I was taught.
         </p>
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
           I&rsquo;m a designer and researcher. I finished my BFA in Design at

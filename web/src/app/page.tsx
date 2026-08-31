@@ -18,13 +18,16 @@ export default async function Home() {
           01 · INDEX · OPENING THE CABINET
         </p>
         <h1 className="display mt-4 text-5xl leading-[1.05] md:text-6xl">
-          I make invisible
+          The subject changes.
           <br />
-          systems visible.
+          The problem doesn&rsquo;t.
         </h1>
         <p className="serif mt-6 max-w-2xl text-xl italic opacity-80">
-          A research cabinet of design work — each folder opens a system I found,
-          mapped, and made tangible.
+          Design school taught me a way of asking, not a set of tools: what does
+          a person already know, what do they need next, what should they leave
+          with. I have pointed those questions at mobility data, anxiety,
+          literacy, a symphony season, and a brand new university office. They
+          keep working.
         </p>
         <a
           href="#cabinet"

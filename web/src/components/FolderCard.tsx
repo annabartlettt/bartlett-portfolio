@@ -60,12 +60,12 @@ export default function FolderCard({ p }: { p: Project }) {
         )}
 
         <p className="mono text-[10px] font-bold tracking-widest" style={{ color: primary }}>
-          ◆ INVISIBLE SYSTEM
+          ◆ THE PROBLEM
         </p>
         <p className="mt-1 text-sm leading-relaxed opacity-90">{p.invisibleSystem}</p>
 
         <p className="mono mt-4 text-[10px] font-bold tracking-widest" style={{ color: primary }}>
-          ◇ MADE TANGIBLE
+          ◇ WHAT I MADE
         </p>
         <p className="mt-1 text-sm leading-relaxed opacity-90">{p.madeTangible}</p>
 
