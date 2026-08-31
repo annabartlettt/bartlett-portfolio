@@ -53,7 +53,7 @@ export const PROJECT_QUERY = defineQuery(`
 
 // Slugs for static generation
 export const PROJECT_SLUGS_QUERY = defineQuery(`
-  *[_type == "project" && defined(slug.current)]{ "slug": slug.current }
+  *[_type == "project" && defined(slug.current) && slug.current != "central-co-op"]{ "slug": slug.current }
 `);
 
 // Categories = the invisible-system filter tabs
