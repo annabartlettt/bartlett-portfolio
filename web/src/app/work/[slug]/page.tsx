@@ -291,7 +291,7 @@ export default async function ProjectPage({
           <SlideDeck
             kicker="THE OTHER HALF · REPORTING"
             title="Going out and finding things."
-            blurb="The guides answer a question a student already has. The rest of the account went and found things they did not know to ask about: someone already on co-op in a city they might move to, a company they could get inside, a shuttle that would take them to a job in Burlington for $2.50. Different job, so the template loosens. Profiles get speech bubbles, treks get photographs, service information gets a polaroid and a QR code."
+            blurb="The guides answer a question a student already has. The rest of the account went and found things they did not know to ask about: someone already on co-op in a city they might move to, a company they could get inside, a shuttle that would take them to a job in Burlington for $2.50. Different job, so the template loosens. Profiles get speech bubbles, treks get photographs, service information gets a polaroid and a QR code. Two of these ran as named series rather than one-offs, which is the difference between posting and programming."
             decks={[
               {
                 name: "DC Co-ops",
@@ -312,6 +312,15 @@ export default async function ProjectPage({
                   { src: "/images/central-coop/trek-7.jpg", alt: "Blaze Your Trail sign on a redwood column at Salesforce" },
                   { src: "/images/central-coop/trek-3.jpg", alt: "Northeastern E-TREKS feather flag on the Oakland campus" },
                   { src: "/images/central-coop/trek-5.jpg", alt: "Northeastern N marker on the Oakland campus" },
+                ],
+              },
+              {
+                name: "Spotlight Series",
+                href: "https://www.instagram.com/p/C-DtRq6uLrN/",
+                note: "The second of the account's named series, and the only post here where the story belonged to someone else. A Northeastern student on co-op at WBZ reported on a South End beekeeping company, where another Northeastern student was on co-op. The design admits what it is doing: the whole thing is drawn as a post inside a post, handle and all, so the frame credits the reporting instead of absorbing it.",
+                slides: [
+                  { src: "/images/central-coop/spotlight-1.jpg", alt: "Spotlight Series card introducing two Northeastern co-op students, one reporting for WBZ and one working at a Boston beekeeping company, on a honeycomb background", label: "Co-op Collaborations" },
+                  { src: "/images/central-coop/spotlight-2.jpg", alt: "Spotlight Series card carrying a pull quote from the student beekeeper about being willing to try something that frightens you", label: "The pull quote" },
                 ],
               },
               {
