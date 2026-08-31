@@ -3,23 +3,14 @@
 import FolderCard from "./FolderCard";
 import type { Project } from "@/sanity/types";
 
-import { DISCIPLINES } from "./CabinetHome";
-
-/**
- * Controlled by CabinetHome, because the doors on the landing page and the
- * pills in here move the same two filters.
- */
+/** The desktop: every project, filtered by whichever craft is selected above. */
 export default function Cabinet({
   projects,
   craft,
-  onCraft,
 }: {
   projects: Project[];
   craft: string | null;
-  onCraft: (v: string | null) => void;
 }) {
-  const setCraft = onCraft;
-
   const filtered = projects.filter(
     (p) => craft === null || (p.disciplines ?? []).includes(craft),
   );
@@ -29,44 +20,10 @@ export default function Cabinet({
   const rest = filtered.filter((p) => !p.featured);
   const split = craft === null && featured.length > 0 && rest.length > 0;
 
-  const pill = (on: boolean) =>
-    `mono rounded-full border px-3 py-1.5 text-[11px] tracking-widest uppercase transition ${
-      on
-        ? "border-[var(--charcoal)] bg-[var(--charcoal)] text-[var(--cream)]"
-        : "border-[var(--kraft)] hover:border-[var(--charcoal)]"
-    }`;
-
   return (
     <section id="cabinet" className="mx-auto max-w-6xl px-6 py-16">
       <div className="mb-8 flex items-center justify-between border-b-2 border-[var(--charcoal)] pb-3">
-        <h2 className="mono text-xs tracking-widest">03 · THE WORK — RESEARCH CABINET</h2>
-      </div>
-
-      {/* Two lenses on one cabinet: what system, and what craft. */}
-      <div className="mb-10 flex flex-wrap items-center gap-2">
-        <span className="mono mr-1 text-[10px] tracking-widest opacity-50">
-          BY CRAFT
-        </span>
-        <button onClick={() => setCraft(null)} className={pill(craft === null)}>
-          All
-        </button>
-        {DISCIPLINES.map((d) => {
-          const on = craft === d.value;
-          return (
-            <button
-              key={d.value}
-              onClick={() => setCraft(on ? null : d.value)}
-              className={pill(on)}
-              style={
-                on
-                  ? { background: d.accent, borderColor: d.accent }
-                  : { borderLeft: `4px solid ${d.accent}` }
-              }
-            >
-              {d.title}
-            </button>
-          );
-        })}
+        <h2 className="mono text-xs tracking-widest">SELECTED WORK</h2>
       </div>
 
       {filtered.length === 0 && (
@@ -77,7 +34,7 @@ export default function Cabinet({
 
       {split ? (
         <>
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((p) => (
               <FolderCard key={p._id} p={p} />
             ))}
@@ -85,14 +42,14 @@ export default function Cabinet({
           <h3 className="mono mt-14 mb-8 border-t border-[var(--kraft)] pt-6 text-[11px] tracking-widest opacity-60">
             MORE WORK
           </h3>
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {rest.map((p) => (
               <FolderCard key={p._id} p={p} />
             ))}
           </div>
         </>
       ) : (
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((p) => (
             <FolderCard key={p._id} p={p} />
           ))}

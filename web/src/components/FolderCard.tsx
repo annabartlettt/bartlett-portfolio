@@ -1,55 +1,71 @@
 import Link from "next/link";
 import FolderIcon from "./FolderIcon";
+import { urlFor } from "@/sanity/image";
+import { DISCIPLINES } from "./CabinetHome";
 import type { Project } from "@/sanity/types";
 
-const TIER_LABEL: Record<string, string> = {
-  flagship: "FLAGSHIP",
-  support: "CASE STUDY",
-  archive: "ARCHIVE",
-};
-
 /**
- * A folder on the desktop: the same icon the landing page uses, in the
- * project's own colour, with the name under it and enough of the contents to
- * decide whether to open it.
+ * One project on the desktop.
+ *
+ * The cover carries it where there is one; where there is not, the folder icon
+ * stands in so the grid stays even and gets better as covers arrive. The
+ * discipline tags do the work that four separate sections used to: range shown
+ * per project rather than by splitting the site.
  */
 export default function FolderCard({ p }: { p: Project }) {
   const primary = p.brand?.primary ?? "#363f9e";
-  const tier = TIER_LABEL[p.priority ?? "support"] ?? "CASE STUDY";
+  const cover = p.coverImage?.asset
+    ? urlFor(p.coverImage).width(900).height(640).fit("crop").auto("format").url()
+    : null;
+
+  const tags = (p.disciplines ?? [])
+    .map((v) => DISCIPLINES.find((d) => d.value === v))
+    .filter(Boolean);
 
   return (
     <Link
       href={`/work/${p.slug}`}
-      className="group flex gap-5 rounded-xl border border-transparent p-4 transition hover:border-[var(--kraft)] hover:bg-[var(--paper)]"
+      className="group block"
       aria-label={`Open ${p.title}`}
     >
-      <FolderIcon
-        color={primary}
-        className="w-16 shrink-0 transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-105 sm:w-20"
-      />
-
-      <div className="min-w-0">
-        <p
-          className="mono text-[10px] font-bold tracking-widest"
-          style={{ color: primary }}
-        >
-          {p.folderNumber} · {p.category?.name?.toUpperCase()} · {tier}
-        </p>
-
-        <h3 className="display mt-1 text-xl leading-tight">{p.title}</h3>
-
-        {p.invisibleSystem && (
-          <p className="mt-1.5 text-[13.5px] leading-snug opacity-75">
-            {p.invisibleSystem}
-          </p>
-        )}
-
-        {p.methods && p.methods.length > 0 && (
-          <p className="mono mt-2.5 text-[10px] tracking-widest opacity-55">
-            {p.methods.join(" · ").toUpperCase()}
-          </p>
+      <div
+        className="flex aspect-[7/5] items-center justify-center overflow-hidden rounded-xl border transition-all duration-200 group-hover:-translate-y-1"
+        style={{
+          borderColor: "var(--kraft)",
+          background: cover ? "var(--cream2)" : "var(--paper)",
+        }}
+      >
+        {cover ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={cover}
+            alt={p.coverImage?.alt ?? p.title}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <FolderIcon color={primary} className="w-24 opacity-90" />
         )}
       </div>
+
+      <h3 className="display mt-3 text-lg leading-tight">{p.title}</h3>
+
+      {p.invisibleSystem && (
+        <p className="mt-1 text-[13px] leading-snug opacity-70">
+          {p.invisibleSystem}
+        </p>
+      )}
+
+      {tags.length > 0 && (
+        <p className="mono mt-2 text-[10px] tracking-widest">
+          {tags.map((t, i) => (
+            <span key={t!.value} style={{ color: t!.accent }}>
+              {i > 0 && <span className="opacity-40"> · </span>}
+              {t!.title.toUpperCase()}
+            </span>
+          ))}
+        </p>
+      )}
     </Link>
   );
 }

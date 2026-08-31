@@ -1,57 +1,24 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Cabinet from "./Cabinet";
 import SiteSearch from "./SiteSearch";
-import FolderIcon from "./FolderIcon";
 import type { Project, SearchData } from "@/sanity/types";
 
 export const DISCIPLINES = [
-  {
-    value: "ux",
-    index: "F01 · RESEARCH & PROTOTYPING",
-    title: "User Experience",
-    line: "Apps, platforms and services people have to find their way through.",
-    accent: "#2F6D74",
-    tint: "#eaf1f1",
-  },
-  {
-    value: "computational",
-    index: "F02 · CODE AS MATERIAL",
-    title: "Computational Design",
-    line: "Code and data as material. Generative systems, p5.js, physicalisation.",
-    accent: "#363f9e",
-    tint: "#ecedf6",
-  },
-  {
-    value: "marcomm",
-    index: "F03 · BRAND & SOCIAL",
-    title: "Marketing & Comms",
-    line: "Brand systems, social, and the calendar underneath them.",
-    accent: "#B5502F",
-    tint: "#f8ece7",
-  },
-  {
-    value: "motion",
-    index: "F04 · SHOOT & CUT",
-    title: "Motion & Video",
-    line: "Shot, cut and scored. Premiere Pro, short form, stop motion.",
-    accent: "#6B4E8E",
-    tint: "#f0ebf6",
-  },
+  { value: "ux", title: "User Experience", accent: "#2F6D74" },
+  { value: "computational", title: "Computational Design", accent: "#363f9e" },
+  { value: "marcomm", title: "Marketing & Comms", accent: "#B5502F" },
+  { value: "motion", title: "Motion & Video", accent: "#6B4E8E" },
 ];
 
 /**
- * The landing page and the cabinet share one piece of state.
+ * One sentence, then the work.
  *
- * Someone arriving here is usually looking for one kind of work, so the four
- * folders sit above the fold and open the cabinet already filtered. Choosing a
- * craft clears any theme filter, because a visitor who wants motion wants all
- * of it, not motion within whichever theme happened to be selected.
- *
- * The cards are drawn as folders because that is what the rest of the site
- * calls them: a coloured tab, a sheet of paper behind, and on hover the paper
- * slides out as though something is being pulled from the drawer.
+ * The four disciplines used to be the way in, which meant a visitor met four
+ * categories before meeting anything she made. They are a filter now, and the
+ * projects themselves are the desktop: range shown by tagging each project
+ * rather than by splitting the site into piles.
  */
 export default function CabinetHome({
   projects,
@@ -61,98 +28,68 @@ export default function CabinetHome({
   search: SearchData;
 }) {
   const [craft, setCraft] = useState<string | null>(null);
-  const cabinet = useRef<HTMLDivElement>(null);
-
-  function open(value: string) {
-    setCraft(craft === value ? null : value);
-    cabinet.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
 
   return (
     <>
-      {/* The desktop is the page. No frame, no card: it fills the screen and
-          the bar sits on the bottom edge of it. */}
-      <section
-        className="flex min-h-[calc(100svh-3.6rem)] flex-col"
-        style={{ background: "var(--paper)" }}
-      >
-        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 py-12 sm:px-10">
-            {/* The first thing a reviewer needs answered: what is this person.
-                The questions underneath are the idea; this is the fact. */}
-            <p className="serif max-w-3xl text-lg leading-snug sm:text-xl">
-              <b className="display">Anna Bartlett</b> is a designer in
-              Washington DC working across brand and communications, product,
-              and motion.
-            </p>
+      <section className="mx-auto w-full max-w-6xl px-6 pt-10 pb-6 sm:px-10">
+        {/* The first thing a reviewer needs answered: what is this person. */}
+        <p className="serif max-w-3xl text-lg leading-snug sm:text-xl">
+          <b className="display">Anna Bartlett</b> is a designer in Washington DC
+          working across brand and communications, product, and motion.
+        </p>
 
-            <h1 className="display mt-7 text-3xl leading-[1.15] sm:text-4xl md:text-5xl">
-              What do you already know?
-              <span className="mt-1 block sm:ml-[12%] md:ml-[18%]">
-                What do you need next?
-              </span>
-            </h1>
+        <h1 className="display mt-5 text-2xl leading-[1.15] sm:text-3xl md:text-4xl">
+          What do you already know?
+          <span className="mt-0.5 block sm:ml-[10%]">
+            What do you need next?
+          </span>
+        </h1>
 
-            <div className="mt-8 max-w-2xl sm:ml-[12%] md:ml-[18%]">
-              <SiteSearch data={search} />
-            </div>
-
-            <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6">
-              {DISCIPLINES.map((d) => {
-                const on = craft === d.value;
-                return (
-                  <button
-                    key={d.value}
-                    onClick={() => open(d.value)}
-                    aria-pressed={on}
-                    className="group flex flex-col items-center text-center"
-                  >
-                    <FolderIcon
-                      color={d.accent}
-                      className={`w-24 transition-transform duration-200 sm:w-28 ${
-                        on
-                          ? "-translate-y-1 scale-105"
-                          : "group-hover:-translate-y-1 group-hover:scale-105"
-                      }`}
-                    />
-                    <span
-                      className="mt-2 rounded px-2 py-0.5 text-[13px] leading-snug font-medium transition-colors"
-                      style={
-                        on
-                          ? { background: d.accent, color: "var(--paper)" }
-                          : { color: d.accent }
-                      }
-                    >
-                      {d.title}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+        <div className="mt-6 max-w-2xl">
+          <SiteSearch data={search} />
         </div>
 
-        {/* the bar along the bottom edge of the screen */}
-        <div
-          className="border-t-2"
-          style={{
-            borderColor: "var(--charcoal)",
-            background: "var(--cream2)",
-          }}
-        >
-          <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-2.5 sm:px-10">
-            <span className="display text-sm tracking-[0.22em] uppercase">
-              Anna Bartlett
-            </span>
-            <span className="mono text-[10px] tracking-widest opacity-55">
-              {craft
-                ? `${DISCIPLINES.find((d) => d.value === craft)?.title.toUpperCase()} — OPEN`
-                : `${projects.length} FOLDERS`}
-            </span>
-          </div>
+        <div className="mt-7 flex flex-wrap items-center gap-2">
+          <span className="mono mr-1 text-[10px] tracking-widest opacity-50">
+            FILTER
+          </span>
+          <button
+            onClick={() => setCraft(null)}
+            className={`mono rounded-full border px-3 py-1.5 text-[11px] tracking-widest uppercase transition ${
+              craft === null
+                ? "border-[var(--charcoal)] bg-[var(--charcoal)] text-[var(--cream)]"
+                : "border-[var(--kraft)] hover:border-[var(--charcoal)]"
+            }`}
+          >
+            All
+          </button>
+          {DISCIPLINES.map((d) => {
+            const on = craft === d.value;
+            return (
+              <button
+                key={d.value}
+                onClick={() => setCraft(on ? null : d.value)}
+                className={`mono rounded-full border px-3 py-1.5 text-[11px] tracking-widest uppercase transition ${
+                  on
+                    ? "text-[var(--cream)]"
+                    : "border-[var(--kraft)] hover:border-[var(--charcoal)]"
+                }`}
+                style={
+                  on
+                    ? { background: d.accent, borderColor: d.accent }
+                    : { borderLeft: `4px solid ${d.accent}` }
+                }
+              >
+                {d.title}
+              </button>
+            );
+          })}
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 pt-10 sm:px-10">
-        {/* The facts, for anyone who wants them before the work. */}
+      <Cabinet projects={projects} craft={craft} />
+
+      <section className="mx-auto max-w-6xl px-6 pt-4 sm:px-10">
         <dl className="border-t border-[var(--kraft)]">
           {[
             [
@@ -183,10 +120,6 @@ export default function CabinetHome({
           ))}
         </dl>
       </section>
-
-      <div ref={cabinet}>
-        <Cabinet projects={projects} craft={craft} onCraft={setCraft} />
-      </div>
     </>
   );
 }
