@@ -225,9 +225,9 @@ export default async function ProjectPage({
         )}
         {slug === "central-co-op" && s.number === "02" && (
           <SlideDeck
-            kicker="CARRIER · A SIX-SLIDE GUIDE"
+            kicker="THE FORMAT · A SIX-SLIDE GUIDE"
             title="How to Prepare for a Career Fair."
-            blurb="The account's job was rarely to announce something. It was to answer a question a student had at 11pm the night before. This one ran as a carousel: a cover, four tips, and a card asking you to save it for later. The briefcase holds the type, the leaves date it to the fall recruiting season, and every slide is built from the same two shapes."
+            blurb="The account's job was rarely to announce something. It was to answer a question a student had at eleven at night. That turned into a repeatable shape: a dated cover, one idea per card, and a closing slide asking the reader to save it for later. Here the briefcase holds the type and the leaves put it in fall recruiting season."
             slides={[
               { src: "/images/central-coop/career-fair-1.jpg", alt: "Cover slide dated 10.30.2024 reading How to Prepare for a Career Fair", label: "Cover" },
               { src: "/images/central-coop/career-fair-2.jpg", alt: "Slide reading Have Resumes Prepared", label: "Have Resumes Prepared" },
@@ -238,6 +238,24 @@ export default async function ProjectPage({
             ]}
             numbered
             accent={brand.primary ?? primary}
+          />
+        )}
+        {slug === "central-co-op" && s.number === "02" && (
+          <SlideDeck
+            kicker="THE RANGE · THE HARDEST BRIEF"
+            title="Navigating Political Discussions on Co-op."
+            blurb="Six days before the 2024 election, for students who were new in an office and could not afford to alienate a supervisor. It takes no political position at all. What it does is give someone a ladder: make conversations opt-in, notice who you are talking to, step away if you need to, say something if a comment crosses into bias, and escalate to a coordinator if it does not stop. Same skeleton as the career fair guide, dated cover through save-as-reminder card, rebuilt in ballot-box red and blue. The template held while the entire visual system changed."
+            slides={[
+              { src: "/images/central-coop/politics-1.jpg", alt: "Cover slide dated 10.24.2024 reading Navigating Political Discussions on Co-op with a vote ballot box illustration", label: "Cover" },
+              { src: "/images/central-coop/politics-2.jpg", alt: "Slide reading Set Boundaries", label: "Set Boundaries" },
+              { src: "/images/central-coop/politics-3.jpg", alt: "Slide reading Speak Up", label: "Speak Up" },
+              { src: "/images/central-coop/politics-4.jpg", alt: "Slide reading Make Conversations Opt-In", label: "Make Conversations Opt-In" },
+              { src: "/images/central-coop/politics-5.jpg", alt: "Slide reading Contact a Co-op Coordinator", label: "Contact a Co-op Coordinator" },
+              { src: "/images/central-coop/politics-6.jpg", alt: "Slide reading Remember Cultural Differences", label: "Remember Cultural Differences" },
+              { src: "/images/central-coop/politics-7.jpg", alt: "Closing slide reading Find This Helpful? Save as a Reminder", label: "Save as a reminder" },
+            ]}
+            numbered
+            accent="#4A6DD8"
           />
         )}
         {slug === "central-co-op" && s.number === "02" && (
