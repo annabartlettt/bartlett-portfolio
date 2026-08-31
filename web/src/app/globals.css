@@ -88,21 +88,3 @@ a {
    the counter are the affordance, and on touch the swipe already is. */
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
-
-/* The name mark on the landing page. Each letter carries its own resting
-   angle in --r and drops into it, staggered, once on load. */
-@keyframes nameDrop {
-  0%   { opacity: 0; transform: translateY(-28px) rotate(0deg) scale(.92); }
-  62%  { opacity: 1; transform: translateY(5px) rotate(var(--r)) scale(1.03); }
-  100% { opacity: 1; transform: translateY(0) rotate(var(--r)) scale(1); }
-}
-.name-letter {
-  transform: rotate(var(--r));
-  animation: nameDrop .66s cubic-bezier(.2,.72,.3,1.18) both;
-  transition: transform .28s cubic-bezier(.2,.7,.3,1.2);
-}
-.name-mark:hover .name-letter { transform: rotate(var(--r)) translateX(var(--x)); }
-@media (prefers-reduced-motion: reduce) {
-  .name-letter { animation: none; opacity: 1; }
-  .name-mark:hover .name-letter { transform: rotate(var(--r)); }
-}

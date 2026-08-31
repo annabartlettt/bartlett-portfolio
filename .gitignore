@@ -9,3 +9,8 @@ out/
 .DS_Store
 *.log
 .vercel
+
+# Licensed fonts. Desktop licence only until the foundry confirms web use,
+# and a public repo would distribute them. Kept local on purpose.
+web/src/fonts/*.otf
+web/src/fonts/*.woff2

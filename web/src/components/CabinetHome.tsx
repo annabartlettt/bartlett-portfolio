@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import Cabinet from "./Cabinet";
-import NameMark from "./NameMark";
 import type { Project } from "@/sanity/types";
 
 export const DISCIPLINES = [
@@ -63,8 +62,7 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
 
   return (
     <>
-      <section className="relative mx-auto max-w-6xl px-6 pb-8 pt-10">
-        <NameMark />
+      <section className="mx-auto max-w-6xl px-6 pb-8 pt-10">
 
         {/* The label plate off a composition book: a double frame and faint
             rules, holding the only thing you need to read first. */}
