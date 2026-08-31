@@ -39,6 +39,39 @@ export const DISCIPLINES = [
   },
 ];
 
+/** What someone might type, and which folder it belongs to. */
+const CUES: [string, string][] = [
+  ["ux", "ux"], ["user experience", "ux"], ["product", "ux"], ["app", "ux"],
+  ["interface", "ux"], ["research", "ux"], ["prototyp", "ux"], ["usability", "ux"],
+  ["service design", "ux"], ["accessib", "ux"], ["platform", "ux"], ["figma", "ux"],
+  ["comput", "computational"], ["code", "computational"], ["creative tech", "computational"],
+  ["generative", "computational"], ["p5", "computational"], ["javascript", "computational"],
+  ["data", "computational"], ["parametric", "computational"], ["physicalis", "computational"],
+  ["physicaliz", "computational"], ["visuali", "computational"],
+  ["marketing", "marcomm"], ["comms", "marcomm"], ["communication", "marcomm"],
+  ["brand", "marcomm"], ["social", "marcomm"], ["content", "marcomm"],
+  ["copy", "marcomm"], ["campaign", "marcomm"], ["instagram", "marcomm"],
+  ["newsletter", "marcomm"], ["email", "marcomm"], ["writ", "marcomm"],
+  ["coordinator", "marcomm"], ["calendar", "marcomm"],
+  ["video", "motion"], ["motion", "motion"], ["film", "motion"], ["edit", "motion"],
+  ["reel", "motion"], ["premiere", "motion"], ["stop motion", "motion"],
+  ["animat", "motion"], ["shoot", "motion"],
+];
+
+function match(q: string): string | null {
+  const t = q.toLowerCase().trim();
+  if (!t) return null;
+  let best: string | null = null;
+  let len = 0;
+  for (const [cue, value] of CUES) {
+    if (t.includes(cue) && cue.length > len) {
+      best = value;
+      len = cue.length;
+    }
+  }
+  return best;
+}
+
 /**
  * The landing page and the cabinet share one piece of state.
  *
@@ -53,7 +86,26 @@ export const DISCIPLINES = [
  */
 export default function CabinetHome({ projects }: { projects: Project[] }) {
   const [craft, setCraft] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
+  const [answered, setAnswered] = useState(false);
   const cabinet = useRef<HTMLDivElement>(null);
+
+  const hit = answered ? match(query) : null;
+  const answer = DISCIPLINES.find((d) => d.value === hit);
+
+  function ask(e: React.FormEvent) {
+    e.preventDefault();
+    if (!query.trim()) return;
+    setAnswered(true);
+    const m = match(query);
+    setCraft(m);
+    if (m) {
+      setTimeout(
+        () => cabinet.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
+        450,
+      );
+    }
+  }
 
   function open(value: string) {
     setCraft(craft === value ? null : value);
@@ -97,6 +149,74 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
               anxiety, literacy, a symphony season, and a brand new university
               office. I have never once needed different ones.
             </p>
+
+            <form onSubmit={ask} className="mt-6">
+              <label htmlFor="ask" className="sr-only">
+                What are you looking for?
+              </label>
+              <input
+                id="ask"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setAnswered(false);
+                }}
+                placeholder="marketing, video, research, code…"
+                className="w-full rounded-lg border-2 bg-[var(--paper)] px-4 py-3 text-base outline-none transition focus:border-[var(--ink)]"
+                style={{ borderColor: "var(--charcoal)" }}
+              />
+              <button
+                type="submit"
+                className="mono mt-2 w-full rounded-lg border-2 py-3 text-[12px] font-bold tracking-widest uppercase transition"
+                style={{
+                  borderColor: "var(--charcoal)",
+                  background: "var(--charcoal)",
+                  color: "var(--cream)",
+                }}
+              >
+                Show me
+              </button>
+            </form>
+
+            {answered && (
+              <div className="mt-6">
+                {answer ? (
+                  <>
+                    <p className="display text-2xl leading-tight sm:text-3xl">
+                      You need
+                    </p>
+                    <p
+                      className="display text-2xl leading-tight sm:text-3xl"
+                      style={{ color: answer.accent }}
+                    >
+                      {answer.title.toUpperCase()}.
+                    </p>
+                    <button
+                      onClick={() =>
+                        cabinet.current?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "start",
+                        })
+                      }
+                      className="mono mt-2 text-[11px] font-bold tracking-widest underline"
+                      style={{ color: answer.accent }}
+                    >
+                      ↳ IT IS OPEN BELOW
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <p className="display text-2xl leading-tight sm:text-3xl">
+                      I don&rsquo;t have a folder for that.
+                    </p>
+                    <p className="serif mt-2 text-lg italic opacity-75">
+                      Try marketing, video, research or code. Or open one of the
+                      four below and have a look around.
+                    </p>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </div>
 

@@ -11,10 +11,11 @@ const LINKS = [
 ];
 
 /**
- * Hover turns blue, the page you are on turns pink and says so.
+ * Hover turns blue, the page you are on turns pink.
  *
  * Lifted from the mobile nav in her June concept, where the current item was
- * the only pink thing on the screen and carried a small "· current" beside it.
+ * the only pink thing on the screen. The colour carries it; the wording that
+ * sat beside it there was noise in a horizontal header.
  */
 export default function Nav() {
   const path = usePathname();
@@ -33,9 +34,6 @@ export default function Nav() {
             className="nav-link mono text-[11px] uppercase tracking-widest opacity-70"
           >
             {n.label}
-            {current && (
-              <span className="ml-1.5 lowercase opacity-60">· current</span>
-            )}
           </Link>
         );
       })}
