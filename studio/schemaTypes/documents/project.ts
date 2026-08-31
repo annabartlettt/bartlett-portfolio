@@ -45,6 +45,22 @@ export const project = defineType({
       of: [defineArrayMember({ type: "reference", to: [{ type: "method" }] })],
     }),
     defineField({
+      name: "disciplines",
+      title: "Disciplines (craft filter)",
+      description:
+        "Which wheelhouses this project demonstrates. Drives the second filter row in the cabinet.",
+      type: "array",
+      of: [defineArrayMember({ type: "string" })],
+      options: {
+        list: [
+          { title: "Motion & Video", value: "motion" },
+          { title: "Marketing & Comms", value: "marcomm" },
+          { title: "User Experience", value: "ux" },
+          { title: "Computational Design", value: "computational" },
+        ],
+      },
+    }),
+    defineField({
       name: "themeTags",
       type: "array",
       of: [defineArrayMember({ type: "string" })],

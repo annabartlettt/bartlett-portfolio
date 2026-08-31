@@ -46,6 +46,7 @@ export type Project = {
   invisibleSystem?: string;
   madeTangible?: string;
   themeTags?: string[];
+  disciplines?: string[];
   brand?: Brand;
   featured?: boolean;
   priority?: "flagship" | "support" | "archive";
