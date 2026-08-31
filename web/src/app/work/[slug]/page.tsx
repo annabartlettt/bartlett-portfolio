@@ -289,37 +289,39 @@ export default async function ProjectPage({
         )}
         {slug === "central-co-op" && s.number === "02" && (
           <SlideDeck
-            kicker="A DIFFERENT JOB · PROFILES"
-            title="DC Co-ops."
-            blurb="Advice is one job. Showing a student someone who already did the thing is another, and it needs a different form. These run as profiles: a speech bubble for the name and the facts, the event photography desaturated so the portrait carries the only color, and the student's own words left in their voice."
+            kicker="THE OTHER HALF · REPORTING"
+            title="Going out and finding things."
+            blurb="The guides answer a question a student already has. The rest of the account went and found things they did not know to ask about: someone already on co-op in a city they might move to, a company they could get inside, a shuttle that would take them to a job in Burlington for $2.50. Different job, so the template loosens. Profiles get speech bubbles, treks get photographs, service information gets a polaroid and a QR code."
             decks={[
               {
                 name: "DC Co-ops",
                 href: "https://www.instagram.com/p/C-qKegTOl3_/",
+                note: "Advice is one thing. Showing a student someone who already did it is another. The event photography drops to black and white so the portrait carries the only colour, and each student's own words are left in their voice.",
                 slides: [
                   { src: "/images/central-coop/dc-1-kate.jpg", alt: "DC Co-ops profile card for Kate Lo, third-year civil engineering and architecture student on co-op with Hensel Phelps", label: "Kate Lo" },
                   { src: "/images/central-coop/dc-2-natalia.jpg", alt: "DC Co-ops profile card for Natalia Ivanov, third-year computer science student on co-op with Riverside Research", label: "Natalia Ivanov" },
                   { src: "/images/central-coop/dc-3-sofie.jpg", alt: "DC Co-ops profile card for Sofie Wendell, fourth-year Spanish and international affairs student on co-op with Control Risks", label: "Sofie Wendell" },
                 ],
               },
-            ]}
-            accent={brand.primary ?? primary}
-          />
-        )}
-        {slug === "central-co-op" && s.number === "02" && (
-          <SlideDeck
-            kicker="ON LOCATION · HUSKY TREK"
-            title="Salesforce, Bay Area."
-            blurb="Not every post was made at a desk. Central Co-op ran Husky Treks that took students inside companies, and the recap had to make a reader who was not there want to sign up for the next one."
-            decks={[
               {
-                name: "Salesforce",
+                name: "Husky Trek",
                 href: "https://www.instagram.com/p/DCr1DyLSCPW/",
+                note: "Central Co-op ran treks that took students inside companies. The recap had to make a reader who was not there want to sign up for the next one.",
                 slides: [
                   { src: "/images/central-coop/trek-6.jpg", alt: "Salesforce West building entrance" },
                   { src: "/images/central-coop/trek-7.jpg", alt: "Blaze Your Trail sign on a redwood column at Salesforce" },
                   { src: "/images/central-coop/trek-3.jpg", alt: "Northeastern E-TREKS feather flag on the Oakland campus" },
                   { src: "/images/central-coop/trek-5.jpg", alt: "Northeastern N marker on the Oakland campus" },
+                ],
+              },
+              {
+                name: "Burlington Shuttle",
+                href: "https://www.instagram.com/p/C922DZpOq4j/",
+                note: "The least glamorous post here and one of the most useful: a new shuttle from the Marino Center to seven stops in Burlington, bookable thirty days out, $2.50 a trip. It opens on the ticket a student will actually be holding, then hands the rest to the people who drive it.",
+                slides: [
+                  { src: "/images/central-coop/shuttle-1.jpg", alt: "Slide reading You're gonna need a ticket to ride, showing a phone with a TransAction shuttle QR ticket from Marino Center to Burlington", label: "The ticket" },
+                  { src: "/images/central-coop/shuttle-2.jpg", alt: "Polaroid-framed photograph of the shuttle driver at the wheel", label: "The driver" },
+                  { src: "/images/central-coop/shuttle-3.jpg", alt: "Polaroid-framed photograph of riders and driver beside the Northeastern shuttle bus", label: "The route" },
                 ],
               },
             ]}
