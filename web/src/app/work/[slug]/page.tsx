@@ -225,14 +225,27 @@ export default async function ProjectPage({
         )}
         {slug === "central-co-op" && s.number === "02" && (
           <SlideDeck
-            kicker="THE FORMAT · THREE GUIDES, ONE TEMPLATE"
+            kicker="THE FORMAT · FOUR GUIDES, ONE TEMPLATE"
             title="Answering the question before it gets asked."
             blurb="The account's job was rarely to announce something. It was to answer a question a student already had at eleven at night. That turned into a repeatable shape: a dated cover, one idea per card, and a closing slide asking the reader to save it for later. The skeleton never moved. Everything on top of it did."
             decks={[
               {
+                name: "Reminders for Huskies",
+                href: "https://www.instagram.com/p/C-S6iBNOxbC/",
+                note: "Late summer, and the earliest of the four. This is the one that names itself: it opens on a series card rather than a date, because it was built to run again. Torn notebook paper over her own photographs of Boston, a hand-drawn sun, three ways to finish August before co-op season starts.",
+                slides: [
+                  { src: "/images/central-coop/summer-1.jpg", alt: "Series title card reading Reminders For Huskies over an aerial photograph of Boston", label: "Series card" },
+                  { src: "/images/central-coop/summer-2.jpg", alt: "Slide reading Make the Most of Summer", label: "Make the Most of Summer" },
+                  { src: "/images/central-coop/summer-3.jpg", alt: "Slide reading Prioritize Your Downtime", label: "Prioritize Your Downtime" },
+                  { src: "/images/central-coop/summer-4.jpg", alt: "Slide reading Connect with Family and Friends", label: "Connect with Family and Friends" },
+                  { src: "/images/central-coop/summer-5.jpg", alt: "Slide reading Set Goals for Upcoming Semesters", label: "Set Goals for Upcoming Semesters" },
+                  { src: "/images/central-coop/summer-6.jpg", alt: "Closing slide reading Find This Helpful? Save as a Reminder", label: "Save as a reminder" },
+                ],
+              },
+              {
                 name: "Resume Red Flags",
                 href: "https://www.instagram.com/p/C-dKF0_uek3/",
-                note: "August. The earliest of the three, and it looks it: stock photography on the cover, tilted paper, red banners knocked back over a shadow. Four things not to put on a resume.",
+                note: "August 9. Four things not to put on a resume, on tilted paper with red banners knocked back over a shadow. The cover is the one piece of stock photography in the whole run.",
                 slides: [
                   { src: "/images/central-coop/resume-1.jpg", alt: "Cover slide dated 8.9.2024 reading Resume Red Flags, What NOT to Include", label: "Cover" },
                   { src: "/images/central-coop/resume-2.jpg", alt: "Slide reading Spelling Mistakes and Grammar Errors", label: "Spelling and grammar" },
