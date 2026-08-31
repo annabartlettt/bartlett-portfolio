@@ -1,7 +1,7 @@
 "use client";
 
 import FolderCard from "./FolderCard";
-import type { Project, Category } from "@/sanity/types";
+import type { Project } from "@/sanity/types";
 
 import { DISCIPLINES } from "./CabinetHome";
 
@@ -11,32 +11,23 @@ import { DISCIPLINES } from "./CabinetHome";
  */
 export default function Cabinet({
   projects,
-  categories,
   craft,
   onCraft,
-  theme: active,
-  onTheme: setActive,
 }: {
   projects: Project[];
-  categories: Category[];
   craft: string | null;
   onCraft: (v: string | null) => void;
-  theme: string | null;
-  onTheme: (v: string | null) => void;
 }) {
   const setCraft = onCraft;
 
   const filtered = projects.filter(
-    (p) =>
-      (active === null || p.category?.slug === active) &&
-      (craft === null || (p.disciplines ?? []).includes(craft)),
+    (p) => craft === null || (p.disciplines ?? []).includes(craft),
   );
 
   // Unfiltered: lead with the flagship zone (featured), then the rest.
   const featured = filtered.filter((p) => p.featured);
   const rest = filtered.filter((p) => !p.featured);
-  const split =
-    active === null && craft === null && featured.length > 0 && rest.length > 0;
+  const split = craft === null && featured.length > 0 && rest.length > 0;
 
   const pill = (on: boolean) =>
     `mono rounded-full border px-3 py-1.5 text-[11px] tracking-widest uppercase transition ${
@@ -52,24 +43,6 @@ export default function Cabinet({
       </div>
 
       {/* Two lenses on one cabinet: what system, and what craft. */}
-      <div className="mb-4 flex flex-wrap items-center gap-2">
-        <span className="mono mr-1 text-[10px] tracking-widest opacity-50">
-          BY SYSTEM
-        </span>
-        <button onClick={() => setActive(null)} className={pill(active === null)}>
-          All
-        </button>
-        {categories.map((c) => (
-          <button
-            key={c._id}
-            onClick={() => setActive(c.slug)}
-            className={pill(active === c.slug)}
-          >
-            {c.name}
-          </button>
-        ))}
-      </div>
-
       <div className="mb-10 flex flex-wrap items-center gap-2">
         <span className="mono mr-1 text-[10px] tracking-widest opacity-50">
           BY CRAFT
@@ -98,7 +71,7 @@ export default function Cabinet({
 
       {filtered.length === 0 && (
         <p className="serif mb-10 text-lg italic opacity-60">
-          Nothing filed under both of those yet.
+          Nothing filed under that yet.
         </p>
       )}
 

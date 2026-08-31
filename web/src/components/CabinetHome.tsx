@@ -2,7 +2,8 @@
 
 import { useRef, useState } from "react";
 import Cabinet from "./Cabinet";
-import type { Project, Category } from "@/sanity/types";
+import NameMark from "./NameMark";
+import type { Project } from "@/sanity/types";
 
 export const DISCIPLINES = [
   {
@@ -51,41 +52,57 @@ export const DISCIPLINES = [
  * calls them: a coloured tab, a sheet of paper behind, and on hover the paper
  * slides out as though something is being pulled from the drawer.
  */
-export default function CabinetHome({
-  projects,
-  categories,
-}: {
-  projects: Project[];
-  categories: Category[];
-}) {
+export default function CabinetHome({ projects }: { projects: Project[] }) {
   const [craft, setCraft] = useState<string | null>(null);
-  const [theme, setTheme] = useState<string | null>(null);
   const cabinet = useRef<HTMLDivElement>(null);
 
   function open(value: string) {
     setCraft(craft === value ? null : value);
-    setTheme(null);
     cabinet.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   return (
     <>
-      <section className="mx-auto max-w-6xl px-6 pb-8 pt-12">
-        <p className="mono text-xs tracking-widest opacity-70">
-          01 · INDEX · OPENING THE CABINET
-        </p>
-        <h1 className="display mt-3 text-4xl leading-[1.06] md:text-5xl">
-          What do you already know?
-          <br />
-          What do you need next?
-        </h1>
-        <p className="serif mt-4 max-w-2xl text-lg italic opacity-80">
-          The questions design school taught me, pointed at mobility data,
-          anxiety, literacy, a symphony season, and a brand new university
-          office. I have never once needed different ones.
-        </p>
+      <section className="relative mx-auto max-w-6xl px-6 pb-8 pt-10">
+        <NameMark />
 
-        <p className="mono mt-8 text-[11px] tracking-widest opacity-60">
+        {/* The label plate off a composition book: a double frame and faint
+            rules, holding the only thing you need to read first. */}
+        <div
+          className="relative max-w-3xl rounded-[14px] border-2 p-1.5"
+          style={{ borderColor: "var(--charcoal)" }}
+        >
+          <div
+            className="rounded-[9px] border px-6 py-7 sm:px-9 sm:py-9"
+            style={{
+              borderColor: "var(--kraft)",
+              backgroundColor: "var(--paper)",
+              backgroundImage:
+                "repeating-linear-gradient(to bottom, transparent 0 33px, rgba(216,205,186,.5) 33px 34px)",
+            }}
+          >
+            <p className="mono text-[11px] tracking-widest opacity-70">
+              RESEARCH CABINET · SELECTED WORK &amp; THINKING
+            </p>
+            <span
+              aria-hidden
+              className="mt-3 mb-4 block border-t"
+              style={{ borderColor: "var(--kraft)" }}
+            />
+            <h1 className="display text-4xl leading-[1.06] md:text-5xl">
+              What do you already know?
+              <br />
+              What do you need next?
+            </h1>
+            <p className="serif mt-4 text-lg italic opacity-80">
+              The questions design school taught me, pointed at mobility data,
+              anxiety, literacy, a symphony season, and a brand new university
+              office. I have never once needed different ones.
+            </p>
+          </div>
+        </div>
+
+        <p className="mono mt-9 text-[11px] tracking-widest opacity-60">
           START WHEREVER YOU LIKE ↓
         </p>
 
@@ -197,14 +214,7 @@ export default function CabinetHome({
       </section>
 
       <div ref={cabinet}>
-        <Cabinet
-          projects={projects}
-          categories={categories}
-          craft={craft}
-          onCraft={setCraft}
-          theme={theme}
-          onTheme={setTheme}
-        />
+        <Cabinet projects={projects} craft={craft} onCraft={setCraft} />
       </div>
     </>
   );
