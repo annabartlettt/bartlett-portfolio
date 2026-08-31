@@ -77,15 +77,23 @@ export default function Cabinet({
         <button onClick={() => setCraft(null)} className={pill(craft === null)}>
           All
         </button>
-        {DISCIPLINES.map((d) => (
-          <button
-            key={d.value}
-            onClick={() => setCraft(d.value)}
-            className={pill(craft === d.value)}
-          >
-            {d.title}
-          </button>
-        ))}
+        {DISCIPLINES.map((d) => {
+          const on = craft === d.value;
+          return (
+            <button
+              key={d.value}
+              onClick={() => setCraft(on ? null : d.value)}
+              className={pill(on)}
+              style={
+                on
+                  ? { background: d.accent, borderColor: d.accent }
+                  : { borderLeft: `4px solid ${d.accent}` }
+              }
+            >
+              {d.title}
+            </button>
+          );
+        })}
       </div>
 
       {filtered.length === 0 && (

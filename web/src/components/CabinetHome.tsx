@@ -9,21 +9,29 @@ export const DISCIPLINES = [
     value: "ux",
     title: "User Experience",
     line: "Apps, platforms and services people have to find their way through.",
+    accent: "#2F6D74",
+    tint: "#eaf1f1",
   },
   {
     value: "computational",
     title: "Computational Design",
     line: "Code and data as material. Generative systems, p5.js, physicalisation.",
+    accent: "#363f9e",
+    tint: "#ecedf6",
   },
   {
     value: "marcomm",
     title: "Marketing & Comms",
     line: "Brand systems, social, and the calendar underneath them.",
+    accent: "#B5502F",
+    tint: "#f8ece7",
   },
   {
     value: "motion",
     title: "Motion & Video",
     line: "Shot, cut and scored. Premiere Pro, short form, stop motion.",
+    accent: "#6B4E8E",
+    tint: "#f0ebf6",
   },
 ];
 
@@ -31,9 +39,13 @@ export const DISCIPLINES = [
  * The landing page and the cabinet share one piece of state.
  *
  * Someone arriving here is usually looking for one kind of work, so the four
- * doors sit above the fold and open the cabinet already filtered. Choosing a
+ * folders sit above the fold and open the cabinet already filtered. Choosing a
  * craft clears any theme filter, because a visitor who wants motion wants all
  * of it, not motion within whichever theme happened to be selected.
+ *
+ * The cards are drawn as folders because that is what the rest of the site
+ * calls them: a coloured tab, a sheet of paper behind, and on hover the paper
+ * slides out as though something is being pulled from the drawer.
  */
 export default function CabinetHome({
   projects,
@@ -72,7 +84,8 @@ export default function CabinetHome({
         <p className="mono mt-8 text-[11px] tracking-widest opacity-60">
           START WHEREVER YOU LIKE ↓
         </p>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {DISCIPLINES.map((d) => {
             const on = craft === d.value;
             return (
@@ -80,19 +93,55 @@ export default function CabinetHome({
                 key={d.value}
                 onClick={() => open(d.value)}
                 aria-pressed={on}
-                className={`group rounded-xl border p-4 text-left transition ${
-                  on
-                    ? "border-[var(--charcoal)] bg-[var(--charcoal)] text-[var(--cream)]"
-                    : "border-[var(--kraft)] bg-[var(--paper)] hover:border-[var(--charcoal)]"
-                }`}
+                className="group relative block pt-3 text-left"
               >
-                <p className="display text-lg leading-snug">{d.title}</p>
-                <p className="mt-1 text-[13px] leading-snug opacity-75">
-                  {d.line}
-                </p>
-                <p className="mono mt-3 text-[10px] tracking-widest opacity-60">
-                  {on ? "SHOWING ↓" : "OPEN ↓"}
-                </p>
+                {/* The tab. Widens and lifts as the folder is pulled. */}
+                <span
+                  aria-hidden
+                  className={`absolute left-5 top-0 h-3.5 rounded-t-md transition-all duration-200 ${
+                    on ? "w-28" : "w-20 group-hover:w-24"
+                  }`}
+                  style={{ background: d.accent }}
+                />
+
+                {/* The sheet inside, sliding out from under the cover. */}
+                <span
+                  aria-hidden
+                  className={`absolute inset-x-2 top-3 bottom-0 rounded-xl border transition-transform duration-200 ${
+                    on ? "translate-y-2.5" : "translate-y-1 group-hover:translate-y-2"
+                  }`}
+                  style={{
+                    background: "var(--cream2)",
+                    borderColor: "var(--kraft)",
+                  }}
+                />
+
+                <div
+                  className="relative rounded-xl border p-4 transition-all duration-200 group-hover:-translate-y-0.5"
+                  style={{
+                    background: on ? d.tint : "var(--paper)",
+                    borderColor: on ? d.accent : "var(--kraft)",
+                    boxShadow: on
+                      ? `0 6px 18px -10px ${d.accent}`
+                      : "0 2px 8px -6px rgba(44,42,39,.4)",
+                  }}
+                >
+                  <p
+                    className="display text-lg leading-snug"
+                    style={{ color: on ? d.accent : undefined }}
+                  >
+                    {d.title}
+                  </p>
+                  <p className="mt-1 text-[13px] leading-snug opacity-75">
+                    {d.line}
+                  </p>
+                  <p
+                    className="mono mt-3 text-[10px] font-bold tracking-widest"
+                    style={{ color: d.accent }}
+                  >
+                    {on ? "SHOWING ↓" : "OPEN ↓"}
+                  </p>
+                </div>
               </button>
             );
           })}
