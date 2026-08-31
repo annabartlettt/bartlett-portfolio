@@ -8,6 +8,7 @@ import BsoSketch from "@/components/BsoSketch";
 import LoomEmbed from "@/components/LoomEmbed";
 import InstagramEmbed from "@/components/InstagramEmbed";
 import SlideDeck from "@/components/SlideDeck";
+import FolderIcon from "@/components/FolderIcon";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -70,9 +71,13 @@ export default async function ProjectPage({
       {/* Cover */}
       <section className="px-6 py-20 text-[var(--cream)]" style={{ background: primary }}>
         <div className="mx-auto max-w-5xl">
-          <Link href="/" className="mono text-[11px] tracking-widest opacity-80">
-            ← BACK TO CABINET
-          </Link>
+          <p className="mono text-[11px] tracking-widest opacity-80">
+            <Link href="/" className="underline-offset-2 hover:underline">
+              Anna Bartlett
+            </Link>
+            {p.category?.name && <span> ▸ {p.category.name}</span>}
+            <span> ▸ {p.title}</span>
+          </p>
           <p className="mono mt-8 text-[12px] tracking-widest" style={{ color: onDark }}>
             FOLDER {p.folderNumber} · OPENED
           </p>
@@ -119,12 +124,12 @@ export default async function ProjectPage({
       {slug === "central-co-op" && (
         <nav
           aria-label="What is in this case study"
-          className="mx-auto max-w-4xl px-6 pt-12"
+          className="mx-auto max-w-4xl px-6 pt-14"
         >
           <p className="mono text-[11px] tracking-widest opacity-60">
-            SIX MONTHS, FOUR KINDS OF WORK ↓
+            SIX MONTHS, FIVE KINDS OF WORK. OPEN WHICHEVER YOU CAME FOR ↓
           </p>
-          <ul className="mt-3 flex list-none flex-wrap gap-2 p-0">
+          <ul className="mt-5 grid list-none grid-cols-2 gap-x-4 gap-y-6 p-0 sm:grid-cols-5 sm:gap-x-3">
             {[
               ["Brand & identity", "#s02"],
               ["Social media", "#social"],
@@ -133,11 +138,17 @@ export default async function ProjectPage({
               ["User research", "#s03"],
             ].map(([label, href]) => (
               <li key={href}>
-                <a
-                  href={href}
-                  className="mono block rounded-full border border-[var(--kraft)] px-3 py-1.5 text-[11px] tracking-widest uppercase transition hover:border-[var(--charcoal)]"
-                >
-                  {label}
+                <a href={href} className="group flex flex-col items-center text-center">
+                  <FolderIcon
+                    color={primary}
+                    className="w-16 transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-105"
+                  />
+                  <span
+                    className="mt-1.5 text-[12.5px] leading-snug"
+                    style={{ color: primary }}
+                  >
+                    {label}
+                  </span>
                 </a>
               </li>
             ))}

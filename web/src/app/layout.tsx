@@ -91,14 +91,21 @@ export default function RootLayout({
 
         <div className="flex-1">{children}</div>
 
-        <footer className="mt-24 border-t-2 border-[var(--charcoal)] bg-[var(--ink)] px-6 py-12 text-[var(--cream)]">
-          <div className="mx-auto max-w-6xl">
-            <p className="serif text-2xl italic">
-              What do you already know? What do you need next?
-            </p>
-            <p className="mono mt-3 text-[11px] tracking-widest opacity-70">
-              ANNA BARTLETT · {new Date().getFullYear()}
-            </p>
+        {/* The bar along the bottom of the screen, on every page. */}
+        <footer
+          className="mt-24 border-t-2"
+          style={{
+            borderColor: "var(--charcoal)",
+            background: "var(--cream2)",
+          }}
+        >
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-6 py-2.5 sm:px-10">
+            <Link href="/" className="display text-sm tracking-[0.22em] uppercase">
+              Anna Bartlett
+            </Link>
+            <span className="mono text-[10px] tracking-widest opacity-55">
+              WASHINGTON DC · {new Date().getFullYear()}
+            </span>
           </div>
         </footer>
       </body>
