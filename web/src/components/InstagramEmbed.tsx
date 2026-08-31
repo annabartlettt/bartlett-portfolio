@@ -10,6 +10,7 @@
  * height rather than a pure aspect ratio.
  */
 export default function InstagramEmbed({
+  id,
   code,
   kicker,
   title,
@@ -18,6 +19,7 @@ export default function InstagramEmbed({
   height = 660,
   accent = "#B5502F",
 }: {
+  id?: string;
   code: string;
   kicker: string;
   title: string;
@@ -29,7 +31,7 @@ export default function InstagramEmbed({
   const post = `https://www.instagram.com/p/${code}/`;
 
   return (
-    <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-16">
+    <section id={id} className="mx-auto max-w-4xl scroll-mt-20 border-b border-[var(--kraft)] px-6 py-16">
       <p
         className="mono text-[12px] font-bold tracking-widest"
         style={{ color: accent }}

@@ -116,6 +116,35 @@ export default async function ProjectPage({
         </div>
       </section>
 
+      {slug === "central-co-op" && (
+        <nav
+          aria-label="What is in this case study"
+          className="mx-auto max-w-4xl px-6 pt-12"
+        >
+          <p className="mono text-[11px] tracking-widest opacity-60">
+            SIX MONTHS, FOUR KINDS OF WORK ↓
+          </p>
+          <ul className="mt-3 flex list-none flex-wrap gap-2 p-0">
+            {[
+              ["Brand & identity", "#s02"],
+              ["Social media", "#social"],
+              ["Graphic design", "#graphic-design"],
+              ["Editorial & photography", "#editorial"],
+              ["User research", "#s03"],
+            ].map(([label, href]) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  className="mono block rounded-full border border-[var(--kraft)] px-3 py-1.5 text-[11px] tracking-widest uppercase transition hover:border-[var(--charcoal)]"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
       {/* Sections */}
       {p.sections?.map((s) => (
         <Fragment key={s._key}>
@@ -216,6 +245,7 @@ export default async function ProjectPage({
         )}
         {slug === "central-co-op" && s.number === "02" && (
           <InstagramEmbed
+            id="social"
             code="DDhoqSUOqrj"
             kicker="MOTION · ON THE FEED"
             title="Some of that reach was video."
@@ -226,6 +256,7 @@ export default async function ProjectPage({
         )}
         {slug === "central-co-op" && s.number === "02" && (
           <SlideDeck
+            id="graphic-design"
             kicker="THE FORMAT · FOUR GUIDES, ONE TEMPLATE"
             title="Answering the question before it gets asked."
             blurb="The account's job was rarely to announce something. It was to answer a question a student already had at eleven at night. That turned into a repeatable shape: a dated cover, one idea per card, and a closing slide asking the reader to save it for later. The skeleton never moved. Everything on top of it did."
@@ -290,6 +321,7 @@ export default async function ProjectPage({
         )}
         {slug === "central-co-op" && s.number === "02" && (
           <SlideDeck
+            id="editorial"
             kicker="THE OTHER HALF · REPORTING"
             title="Going out and finding things."
             blurb="The guides answer a question a student already has. The rest of the account went and found things they did not know to ask about: someone already on co-op in a city they might move to, a company they could get inside, a shuttle that would take them to a job in Burlington for $2.50. Different job, so the template loosens. Profiles get speech bubbles, treks get photographs, service information gets a polaroid and a QR code. Two of these ran as named series rather than one-offs, which is the difference between posting and programming."

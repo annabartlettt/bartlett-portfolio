@@ -23,6 +23,7 @@ export type Deck = {
  * only have to nudge it.
  */
 export default function SlideDeck({
+  id,
   kicker,
   title,
   blurb,
@@ -31,6 +32,7 @@ export default function SlideDeck({
   accent = "#B5502F",
   border = true,
 }: {
+  id?: string;
   kicker: string;
   title: string;
   blurb: string;
@@ -72,7 +74,8 @@ export default function SlideDeck({
 
   return (
     <section
-      className={`mx-auto max-w-4xl px-6 py-14 ${
+      id={id}
+      className={`mx-auto max-w-4xl scroll-mt-20 px-6 py-14 ${
         border ? "border-b border-[var(--kraft)]" : ""
       }`}
     >
