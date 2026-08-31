@@ -70,14 +70,13 @@ export default function CabinetHome({
 
   return (
     <>
-      <section className="mx-auto max-w-6xl px-6 pb-10 pt-10">
-        {/* A screen. Questions at the top, folders on the desktop, a bar along
-            the bottom with a name on it. */}
-        <div
-          className="overflow-hidden rounded-xl border-2 shadow-[0_10px_40px_-24px_rgba(44,42,39,.7)]"
-          style={{ borderColor: "var(--charcoal)", background: "var(--paper)" }}
-        >
-          <div className="px-6 pb-10 pt-10 sm:px-12 sm:pt-14">
+      {/* The desktop is the page. No frame, no card: it fills the screen and
+          the bar sits on the bottom edge of it. */}
+      <section
+        className="flex min-h-[calc(100svh-3.6rem)] flex-col"
+        style={{ background: "var(--paper)" }}
+      >
+        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 py-12 sm:px-10">
             <h1 className="display text-3xl leading-[1.15] sm:text-4xl md:text-5xl">
               What do you already know?
               <span className="mt-1 block sm:ml-[12%] md:ml-[18%]">
@@ -121,16 +120,17 @@ export default function CabinetHome({
                 );
               })}
             </div>
-          </div>
+        </div>
 
-          {/* the bar along the bottom */}
-          <div
-            className="flex items-center justify-between border-t-2 px-5 py-2.5"
-            style={{
-              borderColor: "var(--charcoal)",
-              background: "var(--cream2)",
-            }}
-          >
+        {/* the bar along the bottom edge of the screen */}
+        <div
+          className="border-t-2"
+          style={{
+            borderColor: "var(--charcoal)",
+            background: "var(--cream2)",
+          }}
+        >
+          <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-2.5 sm:px-10">
             <span className="display text-sm tracking-[0.22em] uppercase">
               Anna Bartlett
             </span>
@@ -141,9 +141,11 @@ export default function CabinetHome({
             </span>
           </div>
         </div>
+      </section>
 
+      <section className="mx-auto max-w-6xl px-6 pt-10 sm:px-10">
         {/* The facts, for anyone who wants them before the work. */}
-        <dl className="mt-10 border-t border-[var(--kraft)]">
+        <dl className="border-t border-[var(--kraft)]">
           {[
             [
               "Education",
