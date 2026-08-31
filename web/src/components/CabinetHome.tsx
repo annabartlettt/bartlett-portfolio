@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Cabinet from "./Cabinet";
 import SiteSearch from "./SiteSearch";
+import FolderIcon from "./FolderIcon";
 import type { Project, SearchData } from "@/sanity/types";
 
 export const DISCIPLINES = [
@@ -69,124 +70,76 @@ export default function CabinetHome({
 
   return (
     <>
-      <section className="mx-auto max-w-6xl px-6 pb-8 pt-10">
-
-        {/* The label plate off a composition book: a double frame and faint
-            rules, holding the only thing you need to read first. */}
+      <section className="mx-auto max-w-6xl px-6 pb-10 pt-10">
+        {/* A screen. Questions at the top, folders on the desktop, a bar along
+            the bottom with a name on it. */}
         <div
-          className="relative max-w-3xl rounded-[14px] border-2 p-1.5"
-          style={{ borderColor: "var(--charcoal)" }}
+          className="overflow-hidden rounded-xl border-2 shadow-[0_10px_40px_-24px_rgba(44,42,39,.7)]"
+          style={{ borderColor: "var(--charcoal)", background: "var(--paper)" }}
         >
+          <div className="px-6 pb-10 pt-10 sm:px-12 sm:pt-14">
+            <h1 className="display text-3xl leading-[1.15] sm:text-4xl md:text-5xl">
+              What do you already know?
+              <span className="mt-1 block sm:ml-[12%] md:ml-[18%]">
+                What do you need next?
+              </span>
+            </h1>
+
+            <div className="mt-8 max-w-2xl sm:ml-[12%] md:ml-[18%]">
+              <SiteSearch data={search} />
+            </div>
+
+            <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6">
+              {DISCIPLINES.map((d) => {
+                const on = craft === d.value;
+                return (
+                  <button
+                    key={d.value}
+                    onClick={() => open(d.value)}
+                    aria-pressed={on}
+                    className="group flex flex-col items-center text-center"
+                  >
+                    <FolderIcon
+                      color={d.accent}
+                      className={`w-24 transition-transform duration-200 sm:w-28 ${
+                        on
+                          ? "-translate-y-1 scale-105"
+                          : "group-hover:-translate-y-1 group-hover:scale-105"
+                      }`}
+                    />
+                    <span
+                      className="mt-2 rounded px-2 py-0.5 text-[13px] leading-snug font-medium transition-colors"
+                      style={
+                        on
+                          ? { background: d.accent, color: "var(--paper)" }
+                          : { color: d.accent }
+                      }
+                    >
+                      {d.title}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* the bar along the bottom */}
           <div
-            className="rounded-[9px] border px-6 py-7 sm:px-9 sm:py-9"
+            className="flex items-center justify-between border-t-2 px-5 py-2.5"
             style={{
-              borderColor: "var(--kraft)",
-              backgroundColor: "var(--paper)",
-              backgroundImage:
-                "repeating-linear-gradient(to bottom, transparent 0 33px, rgba(216,205,186,.5) 33px 34px)",
+              borderColor: "var(--charcoal)",
+              background: "var(--cream2)",
             }}
           >
-            <p className="mono text-[11px] tracking-widest opacity-70">
-              RESEARCH CABINET · SELECTED WORK &amp; THINKING
-            </p>
-            <span
-              aria-hidden
-              className="mt-3 mb-4 block border-t"
-              style={{ borderColor: "var(--kraft)" }}
-            />
-            <h1 className="display text-4xl leading-[1.06] md:text-5xl">
-              What do you already know?
-              <br />
-              What do you need next?
-            </h1>
-            <p className="serif mt-4 text-lg italic opacity-80">
-              The questions design school taught me, pointed at mobility data,
-              anxiety, literacy, a symphony season, and a brand new university
-              office. I have never once needed different ones.
-            </p>
-
-            <SiteSearch data={search} />
-
+            <span className="display text-sm tracking-[0.22em] uppercase">
+              Anna Bartlett
+            </span>
+            <span className="mono text-[10px] tracking-widest opacity-55">
+              {craft
+                ? `${DISCIPLINES.find((d) => d.value === craft)?.title.toUpperCase()} — OPEN`
+                : `${projects.length} FOLDERS`}
+            </span>
           </div>
-        </div>
-
-        <p className="mono mt-9 text-[11px] tracking-widest opacity-60">
-          START WHEREVER YOU LIKE ↓
-        </p>
-
-        <div className="mt-4 grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {DISCIPLINES.map((d) => {
-            const on = craft === d.value;
-            return (
-              <button
-                key={d.value}
-                onClick={() => open(d.value)}
-                aria-pressed={on}
-                className="group relative block h-full pt-4 text-left"
-              >
-                {/* The tab, tucked under the cover so the two read as one piece. */}
-                <span
-                  aria-hidden
-                  className={`absolute left-5 top-0 h-6 rounded-t-md transition-all duration-200 ${
-                    on ? "w-32" : "w-24 group-hover:w-28"
-                  }`}
-                  style={{ background: d.accent }}
-                />
-
-                {/* The sheet inside, sliding out from under the cover. */}
-                <span
-                  aria-hidden
-                  className={`absolute inset-x-1.5 top-4 bottom-0 rounded-xl border transition-transform duration-200 ${
-                    on
-                      ? "translate-y-2.5"
-                      : "translate-y-1 group-hover:translate-y-2"
-                  }`}
-                  style={{
-                    background: "var(--cream2)",
-                    borderColor: "var(--kraft)",
-                  }}
-                />
-
-                <div
-                  className="relative flex h-full flex-col rounded-xl border p-4 transition-all duration-200 group-hover:-translate-y-0.5"
-                  style={{
-                    background: on ? d.tint : "var(--paper)",
-                    borderColor: on ? d.accent : "var(--kraft)",
-                    boxShadow: on
-                      ? `0 8px 20px -12px ${d.accent}`
-                      : "0 2px 8px -6px rgba(44,42,39,.4)",
-                  }}
-                >
-                  <p
-                    className="mono text-[9px] font-bold tracking-widest"
-                    style={{ color: d.accent }}
-                  >
-                    {d.index}
-                  </p>
-                  <span
-                    aria-hidden
-                    className="mt-2 mb-2.5 block border-t border-dashed"
-                    style={{ borderColor: on ? d.accent : "var(--kraft)" }}
-                  />
-                  <p
-                    className="display text-lg leading-snug"
-                    style={{ color: on ? d.accent : undefined }}
-                  >
-                    {d.title}
-                  </p>
-                  <p className="mt-1 flex-1 text-[13px] leading-snug opacity-75">
-                    {d.line}
-                  </p>
-                  <p
-                    className="mono mt-4 text-[10px] font-bold tracking-widest"
-                    style={{ color: d.accent }}
-                  >
-                    {on ? "↳ SHOWING BELOW" : "↳ OPEN"}
-                  </p>
-                </div>
-              </button>
-            );
-          })}
         </div>
 
         {/* The facts, for anyone who wants them before the work. */}
