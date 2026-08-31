@@ -7,6 +7,7 @@ import {
   Caveat,
 } from "next/font/google";
 import Link from "next/link";
+import Nav from "@/components/Nav";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -66,12 +67,6 @@ export const metadata: Metadata = {
   },
 };
 
-const nav = [
-  { label: "Work", href: "/" },
-  { label: "Thinking", href: "/thinking" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
 
 export default function RootLayout({
   children,
@@ -90,17 +85,7 @@ export default function RootLayout({
             >
               ANNA BARTLETT · RESEARCH CABINET
             </Link>
-            <nav className="flex gap-5">
-              {nav.map((n) => (
-                <Link
-                  key={n.href}
-                  href={n.href}
-                  className="mono text-[11px] uppercase tracking-widest opacity-70 transition hover:opacity-100"
-                >
-                  {n.label}
-                </Link>
-              ))}
-            </nav>
+            <Nav />
           </div>
         </header>
 

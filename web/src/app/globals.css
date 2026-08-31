@@ -7,6 +7,9 @@
   --kraft: #d8cdba;
   --charcoal: #2c2a27;
   --ink: #363f9e;
+  /* Pink marks the thing you are currently on. Darkened from the mobile
+     nav's soft pink, which was set on indigo and would vanish on cream. */
+  --pink: #C24A79;
 }
 
 html,
@@ -88,3 +91,12 @@ a {
    the counter are the affordance, and on touch the swipe already is. */
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Hover goes blue, the page you are on goes pink. Borrowed from the mobile
+   nav in the June concept, where the current item was the only pink thing
+   on the screen. */
+a:not(.nav-link):hover { color: var(--ink); }
+.nav-link { transition: color .18s ease, opacity .18s ease; }
+.nav-link:hover { color: var(--ink); opacity: 1; }
+.nav-link[data-current="true"] { color: var(--pink); opacity: 1; }
+.nav-link[data-current="true"]:hover { color: var(--pink); }
