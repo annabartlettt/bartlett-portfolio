@@ -83,3 +83,8 @@ a {
   font-style: italic;
   line-height: 1.5;
 }
+
+/* Horizontal snap tracks (SlideDeck) hide their scrollbar; the arrows and
+   the counter are the affordance, and on touch the swipe already is. */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

@@ -260,6 +260,19 @@ export default async function ProjectPage({
         )}
         {slug === "central-co-op" && s.number === "02" && (
           <SlideDeck
+            kicker="A THIRD FORMAT · PROFILES"
+            title="DC Co-ops."
+            blurb="Advice is one job. Showing a student someone who already did the thing is another, and it needs a different form. These run as profiles: a speech bubble for the name and the facts, the event photography desaturated so the portrait carries the only color, and the student's own words left in their voice. Three formats across one account, each shaped by what it had to do."
+            slides={[
+              { src: "/images/central-coop/dc-1-kate.jpg", alt: "DC Co-ops profile card for Kate Lo, third-year civil engineering and architecture student on co-op with Hensel Phelps", label: "Kate Lo" },
+              { src: "/images/central-coop/dc-2-natalia.jpg", alt: "DC Co-ops profile card for Natalia Ivanov, third-year computer science student on co-op with Riverside Research", label: "Natalia Ivanov" },
+              { src: "/images/central-coop/dc-3-sofie.jpg", alt: "DC Co-ops profile card for Sofie Wendell, fourth-year Spanish and international affairs student on co-op with Control Risks", label: "Sofie Wendell" },
+            ]}
+            accent={brand.primary ?? primary}
+          />
+        )}
+        {slug === "central-co-op" && s.number === "02" && (
+          <SlideDeck
             kicker="ON LOCATION · HUSKY TREK"
             title="Salesforce, Bay Area."
             blurb="Not every post was made at a desk. Central Co-op ran Husky Treks that took students inside companies, and the recap had to make a reader who was not there want to sign up for the next one."
@@ -269,7 +282,6 @@ export default async function ProjectPage({
               { src: "/images/central-coop/trek-3.jpg", alt: "Northeastern E-TREKS feather flag on the Oakland campus" },
               { src: "/images/central-coop/trek-5.jpg", alt: "Northeastern N marker on the Oakland campus" },
             ]}
-            columns={2}
             accent={brand.primary ?? primary}
           />
         )}
