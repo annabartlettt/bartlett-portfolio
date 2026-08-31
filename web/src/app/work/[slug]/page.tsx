@@ -225,16 +225,50 @@ export default async function ProjectPage({
         )}
         {slug === "central-co-op" && s.number === "02" && (
           <SlideDeck
-            kicker="THE FORMAT · A SIX-SLIDE GUIDE"
-            title="How to Prepare for a Career Fair."
-            blurb="The account's job was rarely to announce something. It was to answer a question a student had at eleven at night. That turned into a repeatable shape: a dated cover, one idea per card, and a closing slide asking the reader to save it for later. Here the briefcase holds the type and the leaves put it in fall recruiting season."
-            slides={[
-              { src: "/images/central-coop/career-fair-1.jpg", alt: "Cover slide dated 10.30.2024 reading How to Prepare for a Career Fair", label: "Cover" },
-              { src: "/images/central-coop/career-fair-2.jpg", alt: "Slide reading Have Resumes Prepared", label: "Have Resumes Prepared" },
-              { src: "/images/central-coop/career-fair-3.jpg", alt: "Slide reading Company Research", label: "Company Research" },
-              { src: "/images/central-coop/career-fair-4.jpg", alt: "Slide reading Prepare Specific Questions", label: "Prepare Specific Questions" },
-              { src: "/images/central-coop/career-fair-5.jpg", alt: "Slide reading LinkedIn or Email Contact", label: "LinkedIn or Email Contact" },
-              { src: "/images/central-coop/career-fair-6.jpg", alt: "Closing slide reading Find This Helpful? Save as a Reminder", label: "Save as a reminder" },
+            kicker="THE FORMAT · THREE GUIDES, ONE TEMPLATE"
+            title="Answering the question before it gets asked."
+            blurb="The account's job was rarely to announce something. It was to answer a question a student already had at eleven at night. That turned into a repeatable shape: a dated cover, one idea per card, and a closing slide asking the reader to save it for later. The skeleton never moved. Everything on top of it did."
+            decks={[
+              {
+                name: "Resume Red Flags",
+                href: "https://www.instagram.com/p/C-dKF0_uek3/",
+                note: "August. The earliest of the three, and it looks it: stock photography on the cover, tilted paper, red banners knocked back over a shadow. Four things not to put on a resume.",
+                slides: [
+                  { src: "/images/central-coop/resume-1.jpg", alt: "Cover slide dated 8.9.2024 reading Resume Red Flags, What NOT to Include", label: "Cover" },
+                  { src: "/images/central-coop/resume-2.jpg", alt: "Slide reading Spelling Mistakes and Grammar Errors", label: "Spelling and grammar" },
+                  { src: "/images/central-coop/resume-3.jpg", alt: "Slide reading Inconsistent or Conflicting Information", label: "Conflicting information" },
+                  { src: "/images/central-coop/resume-4.jpg", alt: "Slide reading Irrelevant Work Experience", label: "Irrelevant experience" },
+                  { src: "/images/central-coop/resume-5.jpg", alt: "Slide reading Acronyms and Complex Fonts", label: "Acronyms and fonts" },
+                  { src: "/images/central-coop/resume-6.jpg", alt: "Closing slide reading Find This Helpful? Save as a Reminder", label: "Save as a reminder" },
+                ],
+              },
+              {
+                name: "Political Discussions",
+                href: "https://www.instagram.com/p/DBhDsOISGak/",
+                note: "October, six days before the election, for students newly placed in an office who could not afford to alienate a supervisor. It takes no political position at all. What it hands them is a ladder: make conversations opt-in, notice the room, step away, speak up if a comment crosses into bias, escalate if it does not stop. The cover is drawn rather than photographed, which is where the format starts getting confident.",
+                slides: [
+                  { src: "/images/central-coop/politics-1.jpg", alt: "Cover slide dated 10.24.2024 reading Navigating Political Discussions on Co-op with a vote ballot box illustration", label: "Cover" },
+                  { src: "/images/central-coop/politics-2.jpg", alt: "Slide reading Set Boundaries", label: "Set Boundaries" },
+                  { src: "/images/central-coop/politics-3.jpg", alt: "Slide reading Speak Up", label: "Speak Up" },
+                  { src: "/images/central-coop/politics-4.jpg", alt: "Slide reading Make Conversations Opt-In", label: "Make Conversations Opt-In" },
+                  { src: "/images/central-coop/politics-5.jpg", alt: "Slide reading Contact a Co-op Coordinator", label: "Contact a Co-op Coordinator" },
+                  { src: "/images/central-coop/politics-6.jpg", alt: "Slide reading Remember Cultural Differences", label: "Remember Cultural Differences" },
+                  { src: "/images/central-coop/politics-7.jpg", alt: "Closing slide reading Find This Helpful? Save as a Reminder", label: "Save as a reminder" },
+                ],
+              },
+              {
+                name: "Career Fair",
+                href: "https://www.instagram.com/p/DBwK-OoOLOq/",
+                note: "Six days later again, for the fair itself. The briefcase holds the type and the leaves date it to fall recruiting. Same skeleton, third wardrobe.",
+                slides: [
+                  { src: "/images/central-coop/career-fair-1.jpg", alt: "Cover slide dated 10.30.2024 reading How to Prepare for a Career Fair", label: "Cover" },
+                  { src: "/images/central-coop/career-fair-2.jpg", alt: "Slide reading Have Resumes Prepared", label: "Have Resumes Prepared" },
+                  { src: "/images/central-coop/career-fair-3.jpg", alt: "Slide reading Company Research", label: "Company Research" },
+                  { src: "/images/central-coop/career-fair-4.jpg", alt: "Slide reading Prepare Specific Questions", label: "Prepare Specific Questions" },
+                  { src: "/images/central-coop/career-fair-5.jpg", alt: "Slide reading LinkedIn or Email Contact", label: "LinkedIn or Email Contact" },
+                  { src: "/images/central-coop/career-fair-6.jpg", alt: "Closing slide reading Find This Helpful? Save as a Reminder", label: "Save as a reminder" },
+                ],
+              },
             ]}
             numbered
             accent={brand.primary ?? primary}
@@ -242,31 +276,19 @@ export default async function ProjectPage({
         )}
         {slug === "central-co-op" && s.number === "02" && (
           <SlideDeck
-            kicker="THE RANGE · THE HARDEST BRIEF"
-            title="Navigating Political Discussions on Co-op."
-            blurb="Six days before the 2024 election, for students who were new in an office and could not afford to alienate a supervisor. It takes no political position at all. What it does is give someone a ladder: make conversations opt-in, notice who you are talking to, step away if you need to, say something if a comment crosses into bias, and escalate to a coordinator if it does not stop. Same skeleton as the career fair guide, dated cover through save-as-reminder card, rebuilt in ballot-box red and blue. The template held while the entire visual system changed."
-            slides={[
-              { src: "/images/central-coop/politics-1.jpg", alt: "Cover slide dated 10.24.2024 reading Navigating Political Discussions on Co-op with a vote ballot box illustration", label: "Cover" },
-              { src: "/images/central-coop/politics-2.jpg", alt: "Slide reading Set Boundaries", label: "Set Boundaries" },
-              { src: "/images/central-coop/politics-3.jpg", alt: "Slide reading Speak Up", label: "Speak Up" },
-              { src: "/images/central-coop/politics-4.jpg", alt: "Slide reading Make Conversations Opt-In", label: "Make Conversations Opt-In" },
-              { src: "/images/central-coop/politics-5.jpg", alt: "Slide reading Contact a Co-op Coordinator", label: "Contact a Co-op Coordinator" },
-              { src: "/images/central-coop/politics-6.jpg", alt: "Slide reading Remember Cultural Differences", label: "Remember Cultural Differences" },
-              { src: "/images/central-coop/politics-7.jpg", alt: "Closing slide reading Find This Helpful? Save as a Reminder", label: "Save as a reminder" },
-            ]}
-            numbered
-            accent="#4A6DD8"
-          />
-        )}
-        {slug === "central-co-op" && s.number === "02" && (
-          <SlideDeck
-            kicker="A THIRD FORMAT · PROFILES"
+            kicker="A DIFFERENT JOB · PROFILES"
             title="DC Co-ops."
-            blurb="Advice is one job. Showing a student someone who already did the thing is another, and it needs a different form. These run as profiles: a speech bubble for the name and the facts, the event photography desaturated so the portrait carries the only color, and the student's own words left in their voice. Three formats across one account, each shaped by what it had to do."
-            slides={[
-              { src: "/images/central-coop/dc-1-kate.jpg", alt: "DC Co-ops profile card for Kate Lo, third-year civil engineering and architecture student on co-op with Hensel Phelps", label: "Kate Lo" },
-              { src: "/images/central-coop/dc-2-natalia.jpg", alt: "DC Co-ops profile card for Natalia Ivanov, third-year computer science student on co-op with Riverside Research", label: "Natalia Ivanov" },
-              { src: "/images/central-coop/dc-3-sofie.jpg", alt: "DC Co-ops profile card for Sofie Wendell, fourth-year Spanish and international affairs student on co-op with Control Risks", label: "Sofie Wendell" },
+            blurb="Advice is one job. Showing a student someone who already did the thing is another, and it needs a different form. These run as profiles: a speech bubble for the name and the facts, the event photography desaturated so the portrait carries the only color, and the student's own words left in their voice."
+            decks={[
+              {
+                name: "DC Co-ops",
+                href: "https://www.instagram.com/p/C-qKegTOl3_/",
+                slides: [
+                  { src: "/images/central-coop/dc-1-kate.jpg", alt: "DC Co-ops profile card for Kate Lo, third-year civil engineering and architecture student on co-op with Hensel Phelps", label: "Kate Lo" },
+                  { src: "/images/central-coop/dc-2-natalia.jpg", alt: "DC Co-ops profile card for Natalia Ivanov, third-year computer science student on co-op with Riverside Research", label: "Natalia Ivanov" },
+                  { src: "/images/central-coop/dc-3-sofie.jpg", alt: "DC Co-ops profile card for Sofie Wendell, fourth-year Spanish and international affairs student on co-op with Control Risks", label: "Sofie Wendell" },
+                ],
+              },
             ]}
             accent={brand.primary ?? primary}
           />
@@ -276,11 +298,17 @@ export default async function ProjectPage({
             kicker="ON LOCATION · HUSKY TREK"
             title="Salesforce, Bay Area."
             blurb="Not every post was made at a desk. Central Co-op ran Husky Treks that took students inside companies, and the recap had to make a reader who was not there want to sign up for the next one."
-            slides={[
-              { src: "/images/central-coop/trek-6.jpg", alt: "Salesforce West building entrance" },
-              { src: "/images/central-coop/trek-7.jpg", alt: "Blaze Your Trail sign on a redwood column at Salesforce" },
-              { src: "/images/central-coop/trek-3.jpg", alt: "Northeastern E-TREKS feather flag on the Oakland campus" },
-              { src: "/images/central-coop/trek-5.jpg", alt: "Northeastern N marker on the Oakland campus" },
+            decks={[
+              {
+                name: "Salesforce",
+                href: "https://www.instagram.com/p/DCr1DyLSCPW/",
+                slides: [
+                  { src: "/images/central-coop/trek-6.jpg", alt: "Salesforce West building entrance" },
+                  { src: "/images/central-coop/trek-7.jpg", alt: "Blaze Your Trail sign on a redwood column at Salesforce" },
+                  { src: "/images/central-coop/trek-3.jpg", alt: "Northeastern E-TREKS feather flag on the Oakland campus" },
+                  { src: "/images/central-coop/trek-5.jpg", alt: "Northeastern N marker on the Oakland campus" },
+                ],
+              },
             ]}
             accent={brand.primary ?? primary}
           />

@@ -2,19 +2,31 @@
 
 import { useRef, useState } from "react";
 
+export type Deck = {
+  /** Tab label. */
+  name: string;
+  /** Permalink to the post this ran as. */
+  href: string;
+  /** One line under the tabs, specific to this deck. */
+  note?: string;
+  slides: { src: string; alt: string; label?: string }[];
+};
+
 /**
- * A set of related images from one piece of published work, shown the way it
- * was published: one slide at a time.
+ * Published carousels, shown the way they were published: one slide at a time.
+ *
+ * Several decks share a section when they share a template, which is the
+ * point being made — the tabs let a reader move between them and see the same
+ * skeleton wearing different clothes.
  *
  * The track is a scroll-snap row, so touch swipe comes free and the arrows
- * only have to nudge it. `numbered` treats the order as meaningful, which it
- * is for a carousel, where the sequence is part of the design.
+ * only have to nudge it.
  */
 export default function SlideDeck({
   kicker,
   title,
   blurb,
-  slides,
+  decks,
   numbered = false,
   accent = "#B5502F",
   border = true,
@@ -22,14 +34,17 @@ export default function SlideDeck({
   kicker: string;
   title: string;
   blurb: string;
-  slides: { src: string; alt: string; label?: string }[];
+  decks: Deck[];
   numbered?: boolean;
   accent?: string;
   border?: boolean;
 }) {
   const track = useRef<HTMLDivElement>(null);
+  const [d, setD] = useState(0);
   const [i, setI] = useState(0);
-  const last = slides.length - 1;
+
+  const deck = decks[d];
+  const last = deck.slides.length - 1;
 
   function go(next: number) {
     const n = Math.max(0, Math.min(last, next));
@@ -37,6 +52,12 @@ export default function SlideDeck({
     if (!el) return;
     el.scrollTo({ left: n * el.clientWidth, behavior: "smooth" });
     setI(n);
+  }
+
+  function pick(next: number) {
+    setD(next);
+    setI(0);
+    track.current?.scrollTo({ left: 0 });
   }
 
   function onScroll() {
@@ -64,7 +85,31 @@ export default function SlideDeck({
       <h2 className="display mt-3 text-3xl">{title}</h2>
       <p className="serif mt-4 text-lg leading-relaxed opacity-90">{blurb}</p>
 
-      <div className="relative mt-8 mx-auto" style={{ maxWidth: 460 }}>
+      {decks.length > 1 && (
+        <div className="mt-7 flex flex-wrap gap-2">
+          {decks.map((x, n) => (
+            <button
+              key={x.name}
+              onClick={() => pick(n)}
+              className={`mono rounded-full border px-3 py-1.5 text-[11px] tracking-widest uppercase transition ${
+                n === d
+                  ? "border-[var(--charcoal)] bg-[var(--charcoal)] text-[var(--cream)]"
+                  : "border-[var(--kraft)] hover:border-[var(--charcoal)]"
+              }`}
+            >
+              {x.name}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {deck.note && (
+        <p className="serif mt-5 text-base leading-relaxed opacity-75">
+          {deck.note}
+        </p>
+      )}
+
+      <div className="relative mx-auto mt-6" style={{ maxWidth: 460 }}>
         <div
           ref={track}
           onScroll={onScroll}
@@ -74,10 +119,10 @@ export default function SlideDeck({
             if (e.key === "ArrowLeft") { e.preventDefault(); go(i - 1); }
           }}
           className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto rounded-xl border"
-          style={{ borderColor: "var(--kraft)", scrollSnapType: "x mandatory" }}
-          aria-label={`${title} — ${slides.length} slides`}
+          style={{ borderColor: "var(--kraft)" }}
+          aria-label={`${deck.name} — ${deck.slides.length} slides`}
         >
-          {slides.map((s) => (
+          {deck.slides.map((s) => (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
               key={s.src}
@@ -90,7 +135,7 @@ export default function SlideDeck({
           ))}
         </div>
 
-        {slides.length > 1 && (
+        {deck.slides.length > 1 && (
           <>
             <button
               onClick={() => go(i - 1)}
@@ -115,20 +160,26 @@ export default function SlideDeck({
       </div>
 
       <div
-        className="mono mx-auto mt-3 flex items-baseline gap-3 text-[11px] tracking-widest"
+        className="mono mx-auto mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[11px] tracking-widest"
         style={{ maxWidth: 460 }}
       >
         {numbered && (
           <span style={{ color: accent }}>
-            {String(i + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+            {String(i + 1).padStart(2, "0")} /{" "}
+            {String(deck.slides.length).padStart(2, "0")}
           </span>
         )}
-        {slides[i]?.label && <span className="opacity-60">{slides[i].label}</span>}
-        {!numbered && !slides[i]?.label && (
-          <span className="opacity-60">
-            {i + 1} of {slides.length}
-          </span>
+        {deck.slides[i]?.label && (
+          <span className="opacity-60">{deck.slides[i].label}</span>
         )}
+        <a
+          href={deck.href}
+          target="_blank"
+          rel="noopener"
+          className="ml-auto underline opacity-60 hover:opacity-100"
+        >
+          view post ↗
+        </a>
       </div>
     </section>
   );
