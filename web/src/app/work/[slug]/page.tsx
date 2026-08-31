@@ -7,6 +7,7 @@ import EarlyLofis from "@/components/EarlyLofis";
 import BsoSketch from "@/components/BsoSketch";
 import LoomEmbed from "@/components/LoomEmbed";
 import InstagramEmbed from "@/components/InstagramEmbed";
+import SlideDeck from "@/components/SlideDeck";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -219,6 +220,38 @@ export default async function ProjectPage({
             title="Some of that reach was video."
             blurb="Alongside the stills, I shot and edited motion work for the two accounts. This one ran on the Central Co-op feed."
             caption="Central Co-op · Instagram"
+            accent={brand.primary ?? primary}
+          />
+        )}
+        {slug === "central-co-op" && s.number === "02" && (
+          <SlideDeck
+            kicker="CARRIER · A SIX-SLIDE GUIDE"
+            title="How to Prepare for a Career Fair."
+            blurb="The account's job was rarely to announce something. It was to answer a question a student had at 11pm the night before. This one ran as a carousel: a cover, four tips, and a card asking you to save it for later. The briefcase holds the type, the leaves date it to the fall recruiting season, and every slide is built from the same two shapes."
+            slides={[
+              { src: "/images/central-coop/career-fair-1.jpg", alt: "Cover slide dated 10.30.2024 reading How to Prepare for a Career Fair", label: "Cover" },
+              { src: "/images/central-coop/career-fair-2.jpg", alt: "Slide reading Have Resumes Prepared", label: "Have Resumes Prepared" },
+              { src: "/images/central-coop/career-fair-3.jpg", alt: "Slide reading Company Research", label: "Company Research" },
+              { src: "/images/central-coop/career-fair-4.jpg", alt: "Slide reading Prepare Specific Questions", label: "Prepare Specific Questions" },
+              { src: "/images/central-coop/career-fair-5.jpg", alt: "Slide reading LinkedIn or Email Contact", label: "LinkedIn or Email Contact" },
+              { src: "/images/central-coop/career-fair-6.jpg", alt: "Closing slide reading Find This Helpful? Save as a Reminder", label: "Save as a reminder" },
+            ]}
+            numbered
+            accent={brand.primary ?? primary}
+          />
+        )}
+        {slug === "central-co-op" && s.number === "02" && (
+          <SlideDeck
+            kicker="ON LOCATION · HUSKY TREK"
+            title="Salesforce, Bay Area."
+            blurb="Not every post was made at a desk. Central Co-op ran Husky Treks that took students inside companies, and the recap had to make a reader who was not there want to sign up for the next one."
+            slides={[
+              { src: "/images/central-coop/trek-6.jpg", alt: "Salesforce West building entrance" },
+              { src: "/images/central-coop/trek-7.jpg", alt: "Blaze Your Trail sign on a redwood column at Salesforce" },
+              { src: "/images/central-coop/trek-3.jpg", alt: "Northeastern E-TREKS feather flag on the Oakland campus" },
+              { src: "/images/central-coop/trek-5.jpg", alt: "Northeastern N marker on the Oakland campus" },
+            ]}
+            columns={2}
             accent={brand.primary ?? primary}
           />
         )}
