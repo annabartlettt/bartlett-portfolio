@@ -1,27 +1,77 @@
-export const metadata = { title: "Thinking" };
+import Link from "next/link";
+import { client } from "@/sanity/client";
+import { ESSAYS_QUERY } from "@/sanity/queries";
+import type { Essay } from "@/sanity/types";
 
-export default function ThinkingPage() {
+export const metadata = { title: "Thinking" };
+export const revalidate = 60;
+
+function formatDate(d?: string) {
+  if (!d) return null;
+  return new Date(d + "T12:00:00").toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+}
+
+export default async function ThinkingPage() {
+  const essays = await client.fetch<Essay[]>(ESSAYS_QUERY);
+
   return (
     <main className="mx-auto max-w-4xl px-6 py-20">
       <p className="mono text-xs tracking-widest opacity-70">THINKING</p>
-      <h1 className="display mt-4 text-4xl md:text-5xl">Map, don&rsquo;t fix.</h1>
-      <p className="serif mt-6 text-xl italic opacity-85">
-        My method is the same across every folder: find an invisible system,
-        map it instead of pathologizing it, then make it tangible.
+      <h1 className="display mt-4 text-4xl md:text-5xl">
+        Writing about the work of other people.
+      </h1>
+      <p className="serif mt-6 max-w-2xl text-xl italic opacity-85">
+        Essays on design, data, and the things people build to make one
+        legible to the other. Where the folders show what I made, this is
+        where I work out what I think.
       </p>
-      <div className="mono mt-10 grid gap-6 md:grid-cols-3">
-        {[
-          ["STEP 01", "Find the system", "Notice the invisible pattern behind a felt problem."],
-          ["STEP 02", "Map it", "Turn the pattern into a legible structure — a diagram, a model, a gradient."],
-          ["STEP 03", "Make it tangible", "Build the artifact that lets someone else see and use it."],
-        ].map(([n, t, d]) => (
-          <div key={n} className="rounded-xl border border-[var(--kraft)] bg-[var(--paper)] p-5">
-            <p className="text-[11px] tracking-widest opacity-60">{n}</p>
-            <p className="display mt-2 text-lg">{t}</p>
-            <p className="mt-2 text-sm leading-relaxed opacity-80">{d}</p>
-          </div>
-        ))}
-      </div>
+
+      {essays.length === 0 ? (
+        <p className="mt-16 opacity-60">Nothing published here yet.</p>
+      ) : (
+        <div className="mt-14 border-t border-[var(--kraft)]">
+          {essays.map((e) => (
+            <article
+              key={e._id}
+              className="border-b border-[var(--kraft)] py-8"
+            >
+              <div className="mono flex flex-wrap items-center gap-3 text-[11px] tracking-widest opacity-60">
+                {formatDate(e.publishedAt) && <span>{formatDate(e.publishedAt)}</span>}
+                {e.credit && <span>· {e.credit}</span>}
+              </div>
+              <h2 className="display mt-2 text-2xl md:text-3xl">
+                <Link href={`/thinking/${e.slug}`} className="hover:underline">
+                  {e.title}
+                </Link>
+              </h2>
+              {e.dek && (
+                <p className="serif mt-3 max-w-2xl text-lg leading-relaxed opacity-85">
+                  {e.dek}
+                </p>
+              )}
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                {e.topics?.map((t) => (
+                  <span
+                    key={t}
+                    className="mono rounded-full border border-[var(--kraft)] px-2.5 py-1 text-[10px] tracking-widest uppercase opacity-70"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <Link
+                href={`/thinking/${e.slug}`}
+                className="mono mt-4 inline-block text-[11px] tracking-widest underline"
+              >
+                READ ↗
+              </Link>
+            </article>
+          ))}
+        </div>
+      )}
     </main>
   );
 }

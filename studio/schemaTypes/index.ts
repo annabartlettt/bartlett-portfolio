@@ -1,4 +1,5 @@
 import { project } from "./documents/project";
+import { essay } from "./documents/essay";
 import { category } from "./documents/category";
 import { method } from "./documents/method";
 import { siteSettings } from "./documents/siteSettings";
@@ -11,6 +12,7 @@ import { captionedImage } from "./objects/captionedImage";
 export const schemaTypes = [
   // documents
   project,
+  essay,
   category,
   method,
   siteSettings,

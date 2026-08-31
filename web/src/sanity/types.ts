@@ -67,3 +67,17 @@ export type Category = {
   slug: string;
   description?: string;
 };
+
+export type Essay = {
+  _id: string;
+  title: string;
+  slug: string;
+  dek?: string;
+  publishedAt?: string;
+  credit?: string;
+  topics?: string[];
+  heroImage?: SanityImage & { caption?: string; alt?: string };
+  body?: unknown[];
+  sources?: unknown[];
+  relatedProject?: { title?: string; slug?: string };
+};

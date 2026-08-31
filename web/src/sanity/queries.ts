@@ -63,3 +63,40 @@ export const CATEGORIES_QUERY = defineQuery(`
 export const SETTINGS_QUERY = defineQuery(`
   *[_type == "siteSettings"][0]{ title, tagline, about, thinking, email, links[]{ label, url } }
 `);
+
+// Essays for the Thinking index (published only, newest first)
+export const ESSAYS_QUERY = defineQuery(`
+  *[_type == "essay" && status != "draft" && defined(slug.current)]
+    | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    dek,
+    publishedAt,
+    credit,
+    topics,
+    heroImage,
+    "relatedProject": relatedProject->{ title, "slug": slug.current }
+  }
+`);
+
+// One essay
+export const ESSAY_QUERY = defineQuery(`
+  *[_type == "essay" && slug.current == $slug][0]{
+    _id,
+    title,
+    "slug": slug.current,
+    dek,
+    publishedAt,
+    credit,
+    topics,
+    heroImage,
+    body,
+    sources,
+    "relatedProject": relatedProject->{ title, "slug": slug.current }
+  }
+`);
+
+export const ESSAY_SLUGS_QUERY = defineQuery(`
+  *[_type == "essay" && status != "draft" && defined(slug.current)]{ "slug": slug.current }
+`);
