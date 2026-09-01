@@ -10,7 +10,7 @@ export const PARTS = [
   {
     slug: "social",
     title: "Social media",
-    blurb: "Two accounts from zero, and what the numbers did.",
+    blurb: "Two accounts, six months, and what the numbers did.",
   },
   {
     slug: "graphic-design",

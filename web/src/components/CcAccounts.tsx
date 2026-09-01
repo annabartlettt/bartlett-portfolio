@@ -6,6 +6,13 @@
  * linked, and the window I ran them is stated — July to December 2024 — so the
  * numbers underneath have a period attached instead of floating.
  *
+ * The stats are the Central Co-op feed only, not the pair. Two things say so:
+ * Anna's own recollection, and the fact that 60.6K total views over 2,330 views
+ * per post comes to exactly 26 posts — one account's worth of a six-month run,
+ * not two. The label above them says which feed they belong to, because a stat
+ * block sitting under a heading that says "two accounts" will otherwise be read
+ * as covering both.
+ *
  * The two feeds are worth seeing together because they are not the same design
  * problem. Central Co-op talks to a domestic audience in Northeastern's red and
  * black. Global Co-op talks to students about to leave the country, and its work
@@ -45,10 +52,10 @@ export default function CcAccounts({
         >
           TWO FEEDS · JULY&ndash;DECEMBER 2024
         </p>
-        <h2 className="display mt-3 text-3xl">Two accounts, from zero.</h2>
+        <h2 className="display mt-3 text-3xl">Two accounts, six months.</h2>
         <p className="serif mt-4 text-lg leading-relaxed opacity-90">
-          Co-managed for six months and grown into something students, employers
-          and faculty actually used. What went out was decided from the
+          Both co-managed, and both young enough that what went out still
+          decided what the account became. The calendar came from the
           platform&rsquo;s own analytics rather than a hunch &mdash; which posts
           held people, which died, what time of day a co-op student is awake and
           worrying.
@@ -81,7 +88,10 @@ export default function CcAccounts({
 
         {stats && stats.length > 0 && (
           <>
-            <div className="mt-10 flex flex-wrap gap-10">
+            <p className="mono mt-11 text-[11px] tracking-widest opacity-60">
+              @NUCOOPEDUCATION · THE SIX MONTHS I RAN IT
+            </p>
+            <div className="mt-4 flex flex-wrap gap-10">
               {stats.map((st, n) => (
                 <div key={n}>
                   <div className="display text-4xl" style={{ color: accent }}>
@@ -95,7 +105,8 @@ export default function CcAccounts({
             </div>
             <p className="mono mt-6 text-[10px] leading-relaxed tracking-widest opacity-55">
               SOURCE · INSTAGRAM INSIGHTS, READ AT THE END OF THE CO-OP,
-              DECEMBER 2024 · BOTH ACCOUNTS · CO-MANAGED WITH JUSTIN WILLIAMS
+              DECEMBER 2024 · THE CENTRAL CO-OP FEED ONLY · CO-MANAGED WITH
+              JUSTIN WILLIAMS
             </p>
           </>
         )}
