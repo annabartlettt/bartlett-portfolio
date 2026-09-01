@@ -307,6 +307,37 @@ export default async function ProjectPage({
             </div>
           </section>
         )}
+        {slug === "storybridge" && s.number === "03" && (
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <p
+              className="mono text-[12px] font-bold tracking-widest"
+              style={{ color: brand.primary ?? primary }}
+            >
+              THE RULE · AND WHAT THE READER GETS
+            </p>
+            <h2 className="display mt-3 text-3xl">
+              The same control, from the other end.
+            </h2>
+            <p className="serif mt-4 max-w-2xl text-lg leading-relaxed opacity-90">
+              The author previews the levels. The reader chooses one, on the
+              story itself, next to read-aloud and a K&ndash;2 mode. The
+              dropdown says Original, because that is the default and the
+              adaptation is the thing you opt into.
+            </p>
+            <figure className="mt-8 m-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/storybridge/reader-story-toggle.svg"
+                alt="The StoryBridge reader view of a story called The Rematch, with a reading tools bar carrying read aloud, K to 2 mode, reading support and a reading level dropdown set to Original, above the story's title, byline, tags and opening paragraphs"
+                loading="lazy"
+                className="w-full rounded-xl border border-[var(--kraft)]"
+              />
+              <figcaption className="mono mt-3 text-[11px] tracking-wide opacity-60">
+                Reader · story view with the level selector and reading tools
+              </figcaption>
+            </figure>
+          </section>
+        )}
         {slug === "storybridge" && s.number === "04" && (
           <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
             <p
