@@ -203,30 +203,6 @@ export default async function ProjectPage({
             />
           )}
         </section>
-        {slug === "anosity" && s.number === "02" && (
-          <SlideDeck
-            kicker="THE RESEARCH · WHAT THE READING TURNED UP"
-            title="Five ways of looking at it."
-            blurb="Anxiety gets described as feeling too much. The research kept pointing somewhere else: not an excess of feeling but a shortage of information about your own state. These are the visuals that argument was built on, in the order it arrived."
-            decks={[
-              {
-                name: "Research visuals",
-                href: "https://bartlettanna.com/work/anosity",
-                slides: [
-                  { src: "/images/anosity/research/r1.jpg", alt: "Research visual: anxiety as more than worry", label: "More than worry" },
-                  { src: "/images/anosity/research/r2.jpg", alt: "Research visual: the hidden pattern beneath anxious episodes", label: "The hidden pattern" },
-                  { src: "/images/anosity/research/r3.jpg", alt: "Research visual: curious awareness as the alternative to judgement", label: "Curious awareness" },
-                  { src: "/images/anosity/research/r4.jpg", alt: "Research visual: moving from research findings into design decisions", label: "Research to design" },
-                  { src: "/images/anosity/research/r5.jpg", alt: "Research visual: voices from the research", label: "Research voices" },
-                ],
-              },
-            ]}
-            numbered
-            aspect="16 / 9"
-            width={760}
-            accent={brand.primary ?? primary}
-          />
-        )}
         {slug === "anosity" && s.number === "03" && <EarlyLofis />}
         {slug === "boston-symphony-orchestra" && s.number === "04" && (
           <BsoSketch accent={brand.secondary ?? primary} />

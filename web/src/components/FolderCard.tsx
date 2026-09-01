@@ -5,7 +5,7 @@ import { DISCIPLINES } from "./CabinetHome";
 import type { Project } from "@/sanity/types";
 
 /** Slugs with a cover sitting in /public/images/covers/. */
-const LOCAL_COVERS = new Set(["anosity", "storybridge"]);
+const LOCAL_COVERS = new Set(["storybridge"]);
 
 /**
  * One project on the desktop.
