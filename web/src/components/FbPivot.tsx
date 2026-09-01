@@ -1,5 +1,5 @@
 import { FB } from "@/content/financial-blueprint-tokens";
-import { FbPanel } from "./FbKit";
+import { FbPanel, FbPhone, SCREEN_W, SCREEN_H } from "./FbKit";
 
 /**
  * The pivot — RetireMap becomes a dictionary.
@@ -9,6 +9,8 @@ import { FbPanel } from "./FbKit";
  * side is the whole point of the frame — the wall of questions on the left is
  * what the paragraphs on the right are about.
  */
+
+const W = 154;
 
 const BEFORE = [
   {
@@ -46,7 +48,7 @@ export default function FbPivot() {
       kicker="THE PIVOT · RETIREMAP → THE DICTIONARY"
       title="We cut the retirement gate."
     >
-      <div className="grid gap-8 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <div>
           <p
             className="mono text-[9.5px] font-bold tracking-[0.16em]"
@@ -56,21 +58,25 @@ export default function FbPivot() {
           </p>
           <div className="mt-3 flex items-center gap-3">
             {BEFORE.map((b) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={b.src}
-                src={`/images/financial-blueprint/${b.src}`}
-                alt={b.alt}
-                width={390}
-                height={844}
-                loading="lazy"
-                className="w-[46%] max-w-[134px] rounded-lg"
-                style={{ background: FB.screen }}
-              />
+              <FbPhone key={b.src} width={W} bleed>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/images/financial-blueprint/${b.src}`}
+                  alt={b.alt}
+                  width={SCREEN_W}
+                  height={SCREEN_H}
+                  loading="lazy"
+                  style={{
+                    display: "block",
+                    width: SCREEN_W,
+                    height: SCREEN_H,
+                  }}
+                />
+              </FbPhone>
             ))}
             <span
               aria-hidden
-              className="mono text-lg"
+              className="mono shrink-0 text-lg"
               style={{ color: FB.violet }}
             >
               ↠

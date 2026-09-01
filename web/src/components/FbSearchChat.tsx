@@ -1,14 +1,17 @@
 import { FB } from "@/content/financial-blueprint-tokens";
-import { FbPanel, FbScreen, FbRibbon } from "./FbKit";
+import { FbPanel, FbPhone, FbRibbon } from "./FbKit";
 
 /**
  * The two features that became the front door — smart search and the chat bot.
  *
  * Built rather than exported for the same reason as the W-4 flow: the point of
  * the frame is what the interface *says* — a plain-English query and a plain-
- * English answer — and that argument dies at PNG scale. The three notes beside
- * the screens are her copy, verbatim.
+ * English answer — and that argument dies at PNG scale. Screens are authored
+ * at a real iPhone's 390 points and scaled down whole. The three notes beside
+ * them are her copy, verbatim.
  */
+
+const W = 226;
 
 const NOTES = [
   {
@@ -42,8 +45,7 @@ const THREAD = [
 ];
 
 export default function FbSearchChat() {
-  const mono = "mono tracking-[0.14em]";
-  const BODY = "min-h-[340px] w-[196px]";
+  const cardBorder = { borderRadius: 14, border: `1.5px solid ${FB.cream}` };
 
   return (
     <FbPanel
@@ -52,100 +54,149 @@ export default function FbSearchChat() {
       title="Ask in your own words. Get a straight answer."
       wide
     >
-      <div className="grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[auto_minmax(0,1fr)]">
         <div>
           <FbRibbon>
             {/* smart search */}
-            <FbScreen label="SMART SEARCH">
-              <div className={BODY}>
-                <p
-                  className="text-[15px] font-bold"
-                  style={{ color: FB.green }}
-                >
-                  Hi Anna!
-                </p>
-                <p className="mt-1 text-[10.5px] opacity-80">
-                  Have a question?
-                </p>
-                <div
-                  className="mt-3 rounded-lg px-2.5 py-2 text-[12px] font-bold"
-                  style={{ background: FB.card, color: FB.ink }}
-                >
-                  <span aria-hidden>🔍</span> W-4
-                </div>
-
-                <p className="mt-4 text-[11.5px] font-bold">
-                  Suggested quizzes
-                </p>
-                <p className="text-[9.5px]" style={{ color: FB.green }}>
-                  because you asked about W-4
-                </p>
-                <div
-                  className="mt-2 rounded-lg border px-2.5 py-2"
-                  style={{ borderColor: FB.cream }}
-                >
-                  <p className={`${mono} text-[8px] opacity-75`}>
-                    UNIT 6 · FIRST JOB
-                  </p>
-                  <p className="text-[13px] font-bold">Forms</p>
-                </div>
-
-                <p className="mt-4 text-[11.5px] font-bold">
-                  Continue Learning
-                </p>
-                <div
-                  className="mt-2 flex items-center justify-between gap-2 rounded-lg border px-2.5 py-2"
-                  style={{ borderColor: FB.cream }}
-                >
-                  <div>
-                    <p className={`${mono} text-[8px] opacity-75`}>UNIT 1</p>
-                    <p className="text-[12px] font-bold">Budgeting Basics</p>
-                    <p className="text-[9px] opacity-70">70% complete</p>
-                  </div>
-                  <span
-                    className="h-5 w-5 shrink-0 rounded-full"
-                    style={{ background: FB.violet }}
-                    aria-hidden
-                  />
-                </div>
+            <FbPhone width={W} label="SMART SEARCH">
+              <p style={{ fontSize: 30, fontWeight: 700, color: FB.green }}>
+                Hi Anna!
+              </p>
+              <p style={{ fontSize: 15, marginTop: 6, opacity: 0.8 }}>
+                Have a question?
+              </p>
+              <div
+                style={{
+                  marginTop: 16,
+                  padding: "14px 16px",
+                  borderRadius: 14,
+                  background: FB.card,
+                  color: FB.ink,
+                  fontSize: 17,
+                  fontWeight: 700,
+                }}
+              >
+                <span aria-hidden>🔍</span> W-4
               </div>
-            </FbScreen>
+
+              <p style={{ marginTop: 26, fontSize: 19, fontWeight: 700 }}>
+                Suggested quizzes
+              </p>
+              <p style={{ fontSize: 13, marginTop: 2, color: FB.green }}>
+                because you asked about W-4
+              </p>
+              <div
+                style={{ marginTop: 10, padding: "12px 15px", ...cardBorder }}
+              >
+                <p
+                  className="mono"
+                  style={{
+                    fontSize: 10,
+                    letterSpacing: "0.14em",
+                    opacity: 0.75,
+                  }}
+                >
+                  UNIT 6 · FIRST JOB
+                </p>
+                <p style={{ fontSize: 21, fontWeight: 700, marginTop: 2 }}>
+                  Forms
+                </p>
+              </div>
+
+              <p style={{ marginTop: 26, fontSize: 19, fontWeight: 700 }}>
+                Continue Learning
+              </p>
+              <div
+                style={{
+                  marginTop: 10,
+                  padding: "12px 15px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 10,
+                  ...cardBorder,
+                }}
+              >
+                <div>
+                  <p
+                    className="mono"
+                    style={{
+                      fontSize: 10,
+                      letterSpacing: "0.14em",
+                      opacity: 0.75,
+                    }}
+                  >
+                    UNIT 1
+                  </p>
+                  <p style={{ fontSize: 19, fontWeight: 700, marginTop: 2 }}>
+                    Budgeting Basics
+                  </p>
+                  <p style={{ fontSize: 13, marginTop: 3, opacity: 0.7 }}>
+                    70% complete
+                  </p>
+                </div>
+                <span
+                  aria-hidden
+                  style={{
+                    flexShrink: 0,
+                    width: 34,
+                    height: 34,
+                    borderRadius: 999,
+                    background: FB.violet,
+                  }}
+                />
+              </div>
+            </FbPhone>
 
             {/* the chat bot */}
-            <FbScreen label="CHAT BOT">
-              <div className={`${BODY} flex flex-col`}>
-                <p
-                  className="text-[13px] font-bold"
-                  style={{ color: FB.green }}
-                >
+            <FbPhone width={W} label="CHAT BOT">
+              <div
+                style={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <p style={{ fontSize: 22, fontWeight: 700, color: FB.green }}>
                   Your financial helper
                 </p>
-                <div className="mt-3 flex-1 space-y-2">
+                <div style={{ flex: 1, marginTop: 20 }}>
                   {THREAD.map((m) => (
                     <p
                       key={m.text}
-                      className={`rounded-lg px-2.5 py-2 text-[9.5px] leading-snug ${
-                        m.from === "user" ? "ml-6 font-bold" : "mr-5"
-                      }`}
-                      style={
-                        m.from === "user"
-                          ? { background: FB.violet, color: FB.cream }
-                          : { background: FB.card, color: FB.ink }
-                      }
+                      style={{
+                        marginBottom: 12,
+                        marginLeft: m.from === "user" ? 56 : 0,
+                        marginRight: m.from === "user" ? 0 : 48,
+                        padding: "12px 15px",
+                        borderRadius: 14,
+                        fontSize: 14,
+                        lineHeight: 1.34,
+                        fontWeight: m.from === "user" ? 700 : 400,
+                        background: m.from === "user" ? FB.violet : FB.card,
+                        color: m.from === "user" ? FB.cream : FB.ink,
+                      }}
                     >
                       {m.text}
                     </p>
                   ))}
                 </div>
                 <div
-                  className="mt-3 flex items-center justify-between rounded-full px-3 py-2 text-[9.5px]"
-                  style={{ background: FB.screenInset }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "14px 18px",
+                    borderRadius: 999,
+                    background: FB.screenInset,
+                    fontSize: 14,
+                  }}
                 >
-                  <span className="opacity-60">Ask anything…</span>
+                  <span style={{ opacity: 0.6 }}>Ask anything…</span>
                   <span aria-hidden>🎙</span>
                 </div>
               </div>
-            </FbScreen>
+            </FbPhone>
           </FbRibbon>
         </div>
 

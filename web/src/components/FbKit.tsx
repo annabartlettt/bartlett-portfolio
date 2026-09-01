@@ -6,9 +6,8 @@ import { FB } from "@/content/financial-blueprint-tokens";
  *
  * Her Figma builds each visual the same way: a lavender panel carrying a mono
  * kicker, a serif headline and an optional standfirst, with the artwork below.
- * Inside those panels the app is always the same dark purple rounded screen.
- * Both are here so the five visuals stay identical to each other rather than
- * five near-misses.
+ * Inside those panels the app is always the same phone. Both are here so the
+ * five visuals stay identical to each other rather than five near-misses.
  */
 
 export function FbPanel({
@@ -64,24 +63,114 @@ export function FbPanel({
   );
 }
 
-/** One app screen: the dark purple card the product lives inside. */
-export function FbScreen({
+/* ---------------------------------------------------------------------------
+ * The phone.
+ *
+ * Every screen is authored at a real iPhone's 390 x 844 and then scaled down
+ * as a whole, rather than being redrawn small. Two reasons: the screens keep
+ * true device proportions at any display width, and the interface type can be
+ * written at the sizes iOS actually uses — 17px body, 30px titles — instead of
+ * the 8px guesses that fitting a 190px box forced. Her own exported screens
+ * are 390 x 844, so the built ones and the RetireMap images now sit in the
+ * same device at the same scale.
+ * ------------------------------------------------------------------------ */
+
+/** iPhone logical points. */
+export const SCREEN_W = 390;
+export const SCREEN_H = 844;
+const BEZEL = 12;
+const DEVICE_W = SCREEN_W + BEZEL * 2;
+const DEVICE_H = SCREEN_H + BEZEL * 2;
+
+export function FbPhone({
   children,
   label,
-  className = "",
+  width = 200,
+  /** Set for a full-bleed screen (an exported image) — drops the safe-area padding. */
+  bleed = false,
 }: {
   children: ReactNode;
-  /** The mono caption printed under the screen in her storyboards. */
   label?: string;
-  className?: string;
+  width?: number;
+  bleed?: boolean;
 }) {
+  const scale = width / DEVICE_W;
+
   return (
-    <div className={`flex shrink-0 flex-col ${className}`}>
-      <div
-        className="flex flex-col rounded-xl p-3.5"
-        style={{ background: FB.screen, color: FB.cream }}
-      >
-        {children}
+    <div className="shrink-0" style={{ width }}>
+      <div style={{ width, height: DEVICE_H * scale, position: "relative" }}>
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: DEVICE_W,
+            height: DEVICE_H,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+            background: "#120A28",
+            borderRadius: 58,
+            padding: BEZEL,
+          }}
+        >
+          <div
+            style={{
+              position: "relative",
+              width: SCREEN_W,
+              height: SCREEN_H,
+              borderRadius: 46,
+              overflow: "hidden",
+              background: FB.screen,
+              color: FB.cream,
+            }}
+          >
+            {/* Dynamic Island — only over built screens. Her exported ones
+                already contain their own status bar and tab bar, so an island
+                and a home indicator would sit on top of real content. */}
+            {!bleed && (
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  top: 12,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: 120,
+                  height: 35,
+                  borderRadius: 20,
+                  background: "#0B0618",
+                  zIndex: 2,
+                }}
+              />
+            )}
+            <div
+              style={
+                bleed
+                  ? { width: SCREEN_W, height: SCREEN_H }
+                  : { height: SCREEN_H, padding: "66px 22px 34px" }
+              }
+            >
+              {children}
+            </div>
+            {/* home indicator */}
+            {!bleed && (
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  bottom: 9,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: 140,
+                  height: 5,
+                  borderRadius: 3,
+                  background: "rgba(255,244,227,0.5)",
+                  zIndex: 2,
+                }}
+              />
+            )}
+          </div>
+        </div>
       </div>
       {label && (
         <p
@@ -96,7 +185,7 @@ export function FbScreen({
 }
 
 /**
- * A horizontally scrolling strip of screens.
+ * A horizontally scrolling strip of phones.
  *
  * Her storyboards are six screens wide, which no case-study column can hold.
  * Rather than shrink them past legibility they scroll — so the strip has to
@@ -115,7 +204,7 @@ export function FbRibbon({
   return (
     <>
       <div className="relative">
-        <div className="no-scrollbar -mx-5 flex gap-3 overflow-x-auto px-5 pb-1 sm:-mx-8 sm:px-8">
+        <div className="no-scrollbar -mx-5 flex items-start gap-3 overflow-x-auto px-5 pb-1 sm:-mx-8 sm:px-8">
           {children}
         </div>
         {hint && (
@@ -141,12 +230,12 @@ export function FbRibbon({
 }
 
 /** The violet chevron her frames use between storyboard steps. */
-export function FbArrow() {
+export function FbArrow({ top = 90 }: { top?: number }) {
   return (
     <span
       aria-hidden
-      className="hidden shrink-0 self-center text-lg sm:block"
-      style={{ color: FB.violet }}
+      className="hidden shrink-0 text-lg sm:block"
+      style={{ color: FB.violet, marginTop: top }}
     >
       →
     </span>

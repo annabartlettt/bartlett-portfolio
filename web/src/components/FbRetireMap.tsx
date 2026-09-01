@@ -1,5 +1,4 @@
-import { FB } from "@/content/financial-blueprint-tokens";
-import { FbPanel, FbRibbon } from "./FbKit";
+import { FbPanel, FbRibbon, FbPhone, SCREEN_W, SCREEN_H } from "./FbKit";
 
 /**
  * The concept before the pivot.
@@ -7,9 +6,13 @@ import { FbPanel, FbRibbon } from "./FbKit";
  * Unlike the other Financial Blueprint visuals, these six screens are real
  * artefacts — the original RetireMap app, exported from her Figma as the raw
  * source images they already were. Rebuilding them as markup would have meant
- * redrawing work she did in 2024, so the screens stay images and only the
- * frame around them is built.
+ * redrawing work she did in 2024, so the screens stay images.
+ *
+ * They are 390 x 844 natively, which is exactly what FbPhone expects, so they
+ * drop into the same device shell as the built screens at the same scale.
  */
+
+const W = 186;
 
 const SCREENS = [
   {
@@ -55,24 +58,17 @@ export default function FbRetireMap() {
     >
       <FbRibbon hint="SIX SCREENS · SCROLL →">
         {SCREENS.map((s) => (
-          <div key={s.src} className="w-[176px] shrink-0">
+          <FbPhone key={s.src} width={W} label={s.label} bleed>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={`/images/financial-blueprint/${s.src}`}
               alt={s.alt}
-              width={390}
-              height={844}
+              width={SCREEN_W}
+              height={SCREEN_H}
               loading="lazy"
-              className="w-full max-w-full rounded-xl"
-              style={{ background: FB.screen }}
+              style={{ display: "block", width: SCREEN_W, height: SCREEN_H }}
             />
-            <p
-              className="mono mt-2 text-[9.5px] tracking-[0.14em]"
-              style={{ color: FB.muted }}
-            >
-              {s.label}
-            </p>
-          </div>
+          </FbPhone>
         ))}
       </FbRibbon>
     </FbPanel>

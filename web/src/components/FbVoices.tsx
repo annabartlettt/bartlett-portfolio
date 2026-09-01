@@ -33,7 +33,7 @@ export default function FbVoices() {
       title="One user, sharply drawn."
       blurb="Financial Blueprint designs for one moment: the first time a young adult has to manage money alone."
     >
-      <div className="grid gap-4 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)]">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.6fr)]">
         {/* the persona */}
         <div
           className="rounded-xl border p-5"
