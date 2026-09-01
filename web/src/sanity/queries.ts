@@ -15,6 +15,7 @@ export const PROJECTS_QUERY = defineQuery(`
     featured,
     priority,
     coverImage,
+    coverSub,
     "category": category->{ name, "slug": slug.current },
     "methods": methods[]->name
   }

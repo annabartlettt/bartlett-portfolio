@@ -107,3 +107,172 @@ a:not(.nav-link):hover { color: var(--ink); }
   font-family: var(--font-playfair), Georgia, serif;
   font-weight: 700;
 }
+
+/* ══════════════════════════════════════════════════════════
+   V2 Research Cabinet — homepage
+   Ported from the design artifact. Namespaced `rc-` so none of
+   it leaks into the case-study or thinking templates, which still
+   run the earlier, lighter layout.
+   ══════════════════════════════════════════════════════════ */
+:root {
+  --lav: #b7acd6; /* emotional & internal */
+  --sage: #a3b18a; /* systems & access */
+  --pink-soft: #ffc2d0; /* learning & narrative — the warmth pink, not the
+                           darkened --pink the nav uses for current state */
+  --card: #fbf6ec;
+  --kraft-dk: #c4b49e;
+  --muted: #8c8578;
+  --accent: var(--lav);
+}
+
+.rc-wrap {
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3.4vw, 48px);
+}
+
+/* atoms */
+.rc-eyebrow { font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--kraft-dk); margin: 0 }
+.rc-eyebrow b { color: var(--ink); font-weight: 400 }
+.rc-meta { font-family: var(--font-mono), monospace; font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink); display: flex; gap: 7px; align-items: baseline }
+.rc-meta.tangible { color: var(--kraft-dk) }
+.rc-meta .g { font-size: 9px }
+.rc-chip { display: inline-block; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--kraft); color: var(--muted); white-space: nowrap }
+.rc-btn { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono), monospace; font-size: 11.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; padding: 13px 22px; border-radius: 5px; border: 1.5px solid transparent; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, background .18s ease }
+.rc-btn.primary { background: var(--ink); color: var(--cream) }
+.rc-btn.pink { background: var(--pink-soft); color: var(--charcoal); border-color: #f2a9bb }
+.rc-btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink) }
+.rc-btn.plain { background: transparent; color: var(--muted); padding-left: 4px; font-weight: 400 }
+.rc-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 0 -1px rgba(44,42,39,.16) }
+.rc-btn.plain:hover { box-shadow: none; color: var(--ink) }
+.rc-hand { font-family: var(--font-hand), cursive; font-size: 21px; line-height: 1.24; color: var(--ink); font-weight: 500 }
+
+/* layered cabinet edge */
+.rc-edge { display: flex; flex-direction: column; gap: 3px; margin-bottom: 26px }
+.rc-edge i { display: block; height: 1px; background: var(--kraft) }
+.rc-edge i:nth-child(2) { opacity: .62; margin-right: 9% }
+.rc-edge i:nth-child(3) { opacity: .34; margin-right: 19% }
+
+/* in-page drawer tabs */
+.rc-rim { position: sticky; top: 49px; z-index: 30; background: var(--cream); border-bottom: 1px solid var(--kraft) }
+.rc-rim .rc-wrap { display: flex; align-items: flex-end; justify-content: flex-start; gap: 20px; padding-top: 12px }
+.rc-rim .rc-id { font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; padding-bottom: 13px }
+.rc-rim .rc-id b { color: var(--ink); font-weight: 400 }
+.rc-rimtabs { display: flex; gap: 3px; align-items: flex-end }
+.rc-rimtab { position: relative; font-family: var(--font-mono), monospace; font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); background: var(--card); border: 1px solid var(--kraft); border-bottom: none; border-radius: 5px 5px 0 0; padding: 9px 15px 10px; transition: transform .18s ease, border-color .18s ease, color .18s ease }
+.rc-rimtab:hover { transform: translateY(-3px); border-color: var(--kraft-dk); color: var(--charcoal) }
+.rc-rimtab[aria-current="page"] { background: var(--cream); color: var(--ink); margin-bottom: -1px; padding-bottom: 11px }
+.rc-rimtab[aria-current="page"]::before { content: ""; position: absolute; left: 9px; right: 9px; top: 4px; height: 2.5px; border-radius: 2px; background: var(--ink) }
+
+/* hero */
+.rc-hero { padding: clamp(40px,6vw,84px) 0 clamp(52px,7vw,92px) }
+.rc-hero .rc-wrap, .rc-dhead, .rc-workgrid { display: grid; grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr); gap: clamp(30px,5vw,72px); align-items: start }
+.rc-hero h1 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(27px,3.1vw,44px); line-height: 1.1; letter-spacing: -.024em; margin: 20px 0 22px; text-wrap: balance }
+.rc-hero h1 span { color: var(--ink) }
+.rc-lede { font-size: clamp(16px,1.28vw,18.5px); font-weight: 300; line-height: 1.58; max-width: 36ch; margin: 0 0 28px }
+.rc-note { display: flex; gap: 11px; align-items: flex-start; margin: 0 0 32px }
+.rc-note svg { flex: 0 0 auto; margin-top: 9px }
+.rc-note .rc-hand { transform: rotate(-1.6deg); transform-origin: left center }
+.rc-acts { display: flex; flex-wrap: wrap; gap: 12px; align-items: center }
+
+/* hero folder */
+.rc-tabrow { display: flex; flex-wrap: wrap; gap: 3px; align-items: flex-end; padding-left: 6px }
+.rc-ftab { font-family: var(--font-mono), monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--charcoal); background: var(--tabc, var(--lav)); border: 1px solid rgba(44,42,39,.16); border-bottom: none; border-radius: 5px 5px 0 0; padding: 8px 12px 9px; cursor: pointer; opacity: .62; transition: transform .2s ease, opacity .2s ease }
+.rc-ftab:hover { transform: translateY(-3px); opacity: .85 }
+.rc-ftab[aria-selected="true"] { opacity: 1; transform: translateY(-2px); padding-bottom: 12px; box-shadow: 0 -1px 0 rgba(44,42,39,.1) }
+.rc-folder { background: var(--card); border: 1px solid var(--kraft); border-radius: 3px 9px 9px 9px; padding: clamp(16px,1.6vw,22px); box-shadow: 0 1px 0 var(--kraft), 0 10px 22px -18px rgba(44,42,39,.5); min-height: 400px; display: flex; flex-direction: column }
+.rc-fhead { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 13px }
+.rc-fhead .open { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono), monospace; font-size: 10.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--ink) }
+.rc-dot { width: 8px; height: 8px; border-radius: 99px; background: var(--accent); flex: 0 0 auto; transition: background .3s ease }
+.rc-fig { font-family: var(--font-mono), monospace; font-size: 10.5px; letter-spacing: .13em; color: var(--kraft-dk) }
+.rc-dash { height: 0; border-top: 1px dashed var(--kraft) }
+.rc-stages { flex: 1; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: center; gap: 6px; padding: 22px 0 8px }
+.rc-stage { display: flex; flex-direction: column; align-items: center; gap: 16px }
+.rc-stage svg { width: 100%; height: auto; max-width: 118px; overflow: visible }
+.rc-stage .cap { font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--muted) }
+.rc-arrow { color: var(--kraft-dk); font-size: 15px; padding-bottom: 26px }
+.rc-fcap { font-family: var(--font-mono), monospace; font-size: 10.5px; letter-spacing: .04em; color: var(--muted); margin: 14px 0 0; padding-top: 14px; border-top: 1px dashed var(--kraft) }
+
+/* drawers */
+.rc-drawer { padding: clamp(52px,7vw,96px) 0 0 }
+.rc-dhead { align-items: end; margin-bottom: 36px }
+.rc-dhead h2 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(29px,3.3vw,46px); line-height: 1.04; letter-spacing: -.028em; margin: 12px 0 0; text-wrap: balance }
+.rc-dhead .sub { font-family: var(--font-serif), Georgia, serif; font-style: italic; font-weight: 300; color: var(--muted); margin: 0; max-width: 44ch; font-size: 16.5px }
+.rc-plate { position: sticky; top: 132px; display: flex; flex-direction: column; gap: 18px }
+.rc-key { display: flex; flex-direction: column; gap: 9px; padding-top: 16px; border-top: 1px dashed var(--kraft) }
+.rc-keyrow { display: flex; gap: 10px; align-items: baseline; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
+.rc-keyrow .sw { width: 11px; height: 11px; border-radius: 2px; flex: 0 0 auto; position: relative; top: 1px }
+.rc-callout { border: 1px dashed var(--ink); background: rgba(54,63,158,.045); border-radius: 7px; padding: 18px; display: flex; flex-direction: column; gap: 11px }
+.rc-callout .rc-hand { font-size: 19px }
+.rc-callout p { margin: 0; font-size: 14.5px; font-weight: 300; line-height: 1.55; color: var(--muted) }
+.rc-folders { display: flex; flex-direction: column; gap: 16px }
+
+/* project folder */
+.rc-pf { position: relative; display: block }
+/* The whole folder is one link, so the global a:hover ink rule would
+   repaint every word in it. The card moves on hover; the text stays put. */
+.rc-pf:hover, .rc-pf:hover h3, .rc-pf:hover .poetic, .rc-pf:hover .rc-revbox p { color: var(--charcoal) }
+.rc-pf .ptab { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono), monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--charcoal); background: var(--pfc, var(--sage)); border: 1px solid rgba(44,42,39,.16); border-bottom: none; border-radius: 5px 5px 0 0; padding: 7px 13px 8px; margin-left: 6px; transition: transform .22s ease }
+.rc-pf .pbody { background: var(--card); border: 1px solid var(--kraft); border-radius: 3px 9px 9px 9px; padding: clamp(18px,1.7vw,26px); transition: transform .28s cubic-bezier(.22,.61,.36,1), box-shadow .28s ease, border-color .28s ease }
+.rc-pf:hover .pbody, .rc-pf:focus-visible .pbody { transform: translateX(6px); border-color: var(--kraft-dk); box-shadow: -3px 6px 18px -12px rgba(44,42,39,.55) }
+.rc-pf:hover .ptab, .rc-pf:focus-visible .ptab { transform: translate(6px,-3px) }
+.rc-pfmeta { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin-bottom: 11px }
+.rc-pfmeta .lhs { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink) }
+.rc-pfmeta .lhs .sep { color: var(--kraft-dk); margin: 0 5px }
+.rc-pfmeta .rhs { font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--kraft-dk); white-space: nowrap; transition: color .22s ease }
+.rc-pf:hover .rc-pfmeta .rhs { color: var(--ink) }
+.rc-pf h3 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(21px,1.85vw,27px); line-height: 1.08; letter-spacing: -.022em; margin: 0 }
+.rc-pf .poetic { font-family: var(--font-serif), Georgia, serif; font-style: italic; font-weight: 300; margin: 9px 0 0; max-width: 52ch; opacity: .86 }
+.rc-slot { margin-top: 17px; background: rgba(54,63,158,.055); border: 1px solid rgba(54,63,158,.1); border-radius: 5px; aspect-ratio: 16/7; display: grid; place-items: center; overflow: hidden }
+.rc-slot img { width: 100%; height: 100%; object-fit: cover; display: block }
+.rc-slot .lab { font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); opacity: .5; text-align: center; line-height: 1.9 }
+.rc-reveal { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .34s cubic-bezier(.22,.61,.36,1), opacity .28s ease, margin .34s ease; margin-top: 0 }
+.rc-reveal > div { overflow: hidden }
+.rc-pf:hover .rc-reveal, .rc-pf:focus-visible .rc-reveal { grid-template-rows: 1fr; opacity: 1; margin-top: 17px }
+.rc-revbox { border: 1px dashed var(--kraft); border-radius: 6px }
+.rc-revbox .cell { padding: 12px 15px }
+.rc-revbox .cell + .cell { border-top: 1px dashed var(--kraft) }
+.rc-revbox p { margin: 5px 0 0; font-size: 14.5px; font-weight: 300; line-height: 1.5 }
+.rc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 15px }
+
+/* thinking index */
+.rc-idx { display: flex; flex-direction: column; border-top: 1px dashed var(--kraft) }
+.rc-idx a { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: baseline; padding: 14px 6px; border-bottom: 1px dashed var(--kraft); transition: background .2s ease, padding .2s ease }
+.rc-idx a:hover { background: rgba(54,63,158,.045); padding-left: 12px }
+.rc-idx .num { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .1em; color: var(--ink) }
+/* Deks run long; the index is a list of titles, not an excerpt reader. */
+.rc-idx .ttl { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden }
+.rc-idx .kind { font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); text-align: right }
+.rc-idx .kind.wip { color: var(--ink) }
+
+/* closing */
+.rc-closing { padding: clamp(56px,7vw,100px) 0 22px }
+.rc-inner { background: var(--card); border: 1px solid var(--kraft); border-radius: 9px; padding: clamp(26px,3.6vw,48px); display: grid; grid-template-columns: minmax(0,1fr) minmax(0,.8fr); gap: clamp(24px,4vw,56px); align-items: center }
+.rc-closing h2 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(26px,3vw,40px); line-height: 1.06; letter-spacing: -.026em; margin: 14px 0; text-wrap: balance }
+.rc-closing h2 span { color: var(--ink) }
+
+/* drawers opening on scroll */
+[data-rc-reveal] { opacity: 1; transform: none }
+.rc-anim [data-rc-reveal] { opacity: .001; transform: translateY(16px); transition: opacity .72s cubic-bezier(.22,.61,.36,1), transform .72s cubic-bezier(.22,.61,.36,1) }
+.rc-anim [data-rc-reveal].rc-in { opacity: 1; transform: none }
+
+@media (prefers-reduced-motion: reduce) {
+  .rc-anim [data-rc-reveal] { opacity: 1; transform: none; transition: none }
+  .rc-btn, .rc-pf .pbody, .rc-pf .ptab, .rc-rimtab, .rc-ftab { transition: none }
+}
+
+@media (max-width: 980px) {
+  .rc-hero .rc-wrap, .rc-dhead, .rc-workgrid, .rc-inner { grid-template-columns: 1fr }
+  .rc-plate { position: static }
+  .rc-stages { grid-template-columns: 1fr 1fr; gap: 22px 10px }
+  .rc-arrow { display: none }
+  .rc-rim { position: static }
+  .rc-rim .rc-wrap { flex-wrap: wrap; gap: 10px }
+  .rc-rim .rc-id { padding-bottom: 6px }
+  /* no hover on touch — show the payload */
+  .rc-reveal { grid-template-rows: 1fr; opacity: 1; margin-top: 17px }
+}
+@media (max-width: 560px) {
+  .rc-tabrow .rc-ftab:nth-child(n+5) { display: none }
+  .rc-folder { min-height: 0 }
+}
