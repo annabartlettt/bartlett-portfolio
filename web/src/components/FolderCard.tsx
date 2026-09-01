@@ -4,6 +4,9 @@ import { urlFor } from "@/sanity/image";
 import { DISCIPLINES } from "./CabinetHome";
 import type { Project } from "@/sanity/types";
 
+/** Slugs with a cover sitting in /public/images/covers/. */
+const LOCAL_COVERS = new Set(["anosity", "storybridge"]);
+
 /**
  * One project on the desktop.
  *
@@ -14,9 +17,13 @@ import type { Project } from "@/sanity/types";
  */
 export default function FolderCard({ p }: { p: Project }) {
   const primary = p.brand?.primary ?? "#363f9e";
+  // Sanity cover if there is one, otherwise a file dropped in
+  // /public/images/covers/<slug>.jpg, otherwise the folder icon.
   const cover = p.coverImage?.asset
     ? urlFor(p.coverImage).width(900).height(640).fit("crop").auto("format").url()
-    : null;
+    : LOCAL_COVERS.has(p.slug)
+      ? `/images/covers/${p.slug}.jpg`
+      : null;
 
   const tags = (p.disciplines ?? [])
     .map((v) => DISCIPLINES.find((d) => d.value === v))
