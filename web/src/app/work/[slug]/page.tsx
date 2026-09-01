@@ -7,6 +7,7 @@ import EarlyLofis from "@/components/EarlyLofis";
 import BsoSketch from "@/components/BsoSketch";
 import LoomEmbed from "@/components/LoomEmbed";
 import SlideDeck from "@/components/SlideDeck";
+import TwoSides from "@/components/TwoSides";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -206,6 +207,25 @@ export default async function ProjectPage({
         {slug === "anosity" && s.number === "03" && <EarlyLofis />}
         {slug === "boston-symphony-orchestra" && s.number === "04" && (
           <BsoSketch accent={brand.secondary ?? primary} />
+        )}
+        {slug === "storybridge" && s.number === "01" && (
+          <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+            <p
+              className="mono text-[12px] font-bold tracking-widest"
+              style={{ color: brand.primary ?? primary }}
+            >
+              THE DISCONNECT · TWO PROBLEMS
+            </p>
+            <h2 className="display mt-3 text-3xl">
+              Two problems that solve each other.
+            </h2>
+            <p className="serif mt-4 max-w-2xl text-lg leading-relaxed opacity-90">
+              Younger students read more when a story feels personal. Older
+              students write better when somebody is actually going to read it.
+              Each shortage is the other one&rsquo;s supply.
+            </p>
+            <TwoSides accent={brand.primary ?? primary} />
+          </section>
         )}
         {slug === "storybridge" && s.number === "01" && (
           <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
