@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #f4eee0;
-  --paper: #fcfaf6;
-  --cream2: #efe8d8;
-  --kraft: #d8cdba;
-  --charcoal: #2c2a27;
-  --ink: #363f9e;
+  --cream: #f6eeda;
+  --paper: #fdfaf2;
+  --cream2: #efe6cf;
+  --kraft: #dbc9a8;
+  --charcoal: #292723;
+  --ink: #2f3ab5;
   /* Pink marks the thing you are currently on. Darkened from the mobile
      nav's soft pink, which was set on indigo and would vanish on cream. */
-  --pink: #C24A79;
+  --pink: #d43f7d;
 }
 
 html,
@@ -115,13 +115,13 @@ a:not(.nav-link):hover { color: var(--ink); }
    run the earlier, lighter layout.
    ══════════════════════════════════════════════════════════ */
 :root {
-  --lav: #b7acd6; /* emotional & internal */
-  --sage: #a3b18a; /* systems & access */
-  --pink-soft: #ffc2d0; /* learning & narrative — the warmth pink, not the
+  --lav: #a996e2; /* emotional & internal */
+  --sage: #93b56e; /* systems & access */
+  --pink-soft: #ffb1c6; /* learning & narrative — the warmth pink, not the
                            darkened --pink the nav uses for current state */
-  --card: #fbf6ec;
-  --kraft-dk: #c4b49e;
-  --muted: #8c8578;
+  --card: #fdf6e6;
+  --kraft-dk: #c2a87e;
+  --muted: #7d7261;
   --accent: var(--lav);
 }
 
@@ -148,13 +148,13 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-hand { font-family: var(--font-hand), cursive; font-size: 21px; line-height: 1.24; color: var(--ink); font-weight: 500 }
 
 /* layered cabinet edge */
-.rc-edge { display: flex; flex-direction: column; gap: 3px; margin-bottom: 26px }
+.rc-edge { display: flex; flex-direction: column; gap: 3px; margin-bottom: 26px; transform: translate3d(0, var(--rc-drift, 0px), 0) }
 .rc-edge i { display: block; height: 1px; background: var(--kraft) }
 .rc-edge i:nth-child(2) { opacity: .62; margin-right: 9% }
 .rc-edge i:nth-child(3) { opacity: .34; margin-right: 19% }
 
 /* in-page drawer tabs */
-.rc-rim { position: sticky; top: 49px; z-index: 30; background: var(--cream); border-bottom: 1px solid var(--kraft) }
+.rc-rim { position: sticky; top: 0; z-index: 30; background: var(--cream); border-bottom: 1px solid var(--kraft) }
 .rc-rim .rc-wrap { display: flex; align-items: flex-end; justify-content: flex-start; gap: 20px; padding-top: 12px }
 .rc-rim .rc-id { font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; padding-bottom: 13px }
 .rc-rim .rc-id b { color: var(--ink); font-weight: 400 }
@@ -193,16 +193,35 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-arrow { color: var(--kraft-dk); font-size: 15px; padding-bottom: 26px }
 .rc-fcap { font-family: var(--font-mono), monospace; font-size: 10.5px; letter-spacing: .04em; color: var(--muted); margin: 14px 0 0; padding-top: 14px; border-top: 1px dashed var(--kraft) }
 
+/* hero folder — the slideshow */
+.rc-stage { position: relative; flex: 1; min-height: 260px; margin: 14px 0 0; border-radius: 6px; overflow: hidden; background: rgba(47,58,181,.06); border: 1px solid rgba(47,58,181,.13) }
+.rc-stage-empty { display: grid; place-items: center; text-align: center; padding: 24px }
+.rc-stage-empty .lab { font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); opacity: .5; line-height: 1.9 }
+.rc-slide { position: absolute; inset: 0; display: block; transition: opacity .62s cubic-bezier(.22,.61,.36,1) }
+.rc-slide img { width: 100%; height: 100%; object-fit: cover; display: block }
+.rc-navbtn { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 99px; border: 1px solid var(--kraft); background: color-mix(in srgb, var(--card) 88%, transparent); color: var(--charcoal); font-size: 14px; line-height: 1; cursor: pointer; opacity: 0; transition: opacity .2s ease, transform .2s ease; backdrop-filter: blur(3px) }
+.rc-navbtn.prev { left: 10px } .rc-navbtn.next { right: 10px }
+.rc-folder:hover .rc-navbtn, .rc-navbtn:focus-visible { opacity: 1 }
+.rc-navbtn:hover { transform: translateY(-50%) scale(1.06) }
+.rc-slidemeta { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 13px 2px 0 }
+.rc-slidemeta a { display: flex; align-items: baseline; gap: 10px; min-width: 0 }
+.rc-slidemeta .mono { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .12em }
+.rc-slidemeta strong { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: 17px; letter-spacing: -.018em }
+.rc-slidemeta .cat { font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); white-space: nowrap }
+.rc-dots { display: flex; gap: 6px; padding: 11px 2px 0 }
+.rc-dots button { width: 22px; height: 4px; border-radius: 99px; border: 0; padding: 0; cursor: pointer; background: var(--kraft); transition: background .2s ease }
+.rc-dots button[aria-selected="true"] { background: var(--ink) }
+
 /* drawers */
 .rc-drawer { padding: clamp(52px,7vw,96px) 0 0 }
 .rc-dhead { align-items: end; margin-bottom: 36px }
 .rc-dhead h2 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(29px,3.3vw,46px); line-height: 1.04; letter-spacing: -.028em; margin: 12px 0 0; text-wrap: balance }
 .rc-dhead .sub { font-family: var(--font-serif), Georgia, serif; font-style: italic; font-weight: 300; color: var(--muted); margin: 0; max-width: 44ch; font-size: 16.5px }
-.rc-plate { position: sticky; top: 132px; display: flex; flex-direction: column; gap: 18px }
+.rc-plate { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 18px }
 .rc-key { display: flex; flex-direction: column; gap: 9px; padding-top: 16px; border-top: 1px dashed var(--kraft) }
 .rc-keyrow { display: flex; gap: 10px; align-items: baseline; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
 .rc-keyrow .sw { width: 11px; height: 11px; border-radius: 2px; flex: 0 0 auto; position: relative; top: 1px }
-.rc-callout { border: 1px dashed var(--ink); background: rgba(54,63,158,.045); border-radius: 7px; padding: 18px; display: flex; flex-direction: column; gap: 11px }
+.rc-callout { border: 1px dashed var(--ink); background: rgba(47,58,181,.055); border-radius: 7px; padding: 18px; display: flex; flex-direction: column; gap: 11px }
 .rc-callout .rc-hand { font-size: 19px }
 .rc-callout p { margin: 0; font-size: 14.5px; font-weight: 300; line-height: 1.55; color: var(--muted) }
 .rc-folders { display: flex; flex-direction: column; gap: 16px }
@@ -212,10 +231,10 @@ a:not(.nav-link):hover { color: var(--ink); }
 /* The whole folder is one link, so the global a:hover ink rule would
    repaint every word in it. The card moves on hover; the text stays put. */
 .rc-pf:hover, .rc-pf:hover h3, .rc-pf:hover .poetic, .rc-pf:hover .rc-revbox p { color: var(--charcoal) }
-.rc-pf .ptab { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono), monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--charcoal); background: var(--pfc, var(--sage)); border: 1px solid rgba(44,42,39,.16); border-bottom: none; border-radius: 5px 5px 0 0; padding: 7px 13px 8px; margin-left: 6px; transition: transform .22s ease }
+.rc-pf .ptab { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono), monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--charcoal); background: var(--pfc, var(--sage)); border: 1px solid rgba(44,42,39,.16); border-bottom: none; border-radius: 5px 5px 0 0; padding: 7px 13px 8px; margin-left: 6px; transform: translate3d(0, var(--rc-drift, 0px), 0); transition: transform .22s ease }
 .rc-pf .pbody { background: var(--card); border: 1px solid var(--kraft); border-radius: 3px 9px 9px 9px; padding: clamp(18px,1.7vw,26px); transition: transform .28s cubic-bezier(.22,.61,.36,1), box-shadow .28s ease, border-color .28s ease }
 .rc-pf:hover .pbody, .rc-pf:focus-visible .pbody { transform: translateX(6px); border-color: var(--kraft-dk); box-shadow: -3px 6px 18px -12px rgba(44,42,39,.55) }
-.rc-pf:hover .ptab, .rc-pf:focus-visible .ptab { transform: translate(6px,-3px) }
+.rc-pf:hover .ptab, .rc-pf:focus-visible .ptab { transform: translate(6px, calc(-3px + var(--rc-drift, 0px))) }
 .rc-pfmeta { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin-bottom: 11px }
 .rc-pfmeta .lhs { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink) }
 .rc-pfmeta .lhs .sep { color: var(--kraft-dk); margin: 0 5px }
@@ -223,7 +242,11 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-pf:hover .rc-pfmeta .rhs { color: var(--ink) }
 .rc-pf h3 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(21px,1.85vw,27px); line-height: 1.08; letter-spacing: -.022em; margin: 0 }
 .rc-pf .poetic { font-family: var(--font-serif), Georgia, serif; font-style: italic; font-weight: 300; margin: 9px 0 0; max-width: 52ch; opacity: .86 }
-.rc-slot { margin-top: 17px; background: rgba(54,63,158,.055); border: 1px solid rgba(54,63,158,.1); border-radius: 5px; aspect-ratio: 16/7; display: grid; place-items: center; overflow: hidden }
+.rc-slot { position: relative; margin-top: 17px; background: rgba(47,58,181,.06); border: 1px solid rgba(47,58,181,.13); border-radius: 5px; aspect-ratio: 16/7; overflow: hidden }
+/* The drift layer is taller than its frame on both sides, so translating it
+   never exposes an edge. Movement comes in through --rc-drift, which lets the
+   parallax compose with the hover transforms instead of overwriting them. */
+.rc-par { position: absolute; left: 0; right: 0; top: -15%; bottom: -15%; display: grid; place-items: center; will-change: transform; transform: translate3d(0, var(--rc-drift, 0px), 0) }
 .rc-slot img { width: 100%; height: 100%; object-fit: cover; display: block }
 .rc-slot .lab { font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); opacity: .5; text-align: center; line-height: 1.9 }
 .rc-reveal { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .34s cubic-bezier(.22,.61,.36,1), opacity .28s ease, margin .34s ease; margin-top: 0 }
@@ -238,7 +261,7 @@ a:not(.nav-link):hover { color: var(--ink); }
 /* thinking index */
 .rc-idx { display: flex; flex-direction: column; border-top: 1px dashed var(--kraft) }
 .rc-idx a { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: baseline; padding: 14px 6px; border-bottom: 1px dashed var(--kraft); transition: background .2s ease, padding .2s ease }
-.rc-idx a:hover { background: rgba(54,63,158,.045); padding-left: 12px }
+.rc-idx a:hover { background: rgba(47,58,181,.055); padding-left: 12px }
 .rc-idx .num { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .1em; color: var(--ink) }
 /* Deks run long; the index is a list of titles, not an excerpt reader. */
 .rc-idx .ttl { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden }
@@ -251,6 +274,95 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-closing h2 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(26px,3vw,40px); line-height: 1.06; letter-spacing: -.026em; margin: 14px 0; text-wrap: balance }
 .rc-closing h2 span { color: var(--ink) }
 
+/* ── inverted drawers: the cabinet, lit from inside ──────────
+   Indigo ground, cream type, pink for anything hovered or current.
+   Put rc-invert on a <section> and the whole band flips. */
+.rc-invert { background: var(--ink); color: var(--cream) }
+.rc-invert h2, .rc-invert h3, .rc-invert strong { color: var(--cream) }
+.rc-invert .rc-eyebrow { color: color-mix(in srgb, var(--cream) 52%, transparent) }
+.rc-invert .rc-eyebrow b { color: var(--pink-soft) }
+.rc-invert .sub, .rc-invert .rc-lede { color: color-mix(in srgb, var(--cream) 74%, transparent) }
+.rc-invert .rc-edge i { background: color-mix(in srgb, var(--cream) 34%, transparent) }
+.rc-invert .rc-meta { color: var(--pink-soft) }
+.rc-invert .rc-meta.tangible { color: color-mix(in srgb, var(--cream) 58%, transparent) }
+.rc-invert .rc-callout { border-color: color-mix(in srgb, var(--cream) 42%, transparent); background: rgba(255,255,255,.07) }
+.rc-invert .rc-callout p { color: color-mix(in srgb, var(--cream) 76%, transparent) }
+.rc-invert .rc-hand { color: var(--pink-soft) }
+.rc-invert .rc-chip { border-color: color-mix(in srgb, var(--cream) 34%, transparent); color: color-mix(in srgb, var(--cream) 74%, transparent) }
+.rc-invert .rc-keyrow { color: color-mix(in srgb, var(--cream) 68%, transparent) }
+.rc-invert .rc-idx { border-color: color-mix(in srgb, var(--cream) 30%, transparent) }
+.rc-invert .rc-idx a { border-color: color-mix(in srgb, var(--cream) 24%, transparent); color: var(--cream) }
+.rc-invert .rc-idx a:hover { background: rgba(255,255,255,.09); color: var(--pink-soft) }
+.rc-invert .rc-idx .num { color: var(--pink-soft) }
+.rc-invert .rc-idx .kind { color: color-mix(in srgb, var(--cream) 58%, transparent) }
+.rc-invert .rc-idx .kind.wip { color: var(--pink-soft) }
+.rc-invert a:hover { color: var(--pink-soft) }
+.rc-invert .rc-btn.ghost { color: var(--cream); border-color: color-mix(in srgb, var(--cream) 60%, transparent) }
+.rc-invert .rc-btn.ghost:hover { color: var(--pink-soft); border-color: var(--pink-soft) }
+.rc-invert .rc-dash, .rc-invert .rc-dashrule { border-color: color-mix(in srgb, var(--cream) 30%, transparent) }
+.rc-drawer.rc-invert { padding-bottom: clamp(48px,6vw,80px) }
+
+/* ── closing / contact footer ───────────────────────────── */
+.rc-closefoot { padding: clamp(44px,5vw,72px) 0 0 }
+.rc-closefoot .rc-tabrow { padding-left: clamp(20px,3.4vw,48px); margin-bottom: 0 }
+.rc-closetabs { display: flex; gap: 3px; align-items: flex-end; max-width: 1420px; margin: 0 auto; padding: 0 clamp(20px,3.4vw,48px) }
+.rc-closetab { font-family: var(--font-mono), monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--charcoal); background: var(--ctc, var(--pink-soft)); border: 1px solid rgba(41,39,35,.16); border-bottom: none; border-radius: 5px 5px 0 0; padding: 8px 14px 9px; transition: transform .2s ease }
+.rc-closetab:hover { transform: translateY(-3px) }
+.rc-closepanel { background: var(--ink); color: var(--cream) }
+.rc-closefoot .inner { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); gap: clamp(26px,4vw,64px); padding: clamp(38px,4.5vw,60px) 0 clamp(46px,5vw,68px) }
+.rc-closefoot h2 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(28px,3.4vw,46px); line-height: 1.06; letter-spacing: -.028em; margin: 14px 0 16px; text-wrap: balance }
+.rc-closefoot h2 span { color: var(--pink-soft) }
+.rc-closefoot .say { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 24px }
+.rc-closefoot .mail { font-family: var(--font-mono), monospace; font-size: 12px; letter-spacing: .06em; color: color-mix(in srgb, var(--cream) 80%, transparent) }
+.rc-dashrule { height: 0; border-top: 1px dashed var(--kraft); margin: clamp(30px,3.6vw,46px) 0 20px }
+.rc-footlinks { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: color-mix(in srgb, var(--cream) 66%, transparent) }
+.rc-footlinks nav { display: flex; flex-wrap: wrap; gap: 18px }
+.rc-creds dt { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .13em; text-transform: uppercase; color: var(--pink-soft) }
+.rc-creds dd { margin: 3px 0 0; font-size: 13.5px; line-height: 1.5; color: color-mix(in srgb, var(--cream) 82%, transparent) }
+.rc-creds > div { padding: 11px 0; border-bottom: 1px dashed color-mix(in srgb, var(--cream) 26%, transparent) }
+.rc-creds > div:last-child { border-bottom: 0 }
+
+@media (max-width: 860px) { .rc-closefoot .inner { grid-template-columns: 1fr } }
+
+/* ── site footer, every page ─────────────────────────────── */
+.rc-sitefoot { background: var(--ink); color: var(--cream); padding: 18px 0 108px; border-top: 1px dashed color-mix(in srgb, var(--cream) 26%, transparent) }
+.rc-sitefoot-inner { max-width: 1420px; margin: 0 auto; padding: 0 clamp(20px,3.4vw,48px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; align-items: center; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: color-mix(in srgb, var(--cream) 66%, transparent) }
+.rc-sitefoot-inner nav { display: flex; flex-wrap: wrap; gap: 18px }
+.rc-sitefoot-inner a { color: var(--cream) }
+.rc-sitefoot-inner a:hover { color: var(--pink-soft) }
+
+/* ── the dock: nav as drawer tabs on the bottom edge ─────── */
+.dock { position: fixed; inset-inline: 0; bottom: 0; z-index: 50; display: flex; justify-content: center; pointer-events: none }
+.dock-tabs { display: flex; gap: 3px; align-items: flex-end; margin: 0; padding: 0 12px; list-style: none; pointer-events: auto }
+.dock-tabs li { margin: 0 }
+.dock-tabs a {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono), monospace; font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+  background: var(--card); border: 1px solid var(--kraft); border-bottom: none;
+  border-radius: 6px 6px 0 0; padding: 9px 15px 10px;
+  box-shadow: 0 -2px 14px -8px rgba(41,39,35,.5);
+  transition: transform .18s ease, color .18s ease, border-color .18s ease;
+}
+.dock-tabs a svg { width: 15px; height: 15px; flex: 0 0 auto }
+.dock-tabs a:hover { transform: translateY(-3px); color: var(--pink); border-color: var(--kraft-dk) }
+.dock-tabs a[data-current] { color: var(--pink); padding-bottom: 13px; border-color: var(--kraft-dk) }
+.dock-tabs a[data-current]::before { content: ""; position: absolute; inset-inline: 9px; top: 4px; height: 2.5px; border-radius: 2px; background: var(--pink) }
+.dock-tabs li { position: relative }
+@media (max-width: 560px) {
+  .dock-tabs a { padding: 9px 11px 10px; gap: 6px; font-size: 9px }
+  .dock-tabs a span { display: none }
+  .dock-tabs a svg { width: 17px; height: 17px }
+}
+
+/* motion control */
+.rc-motionbar { background: var(--ink); color: var(--cream); padding: 0 0 26px }
+.rc-motionbar .rc-wrap { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; align-items: center; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: color-mix(in srgb, var(--cream) 58%, transparent) }
+.rc-seg { display: flex; border: 1px solid color-mix(in srgb, var(--cream) 38%, transparent); border-radius: 4px; overflow: hidden }
+.rc-seg button { font: inherit; background: transparent; border: 0; color: color-mix(in srgb, var(--cream) 66%, transparent); padding: 6px 10px; cursor: pointer; transition: background .2s, color .2s }
+.rc-seg button + button { border-left: 1px solid color-mix(in srgb, var(--cream) 30%, transparent) }
+.rc-seg button[aria-pressed="true"] { background: var(--pink-soft); color: var(--charcoal) }
+
 /* drawers opening on scroll */
 [data-rc-reveal] { opacity: 1; transform: none }
 .rc-anim [data-rc-reveal] { opacity: .001; transform: translateY(16px); transition: opacity .72s cubic-bezier(.22,.61,.36,1), transform .72s cubic-bezier(.22,.61,.36,1) }
@@ -259,6 +371,7 @@ a:not(.nav-link):hover { color: var(--ink); }
 @media (prefers-reduced-motion: reduce) {
   .rc-anim [data-rc-reveal] { opacity: 1; transform: none; transition: none }
   .rc-btn, .rc-pf .pbody, .rc-pf .ptab, .rc-rimtab, .rc-ftab { transition: none }
+  .rc-par, .rc-edge, .rc-pf .ptab { transform: none !important }
 }
 
 @media (max-width: 980px) {

@@ -51,6 +51,7 @@ export type Project = {
   featured?: boolean;
   priority?: "flagship" | "support" | "archive";
   coverImage?: SanityImage;
+  slideImage?: SanityImage;
   role?: string;
   timeline?: string;
   team?: string;

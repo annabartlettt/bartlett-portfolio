@@ -16,6 +16,9 @@ export const PROJECTS_QUERY = defineQuery(`
     priority,
     coverImage,
     coverSub,
+    // The homepage leads with pictures; fall back to the first filled
+    // section image when a project has no cover of its own yet.
+    "slideImage": coalesce(coverImage, (sections[].images[])[defined(image.asset)][0].image),
     "category": category->{ name, "slug": slug.current },
     "methods": methods[]->name
   }

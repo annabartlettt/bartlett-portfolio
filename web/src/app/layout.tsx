@@ -86,33 +86,21 @@ export default function RootLayout({
       className={`${inter.variable} ${mono.variable} ${display.variable} ${spectral.variable} ${playfair.variable} ${caveat.variable}`}
     >
       <body className="flex min-h-screen flex-col">
-        <header className="sticky top-0 z-50 border-b-2 border-[var(--charcoal)] bg-[var(--cream)]/95 backdrop-blur">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-            <Link
-              href="/"
-              className="mono text-[11px] tracking-widest opacity-80"
-            >
-              ANNA BARTLETT · RESEARCH CABINET
-            </Link>
-          </div>
-        </header>
-
         <div className="flex-1">{children}</div>
 
-        {/* The bar along the bottom of the screen, on every page. */}
-        <footer
-          className="mt-24 border-t-2 pb-16"
-          style={{
-            borderColor: "var(--charcoal)",
-            background: "var(--cream2)",
-          }}
-        >
-          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-6 py-2.5 sm:px-10">
-            <Link href="/" className="display text-sm tracking-[0.22em] uppercase">
-              Anna Bartlett
-            </Link>
-            <span className="mono text-[10px] tracking-widest opacity-55">
-              WASHINGTON DC · {new Date().getFullYear()}
+        {/* The bottom of the cabinet, on every page. Indigo, so on the home
+            page it reads as one band with the closing drawer above it. */}
+        <footer className="rc-sitefoot">
+          <div className="rc-sitefoot-inner">
+            <nav aria-label="Footer">
+              <Link href="/">Work</Link>
+              <Link href="/thinking">Thinking</Link>
+              <Link href="/about">About</Link>
+              <Link href="/contact">Contact</Link>
+            </nav>
+            <span>
+              © {new Date().getFullYear()} Anna Bartlett · Research Cabinet ·
+              Washington DC
             </span>
           </div>
         </footer>
