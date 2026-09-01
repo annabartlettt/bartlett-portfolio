@@ -333,7 +333,7 @@ export default async function ProjectPage({
           <SlideDeck
             kicker="THE ROLES · MID-FIDELITY TO BUILT"
             title="Two directions, three doors."
-            blurb="An author writes outward and a reader browses inward, so the two sides could not share a layout. An administrator needed a third thing again: a queue, not a feed. Each role below runs from its mid-fidelity pass to the screen as it ended up."
+            blurb="An author writes outward and a reader browses inward, so the two sides could not share a layout. An administrator needed a third thing again: a queue, not a feed. Each role runs from its mid-fidelity pass to the screens as they ended up, and the reader has the furthest to travel: a feed, a library, and a search that filters by reading level as readily as by theme."
             decks={[
               {
                 name: "Author",
@@ -348,7 +348,9 @@ export default async function ProjectPage({
                 href: "https://bartlettanna.com/work/storybridge",
                 slides: [
                   { src: "/images/storybridge/wire-reader.jpg", alt: "Mid-fidelity wireframe of the StoryBridge reader page", label: "Mid-fidelity" },
-                  { src: "/images/storybridge/hifi-reader.png", alt: "The built StoryBridge reader library with stories browsable by grade band and theme", label: "Built" },
+                  { src: "/images/storybridge/reader-browse.jpg", alt: "Stories for You: a featured story card for Lola's Secret Garden by a seventeen year old author, above a row of story cards tagged by theme and country", label: "Stories for you" },
+                  { src: "/images/storybridge/reader-discover.jpg", alt: "Discover Stories: twenty-four stories in a grid, each carrying a grade band, an author, themes and a reader count, filterable by topic and reading level", label: "Discover" },
+                  { src: "/images/storybridge/reader-search.jpg", alt: "Search results for family stories, filtered to Family, Memory and Grade 5 to 6, showing seven results with opening lines", label: "Search and filter" },
                   { src: "/images/storybridge/library.jpg", alt: "The full StoryBridge Story Library with search, genre filters and reading level filters", label: "Full library" },
                 ],
               },
@@ -363,7 +365,7 @@ export default async function ProjectPage({
             numbered
             aspect="4 / 3"
             fit="contain"
-            width={620}
+            width={760}
             accent={brand.primary ?? primary}
           />
         )}
