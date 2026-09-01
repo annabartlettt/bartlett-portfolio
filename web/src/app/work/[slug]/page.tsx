@@ -207,26 +207,96 @@ export default async function ProjectPage({
         {slug === "boston-symphony-orchestra" && s.number === "04" && (
           <BsoSketch accent={brand.secondary ?? primary} />
         )}
-        {slug === "storybridge" && s.number === "04" && (
+        {slug === "storybridge" && s.number === "02" && (
+          <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+            <p
+              className="mono text-[12px] font-bold tracking-widest"
+              style={{ color: brand.primary ?? primary }}
+            >
+              THE LOOP · WHERE THE AI SITS
+            </p>
+            <h2 className="display mt-3 text-3xl">
+              Six steps, and a person on both ends.
+            </h2>
+            <p className="serif mt-4 text-lg leading-relaxed opacity-90">
+              A weekly prompt, a high-schooler writing, a screen for safety, a
+              teacher publishing, the level adapted, a younger reader reading.
+              The AI appears twice and never at either end.
+            </p>
+            <figure className="mt-8 m-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/storybridge/loop.png"
+                alt="The StoryBridge loop: weekly prompt, a high-schooler writes, AI moderates, a teacher publishes, AI adapts the reading level, a K-8 student reads. People at both ends, AI only in the middle."
+                className="w-full rounded-xl border border-[var(--kraft)]"
+              />
+            </figure>
+          </section>
+        )}
+        {slug === "storybridge" && s.number === "03" && (
           <SlideDeck
-            kicker="THE ROLES · EARLY TO BUILT"
-            title="Two directions, one system."
-            blurb="An author writes outward and a reader browses inward, so the two sides of the platform could not share a layout. These are the mid-fidelity passes for each role, then the reader library as it ended up: search, genre, and the reading level that decides which version of a story you get."
+            kicker="THE RULE · IN THE INTERFACE"
+            title="Where the promise is actually kept."
+            blurb="A rule only counts if the product enforces it. The author keeps the original and previews what each reading level sees; the queue flags for a human rather than deciding. Both screens say so in words, on the screen, to the person it affects."
             decks={[
               {
-                name: "Author to reader",
+                name: "Levels, not rewrites",
+                href: "https://bartlettanna.com/work/storybridge",
+                note: "The author sees what a third-grader and a seventh-grader get, and the line underneath commits to it: the original text is never changed.",
+                slides: [
+                  { src: "/images/storybridge/rule-levels.png", alt: "Author dashboard showing reading level previews for third-fourth, fifth-sixth and seventh-eighth grade, with a note that the original text is never changed", label: "Author · level preview" },
+                ],
+              },
+              {
+                name: "A human decides",
+                href: "https://bartlettanna.com/work/storybridge",
+                note: "AI screens first and a person approves. The queue shows its own judgement as a label, not as an outcome.",
+                slides: [
+                  { src: "/images/storybridge/rule-moderation.png", alt: "Admin moderation queue where AI marks stories clear or flagged and a human reviews each one", label: "Admin · moderation queue" },
+                ],
+              },
+            ]}
+            aspect="413 / 420"
+            fit="contain"
+            width={420}
+            accent={brand.primary ?? primary}
+          />
+        )}
+        {slug === "storybridge" && s.number === "04" && (
+          <SlideDeck
+            kicker="THE ROLES · MID-FIDELITY TO BUILT"
+            title="Two directions, three doors."
+            blurb="An author writes outward and a reader browses inward, so the two sides could not share a layout. An administrator needed a third thing again: a queue, not a feed. Each role below runs from its mid-fidelity pass to the screen as it ended up."
+            decks={[
+              {
+                name: "Author",
                 href: "https://bartlettanna.com/work/storybridge",
                 slides: [
-                  { src: "/images/storybridge/wire-author.jpg", alt: "Mid-fidelity wireframe of the StoryBridge author page", label: "Author, mid-fi" },
-                  { src: "/images/storybridge/wire-reader.jpg", alt: "Mid-fidelity wireframe of the StoryBridge reader page", label: "Reader, mid-fi" },
-                  { src: "/images/storybridge/library.jpg", alt: "The built StoryBridge Story Library with search, genre filters and reading level filters", label: "Story Library, built" },
+                  { src: "/images/storybridge/wire-author.jpg", alt: "Mid-fidelity wireframe of the StoryBridge author page", label: "Mid-fidelity" },
+                  { src: "/images/storybridge/hifi-author.png", alt: "The built StoryBridge author dashboard showing published stories, reads and drafts", label: "Built" },
+                ],
+              },
+              {
+                name: "Reader",
+                href: "https://bartlettanna.com/work/storybridge",
+                slides: [
+                  { src: "/images/storybridge/wire-reader.jpg", alt: "Mid-fidelity wireframe of the StoryBridge reader page", label: "Mid-fidelity" },
+                  { src: "/images/storybridge/hifi-reader.png", alt: "The built StoryBridge reader library with stories browsable by grade band and theme", label: "Built" },
+                  { src: "/images/storybridge/library.jpg", alt: "The full StoryBridge Story Library with search, genre filters and reading level filters", label: "Full library" },
+                ],
+              },
+              {
+                name: "Admin",
+                href: "https://bartlettanna.com/work/storybridge",
+                slides: [
+                  { src: "/images/storybridge/hifi-admin.png", alt: "The built StoryBridge admin moderation overview with submission and screening counts", label: "Moderation overview" },
                 ],
               },
             ]}
             numbered
             aspect="4 / 3"
             fit="contain"
-            width={720}
+            width={620}
             accent={brand.primary ?? primary}
           />
         )}
