@@ -11,6 +11,7 @@ import CcBrandSystem from "@/components/CcBrandSystem";
 import CcPolls from "@/components/CcPolls";
 import CcPersonas from "@/components/CcPersonas";
 import CcTemplate from "@/components/CcTemplate";
+import CcAccounts from "@/components/CcAccounts";
 import { PARTS, GUIDES, REPORTING } from "@/content/central-coop";
 import type { Project } from "@/sanity/types";
 
@@ -83,36 +84,12 @@ export default async function CentralCoopPart({
 
       {part === "social" && (
         <>
-          {brandSection?.stats && brandSection.stats.length > 0 && (
-            <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
-              <h2 className="display text-3xl">Two accounts, from zero.</h2>
-              <p className="serif mt-4 text-lg leading-relaxed opacity-90">
-                Co-managed over six months and grown into a resource students,
-                employers and faculty actually used. Posting strategy came out
-                of the platform analytics rather than a hunch.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-10">
-                {brandSection.stats.map((st, n) => (
-                  <div key={n}>
-                    <div
-                      className="display text-4xl"
-                      style={{ color: primary }}
-                    >
-                      {st.value}
-                    </div>
-                    <div className="mono text-[11px] tracking-widest opacity-70">
-                      {st.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
+          <CcAccounts stats={brandSection?.stats} accent={primary} />
           <InstagramEmbed
             code="DDhoqSUOqrj"
             kicker="MOTION · ON THE FEED"
             title="Some of that reach was video."
-            blurb="Alongside the stills, I shot and edited motion work for the two accounts. This one ran on the Central Co-op feed."
+            blurb="Alongside the stills, I shot and edited motion work for both feeds. This one ran on Central Co-op."
             caption="Central Co-op · Instagram"
             accent={primary}
           />
