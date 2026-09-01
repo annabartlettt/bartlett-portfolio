@@ -6,6 +6,19 @@
  * linked, and the window I ran them is stated — July to December 2024 — so the
  * numbers underneath have a period attached instead of floating.
  *
+ * Provenance, traced 2026-09-01 through the résumé history on disk. The numbers
+ * do not appear at all in RESUME - DEC 24.pdf, which says only "significantly
+ * increased follower growth". They show up complete for the first time in
+ * AnnaBartlett_Resume_Jan2025.pdf (24 Jan 2025), a month after the co-op ended
+ * and while the Insights were still in hand. Every version since carries the
+ * same 900% and 78.9%, so those two have never moved.
+ *
+ * One had moved. The January bullet reads "viral co-op content maintaining
+ * 3,230 average views"; a résumé redesign on 21 Oct 2025 turned that into
+ * 2,330, and every résumé and this site inherited the transposition. It is back
+ * to 3,230, with the qualifier the original had — it was the average on the
+ * co-op content that took off, never an average across everything posted.
+ *
  * The stats are the Central Co-op feed only, not the pair. Two things say so:
  * Anna's own recollection, and the fact that 60.6K total views over 2,330 views
  * per post comes to exactly 26 posts — one account's worth of a six-month run,
@@ -104,9 +117,9 @@ export default function CcAccounts({
               ))}
             </div>
             <p className="mono mt-6 text-[10px] leading-relaxed tracking-widest opacity-55">
-              SOURCE · INSTAGRAM INSIGHTS, READ AT THE END OF THE CO-OP,
-              DECEMBER 2024 · THE CENTRAL CO-OP FEED ONLY · CO-MANAGED WITH
-              JUSTIN WILLIAMS
+              SOURCE · INSTAGRAM INSIGHTS, COMPILED JANUARY 2025 AT THE CLOSE OF
+              THE CO-OP · THE CENTRAL CO-OP FEED ONLY · CO-MANAGED WITH JUSTIN
+              WILLIAMS
             </p>
           </>
         )}
