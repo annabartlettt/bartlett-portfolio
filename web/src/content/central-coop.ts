@@ -33,7 +33,7 @@ export const GUIDES: Deck[] = [
   {
     name: "Reminders for Huskies",
     href: "https://www.instagram.com/p/C-S6iBNOxbC/",
-    note: "Late summer, and the earliest of the four. This is the one that names itself: it opens on a series card rather than a date, because it was built to run again. Torn notebook paper over her own photographs of Boston, a hand-drawn sun, three ways to finish August before co-op season starts.",
+    note: "Late summer, and the earliest of the four. This is the one that names itself: it opens on a series card rather than a date, because it was built to run again. Torn notebook paper over my own photographs of Boston, a hand-drawn sun, three ways to finish August before co-op season starts.",
     slides: [
       { src: "/images/central-coop/summer-1.jpg", alt: "Series title card reading Reminders For Huskies over an aerial photograph of Boston", label: "Series card" },
       { src: "/images/central-coop/summer-2.jpg", alt: "Slide reading Make the Most of Summer", label: "Make the Most of Summer" },

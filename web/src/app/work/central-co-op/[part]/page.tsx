@@ -10,6 +10,7 @@ import Drawer from "@/components/Drawer";
 import CcBrandSystem from "@/components/CcBrandSystem";
 import CcPolls from "@/components/CcPolls";
 import CcPersonas from "@/components/CcPersonas";
+import CcTemplate from "@/components/CcTemplate";
 import { PARTS, GUIDES, REPORTING } from "@/content/central-coop";
 import type { Project } from "@/sanity/types";
 
@@ -39,7 +40,9 @@ export default async function CentralCoopPart({
   const meta = PARTS.find((p) => p.slug === part);
   if (!meta) notFound();
 
-  const p = await client.fetch<Project>(PROJECT_QUERY, { slug: "central-co-op" });
+  const p = await client.fetch<Project>(PROJECT_QUERY, {
+    slug: "central-co-op",
+  });
   if (!p) notFound();
 
   const primary = p.brand?.primary ?? "#363f9e";
@@ -50,14 +53,20 @@ export default async function CentralCoopPart({
 
   return (
     <main>
-      <section className="px-6 py-12 text-[var(--cream)]" style={{ background: primary }}>
+      <section
+        className="px-6 py-12 text-[var(--cream)]"
+        style={{ background: primary }}
+      >
         <div className="mx-auto max-w-4xl">
           <p className="mono text-[11px] tracking-widest opacity-80">
             <Link href="/" className="underline-offset-2 hover:underline">
               Anna Bartlett
             </Link>
             <span> ▸ </span>
-            <Link href="/work/central-co-op" className="underline-offset-2 hover:underline">
+            <Link
+              href="/work/central-co-op"
+              className="underline-offset-2 hover:underline"
+            >
               Central Co-op
             </Link>
             <span> ▸ {meta.title}</span>
@@ -79,13 +88,16 @@ export default async function CentralCoopPart({
               <h2 className="display text-3xl">Two accounts, from zero.</h2>
               <p className="serif mt-4 text-lg leading-relaxed opacity-90">
                 Co-managed over six months and grown into a resource students,
-                employers and faculty actually used. Posting strategy came out of
-                the platform analytics rather than a hunch.
+                employers and faculty actually used. Posting strategy came out
+                of the platform analytics rather than a hunch.
               </p>
               <div className="mt-8 flex flex-wrap gap-10">
                 {brandSection.stats.map((st, n) => (
                   <div key={n}>
-                    <div className="display text-4xl" style={{ color: primary }}>
+                    <div
+                      className="display text-4xl"
+                      style={{ color: primary }}
+                    >
                       {st.value}
                     </div>
                     <div className="mono text-[11px] tracking-widest opacity-70">
@@ -108,15 +120,18 @@ export default async function CentralCoopPart({
       )}
 
       {part === "graphic-design" && (
-        <SlideDeck
-          kicker="THE FORMAT · FOUR GUIDES, ONE TEMPLATE"
-          title="Answering the question before it gets asked."
-          blurb="The account's job was rarely to announce something. It was to answer a question a student already had at eleven at night. That turned into a repeatable shape: a dated cover, one idea per card, and a closing slide asking the reader to save it for later. The skeleton never moved. Everything on top of it did."
-          decks={GUIDES}
-          numbered
-          accent={primary}
-          border={false}
-        />
+        <>
+          <CcTemplate accent={primary} />
+          <SlideDeck
+            kicker="THE FORMAT · FOUR GUIDES, ONE TEMPLATE"
+            title="Answering the question before it gets asked."
+            blurb="The account's job was rarely to announce something. It was to answer a question a student already had at eleven at night. That turned into a repeatable shape: a dated cover, one idea per card, and a closing slide asking the reader to save it for later. The skeleton never moved. Everything on top of it did."
+            decks={GUIDES}
+            numbered
+            accent={primary}
+            border={false}
+          />
+        </>
       )}
 
       {part === "editorial" && (
@@ -154,7 +169,10 @@ export default async function CentralCoopPart({
 
       <section className="mx-auto max-w-4xl border-t border-[var(--kraft)] px-6 py-10">
         <div className="mono flex flex-wrap items-center justify-between gap-4 text-[11px] tracking-widest">
-          <Link href="/work/central-co-op" className="underline-offset-2 hover:underline">
+          <Link
+            href="/work/central-co-op"
+            className="underline-offset-2 hover:underline"
+          >
             ▸ BACK TO THE FOLDER
           </Link>
           <Link
