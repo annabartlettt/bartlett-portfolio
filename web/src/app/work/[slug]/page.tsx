@@ -8,7 +8,7 @@ import BsoSketch from "@/components/BsoSketch";
 import LoomEmbed from "@/components/LoomEmbed";
 import SlideDeck from "@/components/SlideDeck";
 import TwoSides from "@/components/TwoSides";
-import SbAuthorScreen from "@/components/SbAuthorScreen";
+import SbScreens from "@/components/SbScreens";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -317,20 +317,20 @@ export default async function ProjectPage({
               className="mono text-[12px] font-bold tracking-widest"
               style={{ color: brand.primary ?? primary }}
             >
-              THE AUTHOR · BUILT, NOT PICTURED
+              THE ROLES · BUILT, NOT PICTURED
             </p>
             <h2 className="display mt-3 text-3xl">
-              What a high-schooler sees.
+              Three roles. Switch between them.
             </h2>
             <p className="serif mt-4 max-w-2xl text-lg leading-relaxed opacity-90">
-              Their own stories, what those stories are doing, and one control
-              that matters more than the rest: a preview of how each grade band
-              will read the piece, with the promise printed underneath it. This
-              screen is markup rather than a screenshot, so it stays sharp,
-              reflows on a phone, and can be read aloud.
+              An author writes outward, a reader browses inward, and an
+              administrator needs neither shape but a queue. Use the nav to
+              move between them. This is markup rather than a screenshot, so it
+              stays sharp at any width, reflows on a phone, and can be read
+              aloud.
             </p>
             <div className="mt-8">
-              <SbAuthorScreen accent={brand.primary ?? primary} />
+              <SbScreens accent={brand.primary ?? primary} />
             </div>
           </section>
         )}
