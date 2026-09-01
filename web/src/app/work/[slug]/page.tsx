@@ -15,6 +15,11 @@ import SbRuleScreens from "@/components/SbRuleScreens";
 import SbSystem from "@/components/SbSystem";
 import SbReadings from "@/components/SbReadings";
 import SbLoop from "@/components/SbLoop";
+import FbVoices from "@/components/FbVoices";
+import FbRetireMap from "@/components/FbRetireMap";
+import FbPivot from "@/components/FbPivot";
+import FbW4Flow from "@/components/FbW4Flow";
+import FbSearchChat from "@/components/FbSearchChat";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -212,6 +217,31 @@ export default async function ProjectPage({
           )}
         </section>
         {slug === "anosity" && s.number === "03" && <EarlyLofis />}
+        {slug === "financial-blueprint" && s.number === "02" && (
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <FbVoices />
+          </section>
+        )}
+        {slug === "financial-blueprint" && s.number === "02" && (
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <FbRetireMap />
+          </section>
+        )}
+        {slug === "financial-blueprint" && s.number === "02" && (
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <FbPivot />
+          </section>
+        )}
+        {slug === "financial-blueprint" && s.number === "03" && (
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <FbW4Flow />
+          </section>
+        )}
+        {slug === "financial-blueprint" && s.number === "03" && (
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <FbSearchChat />
+          </section>
+        )}
         {slug === "anosity" && s.number === "04" && <AnosityRings />}
         {slug === "stop-motion" && s.number === "01" && (
           <YouTubeEmbed
