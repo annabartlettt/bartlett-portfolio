@@ -31,6 +31,9 @@ export default function SlideDeck({
   numbered = false,
   accent = "#B5502F",
   border = true,
+  aspect = "1 / 1",
+  fit = "cover",
+  width = 460,
 }: {
   id?: string;
   kicker: string;
@@ -40,6 +43,11 @@ export default function SlideDeck({
   numbered?: boolean;
   accent?: string;
   border?: boolean;
+  /** CSS aspect-ratio for the frame. Square by default, for carousels. */
+  aspect?: string;
+  /** "contain" when slides differ in shape and cropping would lie. */
+  fit?: "cover" | "contain";
+  width?: number;
 }) {
   const track = useRef<HTMLDivElement>(null);
   const [d, setD] = useState(0);
@@ -112,7 +120,7 @@ export default function SlideDeck({
         </p>
       )}
 
-      <div className="relative mx-auto mt-6" style={{ maxWidth: 460 }}>
+      <div className="relative mx-auto mt-6" style={{ maxWidth: width }}>
         <div
           ref={track}
           onScroll={onScroll}
@@ -133,7 +141,7 @@ export default function SlideDeck({
               alt={s.alt}
               loading="lazy"
               className="block w-full flex-none snap-center"
-              style={{ aspectRatio: "1 / 1", objectFit: "cover" }}
+              style={{ aspectRatio: aspect, objectFit: fit }}
             />
           ))}
         </div>
@@ -164,7 +172,7 @@ export default function SlideDeck({
 
       <div
         className="mono mx-auto mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[11px] tracking-widest"
-        style={{ maxWidth: 460 }}
+        style={{ maxWidth: width }}
       >
         {numbered && (
           <span style={{ color: accent }}>

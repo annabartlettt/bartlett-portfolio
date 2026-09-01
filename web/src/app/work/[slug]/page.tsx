@@ -6,6 +6,7 @@ import Drawer from "@/components/Drawer";
 import EarlyLofis from "@/components/EarlyLofis";
 import BsoSketch from "@/components/BsoSketch";
 import LoomEmbed from "@/components/LoomEmbed";
+import SlideDeck from "@/components/SlideDeck";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -202,9 +203,56 @@ export default async function ProjectPage({
             />
           )}
         </section>
+        {slug === "anosity" && s.number === "02" && (
+          <SlideDeck
+            kicker="THE RESEARCH · WHAT THE READING TURNED UP"
+            title="Five ways of looking at it."
+            blurb="Anxiety gets described as feeling too much. The research kept pointing somewhere else: not an excess of feeling but a shortage of information about your own state. These are the visuals that argument was built on, in the order it arrived."
+            decks={[
+              {
+                name: "Research visuals",
+                href: "https://bartlettanna.com/work/anosity",
+                slides: [
+                  { src: "/images/anosity/research/r1.jpg", alt: "Research visual: anxiety as more than worry", label: "More than worry" },
+                  { src: "/images/anosity/research/r2.jpg", alt: "Research visual: the hidden pattern beneath anxious episodes", label: "The hidden pattern" },
+                  { src: "/images/anosity/research/r3.jpg", alt: "Research visual: curious awareness as the alternative to judgement", label: "Curious awareness" },
+                  { src: "/images/anosity/research/r4.jpg", alt: "Research visual: moving from research findings into design decisions", label: "Research to design" },
+                  { src: "/images/anosity/research/r5.jpg", alt: "Research visual: voices from the research", label: "Research voices" },
+                ],
+              },
+            ]}
+            numbered
+            aspect="16 / 9"
+            width={760}
+            accent={brand.primary ?? primary}
+          />
+        )}
         {slug === "anosity" && s.number === "03" && <EarlyLofis />}
         {slug === "boston-symphony-orchestra" && s.number === "04" && (
           <BsoSketch accent={brand.secondary ?? primary} />
+        )}
+        {slug === "storybridge" && s.number === "04" && (
+          <SlideDeck
+            kicker="THE ROLES · EARLY TO BUILT"
+            title="Two directions, one system."
+            blurb="An author writes outward and a reader browses inward, so the two sides of the platform could not share a layout. These are the mid-fidelity passes for each role, then the reader library as it ended up: search, genre, and the reading level that decides which version of a story you get."
+            decks={[
+              {
+                name: "Author to reader",
+                href: "https://bartlettanna.com/work/storybridge",
+                slides: [
+                  { src: "/images/storybridge/wire-author.jpg", alt: "Mid-fidelity wireframe of the StoryBridge author page", label: "Author, mid-fi" },
+                  { src: "/images/storybridge/wire-reader.jpg", alt: "Mid-fidelity wireframe of the StoryBridge reader page", label: "Reader, mid-fi" },
+                  { src: "/images/storybridge/library.jpg", alt: "The built StoryBridge Story Library with search, genre filters and reading level filters", label: "Story Library, built" },
+                ],
+              },
+            ]}
+            numbered
+            aspect="4 / 3"
+            fit="contain"
+            width={720}
+            accent={brand.primary ?? primary}
+          />
         )}
         {slug === "storybridge" && s.number === "04" && (
           <LoomEmbed
