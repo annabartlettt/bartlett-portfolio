@@ -207,6 +207,34 @@ export default async function ProjectPage({
         {slug === "boston-symphony-orchestra" && s.number === "04" && (
           <BsoSketch accent={brand.secondary ?? primary} />
         )}
+        {slug === "storybridge" && s.number === "01" && (
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <p
+              className="mono text-[12px] font-bold tracking-widest"
+              style={{ color: brand.primary ?? primary }}
+            >
+              IDEATION · THE READINGS
+            </p>
+            <h2 className="display mt-3 text-3xl">
+              We read our way in.
+            </h2>
+            <p className="serif mt-4 max-w-3xl text-lg leading-relaxed opacity-90">
+              Every decision here traces to a text rather than a whiteboard.
+              Illich on learning as a web of people, Gillani on networks
+              shaping outcomes more than content does, Chetty on exposure
+              deciding what a child believes is possible. The last panel is
+              the critique that set the rule.
+            </p>
+            <figure className="mt-8 m-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/storybridge/readings.png"
+                alt="Three readings and what each became: Illich on deschooling, Gillani on education as a social system, Chetty on neighbourhoods and mobility, with the critique that produced the rule that AI adapts the reading level and never rewrites the story."
+                className="w-full rounded-xl border border-[var(--kraft)]"
+              />
+            </figure>
+          </section>
+        )}
         {slug === "storybridge" && s.number === "02" && (
           <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
             <p
