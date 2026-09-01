@@ -166,6 +166,7 @@ a:not(.nav-link):hover { color: var(--ink); }
 
 /* hero */
 .rc-hero { padding: clamp(40px,6vw,84px) 0 clamp(52px,7vw,92px) }
+.rc-hero .rc-wrap > *, .rc-dhead > *, .rc-workgrid > * { min-width: 0 }
 .rc-hero .rc-wrap, .rc-dhead, .rc-workgrid { display: grid; grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr); gap: clamp(30px,5vw,72px); align-items: start }
 .rc-hero h1 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(27px,3.1vw,44px); line-height: 1.1; letter-spacing: -.024em; margin: 20px 0 22px; text-wrap: balance }
 .rc-hero h1 span { color: var(--ink) }
@@ -176,11 +177,12 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-acts { display: flex; flex-wrap: wrap; gap: 12px; align-items: center }
 
 /* hero folder */
-.rc-tabrow { display: flex; flex-wrap: wrap; gap: 3px; align-items: flex-end; padding-left: 6px }
+.rc-tabrow { display: flex; flex-wrap: wrap; gap: 3px; align-items: flex-end; padding-left: 6px; min-width: 0 }
+.rc-ftab { white-space: nowrap }
 .rc-ftab { font-family: var(--font-mono), monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--charcoal); background: var(--tabc, var(--lav)); border: 1px solid rgba(44,42,39,.16); border-bottom: none; border-radius: 5px 5px 0 0; padding: 8px 12px 9px; cursor: pointer; opacity: .62; transition: transform .2s ease, opacity .2s ease }
 .rc-ftab:hover { transform: translateY(-3px); opacity: .85 }
 .rc-ftab[aria-selected="true"] { opacity: 1; transform: translateY(-2px); padding-bottom: 12px; box-shadow: 0 -1px 0 rgba(44,42,39,.1) }
-.rc-folder { background: var(--card); border: 1px solid var(--kraft); border-radius: 3px 9px 9px 9px; padding: clamp(16px,1.6vw,22px); box-shadow: 0 1px 0 var(--kraft), 0 10px 22px -18px rgba(44,42,39,.5); min-height: 400px; display: flex; flex-direction: column }
+.rc-folder { min-width: 0; background: var(--card); border: 1px solid var(--kraft); border-radius: 3px 9px 9px 9px; padding: clamp(16px,1.6vw,22px); box-shadow: 0 1px 0 var(--kraft), 0 10px 22px -18px rgba(44,42,39,.5); min-height: 400px; display: flex; flex-direction: column }
 .rc-fhead { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 13px }
 .rc-fhead .open { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono), monospace; font-size: 10.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--ink) }
 .rc-dot { width: 8px; height: 8px; border-radius: 99px; background: var(--accent); flex: 0 0 auto; transition: background .3s ease }
@@ -203,7 +205,7 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-navbtn.prev { left: 10px } .rc-navbtn.next { right: 10px }
 .rc-folder:hover .rc-navbtn, .rc-navbtn:focus-visible { opacity: 1 }
 .rc-navbtn:hover { transform: translateY(-50%) scale(1.06) }
-.rc-slidemeta { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 13px 2px 0 }
+.rc-slidemeta { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 13px 2px 0; min-height: 52px }
 .rc-slidemeta a { display: flex; align-items: baseline; gap: 10px; min-width: 0 }
 .rc-slidemeta .mono { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .12em }
 .rc-slidemeta strong { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: 17px; letter-spacing: -.018em }
@@ -305,7 +307,7 @@ a:not(.nav-link):hover { color: var(--ink); }
 /* ── closing / contact footer ───────────────────────────── */
 .rc-closefoot { padding: clamp(44px,5vw,72px) 0 0 }
 .rc-closefoot .rc-tabrow { padding-left: clamp(20px,3.4vw,48px); margin-bottom: 0 }
-.rc-closetabs { display: flex; gap: 3px; align-items: flex-end; max-width: 1420px; margin: 0 auto; padding: 0 clamp(20px,3.4vw,48px) }
+.rc-closetabs { display: flex; gap: 3px; align-items: flex-end; max-width: 1420px; margin: 0 auto; padding: 0 clamp(20px,3.4vw,48px); min-width: 0 }
 .rc-closetab { font-family: var(--font-mono), monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--charcoal); background: var(--ctc, var(--pink-soft)); border: 1px solid rgba(41,39,35,.16); border-bottom: none; border-radius: 5px 5px 0 0; padding: 8px 14px 9px; transition: transform .2s ease }
 .rc-closetab:hover { transform: translateY(-3px) }
 .rc-closepanel { background: var(--ink); color: var(--cream) }
@@ -322,7 +324,7 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-creds > div { padding: 11px 0; border-bottom: 1px dashed color-mix(in srgb, var(--cream) 26%, transparent) }
 .rc-creds > div:last-child { border-bottom: 0 }
 
-@media (max-width: 860px) { .rc-closefoot .inner { grid-template-columns: 1fr } }
+@media (max-width: 860px) { .rc-closefoot .inner { grid-template-columns: minmax(0,1fr) } }
 
 /* ── site footer, every page ─────────────────────────────── */
 .rc-sitefoot { background: var(--ink); color: var(--cream); padding: 18px 0 108px; border-top: 1px dashed color-mix(in srgb, var(--cream) 26%, transparent) }
@@ -375,7 +377,7 @@ a:not(.nav-link):hover { color: var(--ink); }
 }
 
 @media (max-width: 980px) {
-  .rc-hero .rc-wrap, .rc-dhead, .rc-workgrid, .rc-inner { grid-template-columns: 1fr }
+  .rc-hero .rc-wrap, .rc-dhead, .rc-workgrid { grid-template-columns: minmax(0,1fr) }
   .rc-plate { position: static }
   .rc-stages { grid-template-columns: 1fr 1fr; gap: 22px 10px }
   .rc-arrow { display: none }
@@ -385,7 +387,35 @@ a:not(.nav-link):hover { color: var(--ink); }
   /* no hover on touch — show the payload */
   .rc-reveal { grid-template-rows: 1fr; opacity: 1; margin-top: 17px }
 }
-@media (max-width: 560px) {
-  .rc-tabrow .rc-ftab:nth-child(n+5) { display: none }
+/* ── phone ───────────────────────────────────────────────
+   The tab rows scroll rather than stack, anything that only
+   exists on hover is dropped, and the type comes down a step. */
+@media (max-width: 700px) {
+  .rc-hero { padding: 26px 0 36px }
+  .rc-hero h1 { font-size: clamp(25px,7.4vw,34px); margin: 14px 0 18px }
+  .rc-drawer { padding-top: 44px }
+  .rc-dhead { margin-bottom: 24px }
   .rc-folder { min-height: 0 }
+  .rc-stage { min-height: 200px }
+  .rc-slidemeta { min-height: 0; flex-direction: column; gap: 4px }
+  .rc-slidemeta .cat { white-space: normal }
+  .rc-tabrow, .rc-closetabs {
+    flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    padding-bottom: 1px;
+  }
+  .rc-tabrow::-webkit-scrollbar, .rc-closetabs::-webkit-scrollbar { display: none }
+  .rc-motionbar { display: none }
+  .rc-sitefoot { padding: 16px 0 96px }
+  .rc-sitefoot-inner { flex-direction: column; align-items: flex-start; gap: 10px }
+  .rc-closefoot .inner { padding-top: 30px }
+  .rc-creds dd { font-size: 13px }
+  .rc-pf .pbody { padding: 16px }
+  .rc-acts { gap: 8px }
+  .rc-btn { padding: 12px 18px; font-size: 11px }
+}
+
+/* No hover means the arrows never appear, so don't reserve them. */
+@media (hover: none) {
+  .rc-navbtn { display: none }
 }

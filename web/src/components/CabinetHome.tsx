@@ -9,9 +9,8 @@ import {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
-import SiteSearch from "./SiteSearch";
 import { urlFor } from "@/sanity/image";
-import type { Essay, Project, SearchData } from "@/sanity/types";
+import type { Essay, Project } from "@/sanity/types";
 
 /**
  * The cabinet, laid out as a cabinet.
@@ -340,18 +339,15 @@ function FolderSlideshow({
         </>
       )}
 
-      <p className="rc-fcap">Picking a tab files the drawer below to match.</p>
     </div>
   );
 }
 
 export default function CabinetHome({
   projects,
-  search,
   essays = [],
 }: {
   projects: Project[];
-  search: SearchData;
   essays?: Essay[];
 }) {
   const [craft, setCraft] = useState<string | null>(null);
@@ -413,19 +409,7 @@ export default function CabinetHome({
               <span>brand and communications, product, and motion.</span>
             </h1>
 
-            <div data-rc-reveal>
-              <p className="serif rc-lede italic opacity-70">
-                What do you already know? What do you need next?
-              </p>
-              <div className="mt-3 max-w-xl">
-                <SiteSearch data={search} />
-              </div>
-              <p className="mono mt-2 text-[10px] tracking-widest opacity-45">
-                SEARCH EVERYTHING ON THIS SITE
-              </p>
-            </div>
-
-            <div className="rc-acts mt-8" data-rc-reveal>
+            <div className="rc-acts" data-rc-reveal>
               <a className="rc-btn primary" href="#work">
                 Open the cabinet ↓
               </a>
@@ -514,18 +498,6 @@ export default function CabinetHome({
                 })}
               </div>
 
-              <div className="rc-callout" data-rc-reveal>
-                <div className="rc-meta">
-                  <span className="g">◆</span>{" "}
-                  {selected
-                    ? `Filed under ${selected.title}`
-                    : "The whole drawer"}
-                </div>
-                <p>
-                  Showing {filtered.length} of {projects.length} folders.
-                  {selected && " Pick Everything above to see the rest."}
-                </p>
-              </div>
             </aside>
 
             <div className="rc-folders">
@@ -558,7 +530,6 @@ export default function CabinetHome({
                             </>
                           )}
                         </span>
-                        <span className="rhs">↳ Hover to reveal</span>
                       </div>
 
                       <h3>{p.title}</h3>
@@ -611,15 +582,6 @@ export default function CabinetHome({
                         </div>
                       )}
 
-                      {(p.themeTags ?? []).length > 0 && (
-                        <div className="rc-tags">
-                          {(p.themeTags ?? []).map((t) => (
-                            <span key={t} className="rc-chip">
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      )}
                     </div>
                   </Link>
                 );
@@ -729,12 +691,12 @@ export default function CabinetHome({
                   <b>04</b> — Closing the cabinet
                 </p>
                 <h2>
-                  What do you already know? <span>What do you need next?</span>
+                  Open to work across brand and communications,{" "}
+                  <span>product, and motion.</span>
                 </h2>
                 <p className="rc-lede m-0">
-                  Currently in Washington DC, working across brand and
-                  communications, product, and motion. If you are hiring for any
-                  of the three, the folders above are the whole argument.
+                  Washington DC. If you are hiring for any of the three, the
+                  folders above are the whole argument.
                 </p>
 
                 <div className="say">
