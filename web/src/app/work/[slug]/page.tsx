@@ -11,6 +11,8 @@ import TwoSides from "@/components/TwoSides";
 import SbScreens from "@/components/SbScreens";
 import SbRuleScreens from "@/components/SbRuleScreens";
 import SbSystem from "@/components/SbSystem";
+import SbReadings from "@/components/SbReadings";
+import SbLoop from "@/components/SbLoop";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -232,56 +234,12 @@ export default async function ProjectPage({
         )}
         {slug === "storybridge" && s.number === "01" && (
           <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
-            <p
-              className="mono text-[12px] font-bold tracking-widest"
-              style={{ color: brand.primary ?? primary }}
-            >
-              IDEATION · THE READINGS
-            </p>
-            <h2 className="display mt-3 text-3xl">
-              We read our way in.
-            </h2>
-            <p className="serif mt-4 max-w-3xl text-lg leading-relaxed opacity-90">
-              Every decision here traces to a text rather than a whiteboard.
-              Illich on learning as a web of people, Gillani on networks
-              shaping outcomes more than content does, Chetty on exposure
-              deciding what a child believes is possible. The last panel is
-              the critique that set the rule.
-            </p>
-            <figure className="mt-8 m-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/storybridge/readings.png"
-                alt="Three readings and what each became: Illich on deschooling, Gillani on education as a social system, Chetty on neighbourhoods and mobility, with the critique that produced the rule that AI adapts the reading level and never rewrites the story."
-                className="w-full rounded-xl border border-[var(--kraft)]"
-              />
-            </figure>
+            <SbReadings />
           </section>
         )}
         {slug === "storybridge" && s.number === "02" && (
-          <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
-            <p
-              className="mono text-[12px] font-bold tracking-widest"
-              style={{ color: brand.primary ?? primary }}
-            >
-              THE LOOP · WHERE THE AI SITS
-            </p>
-            <h2 className="display mt-3 text-3xl">
-              Six steps, and a person on both ends.
-            </h2>
-            <p className="serif mt-4 text-lg leading-relaxed opacity-90">
-              A weekly prompt, a high-schooler writing, a screen for safety, a
-              teacher publishing, the level adapted, a younger reader reading.
-              The AI appears twice and never at either end.
-            </p>
-            <figure className="mt-8 m-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/storybridge/loop.png"
-                alt="The StoryBridge loop: weekly prompt, a high-schooler writes, AI moderates, a teacher publishes, AI adapts the reading level, a K-8 student reads. People at both ends, AI only in the middle."
-                className="w-full rounded-xl border border-[var(--kraft)]"
-              />
-            </figure>
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <SbLoop />
           </section>
         )}
         {slug === "storybridge" && s.number === "03" && (
