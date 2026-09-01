@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SB } from "@/content/storybridge-tokens";
 
 /**
  * StoryBridge, running, at desktop width.
@@ -41,12 +42,12 @@ const STORIES = [
 const LEVELS = ["3rd–4th", "5th–6th", "7th–8th"];
 
 const LIBRARY = [
-  { title: "The Rematch", grade: "Grade 5–6", tag: "Sports", c: "#7BA7DC" },
-  { title: "My Dad's Old Car", grade: "Grade 5–6", tag: "Family", c: "#7BA7DC" },
-  { title: "The Group Chat", grade: "Grade 7–8", tag: "Friendship", c: "#C39BE0" },
-  { title: "Saturday Morning Pancakes", grade: "Grade 3–4", tag: "Family", c: "#E9C15C" },
-  { title: "The Book I Didn't Want to Read", grade: "Grade 5–6", tag: "School", c: "#E08A5C" },
-  { title: "Third Quarter", grade: "Grade 7–8", tag: "Sports", c: "#7FB08A" },
+  { title: "The Rematch", grade: "Grade 5–6", tag: "Sports", c: SB.blue },
+  { title: "My Dad's Old Car", grade: "Grade 5–6", tag: "Family", c: SB.blue },
+  { title: "The Group Chat", grade: "Grade 7–8", tag: "Friendship", c: SB.coral },
+  { title: "Saturday Morning Pancakes", grade: "Grade 3–4", tag: "Family", c: SB.yellow },
+  { title: "The Book I Didn't Want to Read", grade: "Grade 5–6", tag: "School", c: SB.coral },
+  { title: "Third Quarter", grade: "Grade 7–8", tag: "Sports", c: SB.mint },
 ];
 
 const ADMIN_STATS = [
@@ -63,23 +64,24 @@ const PIPELINE = [
   "Any flag sends it here for review",
 ];
 
-export default function SbScreens({ accent = "#B5502F" }: { accent?: string }) {
+export default function SbScreens() {
+  const accent = SB.accent;
   const [role, setRole] = useState<Role>("author");
   const [level, setLevel] = useState(0);
 
   const card = "rounded-lg border p-3";
-  const cardStyle = { borderColor: "var(--kraft)" };
+  const cardStyle = { borderColor: SB.line };
 
   return (
     <figure className="m-0">
       <div
         className="overflow-hidden rounded-xl border"
-        style={{ borderColor: "var(--kraft)", background: "var(--paper)" }}
+        style={{ borderColor: SB.line, background: SB.paper, color: SB.ink }}
       >
         {/* product chrome — the nav is the interaction */}
         <div
           className="flex flex-wrap items-center justify-between gap-3 border-b px-5 py-3"
-          style={{ borderColor: "var(--kraft)" }}
+          style={{ borderColor: SB.line }}
         >
           <span className="display text-base">Storybridge</span>
           <nav className="flex gap-1" aria-label="StoryBridge role">
@@ -93,8 +95,8 @@ export default function SbScreens({ accent = "#B5502F" }: { accent?: string }) {
                   className="mono rounded-md px-2.5 py-1 text-[11px] tracking-widest uppercase transition"
                   style={
                     on
-                      ? { background: accent, color: "var(--paper)" }
-                      : { color: "var(--charcoal)", opacity: 0.55 }
+                      ? { background: accent, color: SB.paper }
+                      : { color: SB.muted }
                   }
                 >
                   {r.label}
@@ -139,8 +141,8 @@ export default function SbScreens({ accent = "#B5502F" }: { accent?: string }) {
                   >
                     <div>
                       <span
-                        className="mono rounded px-1.5 py-0.5 text-[9px] tracking-widest text-[var(--paper)]"
-                        style={{ background: "#3D5943" }}
+                        className="mono rounded px-1.5 py-0.5 text-[9px] tracking-widest"
+                        style={{ background: SB.green, color: SB.paper }}
                       >
                         PUBLISHED
                       </span>
@@ -158,7 +160,7 @@ export default function SbScreens({ accent = "#B5502F" }: { accent?: string }) {
 
               <div
                 className="mt-6 rounded-lg border p-4"
-                style={{ borderColor: "var(--kraft)", background: "var(--cream2)" }}
+                style={{ borderColor: SB.line, background: SB.surface }}
               >
                 <p className="mono text-[10px] tracking-widest" style={{ color: accent }}>
                   SEE HOW READERS EXPERIENCE IT
@@ -172,8 +174,8 @@ export default function SbScreens({ accent = "#B5502F" }: { accent?: string }) {
                       className="mono rounded-md px-2.5 py-1 text-[11px] tracking-widest transition"
                       style={
                         i === level
-                          ? { background: accent, color: "var(--paper)" }
-                          : { border: "1px solid var(--kraft)" }
+                          ? { background: accent, color: SB.paper }
+                          : { border: `1px solid ${SB.line}` }
                       }
                     >
                       {l}
@@ -191,8 +193,8 @@ export default function SbScreens({ accent = "#B5502F" }: { accent?: string }) {
           {role === "reader" && (
             <>
               <div
-                className="rounded-lg px-4 py-3 text-[var(--paper)]"
-                style={{ background: accent }}
+                className="rounded-lg px-4 py-3"
+                style={{ background: accent, color: SB.paper }}
               >
                 <p className="display text-base italic">The Youngest Teacher</p>
                 <p className="mono mt-0.5 text-[9.5px] tracking-widest opacity-85">

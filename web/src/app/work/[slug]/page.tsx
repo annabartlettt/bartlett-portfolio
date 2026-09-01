@@ -302,7 +302,7 @@ export default async function ProjectPage({
               affects.
             </p>
             <div className="mt-8">
-              <SbRuleScreens accent={brand.primary ?? primary} />
+              <SbRuleScreens />
             </div>
           </section>
         )}
@@ -325,7 +325,7 @@ export default async function ProjectPage({
               aloud.
             </p>
             <div className="mt-8">
-              <SbScreens accent={brand.primary ?? primary} />
+              <SbScreens />
             </div>
           </section>
         )}

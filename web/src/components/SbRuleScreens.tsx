@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SB, tint } from "@/content/storybridge-tokens";
 
 /**
  * The two screens where the rule is actually enforced, built rather than
@@ -9,9 +10,9 @@ import { useState } from "react";
  *
  * Content is from her designs.
  */
-const GREEN = "#2F5233";
-const GREEN_BG = "#DCE8DE";
-const FLAG_BG = "#F6DFDA";
+const GREEN = SB.green;
+const GREEN_BG = tint(SB.mint, 32);
+const FLAG_BG = tint(SB.accent, 18);
 
 const STATS = [
   { n: "7", label: "Published" },
@@ -27,7 +28,8 @@ const QUEUE = [
   { title: "My Robot Friend", verdict: "AI: CLEAR", flagged: false },
 ];
 
-export default function SbRuleScreens({ accent = "#B5502F" }: { accent?: string }) {
+export default function SbRuleScreens() {
+  const accent = SB.accent;
   const [view, setView] = useState<"levels" | "queue">("levels");
   const [level, setLevel] = useState(0);
 
@@ -65,19 +67,19 @@ export default function SbRuleScreens({ accent = "#B5502F" }: { accent?: string 
 
       <div
         className="mt-5 overflow-hidden rounded-xl border"
-        style={{ borderColor: "var(--kraft)", background: "var(--paper)" }}
+        style={{ borderColor: SB.line, background: SB.paper, color: SB.ink }}
       >
         {/* window chrome */}
         <div
           className="flex flex-wrap items-center gap-5 border-b px-5 py-3"
-          style={{ borderColor: "var(--kraft)" }}
+          style={{ borderColor: SB.line }}
         >
           <span className="flex gap-1.5" aria-hidden>
             {[0, 1, 2].map((i) => (
               <span
                 key={i}
                 className="block h-2.5 w-2.5 rounded-full"
-                style={{ background: "var(--kraft)" }}
+                style={{ background: SB.line }}
               />
             ))}
           </span>
@@ -99,7 +101,7 @@ export default function SbRuleScreens({ accent = "#B5502F" }: { accent?: string 
                   <div
                     key={s.label}
                     className="rounded-lg border p-3"
-                    style={{ borderColor: "var(--kraft)" }}
+                    style={{ borderColor: SB.line }}
                   >
                     <div className="display text-2xl">{s.n}</div>
                     <div className="mono mt-0.5 text-[11px] tracking-widest opacity-60">
@@ -111,7 +113,7 @@ export default function SbRuleScreens({ accent = "#B5502F" }: { accent?: string 
 
               <div
                 className="mt-4 rounded-lg border p-4"
-                style={{ borderColor: "var(--kraft)" }}
+                style={{ borderColor: SB.line }}
               >
                 <div className="flex flex-wrap gap-2">
                   <span
@@ -142,8 +144,8 @@ export default function SbRuleScreens({ accent = "#B5502F" }: { accent?: string 
                     className="mono rounded-md px-3 py-1.5 text-[11px] tracking-widest transition"
                     style={
                       i === level
-                        ? { background: accent, color: "var(--paper)" }
-                        : { background: "var(--cream2)" }
+                        ? { background: accent, color: SB.paper }
+                        : { background: SB.surface }
                     }
                   >
                     {l}
@@ -167,7 +169,7 @@ export default function SbRuleScreens({ accent = "#B5502F" }: { accent?: string 
                   <li
                     key={q.title}
                     className="flex flex-wrap items-center justify-between gap-3 rounded-lg border p-4"
-                    style={{ borderColor: "var(--kraft)" }}
+                    style={{ borderColor: SB.line }}
                   >
                     <div>
                       <p className="display text-lg">{q.title}</p>
@@ -183,8 +185,8 @@ export default function SbRuleScreens({ accent = "#B5502F" }: { accent?: string 
                       </span>
                     </div>
                     <span
-                      className="mono rounded-md px-4 py-2 text-[11px] tracking-widest text-[var(--paper)]"
-                      style={{ background: GREEN }}
+                      className="mono rounded-md px-4 py-2 text-[11px] tracking-widest"
+                      style={{ background: GREEN, color: SB.paper }}
                     >
                       Review
                     </span>
