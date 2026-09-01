@@ -23,6 +23,10 @@ import FbSearchChat from "@/components/FbSearchChat";
 import BsoEvolution from "@/components/BsoEvolution";
 import BsoParameters from "@/components/BsoParameters";
 import BsoApplications from "@/components/BsoApplications";
+import SpotifyBarriers from "@/components/SpotifyBarriers";
+import SpotifyResearch from "@/components/SpotifyResearch";
+import SpotifyFeatures from "@/components/SpotifyFeatures";
+import SpotifyLearned from "@/components/SpotifyLearned";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -319,6 +323,26 @@ export default async function ProjectPage({
               blurb="I shoot and edit video as well as design it — Premiere Pro, and my own soundtracks when a piece needs one. Stop motion is the most patient version of the work: you assemble the whole thing frame by frame before anyone sees a second of it."
               caption="Stop Motion · more at youtube.com/@annabartlettt"
             />
+          )}
+          {slug === "spotify-global-mode" && s.number === "01" && (
+            <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+              <SpotifyBarriers />
+            </section>
+          )}
+          {slug === "spotify-global-mode" && s.number === "02" && (
+            <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+              <SpotifyResearch />
+            </section>
+          )}
+          {slug === "spotify-global-mode" && s.number === "03" && (
+            <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+              <SpotifyFeatures />
+            </section>
+          )}
+          {slug === "spotify-global-mode" && s.number === "04" && (
+            <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+              <SpotifyLearned />
+            </section>
           )}
           {slug === "boston-symphony-orchestra" && s.number === "03" && (
             <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
