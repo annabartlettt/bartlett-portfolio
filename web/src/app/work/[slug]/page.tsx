@@ -20,6 +20,9 @@ import FbRetireMap from "@/components/FbRetireMap";
 import FbPivot from "@/components/FbPivot";
 import FbW4Flow from "@/components/FbW4Flow";
 import FbSearchChat from "@/components/FbSearchChat";
+import BsoEvolution from "@/components/BsoEvolution";
+import BsoParameters from "@/components/BsoParameters";
+import BsoApplications from "@/components/BsoApplications";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -251,6 +254,21 @@ export default async function ProjectPage({
             blurb="I shoot and edit video as well as design it — Premiere Pro, and my own soundtracks when a piece needs one. Stop motion is the most patient version of the work: you assemble the whole thing frame by frame before anyone sees a second of it."
             caption="Stop Motion · more at youtube.com/@annabartlettt"
           />
+        )}
+        {slug === "boston-symphony-orchestra" && s.number === "03" && (
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <BsoEvolution />
+          </section>
+        )}
+        {slug === "boston-symphony-orchestra" && s.number === "04" && (
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <BsoParameters />
+          </section>
+        )}
+        {slug === "boston-symphony-orchestra" && s.number === "07" && (
+          <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+            <BsoApplications />
+          </section>
         )}
         {slug === "boston-symphony-orchestra" && s.number === "04" && (
           <BsoSketch accent={brand.secondary ?? primary} />
