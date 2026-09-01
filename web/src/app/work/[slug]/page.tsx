@@ -114,6 +114,13 @@ export default async function ProjectPage({
   const heroText = heroIsLight ? HERO_INK : "var(--cream)";
   const heroKicker = heroIsLight ? HERO_INK : onDark;
 
+  // Her Spotify folder cover sets the platform name in Spotify green and the
+  // feature name in white. Carrying that across says at a glance which word is
+  // the brand's and which is hers.
+  const heading = p.coverHeadline ?? p.title;
+  const headWords = heading.split(" ");
+  const splitHeading = slug === "spotify-global-mode" && headWords.length > 1;
+
   return (
     <main>
       {/* Cover */}
@@ -136,7 +143,14 @@ export default async function ProjectPage({
             FOLDER {p.folderNumber} · OPENED
           </p>
           <h1 className="display mt-3 text-5xl md:text-6xl">
-            {p.coverHeadline ?? p.title}
+            {splitHeading ? (
+              <>
+                <span style={{ color: onDark }}>{headWords[0]}</span>{" "}
+                {headWords.slice(1).join(" ")}
+              </>
+            ) : (
+              heading
+            )}
           </h1>
           {p.coverSub && (
             <p className="serif mt-5 max-w-2xl text-2xl italic opacity-90">
@@ -163,6 +177,19 @@ export default async function ProjectPage({
               </span>
             )}
           </div>
+
+          {slug === "spotify-global-mode" && (
+            // A "not affiliated" notice only does its job where someone forms
+            // the impression. It was sitting in the closing notes; her Figma
+            // cover puts it directly under the meta line, so it goes here.
+            <p
+              className="mono mt-9 text-[10.5px] tracking-[0.14em] opacity-55"
+              style={{ color: heroText }}
+            >
+              SPECULATIVE FEATURE CONCEPT · NORTHEASTERN CLASS PROJECT · NOT
+              AFFILIATED WITH SPOTIFY
+            </p>
+          )}
 
           {p.coverImage?.asset && (
             // eslint-disable-next-line @next/next/no-img-element
