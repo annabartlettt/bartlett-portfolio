@@ -83,7 +83,7 @@ export default function SbScreens() {
           className="flex flex-wrap items-center justify-between gap-3 border-b px-5 py-3"
           style={{ borderColor: SB.line }}
         >
-          <span className="display text-base">Storybridge</span>
+          <span className="sb-display text-base">Storybridge</span>
           <nav className="flex gap-1" aria-label="StoryBridge role">
             {ROLES.map((r) => {
               const on = role === r.id;
@@ -110,7 +110,7 @@ export default function SbScreens() {
         <div className="px-5 py-6 sm:px-7">
           {role === "author" && (
             <>
-              <h3 className="display text-2xl">Welcome back, Anna</h3>
+              <h3 className="sb-display text-2xl">Welcome back, Anna</h3>
               <p className="mono mt-1 text-[11px] tracking-widest opacity-55">
                 MONDAY, JULY 28
               </p>
@@ -118,7 +118,7 @@ export default function SbScreens() {
               <div className="mt-6 grid grid-cols-3 gap-3">
                 {AUTHOR_STATS.map((s) => (
                   <div key={s.label} className={card} style={cardStyle}>
-                    <div className="display text-2xl" style={{ color: accent }}>
+                    <div className="sb-display text-2xl" style={{ color: accent }}>
                       {s.n}
                     </div>
                     <div className="mt-0.5 text-[12.5px] leading-snug">{s.label}</div>
@@ -146,7 +146,7 @@ export default function SbScreens() {
                       >
                         PUBLISHED
                       </span>
-                      <p className="display mt-1.5 text-base">{st.title}</p>
+                      <p className="sb-display mt-1.5 text-base">{st.title}</p>
                       <p className="mono mt-0.5 text-[9.5px] tracking-widest opacity-50">
                         {st.meta.toUpperCase()}
                       </p>
@@ -196,14 +196,14 @@ export default function SbScreens() {
                 className="rounded-lg px-4 py-3"
                 style={{ background: accent, color: SB.paper }}
               >
-                <p className="display text-base italic">The Youngest Teacher</p>
+                <p className="sb-display text-base italic">The Youngest Teacher</p>
                 <p className="mono mt-0.5 text-[9.5px] tracking-widest opacity-85">
                   ANNA BARTLETT · FAMILY · UNITED STATES
                 </p>
               </div>
 
               <div className="mt-6 flex items-baseline justify-between">
-                <h3 className="display text-2xl">Browse Stories</h3>
+                <h3 className="sb-display text-2xl">Browse Stories</h3>
                 <span className="mono text-[10px] tracking-widest opacity-55">
                   VIEW ALL →
                 </span>
@@ -214,7 +214,7 @@ export default function SbScreens() {
                   <li key={s.title} className="overflow-hidden rounded-lg border" style={cardStyle}>
                     <div className="h-16" style={{ background: s.c }} />
                     <div className="p-2.5">
-                      <p className="display text-[13.5px] leading-tight">{s.title}</p>
+                      <p className="sb-display text-[13.5px] leading-tight">{s.title}</p>
                       <p className="mono mt-1.5 text-[9px] tracking-widest opacity-55">
                         {s.grade.toUpperCase()} · {s.tag.toUpperCase()}
                       </p>
@@ -227,7 +227,7 @@ export default function SbScreens() {
 
           {role === "admin" && (
             <>
-              <h3 className="display text-2xl">Platform Overview</h3>
+              <h3 className="sb-display text-2xl">Platform Overview</h3>
               <p className="mt-1.5 max-w-xl text-[13px] leading-snug opacity-70">
                 Stories are scanned automatically for age-appropriate content.
                 Anything flagged appears here for a person to review.
@@ -236,7 +236,7 @@ export default function SbScreens() {
               <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {ADMIN_STATS.map((s) => (
                   <div key={s.label} className={card} style={cardStyle}>
-                    <div className="display text-2xl" style={{ color: accent }}>
+                    <div className="sb-display text-2xl" style={{ color: accent }}>
                       {s.n}
                     </div>
                     <div className="mt-0.5 text-[12.5px] leading-snug">{s.label}</div>
@@ -265,7 +265,7 @@ export default function SbScreens() {
                 className="mt-6 flex items-center justify-between rounded-lg border p-3"
                 style={cardStyle}
               >
-                <span className="display text-base">Moderation Queue</span>
+                <span className="sb-display text-base">Moderation Queue</span>
                 <span className="mono text-[10px] tracking-widest opacity-55">
                   0 ITEMS
                 </span>

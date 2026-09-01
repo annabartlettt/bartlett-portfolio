@@ -100,3 +100,10 @@ a:not(.nav-link):hover { color: var(--ink); }
 .nav-link:hover { color: var(--ink); opacity: 1; }
 .nav-link[data-current="true"] { color: var(--pink); opacity: 1; }
 .nav-link[data-current="true"]:hover { color: var(--pink); }
+
+/* StoryBridge sets its own headings in Playfair Display. Scoped to the built
+   product screens so the rest of the site keeps its own voice. */
+.sb-display {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-weight: 700;
+}

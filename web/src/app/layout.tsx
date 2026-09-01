@@ -5,6 +5,7 @@ import {
   Archivo_Black,
   Spectral,
   Caveat,
+  Playfair_Display,
 } from "next/font/google";
 import Link from "next/link";
 import Dock from "@/components/Dock";
@@ -26,6 +27,14 @@ const spectral = Spectral({
   weight: ["400", "500"],
   style: ["normal", "italic"],
   variable: "--font-serif",
+});
+// StoryBridge's own display face, so the built product screens are set in the
+// typeface the product actually uses rather than the site's.
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
 });
 const caveat = Caveat({
   subsets: ["latin"],
@@ -74,7 +83,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${mono.variable} ${display.variable} ${spectral.variable} ${caveat.variable}`}
+      className={`${inter.variable} ${mono.variable} ${display.variable} ${spectral.variable} ${playfair.variable} ${caveat.variable}`}
     >
       <body className="flex min-h-screen flex-col">
         <header className="sticky top-0 z-50 border-b-2 border-[var(--charcoal)] bg-[var(--cream)]/95 backdrop-blur">

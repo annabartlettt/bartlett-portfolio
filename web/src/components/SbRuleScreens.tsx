@@ -83,7 +83,7 @@ export default function SbRuleScreens() {
               />
             ))}
           </span>
-          <span className="display text-base">Storybridge</span>
+          <span className="sb-display text-base">Storybridge</span>
           <nav className="flex gap-5">
             {navItem("Author", view === "levels")}
             {navItem("Reader", false)}
@@ -94,7 +94,7 @@ export default function SbRuleScreens() {
         <div className="px-5 py-6 sm:px-7">
           {view === "levels" ? (
             <>
-              <h3 className="display text-2xl">Welcome back, Anna</h3>
+              <h3 className="sb-display text-2xl">Welcome back, Anna</h3>
 
               <div className="mt-5 grid grid-cols-3 gap-3">
                 {STATS.map((s) => (
@@ -103,7 +103,7 @@ export default function SbRuleScreens() {
                     className="rounded-lg border p-3"
                     style={{ borderColor: SB.line }}
                   >
-                    <div className="display text-2xl">{s.n}</div>
+                    <div className="sb-display text-2xl">{s.n}</div>
                     <div className="mono mt-0.5 text-[11px] tracking-widest opacity-60">
                       {s.label}
                     </div>
@@ -129,7 +129,7 @@ export default function SbRuleScreens() {
                     AGE SCORE 30/100
                   </span>
                 </div>
-                <p className="display mt-3 text-xl">The Youngest Teacher</p>
+                <p className="sb-display mt-3 text-xl">The Youngest Teacher</p>
               </div>
 
               <p className="mt-6 text-[13.5px] font-semibold">
@@ -159,7 +159,7 @@ export default function SbRuleScreens() {
             </>
           ) : (
             <>
-              <h3 className="display text-2xl">Moderation Queue</h3>
+              <h3 className="sb-display text-2xl">Moderation Queue</h3>
               <p className="mono mt-1 text-[11px] tracking-widest opacity-55">
                 AI SCREENS FIRST — A HUMAN DECIDES.
               </p>
@@ -172,7 +172,7 @@ export default function SbRuleScreens() {
                     style={{ borderColor: SB.line }}
                   >
                     <div>
-                      <p className="display text-lg">{q.title}</p>
+                      <p className="sb-display text-lg">{q.title}</p>
                       <span
                         className="mono mt-2 inline-block rounded px-2 py-0.5 text-[9.5px] tracking-widest"
                         style={

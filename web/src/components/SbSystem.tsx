@@ -112,7 +112,7 @@ export default function SbSystem() {
             className="rounded-lg border px-4 py-3"
             style={{ borderColor: SB.line }}
           >
-            <div className="display text-2xl">{n}</div>
+            <div className="sb-display text-2xl">{n}</div>
             <div className={label} style={{ color: SB.muted }}>
               {l}
             </div>
@@ -132,7 +132,7 @@ export default function SbSystem() {
           >
             <div className="h-16" style={{ background: s.c }} />
             <div className="px-2.5 py-2">
-              <p className="display text-[13px] leading-tight">{s.t}</p>
+              <p className="sb-display text-[13px] leading-tight">{s.t}</p>
               <p className={`${label} mt-1`} style={{ color: SB.muted }}>
                 {s.m}
               </p>
@@ -147,7 +147,7 @@ export default function SbSystem() {
           style={{ borderColor: SB.line, borderLeft: `3px solid ${SB.mint}` }}
         >
           <div className="flex flex-wrap items-center gap-2">
-            <p className="display text-[15px]">My Grandmother&rsquo;s Hands</p>
+            <p className="sb-display text-[15px]">My Grandmother&rsquo;s Hands</p>
             {badge("Grade 5–6", tint(SB.mint, 34), SB.green)}
           </div>
           <p className={`${label} mt-1.5`} style={{ color: SB.muted }}>
@@ -183,7 +183,7 @@ export default function SbSystem() {
           className="flex w-full flex-wrap items-center justify-between gap-4 rounded-lg border px-4 py-2.5"
           style={{ borderColor: SB.line }}
         >
-          <span className="display text-[15px]">Storybridge</span>
+          <span className="sb-display text-[15px]">Storybridge</span>
           <nav className="mono flex gap-5 text-[11px] tracking-widest">
             <span style={{ color: SB.muted }}>Author</span>
             <span
