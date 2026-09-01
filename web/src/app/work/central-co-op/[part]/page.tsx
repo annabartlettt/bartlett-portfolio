@@ -7,6 +7,9 @@ import { PROJECT_QUERY } from "@/sanity/queries";
 import SlideDeck from "@/components/SlideDeck";
 import InstagramEmbed from "@/components/InstagramEmbed";
 import Drawer from "@/components/Drawer";
+import CcBrandSystem from "@/components/CcBrandSystem";
+import CcPolls from "@/components/CcPolls";
+import CcPersonas from "@/components/CcPersonas";
 import { PARTS, GUIDES, REPORTING } from "@/content/central-coop";
 import type { Project } from "@/sanity/types";
 
@@ -64,16 +67,10 @@ export default async function CentralCoopPart({
         </div>
       </section>
 
-      {part === "brand" && brandSection && (
-        <section className="mx-auto max-w-4xl px-6 py-14">
-          <h2 className="display text-3xl">{brandSection.title}</h2>
-          {brandSection.body && (
-            <div className="rich serif mt-4 text-lg leading-relaxed">
-              <PortableText value={brandSection.body as PortableTextBlock[]} />
-            </div>
-          )}
-        </section>
-      )}
+      {/* Section 02 in Sanity covers brand and reach in one paragraph, which is
+          why it renders as the stats block on /social rather than here. The
+          brand workstream has enough of its own artefacts to carry a page. */}
+      {part === "brand" && <CcBrandSystem accent={primary} />}
 
       {part === "social" && (
         <>
@@ -134,21 +131,25 @@ export default async function CentralCoopPart({
       )}
 
       {part === "research" && research && (
-        <section className="mx-auto max-w-4xl px-6 py-14">
-          <h2 className="display text-3xl">{research.title}</h2>
-          {research.body && (
-            <div className="rich serif mt-4 text-lg leading-relaxed">
-              <PortableText value={research.body as PortableTextBlock[]} />
-            </div>
-          )}
-          {research.drawer?.label && (
-            <Drawer
-              label={research.drawer.label}
-              content={research.drawer.content}
-              accent={primary}
-            />
-          )}
-        </section>
+        <>
+          <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+            <h2 className="display text-3xl">{research.title}</h2>
+            {research.body && (
+              <div className="rich serif mt-4 text-lg leading-relaxed">
+                <PortableText value={research.body as PortableTextBlock[]} />
+              </div>
+            )}
+            {research.drawer?.label && (
+              <Drawer
+                label={research.drawer.label}
+                content={research.drawer.content}
+                accent={primary}
+              />
+            )}
+          </section>
+          <CcPolls accent={primary} />
+          <CcPersonas accent={primary} />
+        </>
       )}
 
       <section className="mx-auto max-w-4xl border-t border-[var(--kraft)] px-6 py-10">

@@ -25,7 +25,7 @@ export const PARTS = [
   {
     slug: "research",
     title: "User research",
-    blurb: "Focus groups with twenty-five students.",
+    blurb: "Twenty-five students, and the thirteen sheets it produced.",
   },
 ];
 
