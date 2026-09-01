@@ -10,6 +10,7 @@ import SlideDeck from "@/components/SlideDeck";
 import TwoSides from "@/components/TwoSides";
 import SbScreens from "@/components/SbScreens";
 import SbRuleScreens from "@/components/SbRuleScreens";
+import SbSystem from "@/components/SbSystem";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -326,6 +327,28 @@ export default async function ProjectPage({
             </p>
             <div className="mt-8">
               <SbScreens />
+            </div>
+          </section>
+        )}
+        {slug === "storybridge" && s.number === "05" && (
+          <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+            <p
+              className="mono text-[12px] font-bold tracking-widest"
+              style={{ color: brand.primary ?? primary }}
+            >
+              THE SYSTEM · WHAT GOT HANDED OVER
+            </p>
+            <h2 className="display mt-3 text-3xl">
+              Eight components, three roles.
+            </h2>
+            <p className="serif mt-4 max-w-2xl text-lg leading-relaxed opacity-90">
+              A handoff is only trustworthy if the pieces are small enough to
+              be re-used and named clearly enough to be asked for. Every screen
+              in this project is built from the set below. It is running here,
+              in its own palette, rather than pictured.
+            </p>
+            <div className="mt-8">
+              <SbSystem />
             </div>
           </section>
         )}
