@@ -29,8 +29,8 @@ const CAPTION: Record<Role, string> = {
 
 const AUTHOR_STATS = [
   { n: "7", label: "Published stories", note: "+2 this month" },
-  { n: "97", label: "Total reads", note: "across all your stories" },
-  { n: "1", label: "Active draft", note: "started yesterday" },
+  { n: "136", label: "Total reads", note: "across all your stories" },
+  { n: "2", label: "Active drafts", note: "started this week" },
 ];
 
 const STORIES = [

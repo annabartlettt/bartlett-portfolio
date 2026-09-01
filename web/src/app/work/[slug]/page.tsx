@@ -9,6 +9,7 @@ import LoomEmbed from "@/components/LoomEmbed";
 import SlideDeck from "@/components/SlideDeck";
 import TwoSides from "@/components/TwoSides";
 import SbScreens from "@/components/SbScreens";
+import SbRuleScreens from "@/components/SbRuleScreens";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -283,33 +284,27 @@ export default async function ProjectPage({
           </section>
         )}
         {slug === "storybridge" && s.number === "03" && (
-          <SlideDeck
-            kicker="THE RULE · IN THE INTERFACE"
-            title="Where the promise is actually kept."
-            blurb="A rule only counts if the product enforces it. The author keeps the original and previews what each reading level sees; the queue flags for a human rather than deciding. Both screens say so in words, on the screen, to the person it affects."
-            decks={[
-              {
-                name: "Levels, not rewrites",
-                href: "https://bartlettanna.com/work/storybridge",
-                note: "The author sees what a third-grader and a seventh-grader get, and the line underneath commits to it: the original text is never changed.",
-                slides: [
-                  { src: "/images/storybridge/rule-levels.png", alt: "Author dashboard showing reading level previews for third-fourth, fifth-sixth and seventh-eighth grade, with a note that the original text is never changed", label: "Author · level preview" },
-                ],
-              },
-              {
-                name: "A human decides",
-                href: "https://bartlettanna.com/work/storybridge",
-                note: "AI screens first and a person approves. The queue shows its own judgement as a label, not as an outcome.",
-                slides: [
-                  { src: "/images/storybridge/rule-moderation.png", alt: "Admin moderation queue where AI marks stories clear or flagged and a human reviews each one", label: "Admin · moderation queue" },
-                ],
-              },
-            ]}
-            aspect="413 / 420"
-            fit="contain"
-            width={420}
-            accent={brand.primary ?? primary}
-          />
+          <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+            <p
+              className="mono text-[12px] font-bold tracking-widest"
+              style={{ color: brand.primary ?? primary }}
+            >
+              THE RULE · IN THE INTERFACE
+            </p>
+            <h2 className="display mt-3 text-3xl">
+              Where the promise is actually kept.
+            </h2>
+            <p className="serif mt-4 max-w-2xl text-lg leading-relaxed opacity-90">
+              A rule only counts if the product enforces it. The author keeps
+              the original and previews what each band reads. The queue marks
+              the machine&rsquo;s judgement as a label and leaves the decision
+              to a person. Both screens say so on the screen, to the person it
+              affects.
+            </p>
+            <div className="mt-8">
+              <SbRuleScreens accent={brand.primary ?? primary} />
+            </div>
+          </section>
         )}
         {slug === "storybridge" && s.number === "04" && (
           <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
