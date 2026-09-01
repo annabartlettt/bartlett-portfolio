@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     title: "Anna Bartlett — Research Cabinet",
-    description: "What do you already know? What do you need next? The two questions behind every folder.",
+    description: "Anna Bartlett is a designer in Washington DC working across brand and communications, product, and motion.",
     url: SITE_URL,
     siteName: "Anna Bartlett",
     type: "website",
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Anna Bartlett — Research Cabinet",
-    description: "What do you already know? What do you need next? The two questions behind every folder.",
+    description: "Anna Bartlett is a designer in Washington DC working across brand and communications, product, and motion.",
   },
 };
 

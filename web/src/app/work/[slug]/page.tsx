@@ -5,6 +5,7 @@ import type { PortableTextBlock } from "next-sanity";
 import Drawer from "@/components/Drawer";
 import EarlyLofis from "@/components/EarlyLofis";
 import AnosityRings from "@/components/AnosityRings";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
 import BsoSketch from "@/components/BsoSketch";
 import LoomEmbed from "@/components/LoomEmbed";
 import SlideDeck from "@/components/SlideDeck";
@@ -212,6 +213,15 @@ export default async function ProjectPage({
         </section>
         {slug === "anosity" && s.number === "03" && <EarlyLofis />}
         {slug === "anosity" && s.number === "04" && <AnosityRings />}
+        {slug === "stop-motion" && s.number === "01" && (
+          <YouTubeEmbed
+            id="0iZFxVu8KNg"
+            kicker="MOTION · STOP MOTION"
+            title="Built frame by frame."
+            blurb="I shoot and edit video as well as design it — Premiere Pro, and my own soundtracks when a piece needs one. Stop motion is the most patient version of the work: you assemble the whole thing frame by frame before anyone sees a second of it."
+            caption="Stop Motion · more at youtube.com/@annabartlettt"
+          />
+        )}
         {slug === "boston-symphony-orchestra" && s.number === "04" && (
           <BsoSketch accent={brand.secondary ?? primary} />
         )}

@@ -10,6 +10,8 @@
   /* Pink marks the thing you are currently on. Darkened from the mobile
      nav's soft pink, which was set on indigo and would vanish on cream. */
   --pink: #d43f7d;
+  /* deep enough that cream type on it clears AA; the bright pink does not */
+  --pink-deep: #b62c62;
 }
 
 html,
@@ -228,6 +230,36 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-callout p { margin: 0; font-size: 14.5px; font-weight: 300; line-height: 1.55; color: var(--muted) }
 .rc-folders { display: flex; flex-direction: column; gap: 16px }
 
+/* ── the work, as a gallery ──────────────────────────────── */
+.rc-sortbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-bottom: 18px; border-bottom: 1px dashed var(--kraft); margin-bottom: 26px }
+.rc-sortbar .lbl { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--kraft-dk); margin-right: 2px }
+.rc-sortbar button { font-family: var(--font-mono), monospace; font-size: 10px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); background: transparent; border: 1px solid var(--kraft); border-radius: 99px; padding: 6px 13px; cursor: pointer; transition: color .18s ease, border-color .18s ease, background .18s ease }
+.rc-sortbar button:hover { color: var(--charcoal); border-color: var(--kraft-dk) }
+.rc-sortbar button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--cream) }
+.rc-sortbar .count { margin-left: auto; display: flex; align-items: center; gap: 10px; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .11em; text-transform: uppercase; color: var(--muted) }
+.rc-sortbar .clear { border-color: var(--pink); color: var(--pink) }
+
+.rc-group + .rc-group { margin-top: 34px }
+.rc-grouphead { font-family: var(--font-mono), monospace; font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px dashed var(--kraft) }
+.rc-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 22px }
+.rc-gcard { display: block; min-width: 0; transition: transform .24s cubic-bezier(.22,.61,.36,1) }
+.rc-gcard:hover { transform: translateY(-4px) }
+.rc-gcard:hover h4 { color: var(--ink) }
+.rc-gshot { position: relative; aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; background: rgba(47,58,181,.06); border: 1px solid var(--kraft); display: grid; place-items: center; transition: border-color .24s ease, box-shadow .24s ease }
+.rc-gcard:hover .rc-gshot { border-color: var(--kraft-dk); box-shadow: 0 10px 22px -16px rgba(41,39,35,.7) }
+.rc-gshot img { width: 100%; height: 100%; object-fit: cover; display: block }
+.rc-gshot .lab { font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); opacity: .42 }
+.rc-gnum { position: absolute; top: 10px; left: 10px; font-family: var(--font-mono), monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .1em; color: #fff; padding: 3px 8px; border-radius: 4px }
+.rc-gcard h4 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: 17px; line-height: 1.16; letter-spacing: -.018em; margin: 13px 0 0; transition: color .18s ease }
+.rc-gcard .cat { font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); margin: 6px 0 0 }
+.rc-gcard .sys { font-size: 13.5px; line-height: 1.48; font-weight: 300; margin: 8px 0 0; color: var(--charcoal); opacity: .78; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden }
+
+/* pink drawer: the thinking has its own colour, not the work's indigo */
+.rc-invert.pink { background: var(--pink-deep) }
+.rc-invert.pink .rc-eyebrow b, .rc-invert.pink .rc-meta, .rc-invert.pink .rc-idx .num, .rc-invert.pink .rc-idx .kind.wip { color: #fff }
+.rc-invert.pink h2 span, .rc-invert.pink .rc-hand { color: #fff }
+.rc-invert.pink a:hover, .rc-invert.pink .rc-idx a:hover { color: #fff }
+
 /* project folder */
 .rc-pf { position: relative; display: block }
 /* The whole folder is one link, so the global a:hover ink rule would
@@ -356,6 +388,15 @@ a:not(.nav-link):hover { color: var(--ink); }
   .dock-tabs a span { display: none }
   .dock-tabs a svg { width: 17px; height: 17px }
 }
+
+/* ── page headers on the non-home pages ─────────────────── */
+.rc-pagehead { padding: clamp(30px,4vw,52px) 0 clamp(26px,3vw,40px); background: var(--ink); color: var(--cream) }
+.rc-pagehead.pink { background: var(--pink-deep) }
+.rc-pagehead .rc-edge i { background: color-mix(in srgb, var(--cream) 34%, transparent) }
+.rc-pagehead .rc-eyebrow { color: color-mix(in srgb, var(--cream) 62%, transparent) }
+.rc-pagehead h1 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(28px,3.6vw,50px); line-height: 1.05; letter-spacing: -.028em; margin: 12px 0 0; text-wrap: balance; max-width: 20ch }
+.rc-pagehead .sub { font-family: var(--font-serif), Georgia, serif; font-style: italic; font-weight: 300; font-size: 17px; line-height: 1.5; margin: 14px 0 0; max-width: 52ch; color: color-mix(in srgb, var(--cream) 78%, transparent) }
+.rc-pagebody { padding-top: clamp(30px,3.6vw,48px); padding-bottom: clamp(48px,6vw,88px) }
 
 /* motion control */
 .rc-motionbar { background: var(--ink); color: var(--cream); padding: 0 0 26px }

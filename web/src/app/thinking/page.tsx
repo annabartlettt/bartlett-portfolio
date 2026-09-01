@@ -2,6 +2,7 @@ import Link from "next/link";
 import { client } from "@/sanity/client";
 import { ESSAYS_QUERY } from "@/sanity/queries";
 import type { Essay } from "@/sanity/types";
+import PageHead from "@/components/PageHead";
 
 export const metadata = { title: "Thinking" };
 export const revalidate = 60;
@@ -18,16 +19,14 @@ export default async function ThinkingPage() {
   const essays = await client.fetch<Essay[]>(ESSAYS_QUERY);
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-20">
-      <p className="mono text-xs tracking-widest opacity-70">THINKING</p>
-      <h1 className="display mt-4 text-4xl md:text-5xl">
-        Writing about the work of other people.
-      </h1>
-      <p className="serif mt-6 max-w-2xl text-xl italic opacity-85">
-        Essays on design, data, and the things people build to make one
-        legible to the other. Where the folders show what I made, this is
-        where I work out what I think.
-      </p>
+    <main>
+      <PageHead
+        eyebrow="Thinking"
+        title="Writing about the work of other people."
+        lede="Essays on design, data, and the things people build to make one legible to the other. Where the folders show what I made, this is where I work out what I think."
+        tint="pink"
+      />
+      <div className="rc-wrap rc-pagebody">
 
       {essays.length === 0 ? (
         <p className="mt-16 opacity-60">Nothing published here yet.</p>
@@ -72,6 +71,7 @@ export default async function ThinkingPage() {
           ))}
         </div>
       )}
+      </div>
     </main>
   );
 }
