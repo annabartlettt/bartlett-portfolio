@@ -7,7 +7,7 @@ import {
   Caveat,
 } from "next/font/google";
 import Link from "next/link";
-import Nav from "@/components/Nav";
+import Dock from "@/components/Dock";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -78,14 +78,13 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col">
         <header className="sticky top-0 z-50 border-b-2 border-[var(--charcoal)] bg-[var(--cream)]/95 backdrop-blur">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
             <Link
               href="/"
               className="mono text-[11px] tracking-widest opacity-80"
             >
               ANNA BARTLETT · RESEARCH CABINET
             </Link>
-            <Nav />
           </div>
         </header>
 
@@ -93,7 +92,7 @@ export default function RootLayout({
 
         {/* The bar along the bottom of the screen, on every page. */}
         <footer
-          className="mt-24 border-t-2"
+          className="mt-24 border-t-2 pb-16"
           style={{
             borderColor: "var(--charcoal)",
             background: "var(--cream2)",
@@ -108,6 +107,8 @@ export default function RootLayout({
             </span>
           </div>
         </footer>
+
+        <Dock />
       </body>
     </html>
   );
