@@ -4,6 +4,7 @@ import { PortableText } from "next-sanity";
 import type { PortableTextBlock } from "next-sanity";
 import Drawer from "@/components/Drawer";
 import EarlyLofis from "@/components/EarlyLofis";
+import AnosityRings from "@/components/AnosityRings";
 import BsoSketch from "@/components/BsoSketch";
 import LoomEmbed from "@/components/LoomEmbed";
 import SlideDeck from "@/components/SlideDeck";
@@ -210,6 +211,7 @@ export default async function ProjectPage({
           )}
         </section>
         {slug === "anosity" && s.number === "03" && <EarlyLofis />}
+        {slug === "anosity" && s.number === "04" && <AnosityRings />}
         {slug === "boston-symphony-orchestra" && s.number === "04" && (
           <BsoSketch accent={brand.secondary ?? primary} />
         )}
