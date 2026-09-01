@@ -33,20 +33,20 @@ export default function CabinetHome({
     <>
       <section className="mx-auto w-full max-w-6xl px-6 pt-10 pb-6 sm:px-10">
         {/* The first thing a reviewer needs answered: what is this person. */}
-        <p className="serif max-w-3xl text-lg leading-snug sm:text-xl">
+        <h1 className="serif max-w-3xl text-lg leading-snug font-normal sm:text-xl">
           <b className="display">Anna Bartlett</b> is a designer in Washington DC
           working across brand and communications, product, and motion.
-        </p>
-
-        <h1 className="display mt-5 text-2xl leading-[1.15] sm:text-3xl md:text-4xl">
-          What do you already know?
-          <span className="mt-0.5 block sm:ml-[10%]">
-            What do you need next?
-          </span>
         </h1>
 
-        <div className="mt-6 max-w-2xl">
-          <SiteSearch data={search} />
+        {/* The questions stop being a headline and become what they always
+            meant: the label on the thing that answers them. */}
+        <div className="mt-7 max-w-2xl">
+          <p className="serif text-base italic opacity-70">
+            What do you already know? What do you need next?
+          </p>
+          <div className="mt-2">
+            <SiteSearch data={search} />
+          </div>
         </div>
 
         <div className="mt-7 flex flex-wrap items-center gap-2">
