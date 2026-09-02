@@ -46,9 +46,16 @@ export default function AboutPage() {
           faster than any single tool I was taught.
         </p>
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
-          I&rsquo;m a designer and researcher. I finished my BFA in Design at
-          Northeastern in April 2026 and moved to the DC area. The work points
-          toward computational design and AI in education.
+          I&rsquo;m a creative technologist. In practice that means the research
+          comes first and the medium comes second: seven of the nine folders here
+          began as research, and what each one turned into &mdash; an app, a
+          generative system, a brand, a woven map &mdash; was decided by what the
+          research found rather than by what I already knew how to make.
+        </p>
+        <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
+          I finished my BFA in Design at Northeastern in April 2026 and moved to
+          the DC area. The subjects I keep coming back to are health, learning,
+          civic life and culture.
         </p>
         <a
           className="mono mt-8 inline-block underline"
