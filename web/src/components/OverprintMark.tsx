@@ -89,7 +89,15 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
       const cornerY = vh - CORNER_W * RATIO - 104;
 
       el.style.transform = `translate3d(${lerp(heroX, cornerX, q).toFixed(1)}px, ${lerp(heroY, cornerY, q).toFixed(1)}px, 0)`;
-      el.style.opacity = String(lerp(1, 0.92, q));
+
+      // The closing drawer has its own controls in that corner, and the mark
+      // was landing on top of them. It bows out once the ask is on screen —
+      // which is also the one place the page wants nothing else competing.
+      const close = document.querySelector("#about");
+      const ct = close ? close.getBoundingClientRect().top : Infinity;
+      const bow = clamp01((vh - 120 - ct) / 240);
+      el.style.opacity = (lerp(1, 0.92, q) * (1 - bow)).toFixed(3);
+      el.style.visibility = bow > 0.98 ? "hidden" : "visible";
 
       // 0 at each register point, 1 at maximum separation between them
       const sep = Math.abs(Math.sin(p * Math.PI * REGISTERS)) * amp;

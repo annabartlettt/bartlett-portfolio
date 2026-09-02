@@ -413,7 +413,7 @@ export default function CabinetHome({
       </section>
 
       {/* ══ 02 · the work ══════════════════════════════════ */}
-      <section className="rc-drawer" id="work">
+      <section className="rc-drawer rc-paper" id="work">
         <div className="rc-wrap">
           <div className="rc-edge" data-rc-reveal>
             <i />
@@ -544,7 +544,7 @@ export default function CabinetHome({
       </section>
 
       {/* ══ 03 · the thinking ══════════════════════════════ */}
-      <section className="rc-drawer rc-invert pink" id="thinking">
+      <section className="rc-drawer rc-invert" id="thinking">
         <div className="rc-wrap">
           <div className="rc-edge" data-rc-reveal>
             <i />
@@ -609,27 +609,25 @@ export default function CabinetHome({
           <a
             className="rc-closetab"
             href="mailto:anna.bartlettt@gmail.com"
-            style={{ ["--ctc" as string]: "var(--pink-soft)" }}
+            data-primary
           >
             Say hello
           </a>
           <Link
             className="rc-closetab"
             href="/contact"
-            style={{ ["--ctc" as string]: "var(--lav)" }}
           >
             Contact
           </Link>
           <Link
             className="rc-closetab"
             href="/about"
-            style={{ ["--ctc" as string]: "var(--sage)" }}
           >
             About
           </Link>
         </div>
 
-        <div className="rc-closepanel rc-invert">
+        <div className="rc-closepanel rc-invert pink">
           <div className="rc-wrap">
             <div className="inner" data-rc-reveal>
               <div>
@@ -637,12 +635,12 @@ export default function CabinetHome({
                   <b>04</b> — Closing the cabinet
                 </p>
                 <h2>
-                  Open to work across brand and communications,{" "}
-                  <span>product, and motion.</span>
+                  Open to work as a creative technologist across{" "}
+                  <span>research, brand, product, and generative systems.</span>
                 </h2>
                 <p className="rc-lede m-0">
-                  Washington DC. If you are hiring for any of the three, the
-                  folders above are the whole argument.
+                  Washington DC. If you are hiring for any of them, the folders
+                  above are the whole argument.
                 </p>
 
                 <div className="say">
@@ -664,7 +662,7 @@ export default function CabinetHome({
                   ],
                   [
                     "Practice",
-                    "Interaction design · Research synthesis · Brand and communications · Motion",
+                    "Research · User experience · Computational design · Brand and communications · Motion",
                   ],
                   [
                     "Available for",
