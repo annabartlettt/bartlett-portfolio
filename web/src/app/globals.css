@@ -172,9 +172,19 @@ a:not(.nav-link):hover { color: var(--ink); }
    run past the container so it reads as cropped by the frame rather than
    parked inside it. The two columns used to top-align, which left a dead gap
    under the buttons and marooned the overprint line at the bottom of it. */
-.rc-hero .rc-wrap { align-items: end }
+.rc-hero .rc-wrap { display: block }
+/* The headline runs the full measure and splits in two: the statement, then
+   the list. Below it the actions sit left and the mark bottom-right, which is
+   the diagonal. */
+.rc-heroline { display: grid; grid-template-columns: minmax(0,1.02fr) minmax(0,.98fr); gap: clamp(18px,3vw,54px); align-items: start }
+.rc-heroline .hl { color: var(--ink) }
+.rc-herofoot { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,.92fr); gap: clamp(24px,4vw,60px); align-items: end; margin-top: clamp(26px,3.4vw,44px) }
+/* The buttons follow the headline instead of bottom-aligning to the mark,
+   which was leaving a few hundred pixels of nothing between the two things a
+   visitor actually reads. Only the mark hangs at the bottom. */
+.rc-herofoot > *:first-child { align-self: start }
 .rc-hero .rc-wrap > *, .rc-dhead > *, .rc-workgrid > * { min-width: 0 }
-.rc-hero .rc-wrap, .rc-dhead, .rc-workgrid { display: grid; grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr); gap: clamp(30px,5vw,72px); align-items: start }
+.rc-dhead, .rc-workgrid { display: grid; grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr); gap: clamp(30px,5vw,72px); align-items: start }
 .rc-hero h1 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(27px,3.1vw,44px); line-height: 1.1; letter-spacing: -.024em; margin: 20px 0 22px; text-wrap: balance }
 .rc-hero h1 span { color: var(--ink) }
 .rc-lede { font-size: clamp(16px,1.28vw,18.5px); font-weight: 300; line-height: 1.58; max-width: 36ch; margin: 0 0 28px }
@@ -198,9 +208,9 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-omark-3d::before { content: ""; display: block; padding-top: 122.3% }
 .rc-omark-tag { position: absolute; left: 0; bottom: -22px; font-family: var(--font-mono), monospace; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--pink-deep); opacity: 0; transition: opacity .45s ease; white-space: nowrap }
 /* reserves the hero's resting slot; the mark is drawn over it */
-.rc-heromark { min-height: min(430px, 56vw); margin-right: calc(-1 * clamp(0px, 5vw, 76px)) }
+.rc-heromark { min-height: min(400px, 50vw); margin: 0 calc(-1 * clamp(0px, 5vw, 76px)) calc(-1 * clamp(10px, 3vw, 48px)) 0 }
 /* the line under the hero copy, now that the artwork left it */
-.rc-markline { display: block; margin: 34px 0 0; padding-top: 24px; border-top: 1px dashed var(--kraft); max-width: 420px; font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; line-height: 1.7; color: var(--charcoal) }
+.rc-markline { display: block; margin: 30px 0 0; padding-top: 22px; border-top: 1px dashed var(--kraft); max-width: 420px; font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; line-height: 1.7; color: var(--charcoal) }
 .rc-markline b { display: block; margin-top: 4px; font-weight: 400; color: var(--muted); letter-spacing: .1em }
 .rc-markline:hover b { color: var(--ink) }
 .rc-acts { display: flex; flex-wrap: wrap; gap: 12px; align-items: center }
@@ -268,13 +278,13 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-folders { display: flex; flex-direction: column; gap: 16px }
 
 /* ── the work, as a gallery ──────────────────────────────── */
-.rc-sortbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-bottom: 18px; border-bottom: 1px dashed var(--kraft); margin-bottom: 26px }
-.rc-sortbar .lbl { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--kraft-dk); margin-right: 2px }
-.rc-sortbar button { font-family: var(--font-mono), monospace; font-size: 10px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); background: transparent; border: 1px solid var(--kraft); border-radius: 99px; padding: 6px 13px; cursor: pointer; transition: color .18s ease, border-color .18s ease, background .18s ease }
-.rc-sortbar button:hover { color: var(--charcoal); border-color: var(--kraft-dk) }
-.rc-sortbar button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--cream) }
-.rc-sortbar .count { margin-left: auto; display: flex; align-items: center; gap: 10px; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .11em; text-transform: uppercase; color: var(--muted) }
-.rc-sortbar .clear { border-color: var(--pink); color: var(--pink) }
+.rc-countbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-bottom: 18px; border-bottom: 1px dashed var(--kraft); margin-bottom: 26px }
+.rc-countbar .lbl { font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--kraft-dk); margin-right: 2px }
+.rc-countbar button { font-family: var(--font-mono), monospace; font-size: 10px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); background: transparent; border: 1px solid var(--kraft); border-radius: 99px; padding: 6px 13px; cursor: pointer; transition: color .18s ease, border-color .18s ease, background .18s ease }
+.rc-countbar button:hover { color: var(--charcoal); border-color: var(--kraft-dk) }
+.rc-countbar button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--cream) }
+.rc-countbar .count { margin-left: auto; display: flex; align-items: center; gap: 10px; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .11em; text-transform: uppercase; color: var(--muted) }
+.rc-countbar .clear { border-color: var(--pink); color: var(--pink) }
 
 .rc-group + .rc-group { margin-top: 34px }
 .rc-grouphead { font-family: var(--font-mono), monospace; font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px dashed var(--kraft) }
@@ -459,7 +469,7 @@ a:not(.nav-link):hover { color: var(--ink); }
 }
 
 @media (max-width: 980px) {
-  .rc-hero .rc-wrap, .rc-dhead, .rc-workgrid { grid-template-columns: minmax(0,1fr) }
+  .rc-dhead, .rc-workgrid { grid-template-columns: minmax(0,1fr) }
   .rc-plate { position: static }
   .rc-stages { grid-template-columns: 1fr 1fr; gap: 22px 10px }
   .rc-arrow { display: none }
@@ -500,4 +510,9 @@ a:not(.nav-link):hover { color: var(--ink); }
 /* No hover means the arrows never appear, so don't reserve them. */
 @media (hover: none) {
   .rc-navbtn { display: none }
+}
+
+@media (max-width: 860px) {
+  .rc-heroline, .rc-herofoot { grid-template-columns: minmax(0,1fr) }
+  .rc-heromark { min-height: min(320px, 62vw); margin-right: calc(-1 * clamp(0px,4vw,28px)) }
 }

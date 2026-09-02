@@ -59,14 +59,6 @@ export function domainOf(p: Project) {
   return DOMAINS.find((d) => d.value === first) ?? null;
 }
 
-type SortKey = "folder" | "category" | "discipline";
-
-const SORTS: { value: SortKey; label: string }[] = [
-  { value: "folder", label: "Folder" },
-  { value: "category", label: "Section" },
-  { value: "discipline", label: "Discipline" },
-];
-
 /* The strip along the top of the cabinet. These are anchors into this page,
    not routes — the dock along the bottom does routes. They used to carry the
    same three words as the dock, so "Thinking" meant two different destinations
@@ -293,7 +285,6 @@ export default function CabinetHome({
   essays?: Essay[];
 }) {
   const [craft, setCraft] = useState<string | null>(null);
-  const [sort, setSort] = useState<SortKey>("folder");
   // Someone who asked their OS for less motion starts with none and can still
   // turn it up; everyone else starts at full. The override wins once set.
   const prefersReduced = usePrefersReducedMotion();
@@ -314,28 +305,16 @@ export default function CabinetHome({
     [projects, craft],
   );
 
-  const groups = useMemo(() => {
-    const byFolder = [...filtered].sort((a, b) =>
-      (a.folderNumber ?? "").localeCompare(b.folderNumber ?? ""),
-    );
-    if (sort === "folder") return [{ name: "", items: byFolder }];
-
-    const keyOf = (p: Project) =>
-      sort === "category"
-        ? (p.category?.name ?? "Unfiled")
-        : (DISCIPLINES.find((d) => d.value === (p.disciplines ?? [])[0])
-            ?.title ?? "Unfiled");
-
-    const map = new Map<string, Project[]>();
-    for (const p of byFolder) {
-      const k = keyOf(p);
-      if (!map.has(k)) map.set(k, []);
-      map.get(k)!.push(p);
-    }
-    return [...map.entries()]
-      .sort((a, b) => a[0].localeCompare(b[0]))
-      .map(([name, items]) => ({ name, items }));
-  }, [filtered, sort]);
+  // One list, in folder order. Sorting nine things is a control looking for a
+  // problem, and grouping by section produced nine headings with one card
+  // under each.
+  const ordered = useMemo(
+    () =>
+      [...filtered].sort((a, b) =>
+        (a.folderNumber ?? "").localeCompare(b.folderNumber ?? ""),
+      ),
+    [filtered],
+  );
 
   const selected = DISCIPLINES.find((d) => d.value === craft) ?? null;
 
@@ -369,46 +348,47 @@ export default function CabinetHome({
 
       <section className="rc-hero" id="top">
         <div className="rc-wrap">
-          <div>
-            <p className="rc-eyebrow" data-rc-reveal>
-              <b>01</b> — Index
-            </p>
+          <p className="rc-eyebrow" data-rc-reveal>
+            <b>01</b> — Index
+          </p>
 
-            <h1 data-rc-reveal>
+          {/* Split across the full width rather than squeezed into one column
+              beside the mark: the plain half states the fact, the indigo half
+              carries the list. The mark drops below so the type gets the whole
+              measure and the page reads on a diagonal. */}
+          <h1 className="rc-heroline" data-rc-reveal>
+            <span>
               Anna Bartlett is a creative technologist in Washington DC working
-              across{" "}
-              <span>research, brand, product, and generative systems.</span>
-            </h1>
+              across
+            </span>
+            <span className="hl">
+              research, brand, product, and generative systems.
+            </span>
+          </h1>
 
-            <div className="rc-acts" data-rc-reveal>
-              <a className="rc-btn primary" href="#work">
-                Open the cabinet ↓
-              </a>
-              <a className="rc-btn plain" href="#thinking">
-                Read the thinking
-              </a>
+          <div className="rc-herofoot">
+            <div data-rc-reveal>
+              <div className="rc-acts">
+                <a className="rc-btn primary" href="#work">
+                  Open the cabinet ↓
+                </a>
+                <a className="rc-btn plain" href="#thinking">
+                  Read the thinking
+                </a>
+              </div>
+
+              <Link className="rc-markline" href="/about">
+                I work in the overprint
+                <b>Where two disciplines cross ↗</b>
+              </Link>
             </div>
 
-            {/* The mark sits in the hero's dead space rather than in the nav:
-                it needs ~48px minimum before the overlap closes up, and site
-                chrome runs well under that. Links to /about, where the line it
-                illustrates is actually explained. */}
-            <Link className="rc-markline" href="/about" data-rc-reveal>
-              I work in the overprint
-              <b>Where two disciplines cross ↗</b>
-            </Link>
+            {/* Reserves where the mark rests. OverprintMark measures this
+                rather than guessing coordinates, so layout stays the source
+                of truth — and it bleeds past the frame on both edges so the
+                mark reads as cropped rather than parked. */}
+            <div className="rc-heromark" aria-hidden />
           </div>
-
-          {/* The carousel used to sit here showing one folder at a time out of
-              the same nine the gallery below shows in full — the hero was
-              doing the drawer's job worse. It is the mark instead, at a size
-              the overprint survives, and the tabs moved down to the gallery
-              they actually file. */}
-          {/* Empty on purpose: the mark itself is fixed-position so it can
-              travel to the corner as you scroll, and this reserves the space
-              it rests in. OverprintMark measures this element rather than
-              guessing coordinates, so the layout stays the source of truth. */}
-          <div className="rc-heromark" aria-hidden />
         </div>
       </section>
 
@@ -429,8 +409,8 @@ export default function CabinetHome({
               <h2>Selected folders</h2>
             </div>
             <p className="sub" data-rc-reveal>
-              Every folder, sorted how you like. Each one names the system
-              underneath first, and what got built second.
+              Nine of them. Each one names the system underneath first, and
+              what got built second.
             </p>
           </div>
 
@@ -462,18 +442,7 @@ export default function CabinetHome({
             </div>
           </div>
 
-          <div className="rc-sortbar" data-rc-reveal>
-            <span className="lbl">Sort</span>
-            {SORTS.map((o) => (
-              <button
-                key={o.value}
-                type="button"
-                aria-pressed={sort === o.value}
-                onClick={() => setSort(o.value)}
-              >
-                {o.label}
-              </button>
-            ))}
+          <div className="rc-countbar" data-rc-reveal>
             <span className="count">
               {filtered.length} of {projects.length} folders
               {craft !== null && (
@@ -488,58 +457,48 @@ export default function CabinetHome({
             </span>
           </div>
 
-          {groups.map((g) => (
-            <div key={g.name} className="rc-group">
-              {g.name && <h3 className="rc-grouphead">{g.name}</h3>}
-              <div className="rc-gallery">
-                {g.items.map((p) => (
-                  <Link
-                    key={p._id}
-                    href={`/work/${p.slug}`}
-                    className="rc-gcard"
-                    data-rc-reveal
-                  >
-                    <div className="rc-gshot">
-                      {p.slideImage?.asset ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={urlFor(p.slideImage).width(760).auto("format").url()}
-                          alt=""
-                          loading="lazy"
-                        />
-                      ) : (
-                        <span className="lab">No cover yet</span>
-                      )}
+          <div className="rc-gallery" data-rc-reveal>
+            {ordered.map((p) => (
+                <Link
+                  key={p._id}
+                  href={`/work/${p.slug}`}
+                  className="rc-gcard"
+                  data-rc-reveal
+                >
+                  <div className="rc-gshot">
+                    {p.slideImage?.asset ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={urlFor(p.slideImage).width(760).auto("format").url()}
+                        alt=""
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span className="lab">No cover yet</span>
+                    )}
+                    <span
+                      className="rc-gnum"
+                      style={{ background: accentFor(p) }}
+                    >
+                      {p.folderNumber ?? "··"}
+                    </span>
+                    {domainOf(p) && (
                       <span
-                        className="rc-gnum"
-                        style={{ background: accentFor(p) }}
+                        className="rc-gdom"
+                        style={{ color: domainOf(p)!.text }}
                       >
-                        {p.folderNumber ?? "··"}
+                        <i style={{ background: domainOf(p)!.ink }} />
+                        {domainOf(p)!.title}
                       </span>
-                      {domainOf(p) && (
-                        <span
-                          className="rc-gdom"
-                          style={{ color: domainOf(p)!.text }}
-                        >
-                          <i style={{ background: domainOf(p)!.ink }} />
-                          {domainOf(p)!.title}
-                        </span>
-                      )}
-                    </div>
-                    <h4>{p.title}</h4>
-                    <p className="cat">{p.category?.name}</p>
-                    {p.invisibleSystem && <p className="sys">{p.invisibleSystem}</p>}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
+                    )}
+                  </div>
+                  <h4>{p.title}</h4>
+                  <p className="cat">{p.category?.name}</p>
+                  {p.invisibleSystem && <p className="sys">{p.invisibleSystem}</p>}
+                </Link>
+            ))}
+          </div>
 
-          {filtered.length === 0 && (
-            <p className="serif text-lg italic opacity-60">
-              Nothing filed under that yet.
-            </p>
-          )}
         </div>
       </section>
 
