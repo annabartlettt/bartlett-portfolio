@@ -30,7 +30,7 @@ const B_PATH =
 
 /** How many times the letters come back into register over a full page. */
 const REGISTERS = 3;
-const HERO_W = 330;
+const HERO_W = 372;
 const CORNER_W = 84;
 const RATIO = 740 / 605;
 /** Extrusion passes. Enough to read as a solid edge, few enough to stay cheap. */
@@ -89,11 +89,8 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
       // rather than guessed and it survives any layout change.
       const slot = document.querySelector(".rc-heromark");
       const s = slot?.getBoundingClientRect();
-      // Anchored to the slot's bottom-right corner, not its top-left: the slot
-      // is wider and taller than the mark and bleeds past the frame, so this
-      // is what puts the mark in the corner and lets the frame crop it.
-      const heroX = s ? s.right - w : window.innerWidth * 0.62;
-      const heroY = s ? s.bottom - w * RATIO : vh * 0.3;
+      const heroX = s ? s.left : window.innerWidth * 0.62;
+      const heroY = s ? s.top : vh * 0.3;
       // It rests beside the content rather than jammed into the corner —
       // out in the right margin on a wide screen, and only tucked lower on a
       // narrow one where there is no margin to sit in.

@@ -348,47 +348,46 @@ export default function CabinetHome({
 
       <section className="rc-hero" id="top">
         <div className="rc-wrap">
-          <p className="rc-eyebrow" data-rc-reveal>
-            <b>01</b> — Index
-          </p>
+          <div>
+            <p className="rc-eyebrow" data-rc-reveal>
+              <b>01</b> — Index
+            </p>
 
-          {/* Split across the full width rather than squeezed into one column
-              beside the mark: the plain half states the fact, the indigo half
-              carries the list. The mark drops below so the type gets the whole
-              measure and the page reads on a diagonal. */}
-          <h1 className="rc-heroline" data-rc-reveal>
-            <span>
+            <h1 data-rc-reveal>
               Anna Bartlett is a creative technologist in Washington DC working
-              across
-            </span>
-            <span className="hl">
-              research, brand, product, and generative systems.
-            </span>
-          </h1>
+              across{" "}
+              <span>research, brand, product, and generative systems.</span>
+            </h1>
 
-          <div className="rc-herofoot">
-            <div data-rc-reveal>
-              <div className="rc-acts">
-                <a className="rc-btn primary" href="#work">
-                  Open the cabinet ↓
-                </a>
-                <a className="rc-btn plain" href="#thinking">
-                  Read the thinking
-                </a>
-              </div>
-
-              <Link className="rc-markline" href="/about">
-                I work in the overprint
-                <b>Where two disciplines cross ↗</b>
-              </Link>
+            <div className="rc-acts" data-rc-reveal>
+              <a className="rc-btn primary" href="#work">
+                Open the cabinet ↓
+              </a>
+              <a className="rc-btn plain" href="#thinking">
+                Read the thinking
+              </a>
             </div>
 
-            {/* Reserves where the mark rests. OverprintMark measures this
-                rather than guessing coordinates, so layout stays the source
-                of truth — and it bleeds past the frame on both edges so the
-                mark reads as cropped rather than parked. */}
-            <div className="rc-heromark" aria-hidden />
+            {/* The mark sits in the hero's dead space rather than in the nav:
+                it needs ~48px minimum before the overlap closes up, and site
+                chrome runs well under that. Links to /about, where the line it
+                illustrates is actually explained. */}
+            <Link className="rc-markline" href="/about" data-rc-reveal>
+              I work in the overprint
+              <b>Where two disciplines cross ↗</b>
+            </Link>
           </div>
+
+          {/* The carousel used to sit here showing one folder at a time out of
+              the same nine the gallery below shows in full — the hero was
+              doing the drawer's job worse. It is the mark instead, at a size
+              the overprint survives, and the tabs moved down to the gallery
+              they actually file. */}
+          {/* Empty on purpose: the mark itself is fixed-position so it can
+              travel to the corner as you scroll, and this reserves the space
+              it rests in. OverprintMark measures this element rather than
+              guessing coordinates, so the layout stays the source of truth. */}
+          <div className="rc-heromark" aria-hidden />
         </div>
       </section>
 
