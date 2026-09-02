@@ -615,12 +615,6 @@ export default function CabinetHome({
           </a>
           <Link
             className="rc-closetab"
-            href="/contact"
-          >
-            Contact
-          </Link>
-          <Link
-            className="rc-closetab"
             href="/about"
           >
             About

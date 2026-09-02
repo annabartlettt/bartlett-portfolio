@@ -57,12 +57,27 @@ export default function AboutPage() {
           the DC area. The subjects I keep coming back to are health, learning,
           civic life and culture.
         </p>
-        <a
-          className="mono mt-8 inline-block underline"
-          href="mailto:anna.bartlettt@gmail.com"
-        >
-          anna.bartlettt@gmail.com
-        </a>
+        {/* Contact used to be its own route: a heading and this same mailto,
+            nothing else. It is here now, where someone who has just read the
+            page is actually ready to write. /contact 301s to this anchor. */}
+        <div id="say-hello" className="mt-14 scroll-mt-24">
+          <p className="mono text-[11px] tracking-widest opacity-60">
+            SAY HELLO
+          </p>
+          <h2 className="display mt-3 text-3xl">Get in touch.</h2>
+          <p className="serif mt-3 max-w-xl text-lg leading-relaxed opacity-85">
+            For work, research, or collaboration. I read everything and reply to
+            all of it.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-5">
+            <a className="rc-btn pink" href="mailto:anna.bartlettt@gmail.com">
+              Say hello →
+            </a>
+            <span className="mono text-[12px] tracking-widest opacity-70">
+              anna.bartlettt@gmail.com
+            </span>
+          </div>
+        </div>
       </div>
 
     </main>

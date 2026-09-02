@@ -22,12 +22,6 @@ const ITEMS = [
     path: "M12 12 a3.6 3.6 0 1 0 0-7.2 3.6 3.6 0 0 0 0 7.2 Z M4.8 20.2 a7.2 7.2 0 0 1 14.4 0",
     stroke: true,
   },
-  {
-    href: "/contact",
-    label: "Contact",
-    path: "M3.5 6.5 H20.5 V17.5 H3.5 Z M3.5 6.5 L12 13.5 L20.5 6.5",
-    stroke: true,
-  },
 ];
 
 /**

@@ -35,6 +35,8 @@ const nextConfig: NextConfig = {
         destination: "/work/central-co-op",
         permanent: true,
       },
+      // Contact was a stub — a heading and a mailto that /about already had.
+      { source: "/contact", destination: "/about#say-hello", permanent: true },
       { source: "/projects/about-me", destination: "/about", permanent: true },
       { source: "/projects", destination: "/", permanent: true },
       // Fallback for any un-migrated project (e.g. Vetted) — soft redirect home

@@ -97,7 +97,6 @@ export default function RootLayout({
               <Link href="/">Work</Link>
               <Link href="/thinking">Thinking</Link>
               <Link href="/about">About</Link>
-              <Link href="/contact">Contact</Link>
             </nav>
             <span>
               © {new Date().getFullYear()} Anna Bartlett · Research Cabinet ·

@@ -65,6 +65,13 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
 
     const amp = motion === "gentle" ? 0.45 : 1;
     let raf = 0;
+    // Smoothed state. The transform used to be written straight from scroll
+    // position, so the mark stopped dead the instant you did — accurate, and
+    // mechanical. It now chases a target instead, which gives it weight and
+    // lets it keep drifting once you have landed.
+    let cx = 0, cy = 0, cw = HERO_W, cs = 0;
+    let first = true;
+    const ease = 0.085;
 
     const loop = () => {
       const vh = window.innerHeight;
@@ -77,7 +84,6 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
       // 300px mark shouldering the headline off the screen
       const heroW = Math.min(HERO_W, window.innerWidth * 0.42);
       const w = lerp(heroW, CORNER_W, q);
-      el.style.width = `${w}px`;
 
       // The hero slot is a real element, so the resting position is measured
       // rather than guessed and it survives any layout change.
@@ -85,10 +91,32 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
       const s = slot?.getBoundingClientRect();
       const heroX = s ? s.left : window.innerWidth * 0.62;
       const heroY = s ? s.top : vh * 0.3;
-      const cornerX = window.innerWidth - CORNER_W - 30;
-      const cornerY = vh - CORNER_W * RATIO - 104;
+      // It rests beside the content rather than jammed into the corner —
+      // out in the right margin on a wide screen, and only tucked lower on a
+      // narrow one where there is no margin to sit in.
+      const roomy = window.innerWidth > 1180;
+      const restX = window.innerWidth - CORNER_W - (roomy ? 64 : 26);
+      const restY = roomy
+        ? vh * 0.5 - (CORNER_W * RATIO) / 2
+        : vh - CORNER_W * RATIO - 116;
 
-      el.style.transform = `translate3d(${lerp(heroX, cornerX, q).toFixed(1)}px, ${lerp(heroY, cornerY, q).toFixed(1)}px, 0)`;
+      // slow idle drift, so it is alive when the page is still
+      const t = performance.now() / 1000;
+      const driftX = Math.sin(t * 0.29) * 9 * amp;
+      const driftY = Math.cos(t * 0.21) * 7 * amp;
+
+      const tx = lerp(heroX, restX, q) + driftX;
+      const ty = lerp(heroY, restY, q) + driftY;
+
+      if (first) {
+        cx = tx; cy = ty; cw = w; first = false;
+      } else {
+        cx += (tx - cx) * ease;
+        cy += (ty - cy) * ease;
+        cw += (w - cw) * ease;
+      }
+      el.style.width = `${cw.toFixed(1)}px`;
+      el.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0)`;
 
       // The closing drawer has its own controls in that corner, and the mark
       // was landing on top of them. It bows out once the ask is on screen —
@@ -100,7 +128,9 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
       el.style.visibility = bow > 0.98 ? "hidden" : "visible";
 
       // 0 at each register point, 1 at maximum separation between them
-      const sep = Math.abs(Math.sin(p * Math.PI * REGISTERS)) * amp;
+      const targetSep = Math.abs(Math.sin(p * Math.PI * REGISTERS)) * amp;
+      cs += (targetSep - cs) * ease;
+      const sep = cs;
       const dx = (sep * 5.2).toFixed(2);
       const dy = (sep * 2).toFixed(2);
       const rot = (sep * 26).toFixed(1);

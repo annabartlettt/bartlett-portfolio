@@ -180,10 +180,10 @@ a:not(.nav-link):hover { color: var(--ink); }
    corner as the page scrolls, and positioned entirely by transform from
    OverprintMark — nothing here sets where it is. */
 .rc-omark { position: fixed; left: 0; top: 0; z-index: 20; pointer-events: none; width: 300px; perspective: 900px; will-change: transform, width }
-.rc-omark-3d { position: relative; width: 100%; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.22,.61,.36,1) }
+.rc-omark-3d { position: relative; width: 100%; transform-style: preserve-3d }
 /* Each letter is a stack of copies along Z. Only the stack transforms per
    frame — the layers inside are static, so the depth costs one composite. */
-.rc-omark-l { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.22,.61,.36,1); transform-origin: 32% 50% }
+.rc-omark-l { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 32% 50% }
 .rc-omark-l.b { mix-blend-mode: multiply; transform-origin: 68% 50% }
 .rc-omark-l svg { position: absolute; inset: 0; display: block; width: 100%; height: auto; overflow: visible }
 /* the box the absolutely-positioned stacks are measured against */
@@ -192,8 +192,8 @@ a:not(.nav-link):hover { color: var(--ink); }
 /* reserves the hero's resting slot; the mark is drawn over it */
 .rc-heromark { min-height: min(370px, 52vw) }
 /* the line under the hero copy, now that the artwork left it */
-.rc-markline { display: block; margin-top: 40px; padding-top: 26px; border-top: 1px dashed var(--kraft); max-width: 420px; font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; line-height: 1.7; color: var(--charcoal) }
-.rc-markline b { display: block; font-weight: 400; color: var(--muted); letter-spacing: .1em }
+.rc-markline { display: block; margin: 60px 0 8px; padding-top: 32px; border-top: 1px dashed var(--kraft); max-width: 420px; font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; line-height: 1.7; color: var(--charcoal) }
+.rc-markline b { display: block; margin-top: 4px; font-weight: 400; color: var(--muted); letter-spacing: .1em }
 .rc-markline:hover b { color: var(--ink) }
 .rc-acts { display: flex; flex-wrap: wrap; gap: 12px; align-items: center }
 

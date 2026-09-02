@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .withConfig({ useCdn: false })
     .fetch<{ slug: string }[]>(PROJECT_SLUGS_QUERY);
 
-  const staticRoutes = ["", "/thinking", "/about", "/contact"].map((route) => ({
+  const staticRoutes = ["", "/thinking", "/about"].map((route) => ({
     url: `${BASE}${route}`,
     lastModified: new Date(),
   }));
