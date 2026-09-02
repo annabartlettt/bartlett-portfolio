@@ -35,6 +35,25 @@ export const DISCIPLINES = [
   { value: "motion", title: "Motion & Video", accent: "#6B4E8E" },
 ];
 
+/* The other half of the overprint. Disciplines say how a project was made;
+   domains say what it was made about. Deliberately NOT a filter — a hiring
+   manager arrives looking for a craft, not a worldview — so these ride along
+   as a chip on the card instead. Inks are Risograph, per brand book 33. */
+export const DOMAINS = [
+  // `ink` is the true Riso value and is what marks and fills use. `text` is the
+  // same hue walked down until 9.5px of it clears AA on paper — Riso yellow and
+  // fluorescent green are far too light to set type in.
+  { value: "health", title: "Health", ink: "#3D8E84", text: "#2A6259" },
+  { value: "learning", title: "Learning", ink: "#FFB511", text: "#8A5E00" },
+  { value: "civic", title: "Civic", ink: "#FF6E40", text: "#B03A12" },
+  { value: "culture", title: "Culture", ink: "#A4DC30", text: "#4F6B12" },
+];
+
+export function domainOf(p: Project) {
+  const first = (p.domains ?? [])[0];
+  return DOMAINS.find((d) => d.value === first) ?? null;
+}
+
 type SortKey = "folder" | "category" | "discipline";
 
 const SORTS: { value: SortKey; label: string }[] = [
@@ -573,6 +592,15 @@ export default function CabinetHome({
                       >
                         {p.folderNumber ?? "··"}
                       </span>
+                      {domainOf(p) && (
+                        <span
+                          className="rc-gdom"
+                          style={{ color: domainOf(p)!.text }}
+                        >
+                          <i style={{ background: domainOf(p)!.ink }} />
+                          {domainOf(p)!.title}
+                        </span>
+                      )}
                     </div>
                     <h4>{p.title}</h4>
                     <p className="cat">{p.category?.name}</p>

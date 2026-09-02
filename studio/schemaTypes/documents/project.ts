@@ -61,6 +61,22 @@ export const project = defineType({
       },
     }),
     defineField({
+      name: "domains",
+      title: "Domains (the world it's in)",
+      description:
+        "The other half of the overprint. Disciplines say how the work was made; domains say what it was made about. Shown as a chip on every folder card — deliberately not a filter, because a hiring manager arrives looking for a craft, not a worldview.",
+      type: "array",
+      of: [defineArrayMember({ type: "string" })],
+      options: {
+        list: [
+          { title: "Health", value: "health" },
+          { title: "Learning", value: "learning" },
+          { title: "Civic", value: "civic" },
+          { title: "Culture", value: "culture" },
+        ],
+      },
+    }),
+    defineField({
       name: "themeTags",
       type: "array",
       of: [defineArrayMember({ type: "string" })],

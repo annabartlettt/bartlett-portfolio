@@ -47,6 +47,7 @@ export type Project = {
   madeTangible?: string;
   themeTags?: string[];
   disciplines?: string[];
+  domains?: string[];
   brand?: Brand;
   featured?: boolean;
   priority?: "flagship" | "support" | "archive";
