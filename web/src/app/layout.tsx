@@ -54,6 +54,7 @@ export const metadata: Metadata = {
     "I investigate complex human systems and turn them into experiences people can understand, question, and act on — a research cabinet of design work.",
   keywords: [
     "Anna Bartlett",
+    "creative technologist",
     "design portfolio",
     "UX research",
     "computational design",
@@ -64,7 +65,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     title: "Anna Bartlett — Research Cabinet",
-    description: "Anna Bartlett is a designer in Washington DC working across brand and communications, product, and motion.",
+    description: "Anna Bartlett is a creative technologist in Washington DC working across research, brand, product, and generative systems.",
     url: SITE_URL,
     siteName: "Anna Bartlett",
     type: "website",
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Anna Bartlett — Research Cabinet",
-    description: "Anna Bartlett is a designer in Washington DC working across brand and communications, product, and motion.",
+    description: "Anna Bartlett is a creative technologist in Washington DC working across research, brand, product, and generative systems.",
   },
 };
 

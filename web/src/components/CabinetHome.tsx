@@ -465,8 +465,9 @@ export default function CabinetHome({
             </p>
 
             <h1 data-rc-reveal>
-              Anna Bartlett is a designer in Washington DC working across{" "}
-              <span>brand and communications, product, and motion.</span>
+              Anna Bartlett is a creative technologist in Washington DC working
+              across{" "}
+              <span>research, brand, product, and generative systems.</span>
             </h1>
 
             <div className="rc-acts" data-rc-reveal>
