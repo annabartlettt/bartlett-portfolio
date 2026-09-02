@@ -53,6 +53,7 @@ export const project = defineType({
       of: [defineArrayMember({ type: "string" })],
       options: {
         list: [
+          { title: "Research", value: "research" },
           { title: "Motion & Video", value: "motion" },
           { title: "Marketing & Comms", value: "marcomm" },
           { title: "User Experience", value: "ux" },

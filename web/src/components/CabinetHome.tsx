@@ -29,6 +29,10 @@ import type { Essay, Project } from "@/sanity/types";
  */
 
 export const DISCIPLINES = [
+  // Research leads the row because it is the largest craft here (7 of 9) and
+  // the through-line the rest hang off. Moss, so it does not collide with the
+  // UX teal or the computational indigo.
+  { value: "research", title: "Research", accent: "#5B7553" },
   { value: "ux", title: "User Experience", accent: "#2F6D74" },
   { value: "computational", title: "Computational Design", accent: "#363f9e" },
   { value: "marcomm", title: "Marketing & Comms", accent: "#B5502F" },
