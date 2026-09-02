@@ -33,14 +33,17 @@ const REGISTERS = 3;
 const HERO_W = 300;
 const CORNER_W = 84;
 const RATIO = 740 / 605;
+/** Extrusion passes. Enough to read as a solid edge, few enough to stay cheap. */
+const DEPTH = 13;
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 
 export default function OverprintMark({ motion }: { motion: MotionLevel }) {
   const root = useRef<HTMLDivElement>(null);
-  const aRef = useRef<SVGGElement>(null);
-  const bRef = useRef<SVGGElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const aRef = useRef<HTMLDivElement>(null);
+  const bRef = useRef<HTMLDivElement>(null);
   const tagRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -93,14 +96,13 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
       const dx = (sep * 5.2).toFixed(2);
       const dy = (sep * 2).toFixed(2);
       const rot = (sep * 26).toFixed(1);
-      aRef.current?.setAttribute(
-        "style",
-        `transform: translate(${-dx}%, ${-dy}%) rotateY(${-rot}deg); transform-origin: 32% 50%`,
-      );
-      bRef.current?.setAttribute(
-        "style",
-        `mix-blend-mode: multiply; transform: translate(${dx}%, ${dy}%) rotateY(${rot}deg); transform-origin: 68% 50%`,
-      );
+      // the whole object turns, and the two letters turn against each other
+      if (sceneRef.current)
+        sceneRef.current.style.transform = `rotateX(${(sep * 7).toFixed(1)}deg) rotateY(${(sep * 13).toFixed(1)}deg)`;
+      if (aRef.current)
+        aRef.current.style.transform = `translate(${-dx}%, ${-dy}%) rotateY(${-rot}deg)`;
+      if (bRef.current)
+        bRef.current.style.transform = `translate(${dx}%, ${dy}%) rotateY(${rot}deg)`;
       if (tagRef.current) tagRef.current.style.opacity = sep < 0.05 ? "1" : "0";
 
       raf = requestAnimationFrame(loop);
@@ -109,16 +111,42 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
     return () => cancelAnimationFrame(raf);
   }, [motion]);
 
+  // Real depth, built the only way the brief allows: no lighting, no gradient,
+  // no shadow — just the same outline repeated back along Z, with every layer
+  // behind the front one in a single flat darker tone. Which is what a stack
+  // of Riso passes looks like from the side anyway.
+  const layers = (path: string, face: string, side: string) =>
+    Array.from({ length: DEPTH }, (_, i) => {
+      const back = i < DEPTH - 1;
+      return (
+        <svg
+          key={i}
+          viewBox="0 0 605 740"
+          style={{ transform: `translateZ(${((i - DEPTH + 1) * 1.7).toFixed(1)}px)` }}
+          aria-hidden={back || undefined}
+          role={back ? undefined : "img"}
+          aria-label={back ? undefined : "Anna Bartlett"}
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d={path}
+            fill={back ? side : face}
+          />
+        </svg>
+      );
+    });
+
   return (
     <div className="rc-omark" ref={root}>
-      <svg viewBox="0 0 605 740" role="img" aria-label="Anna Bartlett">
-        <g ref={aRef}>
-          <path fillRule="evenodd" clipRule="evenodd" d={A_PATH} fill="#2F3AB5" />
-        </g>
-        <g ref={bRef} style={{ mixBlendMode: "multiply" }}>
-          <path fillRule="evenodd" clipRule="evenodd" d={B_PATH} fill="#D43F7D" />
-        </g>
-      </svg>
+      <div className="rc-omark-3d" ref={sceneRef}>
+        <div className="rc-omark-l" ref={aRef}>
+          {layers(A_PATH, "#2F3AB5", "#232B87")}
+        </div>
+        <div className="rc-omark-l b" ref={bRef}>
+          {layers(B_PATH, "#D43F7D", "#A32D5E")}
+        </div>
+      </div>
       <span className="rc-omark-tag" ref={tagRef} aria-hidden>
         In register
       </span>

@@ -180,8 +180,14 @@ a:not(.nav-link):hover { color: var(--ink); }
    corner as the page scrolls, and positioned entirely by transform from
    OverprintMark — nothing here sets where it is. */
 .rc-omark { position: fixed; left: 0; top: 0; z-index: 20; pointer-events: none; width: 300px; perspective: 900px; will-change: transform, width }
-.rc-omark svg { display: block; width: 100%; height: auto; overflow: visible }
-.rc-omark svg g { transition: transform .5s cubic-bezier(.22,.61,.36,1); transform-style: preserve-3d }
+.rc-omark-3d { position: relative; width: 100%; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.22,.61,.36,1) }
+/* Each letter is a stack of copies along Z. Only the stack transforms per
+   frame — the layers inside are static, so the depth costs one composite. */
+.rc-omark-l { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.22,.61,.36,1); transform-origin: 32% 50% }
+.rc-omark-l.b { mix-blend-mode: multiply; transform-origin: 68% 50% }
+.rc-omark-l svg { position: absolute; inset: 0; display: block; width: 100%; height: auto; overflow: visible }
+/* the box the absolutely-positioned stacks are measured against */
+.rc-omark-3d::before { content: ""; display: block; padding-top: 122.3% }
 .rc-omark-tag { position: absolute; left: 0; bottom: -22px; font-family: var(--font-mono), monospace; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--pink-deep); opacity: 0; transition: opacity .45s ease; white-space: nowrap }
 /* reserves the hero's resting slot; the mark is drawn over it */
 .rc-heromark { min-height: min(370px, 52vw) }
