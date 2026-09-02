@@ -71,7 +71,7 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
     // lets it keep drifting once you have landed.
     let cx = 0, cy = 0, cw = HERO_W, cs = 0;
     let first = true;
-    const ease = 0.085;
+    const ease = 0.055;
 
     const loop = () => {
       const vh = window.innerHeight;
@@ -102,8 +102,8 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
 
       // slow idle drift, so it is alive when the page is still
       const t = performance.now() / 1000;
-      const driftX = Math.sin(t * 0.29) * 9 * amp;
-      const driftY = Math.cos(t * 0.21) * 7 * amp;
+      const driftX = Math.sin(t * 0.17) * 18 * amp;
+      const driftY = Math.cos(t * 0.13) * 13 * amp;
 
       const tx = lerp(heroX, restX, q) + driftX;
       const ty = lerp(heroY, restY, q) + driftY;
@@ -133,10 +133,14 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
       const sep = cs;
       const dx = (sep * 5.2).toFixed(2);
       const dy = (sep * 2).toFixed(2);
-      const rot = (sep * 26).toFixed(1);
+      const rot = (sep * 40).toFixed(1);
       // the whole object turns, and the two letters turn against each other
+      // A slow turn of its own, so it keeps reading as a solid even when the
+      // page is still — scroll adds to this rather than being the only source.
+      const idleY = Math.sin(t * 0.15) * 7 * amp;
+      const idleX = Math.cos(t * 0.11) * 4 * amp;
       if (sceneRef.current)
-        sceneRef.current.style.transform = `rotateX(${(sep * 7).toFixed(1)}deg) rotateY(${(sep * 13).toFixed(1)}deg)`;
+        sceneRef.current.style.transform = `rotateX(${(sep * 9 + idleX).toFixed(1)}deg) rotateY(${(sep * 16 + idleY).toFixed(1)}deg)`;
       if (aRef.current)
         aRef.current.style.transform = `translate(${-dx}%, ${-dy}%) rotateY(${-rot}deg)`;
       if (bRef.current)
