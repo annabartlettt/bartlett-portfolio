@@ -477,6 +477,25 @@ export default function CabinetHome({
                 Read the thinking
               </a>
             </div>
+
+            {/* The mark sits in the hero's dead space rather than in the nav:
+                it needs ~48px minimum before the overlap closes up, and site
+                chrome runs well under that. Links to /about, where the line it
+                illustrates is actually explained. */}
+            <Link className="rc-mark" href="/about" data-rc-reveal>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/mark/overprint.svg"
+                alt=""
+                width={107}
+                height={131}
+                aria-hidden
+              />
+              <span>
+                I work in the overprint
+                <b>Where two disciplines cross ↗</b>
+              </span>
+            </Link>
           </div>
 
           {/* the folder: discipline tabs that also file the drawer below */}

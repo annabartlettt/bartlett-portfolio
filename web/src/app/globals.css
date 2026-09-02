@@ -176,6 +176,12 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-note { display: flex; gap: 11px; align-items: flex-start; margin: 0 0 32px }
 .rc-note svg { flex: 0 0 auto; margin-top: 9px }
 .rc-note .rc-hand { transform: rotate(-1.6deg); transform-origin: left center }
+.rc-mark { display: flex; align-items: center; gap: 18px; margin-top: 40px; padding-top: 26px; border-top: 1px dashed var(--kraft); max-width: 420px }
+.rc-mark img { height: 108px; width: auto; display: block; flex: none; transition: transform .28s cubic-bezier(.22,.61,.36,1) }
+.rc-mark:hover img { transform: translate(-3px,-3px) }
+.rc-mark span { font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; line-height: 1.7; color: var(--charcoal) }
+.rc-mark b { display: block; font-weight: 400; color: var(--muted); letter-spacing: .1em }
+.rc-mark:hover b { color: var(--ink) }
 .rc-acts { display: flex; flex-wrap: wrap; gap: 12px; align-items: center }
 
 /* hero folder */
