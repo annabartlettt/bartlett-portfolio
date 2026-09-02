@@ -9,6 +9,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
+import OverprintMark from "./OverprintMark";
 import { urlFor } from "@/sanity/image";
 import type { Essay, Project } from "@/sanity/types";
 
@@ -283,159 +284,6 @@ function useCurrentDrawer() {
   return current;
 }
 
-/**
- * The open folder, as a stack of prints rather than a list of titles.
- *
- * A hiring manager gives the top of a portfolio a couple of seconds, and a
- * column of project names spends those seconds asking them to read. The
- * folder leads with the work instead: covers cross-fade, the caption tells
- * you what you're looking at, and the whole frame is a link into it.
- *
- * Only projects that actually have an image are in the deck — a slideshow of
- * grey placeholders would be worse than the list it replaced. The rest are
- * still in the drawer below.
- */
-function FolderSlideshow({
-  projects,
-  label,
-  accent,
-  motion,
-}: {
-  projects: Project[];
-  label: string;
-  accent: string;
-  motion: MotionLevel;
-}) {
-  const deck = useMemo(
-    () => projects.filter((p) => p.slideImage?.asset),
-    [projects],
-  );
-  const [rawI, setI] = useState(0);
-  const [paused, setPaused] = useState(false);
-  // Filtering can shrink the deck out from under the index, so clamp on read
-  // rather than correcting it afterwards. Switching tabs remounts this whole
-  // component (see the key on it), which is what puts you back at the first.
-  const i = deck.length > 0 ? rawI % deck.length : 0;
-
-  const go = useCallback(
-    (d: number) =>
-      setI((n) => (deck.length ? (n + d + deck.length) % deck.length : 0)),
-    [deck.length],
-  );
-
-  useEffect(() => {
-    if (motion === "off" || paused || deck.length < 2) return;
-    const t = setInterval(() => go(1), 5200);
-    return () => clearInterval(t);
-  }, [motion, paused, deck.length, go]);
-
-  const currentProject = deck[i];
-
-  return (
-    <div
-      className="rc-folder"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
-    >
-      <div className="rc-fhead">
-        <div className="open">
-          <span className="rc-dot" style={{ background: accent }} />
-          Open folder · {label}
-        </div>
-        <div className="rc-fig">
-          {deck.length > 0
-            ? `${i + 1} / ${deck.length}`
-            : `${projects.length} ${projects.length === 1 ? "folder" : "folders"}`}
-        </div>
-      </div>
-      <div className="rc-dash" />
-
-      {deck.length === 0 ? (
-        <div className="rc-stage rc-stage-empty">
-          <span className="lab">
-            No cover filed under {label} yet
-            <br />
-            the folders are still in the drawer below
-          </span>
-        </div>
-      ) : (
-        <>
-          <div className="rc-stage">
-            {deck.map((p, n) => (
-              <Link
-                key={p._id}
-                href={`/work/${p.slug}`}
-                className="rc-slide"
-                style={{ opacity: n === i ? 1 : 0 }}
-                aria-hidden={n === i ? undefined : true}
-                tabIndex={n === i ? undefined : -1}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={urlFor(p.slideImage!).width(1100).auto("format").url()}
-                  alt={`${p.title} — open the folder`}
-                  loading={n === 0 ? "eager" : "lazy"}
-                />
-              </Link>
-            ))}
-
-            {deck.length > 1 && (
-              <>
-                <button
-                  type="button"
-                  className="rc-navbtn prev"
-                  aria-label="Previous folder"
-                  onClick={() => go(-1)}
-                >
-                  ←
-                </button>
-                <button
-                  type="button"
-                  className="rc-navbtn next"
-                  aria-label="Next folder"
-                  onClick={() => go(1)}
-                >
-                  →
-                </button>
-              </>
-            )}
-          </div>
-
-          <div className="rc-slidemeta" aria-live="polite">
-            <Link href={`/work/${currentProject.slug}`}>
-              <span
-                className="mono"
-                style={{ color: accentFor(currentProject) }}
-              >
-                {currentProject.folderNumber ?? "··"}
-              </span>
-              <strong>{currentProject.title}</strong>
-            </Link>
-            <span className="cat">{currentProject.category?.name ?? ""}</span>
-          </div>
-
-          {deck.length > 1 && (
-            <div className="rc-dots" role="tablist" aria-label="Folders">
-              {deck.map((p, n) => (
-                <button
-                  key={p._id}
-                  type="button"
-                  role="tab"
-                  aria-selected={n === i}
-                  aria-label={p.title}
-                  onClick={() => setI(n)}
-                />
-              ))}
-            </div>
-          )}
-        </>
-      )}
-
-    </div>
-  );
-}
 
 export default function CabinetHome({
   projects,
@@ -490,7 +338,6 @@ export default function CabinetHome({
   }, [filtered, sort]);
 
   const selected = DISCIPLINES.find((d) => d.value === craft) ?? null;
-  const folderAccent = selected?.accent ?? "var(--ink)";
 
   return (
     <div ref={rootRef}>
@@ -518,6 +365,8 @@ export default function CabinetHome({
       </div>
 
       {/* ══ 01 · index ═════════════════════════════════════ */}
+      <OverprintMark motion={motion} />
+
       <section className="rc-hero">
         <div className="rc-wrap">
           <div>
@@ -544,24 +393,48 @@ export default function CabinetHome({
                 it needs ~48px minimum before the overlap closes up, and site
                 chrome runs well under that. Links to /about, where the line it
                 illustrates is actually explained. */}
-            <Link className="rc-mark" href="/about" data-rc-reveal>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/mark/overprint.svg"
-                alt=""
-                width={107}
-                height={131}
-                aria-hidden
-              />
-              <span>
-                I work in the overprint
-                <b>Where two disciplines cross ↗</b>
-              </span>
+            <Link className="rc-markline" href="/about" data-rc-reveal>
+              I work in the overprint
+              <b>Where two disciplines cross ↗</b>
             </Link>
           </div>
 
-          {/* the folder: discipline tabs that also file the drawer below */}
-          <div data-rc-reveal>
+          {/* The carousel used to sit here showing one folder at a time out of
+              the same nine the gallery below shows in full — the hero was
+              doing the drawer's job worse. It is the mark instead, at a size
+              the overprint survives, and the tabs moved down to the gallery
+              they actually file. */}
+          {/* Empty on purpose: the mark itself is fixed-position so it can
+              travel to the corner as you scroll, and this reserves the space
+              it rests in. OverprintMark measures this element rather than
+              guessing coordinates, so the layout stays the source of truth. */}
+          <div className="rc-heromark" aria-hidden />
+        </div>
+      </section>
+
+      {/* ══ 02 · the work ══════════════════════════════════ */}
+      <section className="rc-drawer" id="work">
+        <div className="rc-wrap">
+          <div className="rc-edge" data-rc-reveal>
+            <i />
+            <i />
+            <i />
+          </div>
+
+          <div className="rc-dhead">
+            <div data-rc-reveal>
+              <p className="rc-eyebrow">
+                <b>02</b> — Drawer · The work
+              </p>
+              <h2>Selected folders</h2>
+            </div>
+            <p className="sub" data-rc-reveal>
+              Every folder, sorted how you like. Each one names the system
+              underneath first, and what got built second.
+            </p>
+          </div>
+
+          <div className="rc-filterrow" data-rc-reveal>
             <div className="rc-tabrow" role="tablist" aria-label="Disciplines">
               <button
                 className="rc-ftab"
@@ -587,38 +460,6 @@ export default function CabinetHome({
                 </button>
               ))}
             </div>
-
-            <FolderSlideshow
-              key={craft ?? "everything"}
-              projects={filtered}
-              label={selected ? selected.title : "Everything"}
-              accent={folderAccent}
-              motion={motion}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ══ 02 · the work ══════════════════════════════════ */}
-      <section className="rc-drawer" id="work">
-        <div className="rc-wrap">
-          <div className="rc-edge" data-rc-reveal>
-            <i />
-            <i />
-            <i />
-          </div>
-
-          <div className="rc-dhead">
-            <div data-rc-reveal>
-              <p className="rc-eyebrow">
-                <b>02</b> — Drawer · The work
-              </p>
-              <h2>Selected folders</h2>
-            </div>
-            <p className="sub" data-rc-reveal>
-              Every folder, sorted how you like. Each one names the system
-              underneath first, and what got built second.
-            </p>
           </div>
 
           <div className="rc-sortbar" data-rc-reveal>
