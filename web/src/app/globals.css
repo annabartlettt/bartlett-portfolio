@@ -396,6 +396,29 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-creds dd { margin: 3px 0 0; font-size: 13.5px; line-height: 1.5; color: color-mix(in srgb, var(--cream) 82%, transparent) }
 .rc-creds > div { padding: 11px 0; border-bottom: 1px dashed color-mix(in srgb, var(--cream) 26%, transparent) }
 .rc-creds > div:last-child { border-bottom: 0 }
+
+@media (max-width: 860px) { .rc-closefoot .inner { grid-template-columns: minmax(0,1fr) } }
+
+/* ── site footer, every page ─────────────────────────────── */
+.rc-sitefoot { background: var(--charcoal); color: var(--cream); padding: 18px 0 108px; border-top: 1px dashed color-mix(in srgb, var(--cream) 26%, transparent) }
+.rc-sitefoot-inner { max-width: 1420px; margin: 0 auto; padding: 0 clamp(20px,3.4vw,48px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; align-items: center; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: color-mix(in srgb, var(--cream) 66%, transparent) }
+.rc-sitefoot-inner nav { display: flex; flex-wrap: wrap; gap: 18px }
+.rc-sitefoot-inner a { color: var(--cream) }
+.rc-sitefoot-inner a:hover { color: var(--pink-soft) }
+
+/* ── the dock: nav as drawer tabs on the bottom edge ─────── */
+.dock { position: fixed; inset-inline: 0; bottom: 0; z-index: 50; display: flex; justify-content: center; pointer-events: none }
+.dock-tabs { display: flex; gap: 3px; align-items: flex-end; margin: 0; padding: 0 12px; list-style: none; pointer-events: auto }
+.dock-tabs li { margin: 0 }
+.dock-tabs a {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono), monospace; font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+  background: var(--card); border: 1px solid var(--kraft); border-bottom: none;
+  border-radius: 6px 6px 0 0; padding: 9px 15px 10px;
+  box-shadow: 0 -2px 14px -8px rgba(41,39,35,.5);
+  transition: transform .18s ease, color .18s ease, border-color .18s ease;
+}
 .dock-tabs a svg { width: 15px; height: 15px; flex: 0 0 auto }
 .dock-tabs a:hover { transform: translateY(-3px); color: var(--pink); border-color: var(--kraft-dk) }
 .dock-tabs a[data-current] { color: var(--pink); padding-bottom: 13px; border-color: var(--kraft-dk) }
@@ -478,3 +501,4 @@ a:not(.nav-link):hover { color: var(--ink); }
 @media (hover: none) {
   .rc-navbtn { display: none }
 }
+
