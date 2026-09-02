@@ -32,11 +32,11 @@ export const DISCIPLINES = [
   // Research leads the row because it is the largest craft here (7 of 9) and
   // the through-line the rest hang off. Moss, so it does not collide with the
   // UX teal or the computational indigo.
-  { value: "research", title: "Research", accent: "#5B7553" },
-  { value: "ux", title: "User Experience", accent: "#2F6D74" },
-  { value: "computational", title: "Computational Design", accent: "#363f9e" },
-  { value: "marcomm", title: "Marketing & Comms", accent: "#B5502F" },
-  { value: "motion", title: "Motion & Video", accent: "#6B4E8E" },
+  { value: "research", title: "Research", short: "Research", accent: "#5B7553" },
+  { value: "ux", title: "User Experience", short: "UX", accent: "#2F6D74" },
+  { value: "computational", title: "Computational Design", short: "Computational", accent: "#363f9e" },
+  { value: "marcomm", title: "Marketing & Comms", short: "Marketing", accent: "#B5502F" },
+  { value: "motion", title: "Motion & Video", short: "Motion", accent: "#6B4E8E" },
 ];
 
 /* The other half of the overprint. Disciplines say how a project was made;
@@ -66,10 +66,16 @@ const SORTS: { value: SortKey; label: string }[] = [
   { value: "discipline", label: "Discipline" },
 ];
 
+/* The strip along the top of the cabinet. These are anchors into this page,
+   not routes — the dock along the bottom does routes. They used to carry the
+   same three words as the dock, so "Thinking" meant two different destinations
+   depending on which one you clicked. Numbering them ties each to the drawer
+   eyebrow it scrolls to and stops them reading as site navigation. */
 const DRAWERS = [
-  { id: "work", label: "Work" },
-  { id: "thinking", label: "Thinking" },
-  { id: "about", label: "About" },
+  { id: "top", n: "01", label: "Index" },
+  { id: "work", n: "02", label: "The work" },
+  { id: "thinking", n: "03", label: "The thinking" },
+  { id: "about", n: "04", label: "Close" },
 ];
 
 function countBy(projects: Project[], discipline: string) {
@@ -123,14 +129,14 @@ function useDrawersOpening(
     if (level === "off") {
       el.classList.remove("rc-anim");
       targets.forEach((t) => {
-        t.classList.remove("rc-in");
+        delete (t as HTMLElement).dataset.rcIn;
         t.style.transitionDelay = "";
       });
       return;
     }
 
     el.classList.add("rc-anim");
-    targets.forEach((t) => t.classList.remove("rc-in"));
+    targets.forEach((t) => delete (t as HTMLElement).dataset.rcIn);
 
     const io = new IntersectionObserver(
       (rows) => {
@@ -138,14 +144,66 @@ function useDrawersOpening(
           if (!r.isIntersecting) return;
           (r.target as HTMLElement).style.transitionDelay =
             `${Math.min(i, 5) * 70}ms`;
-          r.target.classList.add("rc-in");
+          (r.target as HTMLElement).dataset.rcIn = "";
           io.unobserve(r.target);
         });
       },
       { rootMargin: "0px 0px -11% 0px", threshold: 0.08 },
     );
-    targets.forEach((t) => io.observe(t));
-    return () => io.disconnect();
+
+    // Reveal state is a data attribute, not a class, and that is the whole
+    // fix. These cards are React-rendered with className="rc-gcard", so every
+    // re-render rewrote className and wiped a class added out here — meaning
+    // one click on a sort button blanked all nine folders permanently. React
+    // never sets data-rc-in, so it leaves it alone.
+    //
+    // The MutationObserver below covers the other half: genuinely new nodes
+    // (a filter widening the deck) that the initial pass never saw.
+    const seen = new WeakSet<Element>();
+    const watch = (node: Element) => {
+      if (seen.has(node)) return;
+      seen.add(node);
+      io.observe(node);
+    };
+    targets.forEach(watch);
+
+    // Anything replaced while the drawer is already on screen is revealed on
+    // the spot rather than handed to the observer. The observer is the right
+    // tool for a first scroll down the page and the wrong one here: it is
+    // asynchronous, and browsers stop servicing it in a background tab, so a
+    // re-sort could leave the gallery blank until something else woke it.
+    const reveal = (node: Element) => {
+      const r = node.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight) {
+        (node as HTMLElement).dataset.rcIn = "";
+        return true;
+      }
+      return false;
+    };
+    const take = (node: Element) => {
+      if (seen.has(node)) return;
+      if (reveal(node)) {
+        seen.add(node);
+        return;
+      }
+      watch(node);
+    };
+
+    const mo = new MutationObserver((records) => {
+      for (const rec of records) {
+        rec.addedNodes.forEach((n) => {
+          if (!(n instanceof Element)) return;
+          if (n.matches("[data-rc-reveal]")) take(n);
+          n.querySelectorAll?.("[data-rc-reveal]").forEach(take);
+        });
+      }
+    });
+    mo.observe(el, { childList: true, subtree: true });
+
+    return () => {
+      io.disconnect();
+      mo.disconnect();
+    };
   }, [root, level]);
 }
 
@@ -441,15 +499,18 @@ export default function CabinetHome({
         <div className="rc-wrap">
           {/* The site header already carries the name; this strip is only the
               drawer tabs, so it doesn't say it twice. */}
-          <nav className="rc-rimtabs" aria-label="Drawers">
+          <p className="rc-id">
+            <b>On this page</b>
+          </p>
+          <nav className="rc-rimtabs" aria-label="Sections of this page">
             {DRAWERS.map((d) => (
               <a
                 key={d.id}
                 className="rc-rimtab"
-                href={`#${d.id}`}
+                href={d.id === "top" ? "#" : `#${d.id}`}
                 aria-current={current === d.id ? "page" : undefined}
               >
-                {d.label}
+                <b>{d.n}</b> {d.label}
               </a>
             ))}
           </nav>
@@ -520,11 +581,9 @@ export default function CabinetHome({
                   type="button"
                   aria-selected={craft === d.value}
                   onClick={() => setCraft(d.value)}
-                  style={{
-                    ["--tabc" as string]: `color-mix(in srgb, ${d.accent} 26%, var(--card))`,
-                  }}
+                  style={{ ["--tabc" as string]: d.accent }}
                 >
-                  {d.title} · {countBy(projects, d.value)}
+                  {d.short} · {countBy(projects, d.value)}
                 </button>
               ))}
             </div>

@@ -187,9 +187,14 @@ a:not(.nav-link):hover { color: var(--ink); }
 /* hero folder */
 .rc-tabrow { display: flex; flex-wrap: wrap; gap: 3px; align-items: flex-end; padding-left: 6px; min-width: 0 }
 .rc-ftab { white-space: nowrap }
-.rc-ftab { font-family: var(--font-mono), monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--charcoal); background: var(--tabc, var(--lav)); border: 1px solid rgba(44,42,39,.16); border-bottom: none; border-radius: 5px 5px 0 0; padding: 8px 12px 9px; cursor: pointer; opacity: .62; transition: transform .2s ease, opacity .2s ease }
-.rc-ftab:hover { transform: translateY(-3px); opacity: .85 }
-.rc-ftab[aria-selected="true"] { opacity: 1; transform: translateY(-2px); padding-bottom: 12px; box-shadow: 0 -1px 0 rgba(44,42,39,.1) }
+/* Only the open tab is tinted. Every tab used to carry its own accent wash at
+   62% opacity, so the row read as six muddy pastels and the selection was the
+   hardest thing in it to find. --tabc is the raw accent now; the neutral tabs
+   ignore it and the selected one spends it. */
+.rc-ftab { font-family: var(--font-mono), monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: var(--card); border: 1px solid var(--kraft); border-bottom: none; border-radius: 5px 5px 0 0; padding: 8px 12px 9px; cursor: pointer; transition: transform .2s ease, color .2s ease, background .2s ease, border-color .2s ease }
+.rc-ftab:hover { transform: translateY(-3px); color: var(--charcoal); border-color: var(--kraft-dk) }
+.rc-ftab[aria-selected="true"] { position: relative; transform: translateY(-2px); padding-bottom: 12px; color: var(--charcoal); background: color-mix(in srgb, var(--tabc, var(--kraft)) 15%, var(--card)); border-color: color-mix(in srgb, var(--tabc, var(--kraft)) 42%, var(--kraft)) }
+.rc-ftab[aria-selected="true"]::before { content: ""; position: absolute; left: 9px; right: 9px; top: 4px; height: 2.5px; border-radius: 2px; background: var(--tabc, var(--kraft)) }
 .rc-folder { min-width: 0; background: var(--card); border: 1px solid var(--kraft); border-radius: 3px 9px 9px 9px; padding: clamp(16px,1.6vw,22px); box-shadow: 0 1px 0 var(--kraft), 0 10px 22px -18px rgba(44,42,39,.5); min-height: 400px; display: flex; flex-direction: column }
 .rc-fhead { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 13px }
 .rc-fhead .open { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono), monospace; font-size: 10.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--ink) }
@@ -417,7 +422,7 @@ a:not(.nav-link):hover { color: var(--ink); }
 /* drawers opening on scroll */
 [data-rc-reveal] { opacity: 1; transform: none }
 .rc-anim [data-rc-reveal] { opacity: .001; transform: translateY(16px); transition: opacity .72s cubic-bezier(.22,.61,.36,1), transform .72s cubic-bezier(.22,.61,.36,1) }
-.rc-anim [data-rc-reveal].rc-in { opacity: 1; transform: none }
+.rc-anim [data-rc-reveal][data-rc-in] { opacity: 1; transform: none }
 
 @media (prefers-reduced-motion: reduce) {
   .rc-anim [data-rc-reveal] { opacity: 1; transform: none; transition: none }
