@@ -354,7 +354,7 @@ export default function CabinetHome({
               <a
                 key={d.id}
                 className="rc-rimtab"
-                href={d.id === "top" ? "#" : `#${d.id}`}
+                href={`#${d.id}`}
                 aria-current={current === d.id ? "page" : undefined}
               >
                 <b>{d.n}</b> {d.label}
@@ -367,7 +367,7 @@ export default function CabinetHome({
       {/* ══ 01 · index ═════════════════════════════════════ */}
       <OverprintMark motion={motion} />
 
-      <section className="rc-hero">
+      <section className="rc-hero" id="top">
         <div className="rc-wrap">
           <div>
             <p className="rc-eyebrow" data-rc-reveal>
