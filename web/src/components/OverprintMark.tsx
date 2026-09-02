@@ -30,7 +30,7 @@ const B_PATH =
 
 /** How many times the letters come back into register over a full page. */
 const REGISTERS = 3;
-const HERO_W = 300;
+const HERO_W = 372;
 const CORNER_W = 84;
 const RATIO = 740 / 605;
 /** Extrusion passes. Enough to read as a solid edge, few enough to stay cheap. */
@@ -82,7 +82,7 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
       const q = clamp01(window.scrollY / (vh * 0.7));
       // never wider than the column it rests in, so a phone does not get a
       // 300px mark shouldering the headline off the screen
-      const heroW = Math.min(HERO_W, window.innerWidth * 0.42);
+      const heroW = Math.min(HERO_W, window.innerWidth * 0.46);
       const w = lerp(heroW, CORNER_W, q);
 
       // The hero slot is a real element, so the resting position is measured
