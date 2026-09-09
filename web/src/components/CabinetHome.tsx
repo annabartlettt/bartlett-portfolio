@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import OverprintMark from "./OverprintMark";
 import { urlFor } from "@/sanity/image";
-import type { Essay, Project } from "@/sanity/types";
+import type { Project } from "@/sanity/types";
 
 /**
  * The cabinet, laid out as a cabinet.
@@ -67,8 +67,6 @@ export function domainOf(p: Project) {
 const DRAWERS = [
   { id: "top", n: "01", label: "Index" },
   { id: "work", n: "02", label: "The work" },
-  { id: "thinking", n: "03", label: "The thinking" },
-  { id: "about", n: "04", label: "Close" },
 ];
 
 function countBy(projects: Project[], discipline: string) {
@@ -277,13 +275,7 @@ function useCurrentDrawer() {
 }
 
 
-export default function CabinetHome({
-  projects,
-  essays = [],
-}: {
-  projects: Project[];
-  essays?: Essay[];
-}) {
+export default function CabinetHome({ projects }: { projects: Project[] }) {
   const [craft, setCraft] = useState<string | null>(null);
   // Someone who asked their OS for less motion starts with none and can still
   // turn it up; everyone else starts at full. The override wins once set.
@@ -363,9 +355,9 @@ export default function CabinetHome({
               <a className="rc-btn primary" href="#work">
                 Open the cabinet ↓
               </a>
-              <a className="rc-btn plain" href="#thinking">
+              <Link className="rc-btn plain" href="/thinking">
                 Read the thinking
-              </a>
+              </Link>
             </div>
 
             {/* The mark sits in the hero's dead space rather than in the nav:
@@ -501,133 +493,29 @@ export default function CabinetHome({
         </div>
       </section>
 
-      {/* ══ 03 · the thinking ══════════════════════════════ */}
-      <section className="rc-drawer rc-invert" id="thinking">
+      {/* ══ sign-off ═══════════════════════════════════════
+          A full closing drawer used to sit here and repeat the About page
+          almost line for line — same headline, same mailto, same argument.
+          About holds that now. This is the strip that makes sure nobody
+          leaves the folders without the address. */}
+      <section className="rc-signoff rc-invert pink" id="signoff">
         <div className="rc-wrap">
-          <div className="rc-edge" data-rc-reveal>
-            <i />
-            <i />
-            <i />
-          </div>
-
-          <div className="rc-dhead">
-            <div data-rc-reveal>
-              <p className="rc-eyebrow">
-                <b>03</b> — Drawer · The thinking
-              </p>
-              <h2>Back of the cabinet</h2>
-            </div>
-            <p className="sub" data-rc-reveal>
-              Writing about the work of other people, and the reading that feeds
-              the folders in front.
+          <div>
+            <p className="rc-eyebrow">
+              <b>◇</b> Open to work · Washington DC
+            </p>
+            <p className="line">
+              Creative technologist across research, brand, product, and
+              generative systems. The folders above are the whole argument.
             </p>
           </div>
-
-          <div className="rc-workgrid">
-            <aside className="rc-plate">
-              <div className="rc-callout" data-rc-reveal>
-                <div className="rc-meta">
-                  <span className="g">◇</span> Why this is here
-                </div>
-                <p>
-                  A finished folder shows what got decided. This drawer shows
-                  how the deciding happens.
-                </p>
-              </div>
-            </aside>
-
-            <div data-rc-reveal>
-              <nav className="rc-idx">
-                {essays.map((e, i) => (
-                  <Link key={e._id} href={`/thinking/${e.slug}`}>
-                    <span className="num">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="ttl">
-                      {e.title}
-                      {e.dek && <span className="opacity-55"> — {e.dek}</span>}
-                    </span>
-                    <span className="kind">Essay</span>
-                  </Link>
-                ))}
-                <Link href="/thinking">
-                  <span className="num">→</span>
-                  <span className="ttl">All writing</span>
-                  <span className="kind wip">Index</span>
-                </Link>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══ 04 · closing / contact ════════════════════════ */}
-      <section className="rc-closefoot" id="about">
-        <div className="rc-closetabs">
-          <a
-            className="rc-closetab"
-            href="mailto:anna.bartlettt@gmail.com"
-            data-primary
-          >
-            Say hello
-          </a>
-          <Link
-            className="rc-closetab"
-            href="/about"
-          >
-            About
-          </Link>
-        </div>
-
-        <div className="rc-closepanel rc-invert pink">
-          <div className="rc-wrap">
-            <div className="inner" data-rc-reveal>
-              <div>
-                <p className="rc-eyebrow">
-                  <b>04</b> — Closing the cabinet
-                </p>
-                <h2>
-                  Open to work as a creative technologist across{" "}
-                  <span>research, brand, product, and generative systems.</span>
-                </h2>
-                <p className="rc-lede m-0">
-                  Washington DC. If you are hiring for any of them, the folders
-                  above are the whole argument.
-                </p>
-
-                <div className="say">
-                  <a
-                    className="rc-btn pink"
-                    href="mailto:anna.bartlettt@gmail.com"
-                  >
-                    Say hello →
-                  </a>
-                  <span className="mail">anna.bartlettt@gmail.com</span>
-                </div>
-              </div>
-
-              <dl className="rc-creds m-0">
-                {[
-                  [
-                    "Education",
-                    "BFA Design, Marketing minor · Northeastern University · magna cum laude",
-                  ],
-                  [
-                    "Practice",
-                    "Research · User experience · Computational design · Brand and communications · Motion",
-                  ],
-                  [
-                    "Available for",
-                    "Marketing and communications, design systems, civic and learning design · Washington DC",
-                  ],
-                ].map(([k, v]) => (
-                  <div key={k}>
-                    <dt>{k}</dt>
-                    <dd>{v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+          <div className="acts">
+            <a className="rc-btn pink" href="mailto:anna.bartlettt@gmail.com">
+              Say hello →
+            </a>
+            <Link className="rc-btn ghost" href="/about">
+              About
+            </Link>
           </div>
         </div>
       </section>

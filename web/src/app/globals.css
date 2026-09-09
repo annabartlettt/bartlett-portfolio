@@ -123,7 +123,7 @@ a:not(.nav-link):hover { color: var(--ink); }
                            darkened --pink the nav uses for current state */
   --card: #fdf6e6;
   --kraft-dk: #c2a87e;
-  --muted: #7d7261;
+  --muted: #736958;
   --accent: var(--lav);
 }
 
@@ -376,6 +376,15 @@ a:not(.nav-link):hover { color: var(--ink); }
 .rc-drawer.rc-invert { padding-bottom: clamp(48px,6vw,80px) }
 
 /* ── closing / contact footer ───────────────────────────── */
+/* ── the sign-off ───────────────────────────────────────────
+   A strip, not a drawer. The closing panel that used to end this page made
+   the same argument the About page makes, at four times the height. What is
+   left is the one thing nobody should have to hunt for. */
+.rc-signoff { padding: clamp(30px,3.4vw,46px) 0; scroll-margin-top: 60px }
+.rc-signoff .rc-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 34px }
+.rc-signoff .line { margin: 9px 0 0; font-size: clamp(15px,1.15vw,17px); font-weight: 300; line-height: 1.5; max-width: 48ch; color: color-mix(in srgb, var(--cream) 86%, transparent) }
+.rc-signoff .acts { display: flex; flex-wrap: wrap; align-items: center; gap: 13px }
+
 .rc-closefoot { padding: clamp(44px,5vw,72px) 0 0; scroll-margin-top: 60px }
 .rc-closefoot .rc-tabrow { padding-left: clamp(20px,3.4vw,48px); margin-bottom: 0 }
 .rc-closetabs { display: flex; gap: 3px; align-items: flex-end; max-width: 1420px; margin: 0 auto; padding: 0 clamp(20px,3.4vw,48px); min-width: 0 }

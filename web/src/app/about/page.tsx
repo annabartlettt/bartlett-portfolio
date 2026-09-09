@@ -57,6 +57,36 @@ export default function AboutPage() {
           the DC area. The subjects I keep coming back to are health, learning,
           civic life and culture.
         </p>
+        {/* Education, practice and availability were a column on the
+            homepage's closing panel, which is gone. They are the facts a
+            hiring reader scans for, so they sit here with the prose rather
+            than interrupting the folders. */}
+        <dl className="mt-12 max-w-2xl border-t border-[var(--kraft)]">
+          {[
+            [
+              "Education",
+              "BFA Design, Marketing minor · Northeastern University · magna cum laude",
+            ],
+            [
+              "Practice",
+              "Research · User experience · Computational design · Brand and communications · Motion",
+            ],
+            [
+              "Available for",
+              "Marketing and communications, design systems, civic and learning design · Washington DC",
+            ],
+          ].map(([k, v]) => (
+            <div key={k} className="border-b border-[var(--kraft)] py-4">
+              <dt className="mono text-[10px] tracking-widest uppercase opacity-70">
+                {k}
+              </dt>
+              <dd className="mt-1.5 ml-0 text-[15px] leading-relaxed opacity-85">
+                {v}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
         {/* Contact used to be its own route: a heading and this same mailto,
             nothing else. It is here now, where someone who has just read the
             page is actually ready to write. /contact 301s to this anchor. */}

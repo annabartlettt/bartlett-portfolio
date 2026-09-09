@@ -121,10 +121,21 @@ export default function OverprintMark({ motion }: { motion: MotionLevel }) {
       // The closing drawer has its own controls in that corner, and the mark
       // was landing on top of them. It bows out once the ask is on screen —
       // which is also the one place the page wants nothing else competing.
-      const close = document.querySelector("#about");
+      const close = document.querySelector("#signoff");
       const ct = close ? close.getBoundingClientRect().top : Infinity;
       const bow = clamp01((vh - 120 - ct) / 240);
-      el.style.opacity = (lerp(1, 0.92, q) * (1 - bow)).toFixed(3);
+      // The grid runs the full width of the page, so the right-hand margin the
+      // rest position assumes does not exist there and the mark was landing on
+      // covers and folder titles. It steps back to a watermark while the
+      // folders are the thing on screen, and comes back up either side of them.
+      const grid = document.querySelector("#work");
+      let over = 1;
+      if (grid) {
+        const g = grid.getBoundingClientRect();
+        const overlap = Math.min(g.bottom, vh) - Math.max(g.top, 0);
+        over = lerp(1, 0.16, clamp01(overlap / (vh * 0.55)));
+      }
+      el.style.opacity = (lerp(1, 0.92, q) * over * (1 - bow)).toFixed(3);
       el.style.visibility = bow > 0.98 ? "hidden" : "visible";
 
       // 0 at each register point, 1 at maximum separation between them
