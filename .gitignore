@@ -10,7 +10,9 @@ out/
 *.log
 .vercel
 
-# Licensed fonts. Desktop licence only until the foundry confirms web use,
-# and a public repo would distribute them. Kept local on purpose.
+# Licensed fonts, never committed. Web use is confirmed by the foundry
+# (cinketype, Sept 2026), but this repo is public and a licence covers use,
+# not redistribution. Vercel unpacks the woff2 from CINKE_SANS_B64 at build
+# time via web/scripts/write-font.mjs.
 web/src/fonts/*.otf
 web/src/fonts/*.woff2

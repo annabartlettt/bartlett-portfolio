@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import {
   Inter,
   Space_Mono,
-  Archivo_Black,
   Spectral,
   Caveat,
   Playfair_Display,
 } from "next/font/google";
+import localFont from "next/font/local";
 import Link from "next/link";
 import Dock from "@/components/Dock";
 import "./globals.css";
@@ -17,10 +17,18 @@ const mono = Space_Mono({
   weight: ["400", "700"],
   variable: "--font-mono",
 });
-const display = Archivo_Black({
-  subsets: ["latin"],
+// The real brand face, licensed from cinketype and self-hosted. Declared at
+// weight 400 because ExtraBold is the only cut we hold, and every rule that
+// reaches for --font-display already asks for 400 (Archivo Black, the stand-in
+// this replaces, was also a single 400-weight family). Archivo Black stays in
+// the fallback stack so a failed load lands on the face the Figma files use.
+const display = localFont({
+  src: "../fonts/CinkeSans-ExtraBold.woff2",
   weight: "400",
+  style: "normal",
+  display: "swap",
   variable: "--font-display",
+  fallback: ["Archivo Black", "Helvetica Neue", "sans-serif"],
 });
 const spectral = Spectral({
   subsets: ["latin"],
