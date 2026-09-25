@@ -138,7 +138,7 @@ export default function EarlyLofis() {
               Making an invisible experience hard to ignore.
             </h2>
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--charcoal)]/85">
-              While living in London, I kept seeing <em>The Anxious Generation: Est. 1995</em>{" "}
+              While visiting London, I kept seeing <em>The Anxious Generation: Est. 1995</em>{" "}
               displayed across the city. I had not read the book and did not use it as
               research; what stayed with me was the campaign&rsquo;s repetition and blunt
               public presence. It made an often-private subject feel visible in shared space.
@@ -240,28 +240,18 @@ export default function EarlyLofis() {
 
           {/* GROUP 01 — onboarding collage (Trust) */}
           <div className="mt-14 border-t border-dashed border-[var(--kraft)] pt-10">
-            <p className="mono text-[11px] tracking-widest" style={{ color: C.lavender }}>
-              01 · ENTRY &amp; ONBOARDING
-            </p>
-            <div className="mt-5 flex flex-wrap items-end gap-4 md:gap-0">
-              <div className="relative">
-                <Screen shot={SHOTS.welcome} className="relative z-20 w-48 md:w-56" />
-                <span
-                  className="hand mt-2 block text-lg md:absolute md:-right-40 md:top-1/2 md:mt-0"
-                  style={{ color: C.lavender }}
-                  aria-hidden="true"
-                >
-                  Context before collection.
-                </span>
-              </div>
-              <Screen
-                shot={SHOTS.about}
-                className="z-10 w-36 md:-ml-8 md:w-44 md:rotate-[-3deg]"
-              />
-              <Screen
-                shot={SHOTS.curious}
-                className="z-0 w-36 md:-ml-6 md:w-44 md:rotate-[2.5deg]"
-              />
+            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <p className="mono text-[11px] tracking-widest" style={{ color: C.lavender }}>
+                01 · ENTRY &amp; ONBOARDING
+              </p>
+              <span className="hand text-lg" style={{ color: C.lavender }} aria-hidden="true">
+                Context before collection.
+              </span>
+            </div>
+            <div className="mt-5 grid grid-cols-3 gap-3 md:gap-8">
+              <Screen shot={SHOTS.welcome} className="w-full" />
+              <Screen shot={SHOTS.about} className="w-full md:rotate-[-1.5deg]" />
+              <Screen shot={SHOTS.curious} className="w-full md:rotate-[1.5deg]" />
             </div>
 
             <button
@@ -275,10 +265,10 @@ export default function EarlyLofis() {
               {showFlow ? "－ HIDE FULL FLOW" : "＋ VIEW FULL EARLY FLOW"}
             </button>
             {showFlow && (
-              <div id="full-early-flow" className="mt-5 flex flex-wrap gap-4">
-                <Screen shot={SHOTS.name} className="w-32 md:w-36" />
-                <Screen shot={SHOTS.gad} className="w-32 md:w-36" />
-                <Screen shot={SHOTS.stigma} className="w-32 md:w-36" />
+              <div id="full-early-flow" className="mt-5 grid grid-cols-3 gap-3 md:gap-8">
+                <Screen shot={SHOTS.name} className="w-full" />
+                <Screen shot={SHOTS.gad} className="w-full" />
+                <Screen shot={SHOTS.stigma} className="w-full" />
               </div>
             )}
           </div>
@@ -288,13 +278,13 @@ export default function EarlyLofis() {
             <p className="mono text-[11px] tracking-widest" style={{ color: C.mint }}>
               02 · CHOOSING WHAT TO NOTICE
             </p>
-            <div className="mt-5 flex flex-wrap items-start gap-6">
+            <div className="mt-5 grid grid-cols-3 items-start gap-3 md:gap-8">
               {[
                 { shot: SHOTS.checkinChoice, label: "a gentle question" },
                 { shot: SHOTS.checkinScale, label: "rate, don't judge" },
                 { shot: SHOTS.checkinRing, label: "the pattern, made visible" },
               ].map((item, i) => (
-                <figure key={item.shot.file} className="w-40 md:w-44">
+                <figure key={item.shot.file}>
                   <Screen shot={item.shot} className="w-full" />
                   <figcaption className="mono mt-2 text-[10px] tracking-widest text-[var(--charcoal)]/65">
                     {`0${i + 1}`} · {item.label.toUpperCase()}
@@ -309,17 +299,17 @@ export default function EarlyLofis() {
             <p className="mono text-[11px] tracking-widest" style={{ color: C.yellow }}>
               03 · FROM MANY MODULES TO ONE ACTION
             </p>
-            <div className="mt-5 flex flex-wrap items-center gap-8">
-              <figure className="w-44 md:w-52">
+            <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3 md:gap-8">
+              <figure>
                 <Screen shot={SHOTS.homeFull} className="w-full" />
                 <figcaption className="mono mt-2 text-[10px] tracking-wide text-[var(--charcoal)]/65">
                   Full symptom grid: everything weighted the same.
                 </figcaption>
               </figure>
-              <span className="hand text-xl" style={{ color: C.yellow }} aria-hidden="true">
+              <span className="hand max-w-[7rem] text-center text-base md:text-xl" style={{ color: C.yellow }} aria-hidden="true">
                 fewer competing actions →
               </span>
-              <figure className="w-44 md:w-52">
+              <figure>
                 <Screen shot={SHOTS.homeCollapsed} className="w-full" />
                 <figcaption className="mono mt-2 text-[10px] tracking-wide text-[var(--charcoal)]/65">
                   Collapsed: the daily reflection field leads.
