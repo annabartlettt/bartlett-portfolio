@@ -1,0 +1,434 @@
+[
+  {
+    "id": "cc-06-loop",
+    "slug": "central-co-op",
+    "project": "Central Co-op",
+    "folder": "04",
+    "section": "06",
+    "kicker": "The Real Problem",
+    "kind": "loop",
+    "placement": "inline",
+    "first": true,
+    "canvas": [
+      1600,
+      1400
+    ],
+    "brief": "The Northeastern Paradox as a loop you drew: experience, co-op, experience, and back to the start. Three stops, arrows chasing each other around.",
+    "src": "/drawings/cc-06-loop.svg",
+    "labels": [
+      {
+        "text": "need experience",
+        "x": 50,
+        "y": 7
+      },
+      {
+        "text": "get a co-op",
+        "x": 74,
+        "y": 90
+      },
+      {
+        "text": "gain experience",
+        "x": 20,
+        "y": 92
+      }
+    ]
+  },
+  {
+    "id": "cc-02-growth",
+    "slug": "central-co-op",
+    "project": "Central Co-op",
+    "folder": "04",
+    "section": "02",
+    "kicker": "The Brief I Was Actually Given",
+    "kind": "arrowWide",
+    "placement": "inline",
+    "first": true,
+    "canvas": [
+      2400,
+      600
+    ],
+    "brief": "One arrow running from the ~100 card to the 1,000 card.",
+    "src": "/drawings/cc-02-growth.svg",
+    "labels": [
+      {
+        "text": "July '24 · ~100",
+        "x": 3,
+        "y": 72,
+        "align": "start"
+      },
+      {
+        "text": "Dec. '24 · 1,000",
+        "x": 97,
+        "y": 62,
+        "align": "end"
+      }
+    ]
+  },
+  {
+    "id": "cc-02-gap",
+    "slug": "central-co-op",
+    "project": "Central Co-op",
+    "folder": "04",
+    "section": "02",
+    "kicker": "The Brief I Was Actually Given",
+    "kind": "arrowDown",
+    "placement": "margin",
+    "canvas": [
+      1000,
+      1600
+    ],
+    "brief": "An arrow dropping into the gap between two colleges, beside the What I Noticed diagram."
+  },
+  {
+    "id": "cc-03-shift",
+    "slug": "central-co-op",
+    "project": "Central Co-op",
+    "folder": "04",
+    "section": "03",
+    "kicker": "A Profile for Every Major",
+    "kind": "double",
+    "placement": "inline",
+    "canvas": [
+      2000,
+      700
+    ],
+    "brief": "A two-way arrow between Experiential Projects and Experiential Positions, the heading that changes by major."
+  },
+  {
+    "id": "cc-08-trail",
+    "slug": "central-co-op",
+    "project": "Central Co-op",
+    "folder": "04",
+    "section": "08",
+    "kicker": "The Room",
+    "kind": "arrow",
+    "placement": "margin",
+    "canvas": [
+      1600,
+      1000
+    ],
+    "brief": "An arrow from the evidence box back up to the suggestion it supports."
+  },
+  {
+    "id": "bmt-01-gap",
+    "slug": "boston-mobility-tapestry",
+    "project": "Boston Mobility Tapestry",
+    "folder": "01",
+    "section": "01",
+    "kicker": "The Pattern",
+    "kind": "double",
+    "placement": "margin",
+    "first": true,
+    "canvas": [
+      2000,
+      700
+    ],
+    "brief": "A long two-way arrow for the fifteen minutes between the two neighborhoods."
+  },
+  {
+    "id": "bmt-03-translate",
+    "slug": "boston-mobility-tapestry",
+    "project": "Boston Mobility Tapestry",
+    "folder": "01",
+    "section": "03",
+    "kicker": "The Translation",
+    "kind": "arrowWide",
+    "placement": "inline",
+    "canvas": [
+      2400,
+      600
+    ],
+    "brief": "A process arrow for this section's move: from a screenshot to a weaving map."
+  },
+  {
+    "id": "bmt-04-thread",
+    "slug": "boston-mobility-tapestry",
+    "project": "Boston Mobility Tapestry",
+    "folder": "01",
+    "section": "05",
+    "kicker": "What I Learned",
+    "kind": "thread",
+    "placement": "margin",
+    "canvas": [
+      1800,
+      900
+    ],
+    "brief": "A loose thread trailing off the edge, for Unfinished."
+  },
+  {
+    "id": "ano-01-tangle",
+    "slug": "anosity",
+    "project": "Anosity",
+    "folder": "02",
+    "section": "01",
+    "kicker": "What Everyone Sees",
+    "kind": "scribble",
+    "placement": "image-slot",
+    "sanitySlot": "01/i1",
+    "first": true,
+    "canvas": [
+      2000,
+      1500
+    ],
+    "brief": "The tangle: anxiety as one undifferentiated feeling. This fills the empty scribble slot already waiting in this section."
+  },
+  {
+    "id": "ano-03-system",
+    "slug": "anosity",
+    "project": "Anosity",
+    "folder": "02",
+    "section": "03",
+    "kicker": "The Hidden Pattern",
+    "kind": "loop",
+    "placement": "margin",
+    "canvas": [
+      1600,
+      1400
+    ],
+    "brief": "Small arrows that turn one mark into connected parts, for Anxiety is not one thing. It's a system.",
+    "side": "left"
+  },
+  {
+    "id": "ano-04-thread",
+    "slug": "anosity",
+    "project": "Anosity",
+    "folder": "02",
+    "section": "04",
+    "kicker": "Making It Visible",
+    "kind": "scribble",
+    "placement": "image-slot",
+    "sanitySlot": "04/i1",
+    "canvas": [
+      2000,
+      1500
+    ],
+    "brief": "The scribble resolving into one continuous thread, then splitting into domains. Draw every strand in black; if you put each domain's strands on its own layer and upload them separately, they can each take a domain color."
+  },
+  {
+    "id": "fb-01-way",
+    "slug": "financial-blueprint",
+    "project": "Financial Blueprint",
+    "folder": "03",
+    "section": "01",
+    "kicker": "The Overwhelm",
+    "kind": "arrowDown",
+    "placement": "margin",
+    "canvas": [
+      1000,
+      1600
+    ],
+    "brief": "An arrow pointing at the tools getting in the way."
+  },
+  {
+    "id": "fb-02-decide",
+    "slug": "financial-blueprint",
+    "project": "Financial Blueprint",
+    "folder": "03",
+    "section": "02",
+    "kicker": "The Research",
+    "kind": "arrow",
+    "placement": "margin",
+    "canvas": [
+      1600,
+      1000
+    ],
+    "brief": "An arrow from what people told you to what you built, for I let the research decide."
+  },
+  {
+    "id": "fb-03-four",
+    "slug": "financial-blueprint",
+    "project": "Financial Blueprint",
+    "folder": "03",
+    "section": "03",
+    "kicker": "The Product",
+    "kind": "bracket",
+    "placement": "margin",
+    "canvas": [
+      700,
+      1800
+    ],
+    "brief": "A tall bracket gathering the four moves into one."
+  },
+  {
+    "id": "esp-04-tictactoe",
+    "slug": "esplanade-interactive-park-map",
+    "project": "Esplanade Interactive Park Map",
+    "folder": "05",
+    "section": "04",
+    "kicker": "The Insight",
+    "kind": "grid",
+    "placement": "margin",
+    "first": true,
+    "canvas": [
+      1200,
+      1200
+    ],
+    "brief": "The tic-tac-toe grid, drawn fast, for the tic-tac-toe moment."
+  },
+  {
+    "id": "esp-01-question",
+    "slug": "esplanade-interactive-park-map",
+    "project": "Esplanade Interactive Park Map",
+    "folder": "05",
+    "section": "01",
+    "kicker": "The Question",
+    "kind": "circle",
+    "placement": "margin",
+    "canvas": [
+      1400,
+      1000
+    ],
+    "brief": "A loose circle with a tail, pointing at the question: what happens when your phone dies?"
+  },
+  {
+    "id": "esp-05-sides",
+    "slug": "esplanade-interactive-park-map",
+    "project": "Esplanade Interactive Park Map",
+    "folder": "05",
+    "section": "05",
+    "kicker": "The Constraint",
+    "kind": "fourSides",
+    "placement": "margin",
+    "canvas": [
+      1400,
+      1400
+    ],
+    "brief": "A square with an arrow off each of its four sides, for Four sides, on purpose."
+  },
+  {
+    "id": "bso-05-failed",
+    "slug": "boston-symphony-orchestra",
+    "project": "Boston Symphony Orchestra",
+    "folder": "06",
+    "section": "05",
+    "kicker": "What Failed",
+    "kind": "strike",
+    "placement": "margin",
+    "first": true,
+    "canvas": [
+      1200,
+      1200
+    ],
+    "brief": "Quick strike marks: an X like the one over EAGLES in your Wikipedia booklet."
+  },
+  {
+    "id": "bso-03-square",
+    "slug": "boston-symphony-orchestra",
+    "project": "Boston Symphony Orchestra",
+    "folder": "06",
+    "section": "03",
+    "kicker": "The Toolkit",
+    "kind": "square",
+    "placement": "margin",
+    "canvas": [
+      1600,
+      1000
+    ],
+    "brief": "One square, an arrow, then a square inside a square, for It started with a square."
+  },
+  {
+    "id": "bso-07-rules",
+    "slug": "boston-symphony-orchestra",
+    "project": "Boston Symphony Orchestra",
+    "folder": "06",
+    "section": "07",
+    "kicker": "Why Rules",
+    "kind": "arrow",
+    "placement": "margin",
+    "canvas": [
+      1600,
+      1000
+    ],
+    "brief": "An arrow from the rules to the posters they produce."
+  },
+  {
+    "id": "sb-02-bridge",
+    "slug": "storybridge",
+    "project": "StoryBridge",
+    "folder": "07",
+    "section": "02",
+    "kicker": "The Premise",
+    "kind": "arc",
+    "placement": "inline",
+    "canvas": [
+      2200,
+      900
+    ],
+    "brief": "A bridge arc from writer to reader, for Connection over content."
+  },
+  {
+    "id": "sb-01-gap",
+    "slug": "storybridge",
+    "project": "StoryBridge",
+    "folder": "07",
+    "section": "01",
+    "kicker": "The Gap",
+    "kind": "arrowDown",
+    "placement": "margin",
+    "canvas": [
+      1000,
+      1600
+    ],
+    "brief": "An arrow into what the software can't see."
+  },
+  {
+    "id": "sb-05-handoff",
+    "slug": "storybridge",
+    "project": "StoryBridge",
+    "folder": "07",
+    "section": "05",
+    "kicker": "The Handoff",
+    "kind": "double",
+    "placement": "margin",
+    "canvas": [
+      2000,
+      700
+    ],
+    "brief": "A handoff arrow passing between two roles, for Trust lives in the handoff."
+  },
+  {
+    "id": "sp-01-distance",
+    "slug": "spotify-global-mode",
+    "project": "Spotify Global Mode",
+    "folder": "08",
+    "section": "01",
+    "kicker": "The Distance",
+    "kind": "double",
+    "placement": "margin",
+    "canvas": [
+      2000,
+      700
+    ],
+    "brief": "Two dots far apart with an arrow reaching between them."
+  },
+  {
+    "id": "sp-03-bridge",
+    "slug": "spotify-global-mode",
+    "project": "Spotify Global Mode",
+    "folder": "08",
+    "section": "03",
+    "kicker": "Global Mode",
+    "kind": "arc",
+    "placement": "margin",
+    "canvas": [
+      2200,
+      900
+    ],
+    "brief": "Two features joined by one arc, for Two features, one bridge."
+  },
+  {
+    "id": "sp-04-surprise",
+    "slug": "spotify-global-mode",
+    "project": "Spotify Global Mode",
+    "folder": "08",
+    "section": "04",
+    "kicker": "What I Learned",
+    "kind": "circle",
+    "placement": "margin",
+    "canvas": [
+      1400,
+      1000
+    ],
+    "brief": "A loose circle for the surprise: songs people had skipped."
+  }
+]

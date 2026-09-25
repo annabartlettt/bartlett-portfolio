@@ -124,7 +124,7 @@ export default function EarlyLofis() {
           <figure className="order-2 md:order-1">
             <Screen shot={SHOTS.london} className="w-full max-w-[280px]" />
             <figcaption className="mono mt-3 max-w-[280px] text-[10px] leading-relaxed tracking-wide text-[var(--charcoal)]/60">
-              Visual reference observed in London. Communication inspiration—not a
+              Visual reference observed in London. Communication inspiration, not a
               research source for Anosity.
             </figcaption>
           </figure>
@@ -162,7 +162,7 @@ export default function EarlyLofis() {
             First I mapped the tangle, then I looked for the pattern.
           </h3>
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--charcoal)]/85">
-            The earliest work wasn&rsquo;t screens. It was trying to see the whole system —
+            The earliest work wasn&rsquo;t screens. It was trying to see the whole system:
             where hidden anxiety lives across body, mind, and behavior, and where a gentler,
             noticing-based intervention could sit.
           </p>
@@ -170,7 +170,7 @@ export default function EarlyLofis() {
             <figure>
               <Screen shot={SHOTS.mapPlanning} className="w-full" />
               <figcaption className="mono mt-2 text-[10px] tracking-wide text-[var(--charcoal)]/60">
-                Figuring out what to build — the raw planning map.
+                Figuring out what to build: the raw planning map.
               </figcaption>
             </figure>
             <figure className="relative">
@@ -313,7 +313,7 @@ export default function EarlyLofis() {
               <figure className="w-44 md:w-52">
                 <Screen shot={SHOTS.homeFull} className="w-full" />
                 <figcaption className="mono mt-2 text-[10px] tracking-wide text-[var(--charcoal)]/65">
-                  Full symptom grid — everything weighted the same.
+                  Full symptom grid: everything weighted the same.
                 </figcaption>
               </figure>
               <span className="hand text-xl" style={{ color: C.yellow }} aria-hidden="true">
@@ -322,7 +322,7 @@ export default function EarlyLofis() {
               <figure className="w-44 md:w-52">
                 <Screen shot={SHOTS.homeCollapsed} className="w-full" />
                 <figcaption className="mono mt-2 text-[10px] tracking-wide text-[var(--charcoal)]/65">
-                  Collapsed — the daily reflection field leads.
+                  Collapsed: the daily reflection field leads.
                 </figcaption>
               </figure>
             </div>

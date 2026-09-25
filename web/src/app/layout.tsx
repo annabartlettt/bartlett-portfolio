@@ -104,6 +104,7 @@ export default function RootLayout({
             <nav aria-label="Footer">
               <Link href="/">Work</Link>
               <Link href="/thinking">Thinking</Link>
+              <Link href="/printed-matter">Printed Matter</Link>
               <Link href="/about">About</Link>
             </nav>
             <span>

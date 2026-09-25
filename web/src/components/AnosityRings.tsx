@@ -131,7 +131,7 @@ export default function AnosityRings() {
         </h3>
         <p className="mt-2 max-w-xl text-sm leading-relaxed" style={{ color: C.inkMuted }}>
           This is the mapping screen, pulled out of the phone. Choose a domain, then name the
-          patterns that belong to you — each one lands on its own ring. Nothing here is scored.
+          patterns that belong to you. Each one lands on its own ring. Nothing here is scored.
         </p>
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] lg:items-center">
@@ -178,7 +178,7 @@ export default function AnosityRings() {
                       role="button"
                       tabIndex={0}
                       aria-pressed={isActive}
-                      aria-label={`${d.name} ring — ${d.blurb}`}
+                      aria-label={`${d.name} ring: ${d.blurb}`}
                       onClick={() => setActive(isActive ? null : d.key)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
@@ -274,7 +274,7 @@ export default function AnosityRings() {
             ) : (
               <div>
                 <p className="text-[15px] leading-relaxed" style={{ color: C.ink }}>
-                  Five rings. The outer one is your environment — the context the other four sit
+                  Five rings. The outer one is your environment, the context the other four sit
                   inside. The centre is the part that stays still.
                 </p>
                 <ul className="mt-4 flex list-none flex-col gap-2 p-0">

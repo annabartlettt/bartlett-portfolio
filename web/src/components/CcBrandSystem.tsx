@@ -21,12 +21,12 @@ const BEATS = [
   {
     n: "02",
     title: "A connection motif in the middle",
-    body: "Both carry the same idea in different weights — hairline arcs with red nodes on one, a dotted globe throwing red flight paths on the other. It is a lot of empty white by design: at eight feet, read from across a hall, the middle of a banner is where a body stands.",
+    body: "Both carry the same idea in different weights: hairline arcs with red nodes on one, a dotted globe throwing red flight paths on the other. It is a lot of empty white by design: at eight feet, read from across a hall, the middle of a banner is where a body stands.",
   },
   {
     n: "03",
     title: "Two words, one of them red",
-    body: "The line lands at the bottom in two stacked words with the accent on alternating halves — Powered / By Experience, Experience / Unleashed. Same construction, opposite emphasis, so the pair reads as a set from across the room.",
+    body: "The line lands at the bottom in two stacked words with the accent on alternating halves: Powered / By Experience, Experience / Unleashed. Same construction, opposite emphasis, so the pair reads as a set from across the room.",
   },
 ];
 
@@ -39,23 +39,23 @@ const FLOOR = [
   {
     src: "/images/central-coop/brand-booth-banners.jpg",
     alt: "A Central Co-op recruiting table with both roll-up banners standing behind it and printed Cooperative Education Program one-pagers on easels",
-    cap: "Both banners behind the table — the pair doing the job it was designed for.",
+    cap: "Both banners behind the table, the pair doing the job it was designed for.",
   },
   {
     src: "/images/central-coop/brand-booth-merch.jpg",
-    alt: "The Central Co-op booth at an event: a branded tablecloth, printed programme one-pagers on easel stands, pens, mints and puzzle cubes laid out",
+    alt: "The Central Co-op booth at an event: a branded tablecloth, printed program one-pagers on easel stands, pens, mints and puzzle cubes laid out",
     cap: "The booth kit: tablecloth, easel one-pagers, pens, mints, cubes.",
   },
 ];
 
 export default function CcBrandSystem({
-  accent = "#363f9e",
+  accent = "#111111",
 }: {
   accent?: string;
 }) {
   return (
     <>
-      <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+      <section className="mx-auto max-w-4xl border-b border-[#D9D9D9] px-6 py-14">
         <p
           className="mono text-[12px] font-bold tracking-widest"
           style={{ color: accent }}
@@ -68,8 +68,8 @@ export default function CcBrandSystem({
         <div className="rich serif mt-4 text-lg leading-relaxed">
           <p>
             Central Co-op did not need a logo. It is a Northeastern office, and
-            Northeastern issues its offices a finished identity — the N-motto, the
-            wordmark, the monogram, four colourways, a portal to download them
+            Northeastern issues its offices a finished identity: the N-motto, the
+            wordmark, the monogram, four colorways, a portal to download them
             from. That part was settled before I arrived and I did not draw it.
           </p>
           <p>
@@ -83,7 +83,7 @@ export default function CcBrandSystem({
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+      <section className="mx-auto max-w-4xl border-b border-[#D9D9D9] px-6 py-14">
         <p
           className="mono text-[12px] font-bold tracking-widest"
           style={{ color: accent }}
@@ -117,7 +117,7 @@ export default function CcBrandSystem({
                 alt={b.alt}
                 loading="lazy"
                 className="block w-full rounded-lg border bg-white"
-                style={{ borderColor: "var(--kraft)" }}
+                style={{ borderColor: "#D9D9D9" }}
               />
               <figcaption className="mono mt-3 text-[10.5px] tracking-widest opacity-60">
                 {b.cap}
@@ -130,7 +130,7 @@ export default function CcBrandSystem({
           {BEATS.map((b) => (
             <li
               key={b.n}
-              className="border-t border-[var(--kraft)] py-5 last:border-b"
+              className="border-t border-[#D9D9D9] py-5 last:border-b"
             >
               <div className="flex items-baseline gap-4">
                 <span
@@ -155,11 +155,11 @@ export default function CcBrandSystem({
         <p className="serif mt-7 text-base leading-relaxed opacity-75">
           The first banner is the one I would defend hardest. Setting CO-OP in a
           mosaic of student photographs means the headline is made of the thing it
-          is claiming — you cannot read the word without looking at the people.
+          is claiming. You cannot read the word without looking at the people.
         </p>
       </section>
 
-      <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+      <section className="mx-auto max-w-4xl border-b border-[#D9D9D9] px-6 py-14">
         <p
           className="mono text-[12px] font-bold tracking-widest"
           style={{ color: accent }}
@@ -170,7 +170,7 @@ export default function CcBrandSystem({
           A brand you can only see in a PDF isn&rsquo;t finished.
         </h2>
         <p className="serif mt-4 text-lg leading-relaxed opacity-90">
-          All of it deployed at recruiting and admitted-student events — which is
+          All of it deployed at recruiting and admitted-student events, which is
           also where you find out what you got wrong. The banners read from across
           a hall. The table needed the printed one-pager to do the talking,
           because at a career fair nobody stops long enough to be talked at.
@@ -186,7 +186,7 @@ export default function CcBrandSystem({
                   alt={f.alt}
                   loading="lazy"
                   className="block aspect-[4/3] w-full rounded-lg border object-cover"
-                  style={{ borderColor: "var(--kraft)" }}
+                  style={{ borderColor: "#D9D9D9" }}
                 />
                 <figcaption className="mt-3 text-[13px] leading-snug opacity-70">
                   {f.cap}

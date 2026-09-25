@@ -49,7 +49,7 @@ export const PROJECT_QUERY = defineQuery(`
     "category": category->{ name, "slug": slug.current },
     "methods": methods[]->name,
     sections[]{
-      number, kicker, title, body, rhythm, accent, image,
+      _key, number, kicker, title, body, rhythm, accent, image,
       images[]{ _key, caption, alt, image },
       stats[]{ value, label },
       drawer{ label, content }

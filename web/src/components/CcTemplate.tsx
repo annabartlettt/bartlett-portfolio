@@ -70,7 +70,7 @@ function Row({
             alt={s.alt}
             loading="lazy"
             className="block aspect-square w-full rounded-md border object-cover"
-            style={{ borderColor: "var(--kraft)" }}
+            style={{ borderColor: "#D9D9D9" }}
           />
           {captioned && s.cap && (
             <p className="mono mt-2 text-[10px] tracking-widest opacity-55">
@@ -84,12 +84,12 @@ function Row({
 }
 
 export default function CcTemplate({
-  accent = "#363f9e",
+  accent = "#111111",
 }: {
   accent?: string;
 }) {
   return (
-    <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+    <section className="mx-auto max-w-4xl border-b border-[#D9D9D9] px-6 py-14">
       <p
         className="mono text-[12px] font-bold tracking-widest"
         style={{ color: accent }}
@@ -123,13 +123,13 @@ export default function CcTemplate({
         </p>
         <Row items={CLOSES} />
         <p className="serif mt-3 text-base leading-relaxed opacity-75">
-          One composition every time — the monogram, the four action chips, the
-          ask, the hashtag — repainted in whatever the guide above it was
-          wearing. The shape is the part a reader learns to recognise; the colour
+          One composition every time (the monogram, the four action chips, the
+          ask, the hashtag) repainted in whatever the guide above it was
+          wearing. The shape is the part a reader learns to recognize; the color
           is what keeps a set of four from reading like a form letter.
         </p>
         <p className="serif mt-3 text-base leading-relaxed opacity-75">
-          And the ask is for the save, not the like. A saved post comes back at
+          The ask is for the save, not the like. A saved post comes back at
           the moment it is needed, which for a co-op student is usually months
           later, at eleven at night, right before the thing they were dreading.
         </p>

@@ -511,3 +511,94 @@ a:not(.nav-link):hover { color: var(--ink); }
   .rc-navbtn { display: none }
 }
 
+
+/* ---- margin notes (SideNote) ------------------------------------------------
+   Research beside the sentence it supports. Visible at rest in the margin on
+   wide screens; hover/focus ties phrase and note together in the project color;
+   click pins. Narrow screens open the note inline under its sentence. */
+.sn-anchor {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0 1px;
+  cursor: pointer;
+  text-align: inherit;
+  text-decoration: underline dotted 1.5px;
+  text-underline-offset: 4px;
+  text-decoration-color: color-mix(in oklab, var(--sn) 55%, transparent);
+  border-radius: 3px;
+  transition: background-color 0.15s ease, text-decoration-color 0.15s ease;
+}
+.sn-anchor[data-on="true"] {
+  background-color: color-mix(in oklab, var(--sn) 12%, transparent);
+  text-decoration-color: var(--sn);
+}
+.sn-anchor:focus-visible { outline: 2px solid var(--sn); outline-offset: 2px; }
+.sn-num {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.58em;
+  margin-left: 2px;
+  color: var(--sn);
+}
+.sn-note { display: none; }
+.sn-note[data-open="true"] {
+  display: block;
+  margin: 10px 0 16px;
+  padding: 2px 0 2px 14px;
+  border-left: 2px solid var(--sn);
+  font-size: 15px;
+  line-height: 1.45;
+  opacity: 1;
+}
+.sn-n {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: 1px;
+  border: 1px solid var(--sn);
+  color: var(--sn);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.sn-src {
+  display: block;
+  font-size: 19px;
+  line-height: 1.1;
+  margin-top: 4px;
+  color: var(--sn);
+}
+/* From laptop width up, a section with notes gives its text a narrower measure
+   and the notes a margin inside the section, so they are readable at rest. */
+@media (min-width: 1024px) {
+  /* flow-root keeps the floated notes inside the text block, so a long last
+     note can never run down over the images that follow the section body. */
+  .sn-body { padding-right: 16rem; display: flow-root; }
+  .sn-note,
+  .sn-note[data-open="true"] {
+    display: block;
+    float: right;
+    clear: right;
+    width: 13.5rem;
+    margin: 0.15rem -16rem 0.9rem 0;
+    padding: 0;
+    border: 0;
+    font-size: 14px;
+    line-height: 1.42;
+    color: var(--charcoal);
+    opacity: 0.55;
+    transition: opacity 0.15s ease;
+  }
+  .sn-note[data-on="true"] { opacity: 1; }
+  .sn-note[data-on="true"] .sn-n { background: var(--sn); color: #fff; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sn-anchor, .sn-note, .sn-n { transition: none; }
+}
+a.sn-src { text-decoration: none; }
+a.sn-src:hover { text-decoration: underline; text-underline-offset: 3px; }

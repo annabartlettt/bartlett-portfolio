@@ -27,6 +27,14 @@ import SpotifyBarriers from "@/components/SpotifyBarriers";
 import SpotifyResearch from "@/components/SpotifyResearch";
 import SpotifyFeatures from "@/components/SpotifyFeatures";
 import SpotifyLearned from "@/components/SpotifyLearned";
+import HandDrawing from "@/components/HandDrawing";
+import SectionFolio from "@/components/SectionFolio";
+import { drawingsFor } from "@/content/drawings";
+import SideNote from "@/components/SideNote";
+import { sidenotesFor, withSidenotes } from "@/content/sidenotes";
+import PaperCard from "@/components/PaperCard";
+import { paperFor } from "@/content/papers";
+import type { PortableTextComponents } from "next-sanity";
 import { urlFor } from "@/sanity/image";
 import { Fragment, type CSSProperties } from "react";
 import { notFound } from "next/navigation";
@@ -57,6 +65,19 @@ const HERO_CREAM = "#F6EEDA";
 const HERO_INK = "#2A2A2A";
 
 export const revalidate = 60;
+
+/** Render `sidenote` annotations as margin notes in the section's color. */
+function noteMarks(color: string): PortableTextComponents {
+  return {
+    marks: {
+      sidenote: ({ children, value }) => (
+        <SideNote n={value?.n} note={value?.note} source={value?.source} href={value?.href} color={color}>
+          {children}
+        </SideNote>
+      ),
+    },
+  };
+}
 
 export async function generateMetadata({
   params,
@@ -107,6 +128,9 @@ export default async function ProjectPage({
   const brand = p.brand ?? {};
   const primary = brand.primary ?? "#363f9e";
   const onDark = brand.onDark ?? "#ffffff";
+  // The drawings take the project's color, the way her booklet let one green do
+  // everything. A near-black brand (Spotify) draws in its secondary instead.
+  const drawInk = luminance(primary) < 0.03 && brand.secondary ? brand.secondary : primary;
 
   // The cover band takes each project's own brand colour, and most of those are
   // dark enough to carry cream type. Some are not — BSO's is the Mahler
@@ -199,7 +223,7 @@ export default async function ProjectPage({
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={urlFor(p.coverImage).width(1800).auto("format").url()}
-              alt={p.coverImage.alt ?? `${p.title} — cover`}
+              alt={p.coverImage.alt ?? `${p.title} cover`}
               className="mt-12 w-full rounded-2xl"
             />
           )}
@@ -211,21 +235,36 @@ export default async function ProjectPage({
         <Fragment key={s._key}>
           <section
             id={`s${s.number}`}
-            className="mx-auto max-w-4xl scroll-mt-20 border-b border-[var(--kraft)] px-6 py-16"
+            className="relative mx-auto max-w-4xl scroll-mt-20 border-b border-[var(--kraft)] px-6 py-16"
           >
             <p
-              className="mono text-[12px] font-bold tracking-widest"
+              className="mono flex items-center gap-3 text-[12px] font-bold tracking-widest"
               style={{ color: s.accent ?? primary }}
             >
-              {s.number} · {s.kicker}
+              <SectionFolio number={s.number} color={s.accent ?? primary} />
+              {s.kicker}
             </p>
             <h2 className="display mt-3 text-3xl">{s.title}</h2>
             <div
-              className="rich serif mt-4 text-lg leading-relaxed opacity-90"
+              className={`rich serif mt-4 text-lg leading-relaxed opacity-90 ${
+                sidenotesFor(slug, s.number).length ? "sn-body" : ""
+              }`}
               style={{ "--rich-accent": s.accent ?? primary } as CSSProperties}
             >
-              <PortableText value={(s.body ?? []) as PortableTextBlock[]} />
+              <PortableText
+                value={withSidenotes(s.body ?? [], sidenotesFor(slug, s.number)) as PortableTextBlock[]}
+                components={noteMarks(s.accent ?? primary)}
+              />
             </div>
+
+            {(() => {
+              const paper = paperFor(slug, s.number);
+              return paper ? <PaperCard paper={paper} color={s.accent ?? primary} /> : null;
+            })()}
+
+            {drawingsFor(slug, s.number).map((d) => (
+              <HandDrawing key={d.id} slot={d} color={drawInk} />
+            ))}
 
             {s.image?.asset && (
               // eslint-disable-next-line @next/next/no-img-element
@@ -280,7 +319,7 @@ export default async function ProjectPage({
               </div>
             )}
 
-            {s.drawer?.label && (
+            {s.drawer?.label && sidenotesFor(slug, s.number).length === 0 && (
               <Drawer
                 label={s.drawer.label}
                 content={s.drawer.content}
@@ -522,9 +561,14 @@ export default async function ProjectPage({
                       label: "Mid-fidelity",
                     },
                     {
-                      src: "/images/storybridge/reader-browse.jpg",
-                      alt: "Stories for You: a featured story card for Lola's Secret Garden by a seventeen year old author, above a row of story cards tagged by theme and country",
+                      src: "/images/storybridge/reader-v2-browse.png",
+                      alt: "Stories for You: a featured story, Saturday Morning Pancakes by Amara, age 8, above a row of five story cards, each tagged with a topic and a grade band from 2 to 5",
                       label: "Stories for you",
+                    },
+                    {
+                      src: "/images/storybridge/reader-v2-story.png",
+                      alt: "Reading The Rematch, a story by a fourth grader. The reader has tapped the word rematch, and a card explains it in plain words with a button to hear it. Tools for bigger text, read aloud and word help sit above the story",
+                      label: "Reading, with word help",
                     },
                     {
                       src: "/images/storybridge/reader-discover.jpg",
@@ -540,6 +584,11 @@ export default async function ProjectPage({
                       src: "/images/storybridge/library.jpg",
                       alt: "The full StoryBridge Story Library with search, genre filters and reading level filters",
                       label: "Full library",
+                    },
+                    {
+                      src: "/images/storybridge/reader-v2-components.png",
+                      alt: "The reader component sheet: grade, topic and author-grade tags, the browse card and featured card, five cover colors, and the app header",
+                      label: "Reader components",
                     },
                   ],
                 },

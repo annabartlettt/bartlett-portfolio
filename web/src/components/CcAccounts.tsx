@@ -45,20 +45,20 @@ const ACCOUNTS = [
     handle: "@nuglobalcoop",
     href: "https://www.instagram.com/nuglobalcoop/",
     name: "Global Co-op Council",
-    body: "The second feed, for students placed on co-op abroad — workshops, send-offs, and the practical business of leaving the country for six months.",
+    body: "The second feed, for students placed on co-op abroad: workshops, send-offs, and the practical business of leaving the country for six months.",
   },
 ];
 
 export default function CcAccounts({
   stats,
-  accent = "#363f9e",
+  accent = "#111111",
 }: {
   stats?: Stat[];
   accent?: string;
 }) {
   return (
     <>
-      <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+      <section className="mx-auto max-w-4xl border-b border-[#D9D9D9] px-6 py-14">
         <p
           className="mono text-[12px] font-bold tracking-widest"
           style={{ color: accent }}
@@ -69,7 +69,7 @@ export default function CcAccounts({
         <p className="serif mt-4 text-lg leading-relaxed opacity-90">
           Both co-managed, and both young enough that what went out still
           decided what the account became. The calendar came from the
-          platform&rsquo;s own analytics rather than a hunch &mdash; which posts
+          platform&rsquo;s own analytics rather than a hunch: which posts
           held people, which died, what time of day a co-op student is awake and
           worrying.
         </p>
@@ -78,7 +78,7 @@ export default function CcAccounts({
           {ACCOUNTS.map((a) => (
             <li
               key={a.handle}
-              className="rounded-xl border border-[var(--kraft)] bg-[var(--paper)] p-5"
+              className="rounded-xl border border-[#D9D9D9] bg-white p-5"
             >
               <a
                 href={a.href}
@@ -125,7 +125,7 @@ export default function CcAccounts({
         )}
       </section>
 
-      <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
+      <section className="mx-auto max-w-4xl border-b border-[#D9D9D9] px-6 py-14">
         <p
           className="mono text-[12px] font-bold tracking-widest"
           style={{ color: accent }}
@@ -143,7 +143,7 @@ export default function CcAccounts({
               alt="Global Co-op Send Off event graphic: teal type and a butter-yellow globe with dashed flight paths and aeroplanes on a cream ground, for a December 3rd event at the Curry Student Center"
               loading="lazy"
               className="block w-full rounded-lg border"
-              style={{ borderColor: "var(--kraft)" }}
+              style={{ borderColor: "#D9D9D9" }}
             />
             <figcaption className="mono mt-3 text-[10.5px] tracking-widest opacity-60">
               GLOBAL CO-OP SEND OFF · DECEMBER 2024
@@ -157,7 +157,7 @@ export default function CcAccounts({
               already been accepted and now has to get on a plane.
             </p>
             <p className="mt-4">
-              So it got its own register &mdash; teal and butter yellow instead
+              So it got its own register: teal and butter yellow instead
               of red and black, a globe and dashed flight paths instead of the
               network motif, and a warmer, slower typographic pace. The
               Northeastern signature stays at the top of both, which is the only

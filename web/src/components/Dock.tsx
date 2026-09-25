@@ -17,6 +17,13 @@ const ITEMS = [
     stroke: true,
   },
   {
+    href: "/printed-matter",
+    label: "Printed",
+    // two sheets, one resting on the other
+    path: "M8 3.5 H19 V16.5 M5 7 H15.5 V20.5 H5 Z",
+    stroke: true,
+  },
+  {
     href: "/about",
     label: "About",
     path: "M12 12 a3.6 3.6 0 1 0 0-7.2 3.6 3.6 0 0 0 0 7.2 Z M4.8 20.2 a7.2 7.2 0 0 1 14.4 0",

@@ -1,219 +1,253 @@
+"use client";
+
+import { useState } from "react";
+import { CC } from "@/content/central-coop-tokens";
+
 /**
- * The live polls that ran inside the focus groups.
+ * The live polls from the focus groups, rebuilt from the Mentimeter export in
+ * the site's own type. Every figure carries the n the slide reported, and the
+ * numbers match the presentation deck given to the Senior Vice Chancellor.
  *
- * Ten of each session's sixty minutes were Mentimeter — the room answering on
- * their phones while the discussion was still warm. The exported slides are
- * Mentimeter's chrome (its logo, its blues, its reaction counters), so they are
- * rebuilt here in the cabinet's own type instead of screenshotted: the numbers
- * are the evidence, the branding around them is not.
- *
- * Rebuilding also forced an honest question about form. Only one of the five
- * results is a chart. A single word per student is a list; 100%-and-four-zeroes
- * is a headline, not five bars; a ranking is a ranking, and drawing it as bars
- * would invent magnitudes nobody measured. One question — how well does
- * Northeastern prepare you — put two answers on one shared 1–10 scale, and that
- * one is a chart.
- *
- * Every figure below is labelled with the n the slide itself reported. These are
- * per-session polls, not the full twenty-five.
+ * Three pieces are exported separately so the case study can set each one
+ * directly under the paragraph that interprets it.
  */
 
-/** One word for the co-op search. Seven responses, six words — so one repeated. */
-const WORDS = [
-  "isolating",
-  "anxious",
-  "stressful",
-  "long",
-  "emerging",
-  "preserving",
+type Group = "feeling" | "effort" | "system" | "positive" | "other";
+
+/** Sized the way Mentimeter sized them: 3 = most chosen, 2 = second, 1 = the rest. */
+const WORDS: { w: string; size: 1 | 2 | 3; group: Group }[] = [
+  { w: "difficult", size: 1, group: "effort" },
+  { w: "arduous", size: 1, group: "effort" },
+  { w: "straightforward", size: 1, group: "positive" },
+  { w: "draining", size: 1, group: "feeling" },
+  { w: "emerging", size: 1, group: "other" },
+  { w: "nervous", size: 1, group: "feeling" },
+  { w: "tedious", size: 1, group: "effort" },
+  { w: "anxious", size: 1, group: "feeling" },
+  { w: "stressful", size: 3, group: "feeling" },
+  { w: "crappy", size: 1, group: "other" },
+  { w: "busy", size: 1, group: "effort" },
+  { w: "long", size: 2, group: "effort" },
+  { w: "isolating", size: 1, group: "feeling" },
+  { w: "preserving", size: 1, group: "other" },
+  { w: "intense", size: 1, group: "effort" },
+  { w: "unresponsive", size: 1, group: "system" },
+  { w: "chaotic", size: 1, group: "system" },
+  { w: "competitive", size: 1, group: "system" },
 ];
 
-/** Same question, same 1–10 scale, two halves of the job. */
-const SCALE = [
-  { label: "the technical side of applying", value: 4.5 },
-  { label: "the interpersonal side of applying", value: 6.5 },
+const FILTERS: { key: Group | "all"; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "feeling", label: "How it felt" },
+  { key: "effort", label: "The effort" },
+  { key: "system", label: "The system" },
+  { key: "positive", label: "Positive" },
 ];
 
-/** Ranked, not measured — so it is rendered as a rank, not as bar lengths. */
+const FILTER_NOTES: Record<string, string> = {
+  all: "Twelve students, 23 words. Bigger means more students chose it.",
+  feeling: "Stressful, the most chosen word of all, sits here.",
+  effort: "Long was the second most chosen word.",
+  system: "The only group a university can change directly. Unresponsive is what the NUworks dashboard suggestion was for.",
+  positive: "One word out of 23.",
+};
+
 const OBSTACLES = [
-  "Competition level",
-  "Professional networking",
-  "Interview preparation",
-  "Resume development",
+  { name: "Competition level", note: "" },
+  { name: "Interview preparation", note: "The one the university could most directly teach." },
+  { name: "Professional networking", note: "" },
+  { name: "Resume development", note: "Resume workshops already ran every week." },
 ];
 
-/** What would have made it easier — in their words, untouched. */
-const ASKS = [
-  "Take clinical skills classes earlier to expand job options.",
-  "Find a mentor or people with different coops and just have them refer you to their coop — for your first one at least will make it a lot easier.",
-  "More guidance on creating your own co-op would have been good. It was relatively easy to set up for me but really worked because I was able to reach out to my connections and advocate for myself.",
-  "Knowing about the pacing/course scheduling of the major as well as knowing what my options were outside of NUworks. Once I learned how to self-develop a co-op I never looked back.",
+const RESOURCES = [
+  { label: "Co-op advisor", pct: 73, of11: 8 },
+  { label: "NUworks", pct: 18, of11: 2 },
+  { label: "Co-op class", pct: 9, of11: 1 },
+  { label: "Career Services", pct: 0, of11: 0 },
+  { label: "Other", pct: 0, of11: 0 },
 ];
 
-export default function CcPolls({ accent = "#363f9e" }: { accent?: string }) {
+function Chip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
   return (
-    <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
-      <p
-        className="mono text-[12px] font-bold tracking-widest"
-        style={{ color: accent }}
-      >
-        TEN MINUTES OF EVERY SIXTY · THE LIVE POLLS
-      </p>
-      <h2 className="display mt-3 text-3xl">
-        Asked out loud, answered on their phones.
-      </h2>
-      <p className="serif mt-4 text-lg leading-relaxed opacity-90">
-        Fifty minutes of discussion, then ten of Mentimeter. The polls were there
-        to catch what a room will type but not say — and they are the part of the
-        research that reads the same to a stakeholder as it did to us.
-      </p>
+    <button
+      role="tab"
+      aria-selected={active}
+      onClick={onClick}
+      className={`mono rounded-full border px-3 py-1.5 text-[11px] tracking-widest uppercase transition ${
+        active
+          ? "border-[#111111] bg-[#111111] text-white"
+          : "border-[#D9D9D9] hover:border-[#111111]"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
 
-      {/* ── one word ─────────────────────────────────────────────────────── */}
-      <figure className="mt-10 m-0">
-        <figcaption className="mono text-[11px] tracking-widest opacity-60">
-          ONE WORD FOR THE CO-OP SEARCH · 7 RESPONSES
-        </figcaption>
-        <ul className="mt-4 flex list-none flex-wrap items-baseline gap-x-7 gap-y-2 p-0">
-          {WORDS.map((w) => (
-            <li
-              key={w}
-              className="display text-[26px] leading-tight sm:text-[30px]"
-              style={{ color: accent }}
-            >
-              {w}
-            </li>
-          ))}
-        </ul>
-        <p className="serif mt-3 text-base leading-relaxed opacity-75">
-          Six words from seven students, set at one size because that is what the
-          data says — each was one person answering once. Five of the six describe
-          a feeling rather than a task.
-        </p>
-      </figure>
+export function PollWords({ accent = "#111111" }: { accent?: string }) {
+  const [f, setF] = useState<Group | "all">("all");
+  // One ink per group, so the three readings are visible before any filter is touched.
+  const ink: Record<Group, string> = {
+    feeling: accent,
+    effort: CC.gray,
+    system: CC.red,
+    positive: "#A3A3A3",
+    other: "#C4C4C4",
+  };
+  const size = { 1: "text-[20px] sm:text-[24px]", 2: "text-[34px] sm:text-[44px]", 3: "text-[48px] sm:text-[64px]" };
 
-      {/* ── the one real chart ───────────────────────────────────────────── */}
-      <figure className="mt-11 m-0">
-        <figcaption className="mono text-[11px] tracking-widest opacity-60">
-          HOW WELL DOES NORTHEASTERN PREPARE YOU? · 1–10
-        </figcaption>
-
-        <div className="mt-5 flex flex-col gap-5">
-          {SCALE.map((s) => (
-            <div key={s.label}>
-              <div className="flex items-baseline justify-between gap-4">
-                <span className="text-[14px] leading-snug">{s.label}</span>
-                <span
-                  className="display text-[22px] tabular-nums"
-                  style={{ color: accent }}
-                >
-                  {s.value.toFixed(1)}
-                </span>
-              </div>
-              {/* track + fill; one hue, because both bars are the same measure */}
-              <div
-                className="mt-2 h-2 w-full rounded-full"
-                style={{ background: "var(--kraft)" }}
-              >
-                <div
-                  className="h-2 rounded-full"
-                  style={{
-                    width: `${s.value * 10}%`,
-                    background: accent,
-                  }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mono mt-3 flex justify-between text-[10px] tracking-widest opacity-55">
-          <span>MINIMAL PREPARATION</span>
-          <span>EXTENSIVE PREPARATION</span>
-        </div>
-
-        <p className="serif mt-4 text-base leading-relaxed opacity-75">
-          Two points of gap, and it falls on the half the university teaches most
-          explicitly. Students rate themselves better at talking to a stranger
-          than at the résumés, portfolios and technical screens the co-op class
-          is supposed to cover.
-        </p>
-      </figure>
-
-      {/* ── the headline number ──────────────────────────────────────────── */}
-      <figure className="mt-11 m-0">
-        <figcaption className="mono text-[11px] tracking-widest opacity-60">
-          MOST-USED CAMPUS RESOURCE
-        </figcaption>
-        <p
-          className="display mt-3 text-[64px] leading-none"
-          style={{ color: accent }}
-        >
-          100%
-        </p>
-        <p className="serif mt-3 text-lg leading-relaxed">
-          said <b className="font-semibold">their co-op advisor</b>. Career
-          Services, the co-op class, NUworks and “other” each took nought.
-        </p>
-        <p className="serif mt-3 text-base leading-relaxed opacity-75">
-          A clean sweep is not a chart, so it is not drawn as one. It is also the
-          most load-bearing number in the study: every student was routed through
-          one person, and the offices built to share that load were not being
-          reached.
-        </p>
-      </figure>
-
-      {/* ── the ranking ──────────────────────────────────────────────────── */}
-      <figure className="mt-11 m-0">
-        <figcaption className="mono text-[11px] tracking-widest opacity-60">
-          OBSTACLES, RANKED MOST TO LEAST CHALLENGING
-        </figcaption>
-        <ol className="mt-4 list-none space-y-0 p-0">
-          {OBSTACLES.map((o, n) => (
-            <li
-              key={o}
-              className="flex items-baseline gap-4 border-b border-[var(--kraft)] py-3 last:border-0"
-            >
+  return (
+    <figure className="m-0 my-10">
+      <figcaption className="mono text-[11px] tracking-widest opacity-60">
+        ONE WORD FOR THE CO-OP SEARCH · 23 RESPONSES
+      </figcaption>
+      <div role="tablist" aria-label="Group the words" className="mt-3 flex flex-wrap gap-2">
+        {FILTERS.map((x) => (
+          <Chip key={x.key} active={f === x.key} onClick={() => setF(x.key)}>
+            {x.key !== "all" && (
               <span
-                className="mono text-[11px] font-bold tracking-widest"
-                style={{ color: accent }}
-              >
+                aria-hidden
+                className="mr-1.5 inline-block h-2 w-2 rounded-full align-middle"
+                style={{ background: ink[x.key] }}
+              />
+            )}
+            {x.label}
+          </Chip>
+        ))}
+      </div>
+      <ul className="mt-5 flex list-none flex-wrap items-baseline justify-center gap-x-5 gap-y-1 rounded-xl border border-[#D9D9D9] bg-white px-4 py-8 sm:gap-x-7">
+        {WORDS.map((x) => {
+          const on = f === "all" || x.group === f;
+          return (
+            <li
+              key={x.w}
+              className={`display leading-tight transition-opacity duration-300 ${size[x.size]}`}
+              style={{ color: ink[x.group], opacity: on ? 1 : 0.15 }}
+            >
+              {x.w}
+            </li>
+          );
+        })}
+      </ul>
+      <p className="serif mt-3 text-base leading-relaxed opacity-75" aria-live="polite">
+        {FILTER_NOTES[f]}
+      </p>
+    </figure>
+  );
+}
+
+export function PollRanking({ accent = "#111111" }: { accent?: string }) {
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <figure className="m-0 my-10">
+      <figcaption className="mono text-[11px] tracking-widest opacity-60">
+        OBSTACLES, RANKED MOST TO LEAST CHALLENGING · 11 RESPONSES
+      </figcaption>
+      <ol className="mt-4 list-none p-0">
+        {OBSTACLES.map((o, n) => (
+          <li key={o.name} className="border-b border-[#D9D9D9] last:border-0">
+            <button
+              onClick={() => setOpen(open === n ? null : n)}
+              disabled={!o.note}
+              aria-expanded={o.note ? open === n : undefined}
+              className="flex w-full items-baseline gap-4 py-3 text-left disabled:cursor-default"
+            >
+              <span className="mono text-[11px] font-bold tracking-widest" style={{ color: CC.red }}>
                 {String(n + 1).padStart(2, "0")}
               </span>
-              <span className="text-[15px]">{o}</span>
-            </li>
-          ))}
-        </ol>
-        <p className="serif mt-3 text-base leading-relaxed opacity-75">
-          Ranked, not scored — so there are no bar lengths here to imply distances
-          nobody measured. What the order says is that the two things students put
-          at the top are the two the university has least control over.
-        </p>
-      </figure>
+              <span className="text-[15px]" style={{ color: accent }}>
+                {o.name}
+              </span>
+              {o.note && (
+                <span className="mono ml-auto text-[10px] tracking-widest opacity-55">
+                  {open === n ? "－" : "＋ WHY IT MATTERS"}
+                </span>
+              )}
+            </button>
+            {o.note && open === n && (
+              <p className="serif -mt-1 pb-3 pl-9 text-base leading-relaxed opacity-80">{o.note}</p>
+            )}
+          </li>
+        ))}
+      </ol>
+      <p className="serif mt-3 text-base leading-relaxed opacity-75">
+        A ranking, so there are no bar lengths here to suggest distances nobody measured.
+      </p>
+    </figure>
+  );
+}
 
-      {/* ── what they asked for ──────────────────────────────────────────── */}
-      <figure className="mt-11 m-0">
-        <figcaption className="mono text-[11px] tracking-widest opacity-60">
-          “WHAT WOULD HAVE MADE YOUR SEARCH EASIER?”
-        </figcaption>
-        <ul className="mt-4 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
-          {ASKS.map((a) => (
-            <li
-              key={a}
-              className="rounded-xl border border-[var(--kraft)] bg-[var(--paper)] p-5"
+export function PollResources({ accent = "#111111" }: { accent?: string }) {
+  const [hover, setHover] = useState(0);
+  const r = RESOURCES[hover];
+
+  return (
+    <figure className="m-0 my-10">
+      <figcaption className="mono text-[11px] tracking-widest opacity-60">
+        MOST-USED CAMPUS RESOURCE FOR CO-OP GUIDANCE · 11 RESPONSES
+      </figcaption>
+      <div className="mt-5 flex flex-col gap-3">
+        {RESOURCES.map((x, n) => (
+          <button
+            key={x.label}
+            onMouseEnter={() => setHover(n)}
+            onFocus={() => setHover(n)}
+            onClick={() => setHover(n)}
+            className="grid grid-cols-[7.5rem_1fr_3rem] items-center gap-3 text-left sm:grid-cols-[9rem_1fr_3rem]"
+          >
+            <span className="text-[14px] leading-snug">{x.label}</span>
+            <span className="h-3 w-full rounded-full" style={{ background: "#D9D9D9" }}>
+              <span
+                className="block h-3 rounded-full transition-all"
+                style={{
+                  width: `${x.pct}%`,
+                  background: n === 0 ? CC.red : accent,
+                  opacity: hover === n ? 1 : 0.55,
+                }}
+              />
+            </span>
+            <span
+              className="display text-right text-[18px] tabular-nums"
+              style={{ color: n === 0 ? CC.red : accent }}
             >
-              <blockquote className="m-0 text-[14px] leading-snug">
-                {a}
-              </blockquote>
-            </li>
-          ))}
-        </ul>
-        <p className="serif mt-4 text-base leading-relaxed opacity-75">
-          Three of the four answers describe something a person told them, not
-          something the university published. That is the finding the office could
-          act on: the co-op process was already being taught peer to peer, just
-          not by design.
-        </p>
-      </figure>
+              {x.pct}%
+            </span>
+          </button>
+        ))}
+      </div>
+      <p className="serif mt-4 text-base leading-relaxed opacity-75" aria-live="polite">
+        <b className="font-semibold">{r.label}:</b> {r.of11} of 11 students.
+        {r.label === "Career Services" && " The office built to share the advisors' load, and nobody named it."}
+        {r.label === "Co-op advisor" && " One person carrying most of the guidance."}
+      </p>
+    </figure>
+  );
+}
+
+/** The research sub-page shows all three together. */
+export default function CcPolls({ accent = "#111111" }: { accent?: string }) {
+  return (
+    <section className="mx-auto max-w-4xl border-b border-[#D9D9D9] px-6 py-14">
+      <p className="mono text-[12px] font-bold tracking-widest" style={{ color: accent }}>
+        TEN MINUTES OF EVERY SIXTY · THE LIVE POLLS
+      </p>
+      <h2 className="display mt-3 text-3xl">Asked out loud, answered on their phones.</h2>
+      <p className="serif mt-4 text-lg leading-relaxed opacity-90">
+        Fifty minutes of discussion, then ten of Mentimeter. The polls caught what a room will type but
+        not say. Some students had to leave before the end, so the later polls have fewer responses.
+      </p>
+      <PollWords accent={accent} />
+      <PollRanking accent={accent} />
+      <PollResources accent={accent} />
     </section>
   );
 }

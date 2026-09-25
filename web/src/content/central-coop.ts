@@ -20,12 +20,12 @@ export const PARTS = [
   {
     slug: "editorial",
     title: "Editorial & photography",
-    blurb: "Profiles, treks and the least glamorous post here.",
+    blurb: "Profiles, treks, and the least glamorous post here.",
   },
   {
     slug: "research",
     title: "User research",
-    blurb: "Twenty-five students, and the thirteen sheets it produced.",
+    blurb: "The live polls, and thirteen student profiles.",
   },
 ];
 
@@ -89,7 +89,7 @@ export const REPORTING: Deck[] = [
   {
     name: "DC Co-ops",
     href: "https://www.instagram.com/p/C-qKegTOl3_/",
-    note: "Advice is one thing. Showing a student someone who already did it is another. The event photography drops to black and white so the portrait carries the only colour, and each student's own words are left in their voice.",
+    note: "Advice is one thing. Showing a student someone who already did it is another. The event photography drops to black and white so the portrait carries the only color, and each student's own words are left in their voice.",
     slides: [
       { src: "/images/central-coop/dc-1-kate.jpg", alt: "DC Co-ops profile card for Kate Lo, third-year civil engineering and architecture student on co-op with Hensel Phelps", label: "Kate Lo" },
       { src: "/images/central-coop/dc-2-natalia.jpg", alt: "DC Co-ops profile card for Natalia Ivanov, third-year computer science student on co-op with Riverside Research", label: "Natalia Ivanov" },

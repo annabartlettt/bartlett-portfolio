@@ -1,12 +1,9 @@
 import Link from "next/link";
-import { PortableText } from "next-sanity";
-import type { PortableTextBlock } from "next-sanity";
 import { notFound } from "next/navigation";
 import { client } from "@/sanity/client";
 import { PROJECT_QUERY } from "@/sanity/queries";
 import SlideDeck from "@/components/SlideDeck";
 import InstagramEmbed from "@/components/InstagramEmbed";
-import Drawer from "@/components/Drawer";
 import CcBrandSystem from "@/components/CcBrandSystem";
 import CcPolls from "@/components/CcPolls";
 import CcPersonas from "@/components/CcPersonas";
@@ -29,7 +26,7 @@ export async function generateMetadata({
   const { part } = await params;
   const meta = PARTS.find((p) => p.slug === part);
   if (!meta) return {};
-  return { title: `${meta.title} — Central Co-op`, description: meta.blurb };
+  return { title: `${meta.title} · Central Co-op`, description: meta.blurb };
 }
 
 export default async function CentralCoopPart({
@@ -46,16 +43,15 @@ export default async function CentralCoopPart({
   });
   if (!p) notFound();
 
-  const primary = p.brand?.primary ?? "#363f9e";
+  const primary = p.brand?.primary ?? "#111111";
   const i = PARTS.findIndex((x) => x.slug === part);
   const next = PARTS[(i + 1) % PARTS.length];
   const brandSection = p.sections?.find((s) => s.number === "02");
-  const research = p.sections?.find((s) => s.number === "03");
 
   return (
-    <main>
+    <main className="bg-white">
       <section
-        className="px-6 py-12 text-[var(--cream)]"
+        className="px-6 py-12 text-white"
         style={{ background: primary }}
       >
         <div className="mx-auto max-w-4xl">
@@ -79,7 +75,7 @@ export default async function CentralCoopPart({
 
       {/* Section 02 in Sanity covers brand and reach in one paragraph, which is
           why it renders as the stats block on /social rather than here. The
-          brand workstream has enough of its own artefacts to carry a page. */}
+          brand workstream has enough of its own artifacts to carry a page. */}
       {part === "brand" && <CcBrandSystem accent={primary} />}
 
       {part === "social" && (
@@ -122,29 +118,26 @@ export default async function CentralCoopPart({
         />
       )}
 
-      {part === "research" && research && (
+      {part === "research" && (
         <>
-          <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
-            <h2 className="display text-3xl">{research.title}</h2>
-            {research.body && (
-              <div className="rich serif mt-4 text-lg leading-relaxed">
-                <PortableText value={research.body as PortableTextBlock[]} />
-              </div>
-            )}
-            {research.drawer?.label && (
-              <Drawer
-                label={research.drawer.label}
-                content={research.drawer.content}
-                accent={primary}
-              />
-            )}
+          <section className="mx-auto max-w-4xl border-b border-[#D9D9D9] px-6 py-14">
+            <h2 className="display text-3xl">The evidence, on its own.</h2>
+            <p className="serif mt-4 text-lg leading-relaxed">
+              The full story of the research, from the first student profiles to the room where it was
+              presented, is on the{" "}
+              <Link href="/work/central-co-op#s04" className="underline underline-offset-2">
+                main Central Co-op page
+              </Link>
+              . This page keeps the raw material together: the live polls from four focus groups, and
+              all thirteen arts, media, and design profiles.
+            </p>
           </section>
           <CcPolls accent={primary} />
           <CcPersonas accent={primary} />
         </>
       )}
 
-      <section className="mx-auto max-w-4xl border-t border-[var(--kraft)] px-6 py-10">
+      <section className="mx-auto max-w-4xl border-t border-[#D9D9D9] px-6 py-10">
         <div className="mono flex flex-wrap items-center justify-between gap-4 text-[11px] tracking-widest">
           <Link
             href="/work/central-co-op"
