@@ -34,9 +34,10 @@ export function BsoPanel({
         </p>
       )}
       <div
-        className="overflow-hidden rounded-2xl px-5 py-7 sm:px-8 sm:py-9"
+        className="relative overflow-hidden rounded-2xl px-5 py-7 sm:px-8 sm:py-9"
         style={{ background: BSO.panel, color: BSO.body }}
       >
+        <BsoSquares />
         <p
           className="mono text-[11px] font-bold tracking-[0.16em]"
           style={{ color: BSO.wine }}
@@ -113,10 +114,11 @@ export function BsoPoster({
   src: string;
   alt: string;
   caption?: string;
-  width: number;
+  /** Fixed px width on a scrolling shelf; omit to fill the parent. */
+  width?: number;
 }) {
   return (
-    <figure className="m-0 shrink-0" style={{ width }}>
+    <figure className="m-0 shrink-0" style={width ? { width } : undefined}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={`/images/bso/${src}`}
@@ -134,5 +136,34 @@ export function BsoPoster({
         </figcaption>
       )}
     </figure>
+  );
+}
+
+/**
+ * Nested squares that draw themselves into the panel's corner and then turn,
+ * very slowly. The whole season started with one square in a blank p5.js
+ * template, so the panels carry that square as their mark.
+ */
+function BsoSquares() {
+  const sizes = [100, 72, 46, 22];
+  const colors = [BSO.wine, BSO.slate, BSO.sage, BSO.wine];
+  return (
+    <svg className="bso-squares" viewBox="0 0 150 150" aria-hidden="true">
+      <g>
+        {sizes.map((d, i) => (
+          <rect
+            key={d}
+            x={75 - d / 2}
+            y={75 - d / 2}
+            width={d}
+            height={d}
+            transform={`rotate(${i * 11} 75 75)`}
+            stroke={colors[i]}
+            strokeOpacity={0.55}
+            style={{ ["--i" as string]: i }}
+          />
+        ))}
+      </g>
+    </svg>
   );
 }

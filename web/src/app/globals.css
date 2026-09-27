@@ -602,3 +602,26 @@ a:not(.nav-link):hover { color: var(--ink); }
 }
 a.sn-src { text-decoration: none; }
 a.sn-src:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── Boston Symphony case study: scroll scenes, reveals, corner squares ──
+   The page colour drifts through soft tints of the season's posters; copy and
+   panels rise in as they arrive. Hidden states only apply once BsoScrollFx has
+   mounted (html.bso-fx), so the page still reads with JavaScript off. */
+.bso-scene { background: var(--bso-scene, var(--cream)); transition: background-color .9s ease }
+.bso-fx [data-reveal] { transition: opacity .8s ease, transform .9s cubic-bezier(.2,.7,.2,1) }
+.bso-fx [data-reveal]:not(.is-in) { opacity: 0; transform: translateY(28px) }
+
+.bso-squares { position: absolute; top: -34px; right: -34px; width: 150px; height: 150px; pointer-events: none }
+.bso-squares rect { fill: none; stroke-width: 2; stroke-dasharray: 440; stroke-dashoffset: 0 }
+.bso-fx .bso-squares rect { stroke-dashoffset: 440 }
+.bso-fx .is-in .bso-squares rect { animation: bso-draw 1.6s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: calc(var(--i) * 140ms + 250ms) }
+.bso-fx .is-in .bso-squares g { animation: bso-drift 24s linear infinite; transform-origin: center; transform-box: fill-box }
+@keyframes bso-draw { to { stroke-dashoffset: 0 } }
+@keyframes bso-drift { to { transform: rotate(360deg) } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bso-scene { transition: none }
+  .bso-fx [data-reveal]:not(.is-in) { opacity: 1; transform: none }
+  .bso-fx .bso-squares rect { stroke-dashoffset: 0; animation: none !important }
+  .bso-fx .is-in .bso-squares g { animation: none }
+}

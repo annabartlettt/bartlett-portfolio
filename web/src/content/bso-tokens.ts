@@ -7,7 +7,7 @@
  */
 export const BSO = {
   /** The sand panel every visual sits on. */
-  panel: "#E6DCC2",
+  panel: "#F3E4BE",
   /** Ink for headings on the panel. */
   ink: "#292929",
   /** Body copy. */
@@ -21,5 +21,5 @@ export const BSO = {
   /** The sage the folder uses for affirmative marks. */
   sage: "#8CA163",
   /** Hairlines between stages. */
-  line: "#CFC3A5",
+  line: "#DECB9C",
 } as const;
