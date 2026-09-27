@@ -35,7 +35,7 @@ export default function BsoSketch({ accent = "#5D2242" }: { accent?: string }) {
       </p>
       <h2 className="display mt-3 text-3xl">Turn the dials.</h2>
       <p className="serif mt-4 text-lg leading-relaxed opacity-90">
-        This is the sketch, running — the same grid of open nested squares, the same
+        This is the sketch, running: the same grid of open nested squares, the same
         noise field, the same parameter names that generated the season backgrounds.
         Four of the saved states come straight out of the file. Everything past that
         is you.
@@ -48,7 +48,7 @@ export default function BsoSketch({ accent = "#5D2242" }: { accent?: string }) {
         <iframe
           ref={frameRef}
           src={SRC}
-          title="Interactive p5.js sketch — the Boston Symphony Orchestra season generator"
+          title="Interactive p5.js sketch: the Boston Symphony Orchestra season generator"
           loading="lazy"
           className="block w-full"
           style={{ height, border: 0 }}

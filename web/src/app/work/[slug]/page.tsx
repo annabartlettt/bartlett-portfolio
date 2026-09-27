@@ -23,6 +23,18 @@ import FbSearchChat from "@/components/FbSearchChat";
 import BsoEvolution from "@/components/BsoEvolution";
 import BsoParameters from "@/components/BsoParameters";
 import BsoApplications from "@/components/BsoApplications";
+import BsoScrollFx from "@/components/BsoScrollFx";
+import BsoSeason from "@/components/BsoSeason";
+
+// Each BSO section drifts the page toward a soft tint of one night's poster:
+// sage for the listening loop, dusk for what failed, plum for the output.
+const BSO_SCENES: Record<string, string> = {
+  "v2-01": "#F6EEDA",
+  "v2-02": "#DFDECC",
+  "v2-03": "#DBD6CA",
+  "v2-04": "#DECDC2",
+  "v2-05": "#F3E4BE",
+};
 import SpotifyBarriers from "@/components/SpotifyBarriers";
 import SpotifyResearch from "@/components/SpotifyResearch";
 import SpotifyFeatures from "@/components/SpotifyFeatures";
@@ -149,8 +161,14 @@ export default async function ProjectPage({
   const headWords = heading.split(" ");
   const splitHeading = slug === "spotify-global-mode" && headWords.length > 1;
 
+  const isBso = slug === "boston-symphony-orchestra";
+  const sceneFor = (key?: string) => (isBso && key ? BSO_SCENES[key] : undefined);
+
   return (
-    <main>
+    <main
+      className={isBso ? "bso-scene" : undefined}
+    >
+      {isBso && <BsoScrollFx />}
       {/* Cover */}
       <section
         className="px-6 py-20"
@@ -219,7 +237,19 @@ export default async function ProjectPage({
             </p>
           )}
 
-          {p.coverImage?.asset && (
+          {isBso ? (
+            // The cover is the sketch itself, running: the Wine Weave field
+            // re-composing under the title. The finished posters follow right
+            // after the brief, so the page opens on the system, not a repeat.
+            <div className="relative mt-12 aspect-[16/9] w-full overflow-hidden rounded-2xl">
+              <iframe
+                src="/bso/field.html"
+                title="The Boston Symphony sketch running live: a field of open nested squares moved by Perlin noise"
+                className="pointer-events-none absolute inset-0 h-full w-full border-0"
+                tabIndex={-1}
+              />
+            </div>
+          ) : p.coverImage?.asset && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={urlFor(p.coverImage).width(1800).auto("format").url()}
@@ -235,6 +265,7 @@ export default async function ProjectPage({
         <Fragment key={s._key}>
           <section
             id={`s${s.number}`}
+            data-scene={sceneFor(s._key)}
             className="relative mx-auto max-w-4xl scroll-mt-20 border-b border-[var(--kraft)] px-6 py-16"
           >
             <p
@@ -244,8 +275,9 @@ export default async function ProjectPage({
               <SectionFolio number={s.number} color={s.accent ?? primary} />
               {s.kicker}
             </p>
-            <h2 className="display mt-3 text-3xl">{s.title}</h2>
+            <h2 className="display mt-3 text-3xl" data-reveal={isBso ? "" : undefined}>{s.title}</h2>
             <div
+              data-reveal={isBso ? "" : undefined}
               className={`rich serif mt-4 text-lg leading-relaxed opacity-90 ${
                 sidenotesFor(slug, s.number).length ? "sn-body" : ""
               }`}
@@ -383,23 +415,46 @@ export default async function ProjectPage({
               <SpotifyLearned />
             </section>
           )}
-          {slug === "boston-symphony-orchestra" && s.number === "03" && (
-            <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+          {slug === "boston-symphony-orchestra" && s._key === "v2-01" && (
+            <section
+              data-scene={sceneFor(s._key)}
+              data-reveal=""
+              className="mx-auto max-w-[1360px] border-b border-[var(--kraft)] px-4 py-14 sm:px-8"
+            >
+              <BsoSeason />
+            </section>
+          )}
+          {slug === "boston-symphony-orchestra" && ["sec3", "v2-03"].includes(s._key ?? "") && (
+            <section
+              data-scene={sceneFor(s._key)}
+              data-reveal=""
+              className="mx-auto max-w-[1360px] border-b border-[var(--kraft)] px-4 py-14 sm:px-8"
+            >
               <BsoEvolution />
             </section>
           )}
-          {slug === "boston-symphony-orchestra" && s.number === "04" && (
-            <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+          {slug === "boston-symphony-orchestra" && ["sec4", "v2-02"].includes(s._key ?? "") && (
+            <section
+              data-scene={sceneFor(s._key)}
+              data-reveal=""
+              className="mx-auto max-w-[1360px] border-b border-[var(--kraft)] px-4 py-14 sm:px-8"
+            >
               <BsoParameters />
             </section>
           )}
-          {slug === "boston-symphony-orchestra" && s.number === "07" && (
-            <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
+          {slug === "boston-symphony-orchestra" && ["sec7", "v2-04"].includes(s._key ?? "") && (
+            <section
+              data-scene={sceneFor(s._key)}
+              data-reveal=""
+              className="mx-auto max-w-[1360px] border-b border-[var(--kraft)] px-4 py-14 sm:px-8"
+            >
               <BsoApplications />
             </section>
           )}
-          {slug === "boston-symphony-orchestra" && s.number === "04" && (
-            <BsoSketch accent={brand.secondary ?? primary} />
+          {slug === "boston-symphony-orchestra" && ["sec4", "v2-02"].includes(s._key ?? "") && (
+            <div data-scene={sceneFor(s._key)} data-reveal="">
+              <BsoSketch accent={brand.secondary ?? primary} />
+            </div>
           )}
           {slug === "storybridge" && s.number === "01" && (
             <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
