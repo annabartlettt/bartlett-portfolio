@@ -23,9 +23,14 @@ export type PrintedPiece = {
   /** Smaller pages that show how the whole piece is put together. */
   details: PrintImage[];
   note?: string;
+  /** A downloadable PDF of the piece (or of Anna's part of it). */
+  download?: { href: string; label: string; size: string };
 };
 
 const GIANTS = "/images/printed-matter/giants";
+const WAYLAND = "/images/printed-matter/wayland";
+const PLANETARIUM = "/images/printed-matter/planetarium";
+const WINGS = "/images/printed-matter/wings";
 
 export const PRINTED: PrintedPiece[] = [
   {
@@ -71,5 +76,111 @@ export const PRINTED: PrintedPiece[] = [
       },
     ],
     note: "The other spreads are my classmates’ work, so they aren’t shown here.",
+    download: {
+      href: "/print/standing-on-the-shoulders-of-giants-excerpt.pdf",
+      label: "Cover and my spread",
+      size: "1 MB",
+    },
+  },
+  {
+    slug: "wayland-native-plants",
+    title: "Wayland Native Plants",
+    dek: "A yard sign and the one-page brand guide behind it.",
+    cover: {
+      src: `${WAYLAND}/yard-sign.jpg`,
+      width: 2400,
+      height: 1806,
+      alt: "Yard sign on dark green: the word NATIVE in cream letters with leaves and wildflowers cut into them, over the line “This yard supports pollinators, birds, and biodiversity. Learn more at WaylandNativePlants.org.”",
+    },
+    colophon: [
+      { label: "Format", value: "Yard sign, 24 × 18 in, and a one-page brand guide" },
+      { label: "Typeface", value: "Source Sans Pro" },
+      { label: "Made in", value: "Graphic design course, Northeastern University, 2025" },
+      { label: "My part", value: "All of it: wordmark, “N” mark, sign, and guidelines." },
+    ],
+    mine: {
+      src: `${WAYLAND}/brand-guidelines.jpg`,
+      width: 2400,
+      height: 1806,
+      alt: "Brand guidelines page: the full NATIVE wordmark, the N logo, primary and secondary colors, typography, a type hierarchy with point sizes, brand voice, and applications.",
+      caption: "The guide: wordmark, mark, color, type hierarchy, voice, and where each one goes.",
+    },
+    details: [],
+    download: { href: "/print/wayland-native-plants.pdf", label: "Sign and guidelines", size: "3 MB" },
+  },
+  {
+    slug: "arlington-planetarium",
+    title: "Friends of Arlington’s Planetarium",
+    dek: "Three posters recruiting student advisors, one system across all three.",
+    cover: {
+      src: `${PLANETARIUM}/series.jpg`,
+      width: 2400,
+      height: 1200,
+      alt: "Three tall pink and violet posters side by side, each with a hand-drawn glowing illustration: a radio dish (Join Us), a spiral galaxy (Your Mission), and a comet (Unlock).",
+    },
+    colophon: [
+      { label: "Format", value: "Three posters, 32 × 48 in" },
+      { label: "Made in", value: "Graphic design course, Northeastern University, 2025" },
+      { label: "My part", value: "Illustration, type, and layout for all three." },
+    ],
+    mine: {
+      src: `${PLANETARIUM}/join-us.jpg`,
+      width: 1200,
+      height: 1800,
+      alt: "Poster: FRIENDS OF ARLINGTON, JOIN US, Become a Student Advisor for 2025-26, above a hand-drawn radio dish.",
+      caption: "Join Us: the first poster, which sets the headline, illustration, and footer the other two follow.",
+    },
+    details: [
+      {
+        src: `${PLANETARIUM}/your-mission.jpg`,
+        width: 1200,
+        height: 1802,
+        alt: "Poster: STUDENT ADVISOR, YOUR MISSION, with a spiral galaxy illustration and a list of advisor duties.",
+        caption: "Your Mission",
+      },
+      {
+        src: `${PLANETARIUM}/unlock.jpg`,
+        width: 1200,
+        height: 1800,
+        alt: "Poster: STUDENT ADVISOR, UNLOCK, with a comet illustration, a list of benefits, and a QR code to apply.",
+        caption: "Unlock",
+      },
+    ],
+    download: { href: "/print/arlington-planetarium-posters.pdf", label: "All three posters", size: "4 MB" },
+  },
+  {
+    slug: "wings-of-philadelphia",
+    title: "Wings of Philadelphia",
+    dek: "A sixteen-page book on how the Eagles’ logo changed, told in one green.",
+    cover: {
+      src: `${WINGS}/early-years.jpg`,
+      width: 2400,
+      height: 1200,
+      alt: "Spread titled EARLY YEARS: an NRA eagle badge, an eagle sculpture, a team photo, and a dotted arrow leading to the word STEAGLES, all in green duotone.",
+    },
+    colophon: [
+      { label: "Format", value: "16 pages, 6 × 6 in" },
+      { label: "Typefaces", value: "Proxima Nova and Racing Sans One" },
+      { label: "Made in", value: "Typography, Northeastern University, 2024" },
+      { label: "My part", value: "Design, layout, and the duotone image system." },
+    ],
+    mine: {
+      src: `${WINGS}/logo-evolution.jpg`,
+      width: 2400,
+      height: 1200,
+      alt: "Spread tracing the logo from an eagle carrying a football to the stylized wings, joined by a curved arrow, beside a green duotone game photograph.",
+      caption: "The arrow carries the logo from one era to the next across the spread.",
+    },
+    details: [
+      {
+        src: `${WINGS}/colophon.jpg`,
+        width: 2400,
+        height: 1200,
+        alt: "Colophon spread: the word Colophon on the left and a wall of repeated green EAGLES wordmarks on the right.",
+        caption: "Colophon",
+      },
+    ],
+    note: "Text adapted from Wikipedia’s “Philadelphia Eagles” article; logos and photographs belong to their owners. A student project.",
+    download: { href: "/print/wings-of-philadelphia.pdf", label: "The whole book", size: "4 MB" },
   },
 ];
