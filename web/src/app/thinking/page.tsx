@@ -2,7 +2,7 @@ import Link from "next/link";
 import { client } from "@/sanity/client";
 import { ESSAYS_QUERY } from "@/sanity/queries";
 import type { Essay } from "@/sanity/types";
-import PageHead from "@/components/PageHead";
+import SplitPage from "@/components/SplitPage";
 
 export const metadata = { title: "Thinking" };
 export const revalidate = 60;
@@ -19,19 +19,16 @@ export default async function ThinkingPage() {
   const essays = await client.fetch<Essay[]>(ESSAYS_QUERY);
 
   return (
-    <main>
-      <PageHead
+    <SplitPage
         eyebrow="Thinking"
         title="Writing about the work of other people."
         lede="Essays on design, data, and the things people build to make one legible to the other. Where the folders show what I made, this is where I work out what I think."
-        tint="pink"
-      />
-      <div className="rc-wrap rc-pagebody">
+    >
 
       {essays.length === 0 ? (
-        <p className="mt-16 opacity-60">Nothing published here yet.</p>
+        <p className="opacity-60">Nothing published here yet.</p>
       ) : (
-        <div className="mt-14 border-t border-[var(--kraft)]">
+        <div className="border-t border-[var(--kraft)]">
           {essays.map((e) => (
             <article
               key={e._id}
@@ -51,27 +48,10 @@ export default async function ThinkingPage() {
                   {e.dek}
                 </p>
               )}
-              <div className="mt-4 flex flex-wrap items-center gap-2">
-                {e.topics?.map((t) => (
-                  <span
-                    key={t}
-                    className="mono rounded-full border border-[var(--kraft)] px-2.5 py-1 text-[10px] tracking-widest uppercase opacity-70"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <Link
-                href={`/thinking/${e.slug}`}
-                className="mono mt-4 inline-block text-[11px] tracking-widest underline"
-              >
-                READ ↗
-              </Link>
             </article>
           ))}
         </div>
       )}
-      </div>
-    </main>
+    </SplitPage>
   );
 }

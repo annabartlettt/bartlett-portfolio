@@ -1,4 +1,4 @@
-import PageHead from "@/components/PageHead";
+import SplitPage from "@/components/SplitPage";
 import { PRINTED, type PrintImage } from "@/content/printed-matter";
 
 export const metadata = {
@@ -29,13 +29,11 @@ function Plate({ img, priority }: { img: PrintImage; priority?: boolean }) {
 
 export default function PrintedMatterPage() {
   return (
-    <main>
-      <PageHead
+    <SplitPage
         eyebrow="Printed Matter"
         title="Things that exist on paper."
         lede="Printed pieces, shown as the objects they are. The colophon says who made what."
-      />
-      <div className="rc-wrap rc-pagebody">
+    >
         {PRINTED.map((p, i) => (
           <article
             key={p.slug}
@@ -73,7 +71,6 @@ export default function PrintedMatterPage() {
             {p.note && <p className="mt-8 max-w-2xl opacity-70">{p.note}</p>}
           </article>
         ))}
-      </div>
-    </main>
+    </SplitPage>
   );
 }

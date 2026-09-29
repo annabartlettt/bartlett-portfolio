@@ -1,16 +1,14 @@
-import PageHead from "@/components/PageHead";
+import SplitPage from "@/components/SplitPage";
 
 export const metadata = { title: "About" };
 
 export default function AboutPage() {
   return (
-    <main>
-      <PageHead
+    <SplitPage
         eyebrow="About"
         title="Anna Bartlett"
         lede="Design is not a subject I work in. It is the way I work on whatever subject is in front of me."
-      />
-      <div className="rc-wrap rc-pagebody">
+    >
         {/* The mark goes here rather than in the nav or the footer. It is two
             letters overprinting, and below about 48px the overlap closes up and
             the whole idea turns to mud — so it is given room instead of being
@@ -23,14 +21,6 @@ export default function AboutPage() {
             width={720}
             height={1080}
             className="h-auto w-[200px] rounded-xl border border-[var(--kraft)] object-cover sm:w-[220px]"
-          />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/mark/overprint.svg"
-            alt="Anna Bartlett's monogram: an A and a B overlapping, with the crossing printing a third colour"
-            width={124}
-            height={152}
-            className="h-[152px] w-auto"
           />
           <div className="max-w-md">
             <p className="display text-2xl leading-tight">
@@ -121,8 +111,6 @@ export default function AboutPage() {
             </span>
           </div>
         </div>
-      </div>
-
-    </main>
+    </SplitPage>
   );
 }
