@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 import Link from "next/link";
-import OverprintMark from "./OverprintMark";
 import { urlFor } from "@/sanity/image";
 import type { Project } from "@/sanity/types";
 
@@ -245,124 +244,62 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
 
   return (
     <div ref={rootRef}>
-      {/* The "On this page" strip and the section numbers are gone: a page
-          with one headline and one grid does not need a table of contents. */}
-      <OverprintMark motion={motion} />
+      {/* Split layout, after Naseem Mohideen's work page: a quiet column on
+          the left that says who she is, and the work filling the right side
+          from the top of the screen. On a phone the column sits above the
+          grid. */}
+      <div className="rc-split">
+        <aside className="rc-side" id="top">
+          <Link href="/about" className="rc-side-mark" aria-label="About Anna Bartlett">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/mark/overprint.svg" alt="" width={62} height={76} />
+          </Link>
 
-      <section className="rc-hero" id="top">
-        <div className="rc-wrap">
-          <div>
-            <h1 data-rc-reveal>
-              Anna Bartlett is a creative technologist in Washington DC working
-              across{" "}
-              <span>research, brand, product, and generative systems.</span>
-            </h1>
+          <h1 data-rc-reveal>
+            Anna Bartlett is a creative technologist in Washington DC working
+            across{" "}
+            <span>research, brand, product, and generative systems.</span>
+          </h1>
 
-            {/* What she is doing right now, one line, where a hiring reader
-                actually looks. Keep it current: it goes stale faster than
-                anything else on the site. */}
-            <p className="rc-now" data-rc-reveal>
-              <b>Currently</b>
-              Prototyping with FirstGlance · open to design roles in Washington DC
-            </p>
+          {/* What she is doing right now, one line, where a hiring reader
+              actually looks. Keep it current: it goes stale faster than
+              anything else on the site. */}
+          <p className="rc-now" data-rc-reveal>
+            <b>Currently</b>{" "}
+            Prototyping with FirstGlance · open to design roles in Washington DC
+          </p>
 
-            <div className="rc-acts" data-rc-reveal>
-              <a className="rc-btn primary" href="#work">
-                Open the cabinet ↓
-              </a>
-              <Link className="rc-btn plain" href="/thinking">
-                Read the thinking
-              </Link>
-            </div>
+          <a className="rc-side-link" href="mailto:anna.bartlettt@gmail.com" data-rc-reveal>
+            Say hello →
+          </a>
+        </aside>
 
-            {/* The mark sits in the hero's dead space rather than in the nav:
-                it needs ~48px minimum before the overlap closes up, and site
-                chrome runs well under that. Links to /about, where the line it
-                illustrates is actually explained. */}
-            <Link className="rc-markline" href="/about" data-rc-reveal>
-              I work in the overprint
-              <b>Where two disciplines cross ↗</b>
+        <section className="rc-split-work" id="work" aria-label="Selected work">
+          {ordered.map((p) => (
+            <Link
+              key={p._id}
+              href={`/work/${p.slug}`}
+              className="rc-gcard"
+              data-rc-reveal
+            >
+              <div className="rc-gshot">
+                {p.slideImage?.asset ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={urlFor(p.slideImage).width(1100).auto("format").url()}
+                    alt=""
+                    loading="lazy"
+                  />
+                ) : (
+                  <span className="lab">No cover yet</span>
+                )}
+              </div>
+              <h4>{p.title}</h4>
+              {p.invisibleSystem && <p className="sys">{p.invisibleSystem}</p>}
             </Link>
-          </div>
-
-          {/* The carousel used to sit here showing one folder at a time out of
-              the same nine the gallery below shows in full — the hero was
-              doing the drawer's job worse. It is the mark instead, at a size
-              the overprint survives, and the tabs moved down to the gallery
-              they actually file. */}
-          {/* Empty on purpose: the mark itself is fixed-position so it can
-              travel to the corner as you scroll, and this reserves the space
-              it rests in. OverprintMark measures this element rather than
-              guessing coordinates, so the layout stays the source of truth. */}
-          <div className="rc-heromark" aria-hidden />
-        </div>
-      </section>
-
-      {/* ══ 02 · the work ══════════════════════════════════ */}
-      <section className="rc-drawer rc-paper" id="work">
-        <div className="rc-wrap">
-          <div className="rc-dhead">
-            <h2 data-rc-reveal>Selected work</h2>
-          </div>
-
-          <div className="rc-gallery" data-rc-reveal>
-            {ordered.map((p) => (
-                <Link
-                  key={p._id}
-                  href={`/work/${p.slug}`}
-                  className="rc-gcard"
-                  data-rc-reveal
-                >
-                  <div className="rc-gshot">
-                    {p.slideImage?.asset ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={urlFor(p.slideImage).width(760).auto("format").url()}
-                        alt=""
-                        loading="lazy"
-                      />
-                    ) : (
-                      <span className="lab">No cover yet</span>
-                    )}
-                  </div>
-                  {/* Image, title, one line. The number badge, domain chip,
-                      category and skill tags made each card a form to read;
-                      the case study holds that detail. */}
-                  <h4>{p.title}</h4>
-                  {p.invisibleSystem && <p className="sys">{p.invisibleSystem}</p>}
-                </Link>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ══ sign-off ═══════════════════════════════════════
-          A full closing drawer used to sit here and repeat the About page
-          almost line for line — same headline, same mailto, same argument.
-          About holds that now. This is the strip that makes sure nobody
-          leaves the folders without the address. */}
-      <section className="rc-signoff rc-invert pink" id="signoff">
-        <div className="rc-wrap">
-          <div>
-            <p className="rc-eyebrow">
-              <b>◇</b> Open to work · Washington DC
-            </p>
-            <p className="line">
-              Creative technologist across research, brand, product, and
-              generative systems. The folders above are the whole argument.
-            </p>
-          </div>
-          <div className="acts">
-            <a className="rc-btn pink" href="mailto:anna.bartlettt@gmail.com">
-              Say hello →
-            </a>
-            <Link className="rc-btn ghost" href="/about">
-              About
-            </Link>
-          </div>
-        </div>
-      </section>
+          ))}
+        </section>
+      </div>
     </div>
   );
 }
