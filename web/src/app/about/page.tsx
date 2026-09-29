@@ -48,14 +48,19 @@ export default function AboutPage() {
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
           I&rsquo;m a creative technologist. In practice that means the research
           comes first and the medium comes second: seven of the nine folders here
-          began as research, and what each one turned into &mdash; an app, a
-          generative system, a brand, a woven map &mdash; was decided by what the
+          began as research, and what each one turned into (an app, a
+          generative system, a brand, a woven map) was decided by what the
           research found rather than by what I already knew how to make.
         </p>
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
           I finished my BFA in Design at Northeastern in April 2026 and moved to
           the DC area. The subjects I keep coming back to are health, learning,
           civic life and culture.
+        </p>
+        <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
+          Away from the folders, I&rsquo;m learning Castilian Spanish one verb at
+          a time, and I became a Liverpool fan, men&rsquo;s and women&rsquo;s,
+          because of one song.
         </p>
         {/* Education, practice and availability were a column on the
             homepage's closing panel, which is gone. They are the facts a
