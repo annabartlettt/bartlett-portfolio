@@ -18,6 +18,14 @@ export default function AboutPage() {
         <div className="mt-2 flex flex-wrap items-center gap-x-10 gap-y-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
+            src="/images/about/anna-bartlett.jpg"
+            alt="Anna Bartlett, smiling, outdoors in a cream collared top"
+            width={720}
+            height={1080}
+            className="h-auto w-[200px] rounded-xl border border-[var(--kraft)] object-cover sm:w-[220px]"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/mark/overprint.svg"
             alt="Anna Bartlett's monogram: an A and a B overlapping, with the crossing printing a third colour"
             width={124}
