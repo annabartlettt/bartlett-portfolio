@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 import Link from "next/link";
-import OverprintMark from "./OverprintMark";
 import { urlFor } from "@/sanity/image";
 import type { Project } from "@/sanity/types";
 
@@ -57,28 +49,6 @@ export const DOMAINS = [
 export function domainOf(p: Project) {
   const first = (p.domains ?? [])[0];
   return DOMAINS.find((d) => d.value === first) ?? null;
-}
-
-/* The strip along the top of the cabinet. These are anchors into this page,
-   not routes — the dock along the bottom does routes. They used to carry the
-   same three words as the dock, so "Thinking" meant two different destinations
-   depending on which one you clicked. Numbering them ties each to the drawer
-   eyebrow it scrolls to and stops them reading as site navigation. */
-const DRAWERS = [
-  { id: "top", n: "01", label: "Index" },
-  { id: "work", n: "02", label: "The work" },
-];
-
-function countBy(projects: Project[], discipline: string) {
-  return projects.filter((p) => (p.disciplines ?? []).includes(discipline))
-    .length;
-}
-
-function accentFor(p: Project) {
-  const first = (p.disciplines ?? [])[0];
-  return (
-    DISCIPLINES.find((d) => d.value === first)?.accent ?? "var(--kraft-dk)"
-  );
 }
 
 export type MotionLevel = "full" | "gentle" | "off";
@@ -252,317 +222,83 @@ function useDrift(
   }, [root, level]);
 }
 
-/** Which drawer the rim tabs should mark as current. */
-function useCurrentDrawer() {
-  const [current, setCurrent] = useState<string | null>(null);
-  useEffect(() => {
-    const sections = DRAWERS.map((d) => document.getElementById(d.id)).filter(
-      (s): s is HTMLElement => s !== null,
-    );
-    if (sections.length === 0) return;
-    const io = new IntersectionObserver(
-      (rows) => {
-        rows.forEach((r) => {
-          if (r.isIntersecting) setCurrent(r.target.id);
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px" },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, []);
-  return current;
-}
-
 
 export default function CabinetHome({ projects }: { projects: Project[] }) {
-  const [craft, setCraft] = useState<string | null>(null);
-  // Someone who asked their OS for less motion starts with none and can still
-  // turn it up; everyone else starts at full. The override wins once set.
+  // Motion follows the visitor's own OS setting. The on-page Full / Gentle /
+  // Off control was one more thing to read on a page that should be calm.
   const prefersReduced = usePrefersReducedMotion();
-  const [override, setOverride] = useState<MotionLevel | null>(null);
-  const motion: MotionLevel = override ?? (prefersReduced ? "off" : "full");
-  const setMotion = setOverride;
+  const motion: MotionLevel = prefersReduced ? "off" : "full";
   const rootRef = useRef<HTMLDivElement>(null);
 
   useDrawersOpening(rootRef, motion);
   useDrift(rootRef, motion);
-  const current = useCurrentDrawer();
 
-  const filtered = useMemo(
-    () =>
-      projects.filter(
-        (p) => craft === null || (p.disciplines ?? []).includes(craft),
-      ),
-    [projects, craft],
-  );
-
-  // One list, in folder order. Sorting nine things is a control looking for a
-  // problem, and grouping by section produced nine headings with one card
-  // under each.
+  // One list, in folder order.
   const ordered = useMemo(
     () =>
-      [...filtered].sort((a, b) =>
+      [...projects].sort((a, b) =>
         (a.folderNumber ?? "").localeCompare(b.folderNumber ?? ""),
       ),
-    [filtered],
+    [projects],
   );
-
-  const selected = DISCIPLINES.find((d) => d.value === craft) ?? null;
 
   return (
     <div ref={rootRef}>
-      {/* ══ rim — the drawer tabs ══════════════════════════ */}
-      <div className="rc-rim">
-        <div className="rc-wrap">
-          {/* The site header already carries the name; this strip is only the
-              drawer tabs, so it doesn't say it twice. */}
-          <p className="rc-id">
-            <b>On this page</b>
+      {/* Split layout, after Naseem Mohideen's work page: a quiet column on
+          the left that says who she is, and the work filling the right side
+          from the top of the screen. On a phone the column sits above the
+          grid. */}
+      <div className="rc-split">
+        <aside className="rc-side" id="top">
+          <Link href="/about" className="rc-side-mark" aria-label="About Anna Bartlett">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/mark/overprint.svg" alt="" width={62} height={76} />
+          </Link>
+
+          <h1 data-rc-reveal>
+            Anna Bartlett is a creative technologist in Washington DC working
+            across{" "}
+            <span>research, brand, product, and generative systems.</span>
+          </h1>
+
+          {/* What she is doing right now, one line, where a hiring reader
+              actually looks. Keep it current: it goes stale faster than
+              anything else on the site. */}
+          <p className="rc-now" data-rc-reveal>
+            <b>Currently</b>{" "}
+            Prototyping with FirstGlance · open to design roles in Washington DC
           </p>
-          <nav className="rc-rimtabs" aria-label="Sections of this page">
-            {DRAWERS.map((d) => (
-              <a
-                key={d.id}
-                className="rc-rimtab"
-                href={`#${d.id}`}
-                aria-current={current === d.id ? "page" : undefined}
-              >
-                <b>{d.n}</b> {d.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </div>
 
-      {/* ══ 01 · index ═════════════════════════════════════ */}
-      <OverprintMark motion={motion} />
+          <a className="rc-side-link" href="mailto:anna.bartlettt@gmail.com" data-rc-reveal>
+            Say hello →
+          </a>
+        </aside>
 
-      <section className="rc-hero" id="top">
-        <div className="rc-wrap">
-          <div>
-            <p className="rc-eyebrow" data-rc-reveal>
-              <b>01</b> · Index
-            </p>
-
-            <h1 data-rc-reveal>
-              Anna Bartlett is a creative technologist in Washington DC working
-              across{" "}
-              <span>research, brand, product, and generative systems.</span>
-            </h1>
-
-            {/* What she is doing right now, one line, where a hiring reader
-                actually looks. Keep it current: it goes stale faster than
-                anything else on the site. */}
-            <p className="rc-now" data-rc-reveal>
-              <b>Currently</b>
-              Prototyping with FirstGlance · open to design roles in Washington DC
-            </p>
-
-            <div className="rc-acts" data-rc-reveal>
-              <a className="rc-btn primary" href="#work">
-                Open the cabinet ↓
-              </a>
-              <Link className="rc-btn plain" href="/thinking">
-                Read the thinking
-              </Link>
-            </div>
-
-            {/* The mark sits in the hero's dead space rather than in the nav:
-                it needs ~48px minimum before the overlap closes up, and site
-                chrome runs well under that. Links to /about, where the line it
-                illustrates is actually explained. */}
-            <Link className="rc-markline" href="/about" data-rc-reveal>
-              I work in the overprint
-              <b>Where two disciplines cross ↗</b>
+        <section className="rc-split-work" id="work" aria-label="Selected work">
+          {ordered.map((p) => (
+            <Link
+              key={p._id}
+              href={`/work/${p.slug}`}
+              className="rc-gcard"
+              data-rc-reveal
+            >
+              <div className="rc-gshot">
+                {p.slideImage?.asset ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={urlFor(p.slideImage).width(1100).auto("format").url()}
+                    alt=""
+                    loading="lazy"
+                  />
+                ) : (
+                  <span className="lab">No cover yet</span>
+                )}
+              </div>
+              <h4>{p.title}</h4>
+              {p.invisibleSystem && <p className="sys">{p.invisibleSystem}</p>}
             </Link>
-          </div>
-
-          {/* The carousel used to sit here showing one folder at a time out of
-              the same nine the gallery below shows in full — the hero was
-              doing the drawer's job worse. It is the mark instead, at a size
-              the overprint survives, and the tabs moved down to the gallery
-              they actually file. */}
-          {/* Empty on purpose: the mark itself is fixed-position so it can
-              travel to the corner as you scroll, and this reserves the space
-              it rests in. OverprintMark measures this element rather than
-              guessing coordinates, so the layout stays the source of truth. */}
-          <div className="rc-heromark" aria-hidden />
-        </div>
-      </section>
-
-      {/* ══ 02 · the work ══════════════════════════════════ */}
-      <section className="rc-drawer rc-paper" id="work">
-        <div className="rc-wrap">
-          <div className="rc-edge" data-rc-reveal>
-            <i />
-            <i />
-            <i />
-          </div>
-
-          <div className="rc-dhead">
-            <div data-rc-reveal>
-              <p className="rc-eyebrow">
-                <b>02</b> · Drawer · The work
-              </p>
-              <h2>Selected folders</h2>
-            </div>
-            <p className="sub" data-rc-reveal>
-              Nine of them. Each one names the system underneath first, and
-              what got built second.
-            </p>
-          </div>
-
-          <div className="rc-filterrow" data-rc-reveal>
-            <div className="rc-tabrow" role="tablist" aria-label="Disciplines">
-              <button
-                className="rc-ftab"
-                role="tab"
-                type="button"
-                aria-selected={craft === null}
-                onClick={() => setCraft(null)}
-                style={{ ["--tabc" as string]: "var(--kraft)" }}
-              >
-                Everything
-              </button>
-              {DISCIPLINES.map((d) => (
-                <button
-                  key={d.value}
-                  className="rc-ftab"
-                  role="tab"
-                  type="button"
-                  aria-selected={craft === d.value}
-                  onClick={() => setCraft(d.value)}
-                  style={{ ["--tabc" as string]: d.accent }}
-                >
-                  {d.short} · {countBy(projects, d.value)}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="rc-countbar" data-rc-reveal>
-            <span className="count">
-              {filtered.length} of {projects.length} folders
-              {craft !== null && (
-                <button
-                  type="button"
-                  className="clear"
-                  onClick={() => setCraft(null)}
-                >
-                  Clear
-                </button>
-              )}
-            </span>
-          </div>
-
-          <div className="rc-gallery" data-rc-reveal>
-            {ordered.map((p) => (
-                <Link
-                  key={p._id}
-                  href={`/work/${p.slug}`}
-                  className="rc-gcard"
-                  data-rc-reveal
-                >
-                  <div className="rc-gshot">
-                    {p.slideImage?.asset ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={urlFor(p.slideImage).width(760).auto("format").url()}
-                        alt=""
-                        loading="lazy"
-                      />
-                    ) : (
-                      <span className="lab">No cover yet</span>
-                    )}
-                    <span
-                      className="rc-gnum"
-                      style={{ background: accentFor(p) }}
-                    >
-                      {p.folderNumber ?? "··"}
-                    </span>
-                    {domainOf(p) && (
-                      <span
-                        className="rc-gdom"
-                        style={{ color: domainOf(p)!.text }}
-                      >
-                        <i style={{ background: domainOf(p)!.ink }} />
-                        {domainOf(p)!.title}
-                      </span>
-                    )}
-                  </div>
-                  <h4>{p.title}</h4>
-                  <p className="cat">{p.category?.name}</p>
-                  {p.invisibleSystem && <p className="sys">{p.invisibleSystem}</p>}
-                  {(() => {
-                    // Two or three skills to skim: the methods she tagged,
-                    // falling back to theme tags where a folder has none.
-                    const tags = (p.methods?.length ? p.methods : p.themeTags ?? []).slice(0, 3);
-                    return tags.length ? (
-                      <ul className="rc-gtags">
-                        {tags.map((t) => (
-                          <li key={t}>{t}</li>
-                        ))}
-                      </ul>
-                    ) : null;
-                  })()}
-                </Link>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ══ sign-off ═══════════════════════════════════════
-          A full closing drawer used to sit here and repeat the About page
-          almost line for line — same headline, same mailto, same argument.
-          About holds that now. This is the strip that makes sure nobody
-          leaves the folders without the address. */}
-      <section className="rc-signoff rc-invert pink" id="signoff">
-        <div className="rc-wrap">
-          <div>
-            <p className="rc-eyebrow">
-              <b>◇</b> Open to work · Washington DC
-            </p>
-            <p className="line">
-              Creative technologist across research, brand, product, and
-              generative systems. The folders above are the whole argument.
-            </p>
-          </div>
-          <div className="acts">
-            <a className="rc-btn pink" href="mailto:anna.bartlettt@gmail.com">
-              Say hello →
-            </a>
-            <Link className="rc-btn ghost" href="/about">
-              About
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ══ motion ═════════════════════════════════════════ */}
-      <div className="rc-motionbar">
-        <div className="rc-wrap">
-          <span>Motion</span>
-          <div className="rc-seg" role="group" aria-label="Motion level">
-            {(
-              [
-                ["full", "Full"],
-                ["gentle", "Gentle"],
-                ["off", "Off"],
-              ] as [MotionLevel, string][]
-            ).map(([value, label]) => (
-              <button
-                key={value}
-                type="button"
-                aria-pressed={motion === value}
-                onClick={() => setMotion(value)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
+          ))}
+        </section>
       </div>
     </div>
   );
