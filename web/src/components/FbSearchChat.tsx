@@ -17,17 +17,17 @@ const NOTES = [
   {
     label: "SMART SEARCH",
     color: FB.violet,
-    body: "Search a term in plain English and Blueprint surfaces the exact micro-lesson — Unit 6, Forms, the W-4 — no syllabus to climb and no jargon to decode first.",
+    body: "Search a term in plain English and Blueprint surfaces the exact micro-lesson (Unit 6, Forms, the W-4), with no syllabus to climb and no jargon to decode first.",
   },
   {
     label: "THE CHAT BOT",
     color: FB.violet,
-    body: "For the oddly-specific questions a lesson can’t predict — “Should I claim 0 allowances?” — the bot answers in the moment, with hints tuned to the user’s situation.",
+    body: "For the oddly-specific questions a lesson can’t predict, like “Should I claim 0 allowances?”, the bot answers in the moment, with hints tuned to the user’s situation.",
   },
   {
     label: "FROM THE RESEARCH",
     color: FB.greenInk,
-    body: "Users didn’t want another course to finish. They wanted a straight answer, fast — so search and chat became the front door, not a locked path.",
+    body: "Users didn’t want another course to finish. They wanted a straight answer, fast, so search and chat became the front door, not a locked path.",
   },
 ];
 
@@ -35,12 +35,12 @@ const THREAD = [
   { from: "user", text: "Should I claim 0 allowances?" },
   {
     from: "bot",
-    text: "One job, no dependents? Claiming 0 withholds the most — expect a refund. 1 gives more per paycheck.",
+    text: "One job, no dependents? Claiming 0 withholds the most, so expect a refund. 1 gives more per paycheck.",
   },
   { from: "user", text: "What about a side gig?" },
   {
     from: "bot",
-    text: "Then add extra withholding — I’ll open the Multiple Jobs Worksheet with you.",
+    text: "Then add extra withholding. I’ll open the Multiple Jobs Worksheet with you.",
   },
 ];
 

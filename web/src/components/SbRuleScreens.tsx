@@ -24,7 +24,7 @@ const LEVELS = ["3rd–4th", "5th–6th", "7th–8th"];
 
 const QUEUE = [
   { title: "The Secret Garden…", verdict: "AI: CLEAR", flagged: false },
-  { title: "Storm Season", verdict: "AI: FLAGGED — review", flagged: true },
+  { title: "Storm Season", verdict: "AI: FLAGGED · review", flagged: true },
   { title: "My Robot Friend", verdict: "AI: CLEAR", flagged: false },
 ];
 
@@ -161,7 +161,7 @@ export default function SbRuleScreens() {
             <>
               <h3 className="sb-display text-2xl">Moderation Queue</h3>
               <p className="mono mt-1 text-[11px] tracking-widest opacity-55">
-                AI SCREENS FIRST — A HUMAN DECIDES.
+                AI SCREENS FIRST. A HUMAN DECIDES.
               </p>
 
               <ul className="mt-5 list-none space-y-3 p-0">

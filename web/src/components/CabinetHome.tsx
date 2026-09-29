@@ -342,7 +342,7 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
         <div className="rc-wrap">
           <div>
             <p className="rc-eyebrow" data-rc-reveal>
-              <b>01</b> — Index
+              <b>01</b> · Index
             </p>
 
             <h1 data-rc-reveal>
@@ -350,6 +350,14 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
               across{" "}
               <span>research, brand, product, and generative systems.</span>
             </h1>
+
+            {/* What she is doing right now, one line, where a hiring reader
+                actually looks. Keep it current: it goes stale faster than
+                anything else on the site. */}
+            <p className="rc-now" data-rc-reveal>
+              <b>Currently</b>
+              Prototyping with FirstGlance · open to design roles in Washington DC
+            </p>
 
             <div className="rc-acts" data-rc-reveal>
               <a className="rc-btn primary" href="#work">
@@ -395,7 +403,7 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
           <div className="rc-dhead">
             <div data-rc-reveal>
               <p className="rc-eyebrow">
-                <b>02</b> — Drawer · The work
+                <b>02</b> · Drawer · The work
               </p>
               <h2>Selected folders</h2>
             </div>
@@ -486,6 +494,18 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
                   <h4>{p.title}</h4>
                   <p className="cat">{p.category?.name}</p>
                   {p.invisibleSystem && <p className="sys">{p.invisibleSystem}</p>}
+                  {(() => {
+                    // Two or three skills to skim: the methods she tagged,
+                    // falling back to theme tags where a folder has none.
+                    const tags = (p.methods?.length ? p.methods : p.themeTags ?? []).slice(0, 3);
+                    return tags.length ? (
+                      <ul className="rc-gtags">
+                        {tags.map((t) => (
+                          <li key={t}>{t}</li>
+                        ))}
+                      </ul>
+                    ) : null;
+                  })()}
                 </Link>
             ))}
           </div>

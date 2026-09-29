@@ -391,7 +391,7 @@ export default async function ProjectPage({
               id="0iZFxVu8KNg"
               kicker="MOTION · STOP MOTION"
               title="Built frame by frame."
-              blurb="I shoot and edit video as well as design it — Premiere Pro, and my own soundtracks when a piece needs one. Stop motion is the most patient version of the work: you assemble the whole thing frame by frame before anyone sees a second of it."
+              blurb="I shoot and edit video as well as design it: Premiere Pro, and my own soundtracks when a piece needs one. Stop motion is the most patient version of the work: you assemble the whole thing frame by frame before anyone sees a second of it."
               caption="Stop Motion · more at youtube.com/@annabartlettt"
             />
           )}
@@ -671,7 +671,7 @@ export default async function ProjectPage({
               id="f90ed4bac3354529a95fb042162b1a76"
               kicker="WALKTHROUGH · THE WORKING PROTOTYPE"
               title="Five minutes inside StoryBridge."
-              blurb="The roles above, in motion — an author drafting a story, a reader browsing the cards, and the adapted copy sitting beside the original rather than replacing it."
+              blurb="The roles above, in motion: an author drafting a story, a reader browsing the cards, and the adapted copy sitting beside the original rather than replacing it."
               caption="StoryBridge: AI Matched Stories for Students · 4:58"
               accent={brand.primary ?? primary}
             />

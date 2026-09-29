@@ -73,7 +73,7 @@ export default function FbW4Flow() {
       note="one task, start to finish"
       kicker="THE FLOW · A REAL SCENARIO"
       title="“Help me finish my W-4.”"
-      blurb="One task from start to finish — how a first-timer completes a W-4 with Financial Blueprint, no jargon and no dead ends."
+      blurb="One task from start to finish: how a first-timer completes a W-4 with Financial Blueprint, no jargon and no dead ends."
       wide
     >
       {/* the storyboard rail */}
@@ -285,7 +285,7 @@ export default function FbW4Flow() {
               lineHeight: 1.32,
             }}
           >
-            With one job, 0 withholds the most — you’ll likely get a refund at
+            With one job, 0 withholds the most, so you’ll likely get a refund at
             tax time.
           </p>
         </FbPhone>

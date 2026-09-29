@@ -625,3 +625,9 @@ a.sn-src:hover { text-decoration: underline; text-underline-offset: 3px; }
   .bso-fx .bso-squares rect { stroke-dashoffset: 0; animation: none !important }
   .bso-fx .is-in .bso-squares g { animation: none }
 }
+
+/* Homepage "Currently" line and folder-card skill tags */
+.rc-now { font-family: var(--font-mono), monospace; font-size: 11.5px; letter-spacing: .08em; line-height: 1.6; color: var(--charcoal); margin: 0 0 22px; max-width: 560px }
+.rc-now b { display: inline-block; margin-right: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; font-size: 10px; background: var(--ink); color: var(--cream) }
+.rc-gtags { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; padding: 0 }
+.rc-gtags li { font-family: var(--font-mono), monospace; font-size: 9.5px; letter-spacing: .06em; line-height: 1; padding: 5px 8px; border: 1px solid var(--kraft); border-radius: 999px; color: var(--charcoal) }

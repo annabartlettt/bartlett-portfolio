@@ -75,7 +75,7 @@ export default function SpotifyLearned() {
           className="mono mt-3 block text-[9.5px] tracking-[0.16em] not-italic"
           style={{ color: SP.grey }}
         >
-          — PERSONAL REFLECTION
+          PERSONAL REFLECTION
         </span>
       </blockquote>
     </SpPanel>

@@ -20,7 +20,7 @@ const HARD = [
 
 const QUOTES = [
   "Most banking apps are full of jargon I’m not familiar with.",
-  "Zogo? Generic. Boring quizzes — basically Duolingo.",
+  "Zogo? Generic. Boring quizzes, basically Duolingo.",
   "I don’t have the time to research personal finance.",
   "Honestly, it’s just… information overload.",
 ];
@@ -91,7 +91,7 @@ export default function FbVoices() {
                 className="mono mt-3 text-[9.5px] tracking-[0.14em]"
                 style={{ color: FB.muted }}
               >
-                — YOUNG ADULT, INTERVIEW
+                YOUNG ADULT, INTERVIEW
               </p>
             </li>
           ))}
@@ -110,7 +110,7 @@ export default function FbVoices() {
           HMW
         </span>
         <p className="m-0 text-[14.5px] leading-snug font-semibold">
-          Offer free, professional financial help to young adults — in plain
+          Offer free, professional financial help to young adults, in plain
           language, on demand.
         </p>
       </div>

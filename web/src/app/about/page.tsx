@@ -18,6 +18,14 @@ export default function AboutPage() {
         <div className="mt-2 flex flex-wrap items-center gap-x-10 gap-y-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
+            src="/images/about/anna-bartlett.jpg"
+            alt="Anna Bartlett, smiling, outdoors in a cream collared top"
+            width={720}
+            height={1080}
+            className="h-auto w-[200px] rounded-xl border border-[var(--kraft)] object-cover sm:w-[220px]"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/mark/overprint.svg"
             alt="Anna Bartlett's monogram: an A and a B overlapping, with the crossing printing a third colour"
             width={124}
@@ -48,14 +56,19 @@ export default function AboutPage() {
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
           I&rsquo;m a creative technologist. In practice that means the research
           comes first and the medium comes second: seven of the nine folders here
-          began as research, and what each one turned into &mdash; an app, a
-          generative system, a brand, a woven map &mdash; was decided by what the
+          began as research, and what each one turned into (an app, a
+          generative system, a brand, a woven map) was decided by what the
           research found rather than by what I already knew how to make.
         </p>
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
           I finished my BFA in Design at Northeastern in April 2026 and moved to
           the DC area. The subjects I keep coming back to are health, learning,
           civic life and culture.
+        </p>
+        <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
+          When I&rsquo;m not designing, I&rsquo;m making or seeing art, playing
+          guitar, producing music in Logic Pro X, teaching myself Spanish, or out
+          on a run.
         </p>
         {/* Education, practice and availability were a column on the
             homepage's closing panel, which is gone. They are the facts a

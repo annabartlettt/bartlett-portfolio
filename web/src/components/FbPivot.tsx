@@ -15,11 +15,11 @@ const W = 154;
 const BEFORE = [
   {
     src: "pivot-before-01-imagine.png",
-    alt: "RetireMap onboarding, screen one — “Imagine”, with Urban environment and Rural setting to choose from",
+    alt: "RetireMap onboarding, screen one: “Imagine”, with Urban environment and Rural setting to choose from",
   },
   {
     src: "pivot-before-02-retirement-years.png",
-    alt: "RetireMap onboarding, screen two — “Where do you invision spending most of your retirement years?”, Rural setting selected",
+    alt: "RetireMap onboarding, screen two: “Where do you invision spending most of your retirement years?”, Rural setting selected",
   },
 ];
 
@@ -27,17 +27,17 @@ const ARGUMENT = [
   {
     label: "WHAT WASN’T WORKING",
     color: FB.muted,
-    body: "RetireMap made you finish a retirement-lifestyle questionnaire and generate an avatar before you could learn a thing — then walk a locked, linear map. Great for a demo; wrong for how young adults actually reach for money help.",
+    body: "RetireMap made you finish a retirement-lifestyle questionnaire and generate an avatar before you could learn a thing, then walk a locked, linear map. Great for a demo; wrong for how young adults actually reach for money help.",
   },
   {
     label: "THE REDIRECT",
     color: FB.violet,
-    body: "Drop the retirement framing and the gate entirely. Keep what worked — the micro-lessons, the term quizzes, the chatbot — and make it on-demand: a financial dictionary you can open to any word, in any order.",
+    body: "Drop the retirement framing and the gate entirely. Keep what worked (the micro-lessons, the term quizzes, the chatbot) and make it on-demand: a financial dictionary you can open to any word, in any order.",
   },
   {
     label: "AFTER →",
     color: FB.greenInk,
-    body: "That became Financial Blueprint — the built product in §03 The Product.",
+    body: "That became Financial Blueprint, the built product in §03 The Product.",
   },
 ];
 
@@ -54,7 +54,7 @@ export default function FbPivot() {
             className="mono text-[9.5px] font-bold tracking-[0.16em]"
             style={{ color: FB.muted }}
           >
-            BEFORE — A WALL OF QUESTIONS
+            BEFORE · A WALL OF QUESTIONS
           </p>
           <div className="mt-3 flex items-center gap-3">
             {BEFORE.map((b) => (

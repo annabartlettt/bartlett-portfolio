@@ -15,7 +15,7 @@ import { SpPanel, SpCard, SpLabel } from "./SpotifyKit";
 const METHODS = [
   {
     label: "COMPETITIVE ANALYSIS",
-    body: "X · LinkedIn · YouTube — low-friction sharing & contextual discovery",
+    body: "X · LinkedIn · YouTube: low-friction sharing & contextual discovery",
   },
   {
     label: "USER INTERVIEWS",
@@ -26,12 +26,12 @@ const METHODS = [
 const TEARDOWNS = [
   {
     src: "teardown-x.jpg",
-    label: "SHARING ON X — DISCOVER → SHARE FLOW",
+    label: "SHARING ON X · DISCOVER → SHARE FLOW",
     alt: "A six-step annotated teardown of discovering and sharing a post on X",
   },
   {
     src: "teardown-linkedin.jpg",
-    label: "SHARING ON LINKEDIN — DISCOVER → SHARE FLOW",
+    label: "SHARING ON LINKEDIN · DISCOVER → SHARE FLOW",
     alt: "A six-step annotated teardown of discovering and sharing a post on LinkedIn",
   },
 ];
@@ -40,12 +40,12 @@ const INSIGHTS = [
   {
     label: "DIVERSE LISTENING",
     title: "Social and solitary",
-    body: "People listen both to connect and to be alone — social features have to flex to both.",
+    body: "People listen both to connect and to be alone. Social features have to flex to both.",
   },
   {
     label: "MULTI-PLATFORM",
     title: "A bridge, not a silo",
-    body: "Listeners juggle Spotify, Apple, YouTube, TikTok — room for Spotify to bridge casual and engaged listening.",
+    body: "Listeners juggle Spotify, Apple, YouTube, TikTok, which leaves room for Spotify to bridge casual and engaged listening.",
   },
   {
     label: "GEOGRAPHIC BARRIERS",

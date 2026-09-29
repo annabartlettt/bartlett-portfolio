@@ -55,11 +55,11 @@ const SITE_URL = "https://bartlettanna.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Anna Bartlett — Research Cabinet",
+    default: "Anna Bartlett · Research Cabinet",
     template: "%s · Anna Bartlett",
   },
   description:
-    "I investigate complex human systems and turn them into experiences people can understand, question, and act on — a research cabinet of design work.",
+    "I investigate complex human systems and turn them into experiences people can understand, question, and act on: a research cabinet of design work.",
   keywords: [
     "Anna Bartlett",
     "creative technologist",
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Anna Bartlett" }],
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Anna Bartlett — Research Cabinet",
+    title: "Anna Bartlett · Research Cabinet",
     description: "Anna Bartlett is a creative technologist in Washington DC working across research, brand, product, and generative systems.",
     url: SITE_URL,
     siteName: "Anna Bartlett",
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anna Bartlett — Research Cabinet",
+    title: "Anna Bartlett · Research Cabinet",
     description: "Anna Bartlett is a creative technologist in Washington DC working across research, brand, product, and generative systems.",
   },
 };
