@@ -58,9 +58,9 @@ export default function AboutPage() {
           civic life and culture.
         </p>
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
-          Away from the folders, I&rsquo;m learning Castilian Spanish one verb at
-          a time, and I became a Liverpool fan, men&rsquo;s and women&rsquo;s,
-          because of one song.
+          When I&rsquo;m not designing, I&rsquo;m making or seeing art, playing
+          guitar, producing music in Logic Pro X, teaching myself Spanish, or out
+          on a run.
         </p>
         {/* Education, practice and availability were a column on the
             homepage's closing panel, which is gone. They are the facts a
