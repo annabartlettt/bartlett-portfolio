@@ -7,8 +7,10 @@ export const metadata = {
 };
 
 function Plate({ img, priority }: { img: PrintImage; priority?: boolean }) {
+  // Portrait pieces (posters) at full column width run several screens tall.
+  const tall = img.height > img.width;
   return (
-    <figure className="m-0">
+    <figure className={tall ? "m-0 max-w-md" : "m-0"}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={img.src}
@@ -32,7 +34,7 @@ export default function PrintedMatterPage() {
     <SplitPage
         eyebrow="Printed Matter"
         title="Things that exist on paper."
-        lede="Printed pieces, shown as the objects they are. The colophon says who made what."
+        lede="Printed pieces, shown as the objects they are. The colophon says who made what, and each one downloads as a PDF."
     >
         {PRINTED.map((p, i) => (
           <article
@@ -62,13 +64,33 @@ export default function PrintedMatterPage() {
               <Plate img={p.mine} />
             </div>
 
-            <div className="mt-12 grid grid-cols-1 items-start gap-8 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-              {p.details.map((d) => (
-                <Plate key={d.src} img={d} />
-              ))}
-            </div>
+            {p.details.length > 0 && (
+              <div
+                className={`mt-12 grid grid-cols-1 items-start gap-8 ${
+                  p.details.every((d) => d.height > d.width)
+                    ? "sm:grid-cols-2"
+                    : "sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]"
+                }`}
+              >
+                {p.details.map((d) => (
+                  <Plate key={d.src} img={d} />
+                ))}
+              </div>
+            )}
 
             {p.note && <p className="mt-8 max-w-2xl opacity-70">{p.note}</p>}
+
+            {p.download && (
+              <p className="mt-6">
+                <a
+                  href={p.download.href}
+                  download
+                  className="mono text-[12px] uppercase tracking-widest underline underline-offset-4"
+                >
+                  Download PDF · {p.download.label} · {p.download.size}
+                </a>
+              </p>
+            )}
           </article>
         ))}
     </SplitPage>
