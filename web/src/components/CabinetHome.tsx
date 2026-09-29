@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 import Link from "next/link";
 import OverprintMark from "./OverprintMark";
 import { urlFor } from "@/sanity/image";
@@ -57,28 +50,6 @@ export const DOMAINS = [
 export function domainOf(p: Project) {
   const first = (p.domains ?? [])[0];
   return DOMAINS.find((d) => d.value === first) ?? null;
-}
-
-/* The strip along the top of the cabinet. These are anchors into this page,
-   not routes — the dock along the bottom does routes. They used to carry the
-   same three words as the dock, so "Thinking" meant two different destinations
-   depending on which one you clicked. Numbering them ties each to the drawer
-   eyebrow it scrolls to and stops them reading as site navigation. */
-const DRAWERS = [
-  { id: "top", n: "01", label: "Index" },
-  { id: "work", n: "02", label: "The work" },
-];
-
-function countBy(projects: Project[], discipline: string) {
-  return projects.filter((p) => (p.disciplines ?? []).includes(discipline))
-    .length;
-}
-
-function accentFor(p: Project) {
-  const first = (p.disciplines ?? [])[0];
-  return (
-    DISCIPLINES.find((d) => d.value === first)?.accent ?? "var(--kraft-dk)"
-  );
 }
 
 export type MotionLevel = "full" | "gentle" | "off";
@@ -252,99 +223,35 @@ function useDrift(
   }, [root, level]);
 }
 
-/** Which drawer the rim tabs should mark as current. */
-function useCurrentDrawer() {
-  const [current, setCurrent] = useState<string | null>(null);
-  useEffect(() => {
-    const sections = DRAWERS.map((d) => document.getElementById(d.id)).filter(
-      (s): s is HTMLElement => s !== null,
-    );
-    if (sections.length === 0) return;
-    const io = new IntersectionObserver(
-      (rows) => {
-        rows.forEach((r) => {
-          if (r.isIntersecting) setCurrent(r.target.id);
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px" },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, []);
-  return current;
-}
-
 
 export default function CabinetHome({ projects }: { projects: Project[] }) {
-  const [craft, setCraft] = useState<string | null>(null);
-  // Someone who asked their OS for less motion starts with none and can still
-  // turn it up; everyone else starts at full. The override wins once set.
+  // Motion follows the visitor's own OS setting. The on-page Full / Gentle /
+  // Off control was one more thing to read on a page that should be calm.
   const prefersReduced = usePrefersReducedMotion();
-  const [override, setOverride] = useState<MotionLevel | null>(null);
-  const motion: MotionLevel = override ?? (prefersReduced ? "off" : "full");
-  const setMotion = setOverride;
+  const motion: MotionLevel = prefersReduced ? "off" : "full";
   const rootRef = useRef<HTMLDivElement>(null);
 
   useDrawersOpening(rootRef, motion);
   useDrift(rootRef, motion);
-  const current = useCurrentDrawer();
 
-  const filtered = useMemo(
-    () =>
-      projects.filter(
-        (p) => craft === null || (p.disciplines ?? []).includes(craft),
-      ),
-    [projects, craft],
-  );
-
-  // One list, in folder order. Sorting nine things is a control looking for a
-  // problem, and grouping by section produced nine headings with one card
-  // under each.
+  // One list, in folder order.
   const ordered = useMemo(
     () =>
-      [...filtered].sort((a, b) =>
+      [...projects].sort((a, b) =>
         (a.folderNumber ?? "").localeCompare(b.folderNumber ?? ""),
       ),
-    [filtered],
+    [projects],
   );
-
-  const selected = DISCIPLINES.find((d) => d.value === craft) ?? null;
 
   return (
     <div ref={rootRef}>
-      {/* ══ rim — the drawer tabs ══════════════════════════ */}
-      <div className="rc-rim">
-        <div className="rc-wrap">
-          {/* The site header already carries the name; this strip is only the
-              drawer tabs, so it doesn't say it twice. */}
-          <p className="rc-id">
-            <b>On this page</b>
-          </p>
-          <nav className="rc-rimtabs" aria-label="Sections of this page">
-            {DRAWERS.map((d) => (
-              <a
-                key={d.id}
-                className="rc-rimtab"
-                href={`#${d.id}`}
-                aria-current={current === d.id ? "page" : undefined}
-              >
-                <b>{d.n}</b> {d.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </div>
-
-      {/* ══ 01 · index ═════════════════════════════════════ */}
+      {/* The "On this page" strip and the section numbers are gone: a page
+          with one headline and one grid does not need a table of contents. */}
       <OverprintMark motion={motion} />
 
       <section className="rc-hero" id="top">
         <div className="rc-wrap">
           <div>
-            <p className="rc-eyebrow" data-rc-reveal>
-              <b>01</b> · Index
-            </p>
-
             <h1 data-rc-reveal>
               Anna Bartlett is a creative technologist in Washington DC working
               across{" "}
@@ -394,66 +301,8 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
       {/* ══ 02 · the work ══════════════════════════════════ */}
       <section className="rc-drawer rc-paper" id="work">
         <div className="rc-wrap">
-          <div className="rc-edge" data-rc-reveal>
-            <i />
-            <i />
-            <i />
-          </div>
-
           <div className="rc-dhead">
-            <div data-rc-reveal>
-              <p className="rc-eyebrow">
-                <b>02</b> · Drawer · The work
-              </p>
-              <h2>Selected folders</h2>
-            </div>
-            <p className="sub" data-rc-reveal>
-              Nine of them. Each one names the system underneath first, and
-              what got built second.
-            </p>
-          </div>
-
-          <div className="rc-filterrow" data-rc-reveal>
-            <div className="rc-tabrow" role="tablist" aria-label="Disciplines">
-              <button
-                className="rc-ftab"
-                role="tab"
-                type="button"
-                aria-selected={craft === null}
-                onClick={() => setCraft(null)}
-                style={{ ["--tabc" as string]: "var(--kraft)" }}
-              >
-                Everything
-              </button>
-              {DISCIPLINES.map((d) => (
-                <button
-                  key={d.value}
-                  className="rc-ftab"
-                  role="tab"
-                  type="button"
-                  aria-selected={craft === d.value}
-                  onClick={() => setCraft(d.value)}
-                  style={{ ["--tabc" as string]: d.accent }}
-                >
-                  {d.short} · {countBy(projects, d.value)}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="rc-countbar" data-rc-reveal>
-            <span className="count">
-              {filtered.length} of {projects.length} folders
-              {craft !== null && (
-                <button
-                  type="button"
-                  className="clear"
-                  onClick={() => setCraft(null)}
-                >
-                  Clear
-                </button>
-              )}
-            </span>
+            <h2 data-rc-reveal>Selected work</h2>
           </div>
 
           <div className="rc-gallery" data-rc-reveal>
@@ -475,37 +324,12 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
                     ) : (
                       <span className="lab">No cover yet</span>
                     )}
-                    <span
-                      className="rc-gnum"
-                      style={{ background: accentFor(p) }}
-                    >
-                      {p.folderNumber ?? "··"}
-                    </span>
-                    {domainOf(p) && (
-                      <span
-                        className="rc-gdom"
-                        style={{ color: domainOf(p)!.text }}
-                      >
-                        <i style={{ background: domainOf(p)!.ink }} />
-                        {domainOf(p)!.title}
-                      </span>
-                    )}
                   </div>
+                  {/* Image, title, one line. The number badge, domain chip,
+                      category and skill tags made each card a form to read;
+                      the case study holds that detail. */}
                   <h4>{p.title}</h4>
-                  <p className="cat">{p.category?.name}</p>
                   {p.invisibleSystem && <p className="sys">{p.invisibleSystem}</p>}
-                  {(() => {
-                    // Two or three skills to skim: the methods she tagged,
-                    // falling back to theme tags where a folder has none.
-                    const tags = (p.methods?.length ? p.methods : p.themeTags ?? []).slice(0, 3);
-                    return tags.length ? (
-                      <ul className="rc-gtags">
-                        {tags.map((t) => (
-                          <li key={t}>{t}</li>
-                        ))}
-                      </ul>
-                    ) : null;
-                  })()}
                 </Link>
             ))}
           </div>
@@ -539,31 +363,6 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
           </div>
         </div>
       </section>
-
-      {/* ══ motion ═════════════════════════════════════════ */}
-      <div className="rc-motionbar">
-        <div className="rc-wrap">
-          <span>Motion</span>
-          <div className="rc-seg" role="group" aria-label="Motion level">
-            {(
-              [
-                ["full", "Full"],
-                ["gentle", "Gentle"],
-                ["off", "Off"],
-              ] as [MotionLevel, string][]
-            ).map(([value, label]) => (
-              <button
-                key={value}
-                type="button"
-                aria-pressed={motion === value}
-                onClick={() => setMotion(value)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
