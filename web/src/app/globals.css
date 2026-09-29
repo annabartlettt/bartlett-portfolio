@@ -21,7 +21,8 @@ body {
 }
 
 body {
-  background: var(--cream);
+  /* Warm near-white: brighter and calmer than the old cream (#F6EEDA). */
+  background: var(--paper);
   color: var(--charcoal);
   font-family: var(--font-inter), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -635,8 +636,8 @@ a.sn-src:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* Homepage split layout: a quiet sticky column, the work filling the rest */
 .rc-split { display: grid; grid-template-columns: minmax(250px, 320px) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); max-width: 1440px; margin: 0 auto; padding: 40px clamp(16px, 3vw, 44px) 120px }
 .rc-side { position: sticky; top: 40px; align-self: start }
-.rc-side-mark { display: inline-block; margin-bottom: 36px }
-.rc-side-mark img { display: block; height: 76px; width: auto }
+.rc-side-mark { display: flex; justify-content: center; margin-bottom: 40px }
+.rc-side-mark img { display: block; height: 120px; width: auto }
 .rc-side h1 { font-family: var(--font-display), sans-serif; font-weight: 400; font-size: clamp(22px, 1.9vw, 28px); line-height: 1.16; letter-spacing: -.02em; margin: 0 0 22px; text-wrap: pretty }
 .rc-side h1 span { color: var(--ink) }
 .rc-side .rc-now { margin-bottom: 24px }
