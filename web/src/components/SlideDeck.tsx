@@ -131,7 +131,7 @@ export default function SlideDeck({
           }}
           className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto rounded-xl border"
           style={{ borderColor: "var(--kraft)" }}
-          aria-label={`${deck.name} — ${deck.slides.length} slides`}
+          aria-label={`${deck.name}, ${deck.slides.length} slides`}
         >
           {deck.slides.map((s) => (
             /* eslint-disable-next-line @next/next/no-img-element */

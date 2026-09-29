@@ -293,7 +293,7 @@ export default function AnosityRings() {
                         />
                         <span className="flex-1">{d.name}</span>
                         <span className="text-xs" style={{ color: C.inkFaint }}>
-                          {marked[d.key].length > 0 ? `${marked[d.key].length} named` : "—"}
+                          {marked[d.key].length > 0 ? `${marked[d.key].length} named` : "none"}
                         </span>
                       </button>
                     </li>

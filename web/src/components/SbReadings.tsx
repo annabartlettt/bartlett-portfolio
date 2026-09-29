@@ -29,7 +29,7 @@ const READINGS = [
     title: "Education as a social system",
     rule: SB.ink,
     claim:
-      "Children's outcomes are shaped by networks — families, neighbourhoods, relationships — far more than by content delivery. Design AI for connection, not for optimising content.",
+      "Children's outcomes are shaped by networks (families, neighbourhoods, relationships) far more than by content delivery. Design AI for connection, not for optimising content.",
     became:
       "So we optimised for one cross-age connection instead of test scores. The AI sits in the middle of the loop; the people stay on both ends.",
     note: "What should AI in education optimise for: content delivery, or connection-building?",

@@ -18,7 +18,7 @@ const SCREENS = [
   {
     src: "retiremap-01-splash.png",
     label: "SPLASH",
-    alt: "RetireMap splash screen — “Road to Financial Freedom” and a Play button",
+    alt: "RetireMap splash screen: “Road to Financial Freedom” and a Play button",
   },
   {
     src: "retiremap-02-onboarding-quiz.png",
@@ -53,7 +53,7 @@ export default function FbRetireMap() {
       note="the concept before the pivot"
       kicker="DESIGN EXPLORATIONS · “RETIREMAP”"
       title="It started as a game about retirement."
-      blurb="The first concept — “RetireMap” — walked you through a retirement-lifestyle quiz, built you an avatar, and unlocked a Duolingo-style map of financial lessons."
+      blurb="The first concept, “RetireMap,” walked you through a retirement-lifestyle quiz, built you an avatar, and unlocked a Duolingo-style map of financial lessons."
       wide
     >
       <FbRibbon hint="SIX SCREENS · SCROLL →">

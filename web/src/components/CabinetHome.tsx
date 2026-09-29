@@ -342,7 +342,7 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
         <div className="rc-wrap">
           <div>
             <p className="rc-eyebrow" data-rc-reveal>
-              <b>01</b> — Index
+              <b>01</b> · Index
             </p>
 
             <h1 data-rc-reveal>
@@ -403,7 +403,7 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
           <div className="rc-dhead">
             <div data-rc-reveal>
               <p className="rc-eyebrow">
-                <b>02</b> — Drawer · The work
+                <b>02</b> · Drawer · The work
               </p>
               <h2>Selected folders</h2>
             </div>
