@@ -265,8 +265,36 @@ export default async function CentralCoopIndex() {
             {p.team && <span><b className="opacity-60">TEAM </b>{p.team}</span>}
           </div>
 
+          {/* every folder, up top, for the reader who came for the work and won't scroll the story */}
+          <nav aria-label="Folders" className="mt-10">
+            <p className="mono text-[10.5px] tracking-widest opacity-60">THE WORK, BY FOLDER</p>
+            <ul className="mt-3 grid list-none grid-cols-2 gap-2 p-0 sm:grid-cols-3 lg:grid-cols-5">
+              {PARTS.map((part) => (
+                <li key={part.slug}>
+                  <Link
+                    href={`/work/central-co-op/${part.slug}`}
+                    className="group flex h-full items-center gap-2.5 rounded-xl border border-white/25 px-3 py-2.5 transition hover:border-white"
+                    style={{ background: primary }}
+                  >
+                    <FolderIcon
+                      color="#fff"
+                      className="w-7 shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5"
+                    />
+                    <span className="min-w-0 flex-1 text-[13.5px] font-medium leading-snug">
+                      {part.title}
+                    </span>
+                    <span aria-hidden className="mono text-[12px]" style={{ color: CC.red }}>
+                      ▸
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           {/* jump links, so a reader can go straight to the part they came for */}
-          <nav aria-label="Sections" className="mono mt-8 flex flex-wrap gap-2 text-[10.5px] tracking-widest">
+          <p className="mono mt-8 text-[10.5px] tracking-widest opacity-60">THE STORY, BY SECTION</p>
+          <nav aria-label="Sections" className="mono mt-3 flex flex-wrap gap-2 text-[10.5px] tracking-widest">
             {p.sections?.map((s) => (
               <a
                 key={s.number}
