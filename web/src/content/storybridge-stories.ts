@@ -3,7 +3,7 @@ import { SB } from "@/content/storybridge-tokens";
 /**
  * The one set of StoryBridge content every built screen on the page draws
  * from, so the cover, the role screens, the rule screens and the component
- * explorer never disagree about a title, a grade or a colour.
+ * explorer never disagree about a title, a grade or a color.
  */
 export const FEATURED = {
   title: "The Youngest Teacher",

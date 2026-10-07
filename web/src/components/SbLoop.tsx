@@ -52,10 +52,10 @@ function Frame({ role, children }: { role: Role; children: ReactNode }) {
   );
 }
 
-const Btn = ({ children, solid = true, colour = SB.accent }: { children: ReactNode; solid?: boolean; colour?: string }) => (
+const Btn = ({ children, solid = true, color = SB.accent }: { children: ReactNode; solid?: boolean; color?: string }) => (
   <span
     className={`${mono} inline-block rounded-md px-3.5 py-2 text-[10.5px]`}
-    style={solid ? { background: colour, color: SB.paper } : { border: `1px solid ${SB.line}`, color: SB.ink, background: "#fff" }}
+    style={solid ? { background: color, color: SB.paper } : { border: `1px solid ${SB.line}`, color: SB.ink, background: "#fff" }}
   >
     {children}
   </span>
@@ -173,7 +173,7 @@ const ReviewPage = () => (
           AI report: all categories clear · age score 30/100
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          <Btn colour={SB.green}>Approve</Btn>
+          <Btn color={SB.green}>Approve</Btn>
           <Btn solid={false}>Request changes</Btn>
           <Btn solid={false}>Override</Btn>
         </div>
@@ -246,7 +246,7 @@ const STEPS = [
 export default function SbLoop() {
   const [i, setI] = useState(0);
   const step = STEPS[i];
-  const colour = step.ai ? SB.accent : SB.green;
+  const color = step.ai ? SB.accent : SB.green;
   const go = (n: number) => setI((n + STEPS.length) % STEPS.length);
 
   return (
@@ -272,7 +272,7 @@ export default function SbLoop() {
         <div className="absolute left-6 right-6 top-[18px] border-t-2 border-dashed" style={{ borderColor: SB.line }} aria-hidden />
         <div
           className="absolute left-6 top-[18px] border-t-2 transition-all duration-500"
-          style={{ borderColor: colour, width: `calc((100% - 3rem) * ${i / (STEPS.length - 1)})` }}
+          style={{ borderColor: color, width: `calc((100% - 3rem) * ${i / (STEPS.length - 1)})` }}
           aria-hidden
         />
         <ol className="relative flex list-none justify-between p-0">
@@ -309,7 +309,7 @@ export default function SbLoop() {
       <div key={i} className="sb-fade mt-7">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-xl">
-            <p className={`${mono} text-[10px] font-bold`} style={{ color: colour }}>
+            <p className={`${mono} text-[10px] font-bold`} style={{ color: color }}>
               Step {String(i + 1).padStart(2, "0")} · {step.who}
             </p>
             <p className="sb-display mt-1.5 text-2xl leading-tight">{step.title}</p>
@@ -334,7 +334,7 @@ export default function SbLoop() {
           </div>
         </div>
 
-        <div className="mt-5 rounded-2xl p-3 sm:p-5" style={{ background: tint(colour, 16) }}>
+        <div className="mt-5 rounded-2xl p-3 sm:p-5" style={{ background: tint(color, 16) }}>
           {step.page}
         </div>
       </div>

@@ -10,7 +10,7 @@ import { SB, tint } from "@/content/storybridge-tokens";
  * a wall of text. Now a reader picks a reading and watches it turn into a
  * decision as a short exchange: what the reading argues, what StoryBridge did
  * about it, and the question it left the team holding. Each line is short;
- * the colour carries which reading you are in.
+ * the color carries which reading you are in.
  */
 const GOLD = "color-mix(in srgb, #F5C842 62%, #1E1B18)";
 
@@ -18,7 +18,7 @@ const READINGS = [
   {
     who: "Ivan Illich",
     title: "Deschooling Society",
-    colour: SB.accent,
+    color: SB.accent,
     claim: "Real learning is a web linking people to each other, not permission handed down by an institution.",
     became: "So StoryBridge is that web: a high schooler and a K-8 reader connect directly, and teens write for a reader rather than a grade.",
     question: "Is our AI a car, a black box, or a mechanical donkey, a tool you understand? We chose the donkey.",
@@ -26,15 +26,15 @@ const READINGS = [
   {
     who: "Nabeel Gillani",
     title: "Education as a social system",
-    colour: SB.ink,
+    color: SB.ink,
     claim: "Children's outcomes are shaped by networks of people far more than by content delivery.",
-    became: "So we optimised for one cross-age connection instead of test scores. The AI sits in the middle; the people stay on both ends.",
-    question: "What should AI in education optimise for: content delivery, or connection-building?",
+    became: "So we optimized for one cross-age connection instead of test scores. The AI sits in the middle; the people stay on both ends.",
+    question: "What should AI in education optimize for: content delivery, or connection-building?",
   },
   {
     who: "Chetty et al.",
-    title: "Neighbourhoods and mobility",
-    colour: GOLD,
+    title: "Neighborhoods and mobility",
+    color: GOLD,
     claim: "Exposure shapes what a child believes is possible. You cannot become what you cannot imagine.",
     became: "So a young reader meets a real older writer, and sees people like them authoring stories worth reading.",
     question: "Can AI disrupt unequal network formation instead of mirroring it?",
@@ -65,14 +65,14 @@ export default function SbReadings({ bare = false }: { bare?: boolean }) {
               onClick={() => setI(n)}
               className="rounded-xl px-4 py-3.5 text-left transition"
               style={{
-                background: on ? x.colour : "#fff",
+                background: on ? x.color : "#fff",
                 color: on ? SB.paper : SB.ink,
-                border: `1px solid ${on ? x.colour : SB.line}`,
+                border: `1px solid ${on ? x.color : SB.line}`,
               }}
             >
               <span
                 className="mono block text-[9.5px] font-bold tracking-widest uppercase"
-                style={{ color: on ? SB.paper : x.colour, opacity: on ? 0.8 : 1 }}
+                style={{ color: on ? SB.paper : x.color, opacity: on ? 0.8 : 1 }}
               >
                 Reading {String(n + 1).padStart(2, "0")} · {x.who}
               </span>
@@ -86,7 +86,7 @@ export default function SbReadings({ bare = false }: { bare?: boolean }) {
       <div
         key={i}
         className="sb-fade mt-4 rounded-2xl p-5 sm:p-7"
-        style={{ background: tint(r.colour, 12) }}
+        style={{ background: tint(r.color, 12) }}
         role="tabpanel"
       >
         <div className="max-w-xl rounded-lg bg-white px-4 py-3" style={{ border: `1px solid ${SB.line}` }}>
@@ -98,7 +98,7 @@ export default function SbReadings({ bare = false }: { bare?: boolean }) {
 
         <div
           className="ml-auto mt-3 max-w-xl rounded-lg px-4 py-3"
-          style={{ background: r.colour, color: SB.paper }}
+          style={{ background: r.color, color: SB.paper }}
         >
           <p className="mono text-[9.5px] tracking-widest uppercase opacity-80">It became</p>
           <p className="sb-display mt-1.5 text-[17px] leading-snug">{r.became}</p>
@@ -106,7 +106,7 @@ export default function SbReadings({ bare = false }: { bare?: boolean }) {
 
         <div
           className="mt-3 max-w-xl rounded-lg bg-white px-4 py-3"
-          style={{ borderLeft: `4px solid ${r.colour}` }}
+          style={{ borderLeft: `4px solid ${r.color}` }}
         >
           <p className="mono text-[9.5px] tracking-widest uppercase" style={{ color: SB.muted }}>
             The question it left us

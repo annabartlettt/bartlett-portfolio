@@ -69,11 +69,11 @@ const PromptExample = () => (
   </div>
 );
 
-const GROUPS: { who: string; band: string; colour: string; lines: Line[] }[] = [
+const GROUPS: { who: string; band: string; color: string; lines: Line[] }[] = [
   {
     who: "Teachers",
     band: "Educators",
-    colour: SB.green,
+    color: SB.green,
     lines: [
       {
         said: "We would not trust AI moderation or leveling without a final human review.",
@@ -105,7 +105,7 @@ const GROUPS: { who: string; band: string; colour: string; lines: Line[] }[] = [
   {
     who: "High school writers",
     band: "Grades 9-12",
-    colour: SB.accent,
+    color: SB.accent,
     lines: [
       {
         said: "Writing for a younger reader felt more purposeful than a typical assignment.",
@@ -159,7 +159,7 @@ export default function SbVoices() {
             className="rounded-xl px-4 py-2.5 text-left transition"
             style={
               n === g
-                ? { background: x.colour, color: SB.paper }
+                ? { background: x.color, color: SB.paper }
                 : { background: "#fff", border: `1px solid ${SB.line}`, color: SB.ink }
             }
           >
@@ -171,16 +171,16 @@ export default function SbVoices() {
 
       <div className="mt-4 grid gap-4 md:grid-cols-[1fr_1fr]">
         {/* What they said */}
-        <div className="space-y-2.5 rounded-2xl p-4 sm:p-5" style={{ background: tint(group.colour, 12) }}>
-          <p className={`${mono} text-[10px]`} style={{ color: group.colour }}>What they said · tap one</p>
+        <div className="space-y-2.5 rounded-2xl p-4 sm:p-5" style={{ background: tint(group.color, 12) }}>
+          <p className={`${mono} text-[10px]`} style={{ color: group.color }}>What they said · tap one</p>
           {group.lines.map((x, n) => {
             const on = n === l;
-            const bg = on ? group.colour : "#fff";
+            const bg = on ? group.color : "#fff";
             return (
               <div key={x.said} className="flex items-end gap-2">
                 <span
                   className="mono flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold"
-                  style={{ background: on ? group.colour : tint(group.colour, 30), color: on ? SB.paper : group.colour }}
+                  style={{ background: on ? group.color : tint(group.color, 30), color: on ? SB.paper : group.color }}
                   aria-hidden
                 >
                   {group.who[0]}

@@ -63,7 +63,7 @@ export default function SbScreens({ start = "author" }: { start?: Role }) {
         className="overflow-hidden rounded-xl border"
         style={{ borderColor: SB.line, background: SB.paper, color: SB.ink }}
       >
-        {/* product chrome — the nav is the interaction */}
+        {/* product chrome: the nav is the interaction */}
         <div
           className="flex flex-wrap items-center justify-between gap-3 border-b px-5 py-3"
           style={{ borderColor: SB.line }}

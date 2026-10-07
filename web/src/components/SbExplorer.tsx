@@ -56,7 +56,7 @@ const BADGES = [
 const PARTS: Part[] = [
   {
     name: "Browse card",
-    job: "A cover colour, the title, then reading level and theme. Nothing ranked.",
+    job: "A cover color, the title, then reading level and theme. Nothing ranked.",
     lives: "Reader · Browse Stories",
     steps: LIBRARY.map((s) => s.title),
     render: (n) => <BrowseCard s={LIBRARY[n]} />,

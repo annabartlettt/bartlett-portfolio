@@ -195,7 +195,7 @@ export default function SbRuleScreens() {
       <figcaption className="mono mt-3 text-[11px] tracking-wide opacity-60">
         {view === "levels"
           ? "The author keeps the original and previews what each band reads."
-          : "The AI marks its judgement. A person acts on it."}
+          : "The AI marks its judgment. A person acts on it."}
       </figcaption>
     </figure>
   );
