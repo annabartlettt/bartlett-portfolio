@@ -256,9 +256,9 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
           </Link>
 
           <h1 data-rc-reveal>
-            Anna Bartlett is a creative technologist in Washington DC working
-            across{" "}
-            <span>research, brand, product, and generative systems.</span>
+            Anna Bartlett is a designer in Washington DC who talks to people
+            until the problem is clear, then designs{" "}
+            <span>learning experiences that give them their time back.</span>
           </h1>
 
           {/* What she is doing right now, one line, where a hiring reader
@@ -266,7 +266,7 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
               anything else on the site. */}
           <p className="rc-now" data-rc-reveal>
             <b>Currently</b>{" "}
-            Prototyping with FirstGlance · open to design roles in Washington DC
+            Prototyping with FirstGlance · open to UX research and learning design roles in DC
           </p>
 
           <p className="rc-side-links" data-rc-reveal>
