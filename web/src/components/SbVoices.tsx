@@ -1,119 +1,178 @@
+"use client";
+
+import { useState } from "react";
 import { SB, tint } from "@/content/storybridge-tokens";
 
 /**
- * What the people on both ends said, laid out the way a teaching center
- * reports a round of focus groups: who we heard from, what they said, and
- * what the team changed because of it.
+ * Feedback, traced to what it changed.
  *
- * Everything here comes from section 11 and the addendum of the team's
- * ARTG 5000 final report. Names are first names only, as in the report.
+ * Pick who you want to hear from, then tap anything they said: the panel
+ * beside it shows what the team did with it, marked as changed, kept, next,
+ * or still open. Everything comes from sections 9, 11, 13, 14 and the
+ * addendum of the team's ARTG 5000 final report, paraphrased.
  */
-const GROUPS = [
-  {
-    who: "High school writers",
-    band: "Grades 9-12",
-    colour: SB.accent,
-    heard: [
-      "Writing for a younger reader felt more purposeful than a typical assignment.",
-      "They wanted more flexible prompts, and a clearer way to set their own.",
-      "Tie it to a class grade, or it competes with everything else.",
-      "Who keeps our data, and who keeps this running next year?",
-    ],
-  },
+type Status = "Changed" | "Kept" | "Next" | "Open";
+
+const STATUS: Record<Status, { bg: string; fg: string }> = {
+  Changed: { bg: SB.green, fg: SB.paper },
+  Kept: { bg: SB.ink, fg: SB.paper },
+  Next: { bg: SB.accent, fg: SB.paper },
+  Open: { bg: tint(SB.muted, 22), fg: SB.muted },
+};
+
+type Line = { said: string; status: Status; outcome: string; why: string };
+
+const GROUPS: { who: string; band: string; colour: string; lines: Line[] }[] = [
   {
     who: "Teachers",
     band: "Educators",
     colour: SB.green,
-    heard: [
-      "The cross-age connection is the strength. It makes the work meaningful.",
-      "It has to fit the daily classroom routine, not sit beside it.",
-      "We need control over content and assignments, and to see what students are doing.",
-      "We would not trust AI moderation or leveling without a final human review.",
+    lines: [
+      {
+        said: "We would not trust AI moderation or leveling without a final human review.",
+        status: "Changed",
+        outcome: "AI became a quiet moderator, not a content generator",
+        why: "The biggest shift in the project. A teacher approves, rejects, or overrides every story before a child sees it.",
+      },
+      {
+        said: "We need control over content and assignments, and to see what students are doing.",
+        status: "Next",
+        outcome: "A teacher admin role that curates the library",
+        why: "Filter by genre, grade, or subject, and send writing prompts straight to student authors.",
+      },
+      {
+        said: "It has to fit the daily classroom routine, not sit beside it.",
+        status: "Open",
+        outcome: "Classroom pilot",
+        why: "The prototype can't answer this. Only a real class, over real weeks, can.",
+      },
+      {
+        said: "The cross-age connection is the strength. It makes the work meaningful.",
+        status: "Kept",
+        outcome: "Connection stays the reason the system exists",
+        why: "Every later decision protects the older writer and the younger reader on either end.",
+      },
+    ],
+  },
+  {
+    who: "High school writers",
+    band: "Grades 9-12",
+    colour: SB.accent,
+    lines: [
+      {
+        said: "Writing for a younger reader felt more purposeful than a typical assignment.",
+        status: "Kept",
+        outcome: "A real reader at the end of every story",
+        why: "The premise held: an audience did what a grade alone couldn't.",
+      },
+      {
+        said: "We want more flexible prompts, and a clearer way to set our own.",
+        status: "Changed",
+        outcome: "Writers can tag their stories and set their own prompts",
+        why: "In early testing, choosing their own prompts and tags gave writers more ownership of the work.",
+      },
+      {
+        said: "Tie it to a class grade, or it competes with everything else.",
+        status: "Open",
+        outcome: "How StoryBridge counts in a class",
+        why: "A real tension: grading could raise participation but pull writing back toward the grade.",
+      },
+      {
+        said: "Who keeps our data, and who keeps this running next year?",
+        status: "Open",
+        outcome: "Data and long-term upkeep",
+        why: "Named as a risk in the report. Privacy already limits what readers see to a first name and grade.",
+      },
     ],
   },
 ];
 
-const CHANGES = [
-  {
-    from: "AI as a content generator",
-    to: "AI as a quiet moderator and leveler",
-    why: "Teachers' trust came first.",
-  },
-  {
-    from: "AI decides what gets published",
-    to: "A teacher approves, rejects, or overrides",
-    why: "A person has the last word.",
-  },
-  {
-    from: "A like button",
-    to: "Add to collection",
-    why: "Active choosing over passive scrolling.",
-  },
-];
-
 export default function SbVoices() {
+  const [g, setG] = useState(0);
+  const [l, setL] = useState(0);
+  const group = GROUPS[g];
+  const line = group.lines[l];
+  const mono = "mono tracking-widest uppercase";
+
   return (
     <div className="mt-8" style={{ color: SB.ink }}>
-      <div className="grid gap-4 md:grid-cols-2">
-        {GROUPS.map((g) => (
-          <article
-            key={g.who}
-            className="overflow-hidden rounded-xl border"
-            style={{ borderColor: SB.line, background: "#fff" }}
+      {/* Who are you hearing from */}
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Who we heard from">
+        {GROUPS.map((x, n) => (
+          <button
+            key={x.who}
+            role="tab"
+            aria-selected={n === g}
+            onClick={() => {
+              setG(n);
+              setL(0);
+            }}
+            className="rounded-xl px-4 py-2.5 text-left transition"
+            style={
+              n === g
+                ? { background: x.colour, color: SB.paper }
+                : { background: "#fff", border: `1px solid ${SB.line}`, color: SB.ink }
+            }
           >
-            <div style={{ background: g.colour, height: 4 }} aria-hidden />
-            <div className="p-5">
-              <p
-                className="mono text-[10px] font-bold tracking-widest uppercase"
-                style={{ color: g.colour }}
-              >
-                {g.band}
-              </p>
-              <h4 className="sb-display mt-1.5 text-lg leading-tight">{g.who}</h4>
-              <ul className="mt-3 space-y-2.5 p-0">
-                {g.heard.map((h) => (
-                  <li
-                    key={h}
-                    className="list-none border-l-2 pl-3 text-[13.5px] leading-snug"
-                    style={{ borderColor: tint(g.colour, 45) }}
-                  >
-                    {h}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </article>
+            <span className={`${mono} block text-[9.5px]`} style={{ opacity: 0.8 }}>{x.band}</span>
+            <span className="sb-display block text-[17px]">{x.who}</span>
+          </button>
         ))}
       </div>
 
-      <div
-        className="mt-4 rounded-xl p-5 sm:p-6"
-        style={{ background: SB.surface }}
-      >
-        <p
-          className="mono text-[10px] font-bold tracking-widest uppercase"
-          style={{ color: SB.accent }}
+      <div className="mt-4 grid gap-4 md:grid-cols-[1fr_1fr]">
+        {/* What they said */}
+        <div className="space-y-2.5 rounded-2xl p-4 sm:p-5" style={{ background: tint(group.colour, 12) }}>
+          <p className={`${mono} text-[10px]`} style={{ color: group.colour }}>What they said · tap one</p>
+          {group.lines.map((x, n) => {
+            const on = n === l;
+            return (
+              <button
+                key={x.said}
+                onClick={() => setL(n)}
+                aria-pressed={on}
+                className="block w-full rounded-xl px-4 py-3 text-left text-[14px] leading-snug transition"
+                style={
+                  on
+                    ? { background: group.colour, color: SB.paper, transform: "translateX(6px)" }
+                    : { background: "#fff", color: SB.ink }
+                }
+              >
+                {x.said}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* What it changed */}
+        <div
+          key={`${g}-${l}`}
+          className="sb-fade flex flex-col justify-center rounded-2xl border bg-white p-5 sm:p-7"
+          style={{ borderColor: SB.line }}
         >
-          What we changed because of it
-        </p>
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
-          {CHANGES.map((c) => (
-            <div key={c.to}>
-              <p className="text-[12.5px] leading-snug line-through" style={{ color: SB.muted }}>
-                {c.from}
-              </p>
-              <p className="sb-display mt-1 text-[15px] leading-snug">{c.to}</p>
-              <p className="mt-1.5 text-[12px] leading-snug" style={{ color: SB.muted }}>
-                {c.why}
-              </p>
-            </div>
-          ))}
+          <p className={`${mono} text-[10px]`} style={{ color: SB.muted }}>What it changed</p>
+          <span
+            className={`${mono} mt-3 inline-block self-start rounded px-2.5 py-1 text-[10.5px]`}
+            style={{ background: STATUS[line.status].bg, color: STATUS[line.status].fg }}
+          >
+            {line.status}
+          </span>
+          <p className="sb-display mt-3 text-2xl leading-snug">{line.outcome}</p>
+          <p className="mt-3 text-[14.5px] leading-snug" style={{ color: SB.muted }}>{line.why}</p>
+
+          <div className="mt-6 flex flex-wrap gap-3 border-t pt-4" style={{ borderColor: SB.line }}>
+            {(Object.keys(STATUS) as Status[]).map((s) => (
+              <span key={s} className={`${mono} flex items-center gap-1.5 text-[9.5px]`} style={{ color: SB.muted }}>
+                <span className="h-2 w-2 rounded-full" style={{ background: STATUS[s].bg }} aria-hidden />
+                {s}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
       <p className="mono mt-3 text-[11px] tracking-wide opacity-60">
-        Paraphrased from validation conversations with high school writers and
-        teachers · K-8 readers not yet tested
+        Paraphrased from validation conversations with high school writers and teachers · K-8 readers not yet tested
       </p>
     </div>
   );
