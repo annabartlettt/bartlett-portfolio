@@ -7,11 +7,11 @@ export default function AboutPage() {
     <SplitPage
         eyebrow="About"
         title="Anna Bartlett"
-        lede="Design is not a subject I work in. It is the way I work on whatever subject is in front of me."
+        lede="I talk to people until the problem is clear, then design learning experiences that give them their time back."
     >
         {/* The mark goes here rather than in the nav or the footer. It is two
             letters overprinting, and below about 48px the overlap closes up and
-            the whole idea turns to mud — so it is given room instead of being
+            the whole idea turns to mud, so it is given room instead of being
             shrunk into chrome it cannot survive. */}
         <div className="mt-2 flex flex-wrap items-center gap-x-10 gap-y-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -36,24 +36,28 @@ export default function AboutPage() {
         </div>
 
         <p className="mt-10 max-w-2xl leading-relaxed opacity-85">
-          This site is a research cabinet. The folders look unrelated on purpose:
-          a hand-woven map of economic mobility, an anxiety app that refuses to
-          flatten its users, a generative identity for a symphony season, the
-          brand and social presence of a new university office. What they share
-          is not a medium or a job title. It is a way of seeing, and it transfers
-          faster than any single tool I was taught.
+          I&rsquo;m a UX and learning designer. I design interactive tools for
+          the web and mobile that help people learn something, and I start every
+          one with research: interviews, focus groups, usability tests, and a
+          lot of listening. Too much of a teacher&rsquo;s or student&rsquo;s day
+          goes to tools that cost time instead of saving it. That&rsquo;s the
+          problem I want to work on.
         </p>
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
-          I&rsquo;m a creative technologist. In practice that means the research
-          comes first and the medium comes second: seven of the nine folders here
-          began as research, and what each one turned into (an app, a
-          generative system, a brand, a woven map) was decided by what the
-          research found rather than by what I already knew how to make.
+          This site is a research cabinet, and the folders are in that order on
+          purpose. The first three are learning tools: StoryBridge, an AI reading
+          platform where the AI adapts the level but never rewrites the writer;
+          the student focus groups I pioneered for Northeastern&rsquo;s Central
+          Co-op Office; and Financial Blueprint, a financial literacy app. After
+          them comes research-led interactive work on anxiety, public parks, and
+          music, then the data and craft pieces that taught me how to see.
         </p>
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
-          I finished my BFA in Design at Northeastern in April 2026 and moved to
-          the DC area. The subjects I keep coming back to are health, learning,
-          civic life and culture.
+          I&rsquo;m most interested in education, edtech, and AI as a learning
+          tool, and in products that respect people&rsquo;s time instead of
+          competing for it. I finished my BFA in Design at Northeastern in April
+          2026, where I also taught first-year students as a teaching assistant,
+          and I&rsquo;m now based in Washington, DC.
         </p>
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
           When I&rsquo;m not designing, I&rsquo;m making or seeing art, playing
@@ -72,11 +76,11 @@ export default function AboutPage() {
             ],
             [
               "Practice",
-              "Research · User experience · Computational design · Brand and communications · Motion",
+              "UX research · Interactive design for web and mobile · Learning design · Design systems · AI in education",
             ],
             [
               "Available for",
-              "Marketing and communications, design systems, civic and learning design · Washington DC",
+              "UX research and learning design roles in education, edtech, and AI for learning · hybrid or in person · Washington DC",
             ],
           ].map(([k, v]) => (
             <div key={k} className="border-b border-[var(--kraft)] py-4">

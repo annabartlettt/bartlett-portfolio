@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     template: "%s · Anna Bartlett",
   },
   description:
-    "I investigate complex human systems and turn them into experiences people can understand, question, and act on: a research cabinet of design work.",
+    "Anna Bartlett is a UX and learning designer in Washington DC who talks to people until the problem is clear, then designs learning experiences that give them their time back.",
   keywords: [
     "Anna Bartlett",
     "learning experience design",
