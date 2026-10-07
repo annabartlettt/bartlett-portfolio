@@ -269,9 +269,17 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
             Prototyping with FirstGlance · open to design roles in Washington DC
           </p>
 
-          <a className="rc-side-link" href="mailto:anna.bartlettt@gmail.com" data-rc-reveal>
-            Say hello →
-          </a>
+          <p className="rc-side-links" data-rc-reveal>
+            <a className="rc-side-link" href="mailto:anna.bartlettt@gmail.com">
+              Say hello →
+            </a>
+            <a className="rc-side-link" href="https://www.linkedin.com/in/bartlettanna" target="_blank" rel="noreferrer">
+              LinkedIn ↗
+            </a>
+            <a className="rc-side-link" href="/Anna_Bartlett_Resume.pdf" target="_blank" rel="noreferrer">
+              Resume ↗
+            </a>
+          </p>
         </aside>
 
         <section className="rc-split-work" id="work" aria-label="Selected work">
