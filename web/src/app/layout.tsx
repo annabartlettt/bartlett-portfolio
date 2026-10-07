@@ -77,9 +77,11 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "Anna Bartlett",
     type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 627, alt: "Anna Bartlett: I design learning experiences that give people their time back. bartlettanna.com" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/og.png"],
     title: "Anna Bartlett · Research Cabinet",
     description: "Anna Bartlett is a designer in Washington DC who talks to people until the problem is clear, then designs learning experiences that give them their time back.",
   },
