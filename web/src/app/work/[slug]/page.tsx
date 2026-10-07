@@ -15,6 +15,7 @@ import SbRuleScreens from "@/components/SbRuleScreens";
 import SbSystem from "@/components/SbSystem";
 import SbReadings from "@/components/SbReadings";
 import SbLoop from "@/components/SbLoop";
+import SbVoices from "@/components/SbVoices";
 import FbVoices from "@/components/FbVoices";
 import FbRetireMap from "@/components/FbRetireMap";
 import FbPivot from "@/components/FbPivot";
@@ -351,6 +352,10 @@ export default async function ProjectPage({
               </div>
             )}
 
+            {slug === "storybridge" && (
+              <StoryBridgeInside n={s.number} accent={brand.primary ?? primary} />
+            )}
+
             {s.drawer?.label && sidenotesFor(slug, s.number).length === 0 && (
               <Drawer
                 label={s.drawer.label}
@@ -456,226 +461,6 @@ export default async function ProjectPage({
               <BsoSketch accent={brand.secondary ?? primary} />
             </div>
           )}
-          {slug === "storybridge" && s.number === "01" && (
-            <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
-              <p
-                className="mono text-[12px] font-bold tracking-widest"
-                style={{ color: brand.primary ?? primary }}
-              >
-                THE DISCONNECT · TWO PROBLEMS
-              </p>
-              <h2 className="display mt-3 text-3xl">
-                Two problems that solve each other.
-              </h2>
-              <p className="serif mt-4 max-w-2xl text-lg leading-relaxed opacity-90">
-                Younger students read more when a story feels personal. Older
-                students write better when somebody is actually going to read
-                it. Each shortage is the other one&rsquo;s supply.
-              </p>
-              <TwoSides accent={brand.primary ?? primary} />
-            </section>
-          )}
-          {slug === "storybridge" && s.number === "01" && (
-            <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
-              <SbReadings />
-            </section>
-          )}
-          {slug === "storybridge" && s.number === "02" && (
-            <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
-              <SbLoop />
-            </section>
-          )}
-          {slug === "storybridge" && s.number === "03" && (
-            <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
-              <p
-                className="mono text-[12px] font-bold tracking-widest"
-                style={{ color: brand.primary ?? primary }}
-              >
-                THE RULE · IN THE INTERFACE
-              </p>
-              <h2 className="display mt-3 text-3xl">
-                Where the promise is actually kept.
-              </h2>
-              <p className="serif mt-4 max-w-2xl text-lg leading-relaxed opacity-90">
-                A rule only counts if the product enforces it. The author keeps
-                the original and previews what each band reads. The queue marks
-                the machine&rsquo;s judgement as a label and leaves the decision
-                to a person. Both screens say so on the screen, to the person it
-                affects.
-              </p>
-              <div className="mt-8">
-                <SbRuleScreens />
-              </div>
-            </section>
-          )}
-          {slug === "storybridge" && s.number === "03" && (
-            <section className="mx-auto max-w-5xl border-b border-[var(--kraft)] px-6 py-14">
-              <p
-                className="mono text-[12px] font-bold tracking-widest"
-                style={{ color: brand.primary ?? primary }}
-              >
-                THE RULE · AND WHAT THE READER GETS
-              </p>
-              <h2 className="display mt-3 text-3xl">
-                The same control, from the other end.
-              </h2>
-              <p className="serif mt-4 max-w-2xl text-lg leading-relaxed opacity-90">
-                The author previews the levels. The reader chooses one, on the
-                story itself, next to read-aloud and a K&ndash;2 mode. The
-                dropdown says Original, because that is the default and the
-                adaptation is the thing you opt into.
-              </p>
-              <figure className="mt-8 m-0">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/storybridge/reader-story-toggle.svg"
-                  alt="The StoryBridge reader view of a story called The Rematch, with a reading tools bar carrying read aloud, K to 2 mode, reading support and a reading level dropdown set to Original, above the story's title, byline, tags and opening paragraphs"
-                  loading="lazy"
-                  className="w-full rounded-xl border border-[var(--kraft)]"
-                />
-                <figcaption className="mono mt-3 text-[11px] tracking-wide opacity-60">
-                  Reader · story view with the level selector and reading tools
-                </figcaption>
-              </figure>
-            </section>
-          )}
-          {slug === "storybridge" && s.number === "04" && (
-            <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
-              <p
-                className="mono text-[12px] font-bold tracking-widest"
-                style={{ color: brand.primary ?? primary }}
-              >
-                THE ROLES · BUILT, NOT PICTURED
-              </p>
-              <h2 className="display mt-3 text-3xl">
-                Three roles. Switch between them.
-              </h2>
-              <p className="serif mt-4 max-w-2xl text-lg leading-relaxed opacity-90">
-                An author writes outward, a reader browses inward, and an
-                administrator needs neither shape but a queue. Use the nav to
-                move between them. This is markup rather than a screenshot, so
-                it stays sharp at any width, reflows on a phone, and can be read
-                aloud.
-              </p>
-              <div className="mt-8">
-                <SbScreens />
-              </div>
-            </section>
-          )}
-          {slug === "storybridge" && s.number === "05" && (
-            <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-14">
-              <p
-                className="mono text-[12px] font-bold tracking-widest"
-                style={{ color: brand.primary ?? primary }}
-              >
-                THE SYSTEM · WHAT GOT HANDED OVER
-              </p>
-              <h2 className="display mt-3 text-3xl">
-                Eight components, three roles.
-              </h2>
-              <p className="serif mt-4 max-w-2xl text-lg leading-relaxed opacity-90">
-                A handoff is only trustworthy if the pieces are small enough to
-                be re-used and named clearly enough to be asked for. Every
-                screen in this project is built from the set below. It is
-                running here, in its own palette, rather than pictured.
-              </p>
-              <div className="mt-8">
-                <SbSystem />
-              </div>
-            </section>
-          )}
-          {slug === "storybridge" && s.number === "04" && (
-            <SlideDeck
-              kicker="THE ROLES · MID-FIDELITY TO BUILT"
-              title="Two directions, three doors."
-              blurb="An author writes outward and a reader browses inward, so the two sides could not share a layout. An administrator needed a third thing again: a queue, not a feed. Each role runs from its mid-fidelity pass to the screens as they ended up, and the reader has the furthest to travel: a feed, a library, and a search that filters by reading level as readily as by theme."
-              decks={[
-                {
-                  name: "Author",
-                  href: "https://bartlettanna.com/work/storybridge",
-                  slides: [
-                    {
-                      src: "/images/storybridge/wire-author.jpg",
-                      alt: "Mid-fidelity wireframe of the StoryBridge author page",
-                      label: "Mid-fidelity",
-                    },
-                    {
-                      src: "/images/storybridge/hifi-author.png",
-                      alt: "The built StoryBridge author dashboard showing published stories, reads and drafts",
-                      label: "Built",
-                    },
-                  ],
-                },
-                {
-                  name: "Reader",
-                  href: "https://bartlettanna.com/work/storybridge",
-                  slides: [
-                    {
-                      src: "/images/storybridge/wire-reader.jpg",
-                      alt: "Mid-fidelity wireframe of the StoryBridge reader page",
-                      label: "Mid-fidelity",
-                    },
-                    {
-                      src: "/images/storybridge/reader-v2-browse.png",
-                      alt: "Stories for You: a featured story, Saturday Morning Pancakes by Amara, age 8, above a row of five story cards, each tagged with a topic and a grade band from 2 to 5",
-                      label: "Stories for you",
-                    },
-                    {
-                      src: "/images/storybridge/reader-v2-story.png",
-                      alt: "Reading The Rematch, a story by a fourth grader. The reader has tapped the word rematch, and a card explains it in plain words with a button to hear it. Tools for bigger text, read aloud and word help sit above the story",
-                      label: "Reading, with word help",
-                    },
-                    {
-                      src: "/images/storybridge/reader-discover.jpg",
-                      alt: "Discover Stories: twenty-four stories in a grid, each carrying a grade band, an author, themes and a reader count, filterable by topic and reading level",
-                      label: "Discover",
-                    },
-                    {
-                      src: "/images/storybridge/reader-search.jpg",
-                      alt: "Search results for family stories, filtered to Family, Memory and Grade 5 to 6, showing seven results with opening lines",
-                      label: "Search and filter",
-                    },
-                    {
-                      src: "/images/storybridge/library.jpg",
-                      alt: "The full StoryBridge Story Library with search, genre filters and reading level filters",
-                      label: "Full library",
-                    },
-                    {
-                      src: "/images/storybridge/reader-v2-components.png",
-                      alt: "The reader component sheet: grade, topic and author-grade tags, the browse card and featured card, five cover colors, and the app header",
-                      label: "Reader components",
-                    },
-                  ],
-                },
-                {
-                  name: "Admin",
-                  href: "https://bartlettanna.com/work/storybridge",
-                  slides: [
-                    {
-                      src: "/images/storybridge/hifi-admin.png",
-                      alt: "The built StoryBridge admin moderation overview with submission and screening counts",
-                      label: "Moderation overview",
-                    },
-                  ],
-                },
-              ]}
-              numbered
-              aspect="4 / 3"
-              fit="contain"
-              width={760}
-              accent={brand.primary ?? primary}
-            />
-          )}
-          {slug === "storybridge" && s.number === "04" && (
-            <LoomEmbed
-              id="f90ed4bac3354529a95fb042162b1a76"
-              kicker="WALKTHROUGH · THE WORKING PROTOTYPE"
-              title="Five minutes inside StoryBridge."
-              blurb="The roles above, in motion: an author drafting a story, a reader browsing the cards, and the adapted copy sitting beside the original rather than replacing it."
-              caption="StoryBridge: AI Matched Stories for Students · 4:58"
-              accent={brand.primary ?? primary}
-            />
-          )}
         </Fragment>
       ))}
 
@@ -693,3 +478,114 @@ export default async function ProjectPage({
     </main>
   );
 }
+
+/**
+ * StoryBridge, told once per section. Each numbered section from Sanity owns
+ * its heading; the built pieces sit inside it as evidence rather than as
+ * their own headed sections, so the page reads as six steps, not twenty.
+ */
+function StoryBridgeInside({ n, accent }: { n?: string; accent: string }) {
+  if (n === "01") return <TwoSides accent={accent} />;
+  if (n === "02")
+    return (
+      <div className="mt-8">
+        <SbReadings bare />
+      </div>
+    );
+  if (n === "03")
+    return (
+      <>
+        <div className="mt-8">
+          <SbLoop />
+        </div>
+        <div className="mt-10">
+          <SbRuleScreens />
+        </div>
+        <figure className="m-0 mt-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/storybridge/reader-story-toggle.svg"
+            alt="The StoryBridge reader view of a story called The Rematch, with a reading tools bar carrying read aloud, K to 2 mode, reading support and a reading level dropdown set to Original, above the story's title, byline, tags and opening paragraphs"
+            loading="lazy"
+            className="w-full rounded-xl border border-[var(--kraft)]"
+          />
+          <figcaption className="mono mt-3 text-[11px] tracking-wide opacity-60">
+            The reader&rsquo;s side of the same rule: the level menu defaults to
+            Original, and adaptation is opt-in
+          </figcaption>
+        </figure>
+      </>
+    );
+  if (n === "04") return <SbVoices />;
+  if (n === "05")
+    return (
+      <>
+        <LoomEmbed
+          bare
+          id="f90ed4bac3354529a95fb042162b1a76"
+          kicker=""
+          title="StoryBridge walkthrough"
+          blurb=""
+          caption="Five-minute walkthrough of the working prototype · 4:58"
+          accent={accent}
+        />
+        <div className="mt-10">
+          <SbScreens start="reader" />
+        </div>
+        <details className="mt-10 rounded-xl border border-[var(--kraft)] px-5 py-4">
+          <summary className="mono cursor-pointer text-[12px] font-bold tracking-widest uppercase">
+            See the process: wireframes to build, and the design system
+          </summary>
+          <div className="mt-6">
+            <SlideDeck
+              bare
+              kicker=""
+              title=""
+              blurb=""
+              decks={SB_DECKS}
+              numbered
+              aspect="4 / 3"
+              fit="contain"
+              width={760}
+              accent={accent}
+            />
+          </div>
+          <div className="mt-10">
+            <SbSystem />
+          </div>
+        </details>
+      </>
+    );
+  return null;
+}
+
+const SB_DECKS = [
+  {
+    name: "Author",
+    href: "https://bartlettanna.com/work/storybridge",
+    slides: [
+      { src: "/images/storybridge/wire-author.jpg", alt: "Mid-fidelity wireframe of the StoryBridge author page", label: "Mid-fidelity" },
+      { src: "/images/storybridge/hifi-author.png", alt: "The built StoryBridge author dashboard showing published stories, reads and drafts", label: "Built" },
+    ],
+  },
+  {
+    name: "Reader",
+    href: "https://bartlettanna.com/work/storybridge",
+    slides: [
+      { src: "/images/storybridge/wire-reader.jpg", alt: "Mid-fidelity wireframe of the StoryBridge reader page", label: "Mid-fidelity" },
+      { src: "/images/storybridge/reader-v2-browse.png", alt: "Stories for You: a featured story above a row of five story cards, each tagged with a topic and a grade band", label: "Stories for you" },
+      { src: "/images/storybridge/reader-v2-story.png", alt: "Reading The Rematch with a word-help card and tools for bigger text, read aloud and word help", label: "Reading, with word help" },
+      { src: "/images/storybridge/reader-discover.jpg", alt: "Discover Stories: a grid of stories filterable by topic and reading level", label: "Discover" },
+      { src: "/images/storybridge/reader-search.jpg", alt: "Search results for family stories filtered by theme and grade", label: "Search and filter" },
+      { src: "/images/storybridge/library.jpg", alt: "The full StoryBridge Story Library with search, genre filters and reading level filters", label: "Full library" },
+      { src: "/images/storybridge/reader-v2-components.png", alt: "The reader component sheet: tags, cards, cover colors, and the app header", label: "Reader components" },
+    ],
+  },
+  {
+    name: "Admin",
+    href: "https://bartlettanna.com/work/storybridge",
+    slides: [
+      { src: "/images/storybridge/hifi-admin.png", alt: "The built StoryBridge admin moderation overview with submission and screening counts", label: "Moderation overview" },
+    ],
+  },
+];

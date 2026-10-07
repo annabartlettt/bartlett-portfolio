@@ -34,6 +34,7 @@ export default function SlideDeck({
   aspect = "1 / 1",
   fit = "cover",
   width = 460,
+  bare = false,
 }: {
   id?: string;
   kicker: string;
@@ -48,6 +49,8 @@ export default function SlideDeck({
   /** "contain" when slides differ in shape and cropping would lie. */
   fit?: "cover" | "contain";
   width?: number;
+  /** Inside a section that already has its own heading. */
+  bare?: boolean;
 }) {
   const track = useRef<HTMLDivElement>(null);
   const [d, setD] = useState(0);
@@ -83,18 +86,26 @@ export default function SlideDeck({
   return (
     <section
       id={id}
-      className={`mx-auto max-w-4xl scroll-mt-20 px-6 py-14 ${
-        border ? "border-b border-[var(--kraft)]" : ""
-      }`}
+      className={
+        bare
+          ? ""
+          : `mx-auto max-w-4xl scroll-mt-20 px-6 py-14 ${
+              border ? "border-b border-[var(--kraft)]" : ""
+            }`
+      }
     >
-      <p
-        className="mono text-[12px] font-bold tracking-widest"
-        style={{ color: accent }}
-      >
-        {kicker}
-      </p>
-      <h2 className="display mt-3 text-3xl">{title}</h2>
-      <p className="serif mt-4 text-lg leading-relaxed opacity-90">{blurb}</p>
+      {!bare && (
+        <>
+          <p
+            className="mono text-[12px] font-bold tracking-widest"
+            style={{ color: accent }}
+          >
+            {kicker}
+          </p>
+          <h2 className="display mt-3 text-3xl">{title}</h2>
+          <p className="serif mt-4 text-lg leading-relaxed opacity-90">{blurb}</p>
+        </>
+      )}
 
       {decks.length > 1 && (
         <div className="mt-7 flex flex-wrap gap-2">

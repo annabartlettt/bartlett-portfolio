@@ -14,6 +14,7 @@ export default function LoomEmbed({
   caption,
   ratio = 1249 / 1666,
   accent = "#B5502F",
+  bare = false,
 }: {
   id: string;
   kicker: string;
@@ -22,11 +23,20 @@ export default function LoomEmbed({
   caption: string;
   ratio?: number;
   accent?: string;
+  /** Inside a case-study section that already has its own heading. */
+  bare?: boolean;
 }) {
   const share = `https://www.loom.com/share/${id}`;
 
+  const Wrap = bare ? "div" : "section";
   return (
-    <section className="mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-16">
+    <Wrap
+      className={
+        bare ? "mt-10" : "mx-auto max-w-4xl border-b border-[var(--kraft)] px-6 py-16"
+      }
+    >
+      {!bare && (
+        <>
       <p
         className="mono text-[12px] font-bold tracking-widest"
         style={{ color: accent }}
@@ -35,9 +45,11 @@ export default function LoomEmbed({
       </p>
       <h2 className="display mt-3 text-3xl">{title}</h2>
       <p className="serif mt-4 text-lg leading-relaxed opacity-90">{blurb}</p>
+        </>
+      )}
 
       <div
-        className="relative mt-8 overflow-hidden rounded-xl border"
+        className={`relative overflow-hidden rounded-xl border ${bare ? "" : "mt-8"}`}
         style={{ borderColor: accent, paddingBottom: `${ratio * 100}%` }}
       >
         <iframe
@@ -56,6 +68,6 @@ export default function LoomEmbed({
           watch on Loom ↗
         </a>
       </p>
-    </section>
+    </Wrap>
   );
 }
