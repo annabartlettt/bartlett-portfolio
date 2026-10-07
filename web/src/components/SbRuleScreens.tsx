@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SB, tint } from "@/content/storybridge-tokens";
+import { LEVELS, QUEUE } from "@/content/storybridge-stories";
 
 /**
  * The two screens where the rule is actually enforced, built rather than
@@ -20,13 +21,6 @@ const STATS = [
   { n: "2", label: "Drafts" },
 ];
 
-const LEVELS = ["3rd–4th", "5th–6th", "7th–8th"];
-
-const QUEUE = [
-  { title: "The Secret Garden…", verdict: "AI: CLEAR", flagged: false },
-  { title: "Storm Season", verdict: "AI: FLAGGED · review", flagged: true },
-  { title: "My Robot Friend", verdict: "AI: CLEAR", flagged: false },
-];
 
 export default function SbRuleScreens() {
   const accent = SB.accent;

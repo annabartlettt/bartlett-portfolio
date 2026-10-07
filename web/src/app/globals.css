@@ -656,3 +656,8 @@ a.sn-src:hover { text-decoration: underline; text-underline-offset: 3px; }
 .rc-side-eyebrow { font-family: var(--font-mono), monospace; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px }
 .rc-side-lede { font-size: 15px; line-height: 1.55; color: var(--charcoal); opacity: .85; margin: 0 0 24px }
 .rc-split-main { min-width: 0 }
+
+/* StoryBridge: a panel settling in when you switch reading or component */
+@keyframes sb-fade { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: none } }
+.sb-fade { animation: sb-fade .35s ease both }
+@media (prefers-reduced-motion: reduce) { .sb-fade { animation: none } }
