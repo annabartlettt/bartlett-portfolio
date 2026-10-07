@@ -1,152 +1,135 @@
+"use client";
+
+import { useState } from "react";
 import { SB, tint } from "@/content/storybridge-tokens";
 
 /**
- * The readings board, built rather than embedded.
+ * The three readings, one at a time.
  *
- * The export was 1.5MB of outlined type — sharp, unsearchable, unreadable to
- * a screen reader, and unreflowable on a phone. This is the same board as
- * markup: the three readings, what each one became, and the two panels
- * underneath that set the rule.
+ * The board used to show all three as dense cards side by side, which read as
+ * a wall of text. Now a reader picks a reading and watches it turn into a
+ * decision as a short exchange: what the reading argues, what StoryBridge did
+ * about it, and the question it left the team holding. Each line is short;
+ * the color carries which reading you are in.
  */
 const GOLD = "color-mix(in srgb, #F5C842 62%, #1E1B18)";
 
 const READINGS = [
   {
-    n: "Reading 01",
     who: "Ivan Illich",
     title: "Deschooling Society",
-    rule: SB.accent,
-    claim:
-      "Learning should happen through use and relationships, not institutional permission. Schools monopolise knowledge; real learning is a web linking people to resources and to each other.",
-    became:
-      "StoryBridge is that web. A high-schooler and a K-8 reader connect directly. Kids learn by reading real stories, teens learn by writing for a real reader rather than for a grade.",
-    note: "The test: is our AI a car, a black box, or a mechanical donkey, a tool you understand? We chose the donkey.",
-    noteColour: SB.accent,
+    color: SB.accent,
+    claim: "Real learning is a web linking people to each other, not permission handed down by an institution.",
+    became: "So StoryBridge is that web: a high schooler and a K-8 reader connect directly, and teens write for a reader rather than a grade.",
+    question: "Is our AI a car, a black box, or a mechanical donkey, a tool you understand? We chose the donkey.",
   },
   {
-    n: "Reading 02",
     who: "Nabeel Gillani",
     title: "Education as a social system",
-    rule: SB.ink,
-    claim:
-      "Children's outcomes are shaped by networks (families, neighbourhoods, relationships) far more than by content delivery. Design AI for connection, not for optimising content.",
-    became:
-      "So we optimised for one cross-age connection instead of test scores. The AI sits in the middle of the loop; the people stay on both ends.",
-    note: "What should AI in education optimise for: content delivery, or connection-building?",
-    noteColour: SB.muted,
+    color: SB.ink,
+    claim: "Children's outcomes are shaped by networks of people far more than by content delivery.",
+    became: "So we optimized for one cross-age connection instead of test scores. The AI sits in the middle; the people stay on both ends.",
+    question: "What should AI in education optimize for: content delivery, or connection-building?",
   },
   {
-    n: "Reading 03",
     who: "Chetty et al.",
-    title: "Neighbourhoods and mobility",
-    rule: GOLD,
-    claim:
-      "Networks that cut across class and background drive mobility more than school quality does. Exposure shapes what a child believes is possible, and you cannot do what you cannot imagine.",
-    became:
-      "Exposure by design: a young reader meets a real older writer, and sees people like them authoring stories worth reading, across ages and backgrounds.",
-    note: "Can AI disrupt unequal network formation instead of mirroring it?",
-    noteColour: GOLD,
+    title: "Neighborhoods and mobility",
+    color: GOLD,
+    claim: "Exposure shapes what a child believes is possible. You cannot become what you cannot imagine.",
+    became: "So a young reader meets a real older writer, and sees people like them authoring stories worth reading.",
+    question: "Can AI disrupt unequal network formation instead of mirroring it?",
   },
 ];
 
 export default function SbReadings({ bare = false }: { bare?: boolean }) {
+  const [i, setI] = useState(0);
+  const r = READINGS[i];
+
   return (
-    <div
-      className="rounded-xl border p-6 sm:p-8"
-      style={{ borderColor: SB.line, background: SB.paper, color: SB.ink }}
-    >
+    <div style={{ color: SB.ink }}>
       {!bare && (
-        <>
-          <p
-            className="mono text-[10px] font-bold tracking-widest uppercase"
-            style={{ color: SB.accent }}
-          >
-            Ideation · The readings
-          </p>
-          <h3 className="sb-display mt-3 text-2xl leading-snug sm:text-[28px]">
-            We didn&rsquo;t wireframe our way in. We read our way in.
-          </h3>
-          <p className="mt-2 text-[13.5px] leading-snug" style={{ color: SB.muted }}>
-            Every decision traces back to an ARTG 5000 reading. The theory was the
-            ideation stage.
-          </p>
-        </>
+        <p className="mono text-[10px] font-bold tracking-widest uppercase" style={{ color: SB.accent }}>
+          Ideation · The readings
+        </p>
       )}
 
-      <div className={`${bare ? "" : "mt-7"} grid gap-4 md:grid-cols-3`}>
-        {READINGS.map((r) => (
-          <article
-            key={r.n}
-            className="overflow-hidden rounded-lg border"
-            style={{ borderColor: SB.line, background: "#fff" }}
-          >
-            <div style={{ background: r.rule, height: 4 }} aria-hidden />
-            <div className="p-4">
-              <p
-                className="mono text-[9.5px] font-bold tracking-widest uppercase"
-                style={{ color: r.rule }}
+      {/* Pick a reading */}
+      <div role="tablist" aria-label="Course readings" className="grid gap-2 sm:grid-cols-3">
+        {READINGS.map((x, n) => {
+          const on = n === i;
+          return (
+            <button
+              key={x.who}
+              role="tab"
+              aria-selected={on}
+              onClick={() => setI(n)}
+              className="rounded-xl px-4 py-3.5 text-left transition"
+              style={{
+                background: on ? x.color : "#fff",
+                color: on ? SB.paper : SB.ink,
+                border: `1px solid ${on ? x.color : SB.line}`,
+              }}
+            >
+              <span
+                className="mono block text-[9.5px] font-bold tracking-widest uppercase"
+                style={{ color: on ? SB.paper : x.color, opacity: on ? 0.8 : 1 }}
               >
-                {r.n} · {r.who}
-              </p>
-              <h4 className="sb-display mt-2 text-lg leading-tight">{r.title}</h4>
-              <p className="mt-2.5 text-[12.5px] leading-snug" style={{ color: SB.muted }}>
-                {r.claim}
-              </p>
-
-              <p
-                className="mono mt-4 text-[9.5px] font-bold tracking-widest uppercase"
-                style={{ color: r.rule }}
-              >
-                Became →
-              </p>
-              <p className="mt-1.5 text-[12.5px] leading-snug">{r.became}</p>
-
-              <p
-                className="mt-3 text-[12px] leading-snug"
-                style={{ color: r.noteColour }}
-              >
-                {r.note}
-              </p>
-            </div>
-          </article>
-        ))}
+                Reading {String(n + 1).padStart(2, "0")} · {x.who}
+              </span>
+              <span className="sb-display mt-1 block text-[17px] leading-tight">{x.title}</span>
+            </button>
+          );
+        })}
       </div>
 
-      <div className="mt-4 grid gap-4 md:grid-cols-2">
-        <div
-          className="rounded-lg p-5"
-          style={{ background: tint(SB.accent, 14) }}
-        >
-          <p
-            className="mono text-[9.5px] font-bold tracking-widest uppercase"
-            style={{ color: SB.accent }}
-          >
-            The critique that set the rule
+      {/* The exchange: argues, became, asks */}
+      <div
+        key={i}
+        className="sb-fade mt-4 rounded-2xl p-5 sm:p-7"
+        style={{ background: tint(r.color, 12) }}
+        role="tabpanel"
+      >
+        <div className="max-w-xl rounded-lg bg-white px-4 py-3" style={{ border: `1px solid ${SB.line}` }}>
+          <p className="mono text-[9.5px] tracking-widest uppercase" style={{ color: SB.muted }}>
+            The reading argues
           </p>
-          <p className="mt-2.5 text-[13px] leading-snug">
-            Learning analytics cannot see the whole child, and when AI
-            summarises it always leaves something out. So the AI adapts the
-            reading level. It never rewrites the story.
-          </p>
+          <p className="mt-1.5 text-[15px] leading-snug">{r.claim}</p>
         </div>
 
-        <blockquote
-          className="m-0 py-1 pl-5"
-          style={{ borderLeft: `3px solid ${SB.green}` }}
+        <div
+          className="ml-auto mt-3 max-w-xl rounded-lg px-4 py-3"
+          style={{ background: r.color, color: SB.paper }}
         >
-          <p className="sb-display text-[15px] leading-relaxed italic">
-            &ldquo;You rarely see who your students become. You teach them
-            anyway, so they have the best chance. We built the AI to protect
-            that relationship, never replace it.&rdquo;
+          <p className="mono text-[9.5px] tracking-widest uppercase opacity-80">It became</p>
+          <p className="sb-display mt-1.5 text-[17px] leading-snug">{r.became}</p>
+        </div>
+
+        <div
+          className="mt-3 max-w-xl rounded-lg bg-white px-4 py-3"
+          style={{ borderLeft: `4px solid ${r.color}` }}
+        >
+          <p className="mono text-[9.5px] tracking-widest uppercase" style={{ color: SB.muted }}>
+            The question it left us
           </p>
-          <footer
-            className="mono mt-2.5 text-[9.5px] tracking-widest uppercase"
-            style={{ color: SB.muted }}
-          >
-            Design principle · from a note about my mom, an educator
-          </footer>
-        </blockquote>
+          <p className="mt-1.5 text-[14.5px] leading-snug italic">{r.question}</p>
+        </div>
       </div>
+
+      {/* The rule it set, and why it matters */}
+      <figure
+        className="m-0 mt-4 rounded-2xl px-6 py-7 text-center sm:px-10"
+        style={{ background: SB.green, color: SB.paper }}
+      >
+        <p className="mono text-[10px] tracking-widest uppercase opacity-75">The principle underneath</p>
+        <blockquote className="sb-display mx-auto mt-3 max-w-2xl text-xl leading-snug sm:text-2xl">
+          &ldquo;You rarely see who your students become. You teach them anyway, so
+          they have the best chance. We built the AI to protect that
+          relationship, never replace it.&rdquo;
+        </blockquote>
+        <figcaption className="mono mt-4 text-[10px] tracking-widest uppercase opacity-75">
+          From a note about my mom, an educator
+        </figcaption>
+      </figure>
     </div>
   );
 }

@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import { SB } from "@/content/storybridge-tokens";
+import {
+  AUTHOR_STATS,
+  AUTHOR_STORIES as STORIES,
+  LEVELS,
+  LIBRARY,
+} from "@/content/storybridge-stories";
 
 /**
  * StoryBridge, running, at desktop width.
@@ -28,27 +34,6 @@ const CAPTION: Record<Role, string> = {
   admin: "Neither. A queue, and the counts that say whether it is under control.",
 };
 
-const AUTHOR_STATS = [
-  { n: "7", label: "Published stories", note: "+2 this month" },
-  { n: "136", label: "Total reads", note: "across all your stories" },
-  { n: "2", label: "Active drafts", note: "started this week" },
-];
-
-const STORIES = [
-  { title: "The Youngest Teacher", meta: "Apr 23, 2026 · 41 reads" },
-  { title: "The Rematch", meta: "Apr 12, 2026 · 33 reads" },
-];
-
-const LEVELS = ["3rd–4th", "5th–6th", "7th–8th"];
-
-const LIBRARY = [
-  { title: "The Rematch", grade: "Grade 5–6", tag: "Sports", c: SB.blue },
-  { title: "My Dad's Old Car", grade: "Grade 5–6", tag: "Family", c: SB.blue },
-  { title: "The Group Chat", grade: "Grade 7–8", tag: "Friendship", c: SB.coral },
-  { title: "Saturday Morning Pancakes", grade: "Grade 3–4", tag: "Family", c: SB.yellow },
-  { title: "The Book I Didn't Want to Read", grade: "Grade 5–6", tag: "School", c: SB.coral },
-  { title: "Third Quarter", grade: "Grade 7–8", tag: "Sports", c: SB.mint },
-];
 
 const ADMIN_STATS = [
   { n: "0", label: "Pending review" },
@@ -78,7 +63,7 @@ export default function SbScreens({ start = "author" }: { start?: Role }) {
         className="overflow-hidden rounded-xl border"
         style={{ borderColor: SB.line, background: SB.paper, color: SB.ink }}
       >
-        {/* product chrome — the nav is the interaction */}
+        {/* product chrome: the nav is the interaction */}
         <div
           className="flex flex-wrap items-center justify-between gap-3 border-b px-5 py-3"
           style={{ borderColor: SB.line }}

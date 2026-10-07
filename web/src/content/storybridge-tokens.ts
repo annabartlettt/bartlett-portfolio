@@ -4,7 +4,7 @@
  * The built screens use these rather than the site's tokens, so the product
  * looks like itself inside a case study that looks like her. Badge tints are
  * mixed from these same values rather than invented, so nothing here is a
- * colour that does not exist in the design system.
+ * color that does not exist in the design system.
  */
 export const SB = {
   ink: "#1E1B18",
@@ -20,6 +20,6 @@ export const SB = {
   coral: "#F07B5A",
 } as const;
 
-/** A wash of one of the palette colours over paper, for badge backgrounds. */
+/** A wash of one of the palette colors over paper, for badge backgrounds. */
 export const tint = (c: string, pct = 26) =>
   `color-mix(in srgb, ${c} ${pct}%, ${SB.paper})`;

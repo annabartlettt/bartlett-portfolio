@@ -8,14 +8,15 @@ import AnosityRings from "@/components/AnosityRings";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import BsoSketch from "@/components/BsoSketch";
 import LoomEmbed from "@/components/LoomEmbed";
-import SlideDeck from "@/components/SlideDeck";
 import TwoSides from "@/components/TwoSides";
 import SbScreens from "@/components/SbScreens";
 import SbRuleScreens from "@/components/SbRuleScreens";
-import SbSystem from "@/components/SbSystem";
 import SbReadings from "@/components/SbReadings";
 import SbLoop from "@/components/SbLoop";
 import SbVoices from "@/components/SbVoices";
+import SbCover from "@/components/SbCover";
+import SbStoryView from "@/components/SbStoryView";
+import SbExplorer from "@/components/SbExplorer";
 import FbVoices from "@/components/FbVoices";
 import FbRetireMap from "@/components/FbRetireMap";
 import FbPivot from "@/components/FbPivot";
@@ -250,6 +251,8 @@ export default async function ProjectPage({
                 tabIndex={-1}
               />
             </div>
+          ) : slug === "storybridge" ? (
+            <SbCover />
           ) : p.coverImage?.asset && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -501,19 +504,12 @@ function StoryBridgeInside({ n, accent }: { n?: string; accent: string }) {
         <div className="mt-10">
           <SbRuleScreens />
         </div>
-        <figure className="m-0 mt-10">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/storybridge/reader-story-toggle.svg"
-            alt="The StoryBridge reader view of a story called The Rematch, with a reading tools bar carrying read aloud, K to 2 mode, reading support and a reading level dropdown set to Original, above the story's title, byline, tags and opening paragraphs"
-            loading="lazy"
-            className="w-full rounded-xl border border-[var(--kraft)]"
-          />
-          <figcaption className="mono mt-3 text-[11px] tracking-wide opacity-60">
-            The reader&rsquo;s side of the same rule: the level menu defaults to
-            Original, and adaptation is opt-in
-          </figcaption>
-        </figure>
+        <div className="mt-10">
+          <SbStoryView />
+        </div>
+        <p className="mono mt-3 text-[11px] tracking-wide opacity-60">
+          The reader&rsquo;s side of the same rule: Original is the default. Pick a level to see the one word that changes.
+        </p>
       </>
     );
   if (n === "04") return <SbVoices />;
@@ -530,62 +526,22 @@ function StoryBridgeInside({ n, accent }: { n?: string; accent: string }) {
           accent={accent}
         />
         <div className="mt-10">
-          <SbScreens start="reader" />
+          <SbScreens start="admin" />
         </div>
-        <details className="mt-10 rounded-xl border border-[var(--kraft)] px-5 py-4">
-          <summary className="mono cursor-pointer text-[12px] font-bold tracking-widest uppercase">
-            See the process: wireframes to build, and the design system
-          </summary>
+        <div className="mt-12">
+          <p className="mono text-[12px] font-bold tracking-widest" style={{ color: accent }}>
+            THE DESIGN SYSTEM, RUNNING
+          </p>
+          <p className="serif mt-2 max-w-2xl text-lg leading-relaxed opacity-90">
+            Every screen above is built from eight components. Pick one to see it
+            large, step through its states, and find where it lives.
+          </p>
           <div className="mt-6">
-            <SlideDeck
-              bare
-              kicker=""
-              title=""
-              blurb=""
-              decks={SB_DECKS}
-              numbered
-              aspect="4 / 3"
-              fit="contain"
-              width={760}
-              accent={accent}
-            />
+            <SbExplorer />
           </div>
-          <div className="mt-10">
-            <SbSystem />
-          </div>
-        </details>
+        </div>
       </>
     );
   return null;
 }
 
-const SB_DECKS = [
-  {
-    name: "Author",
-    href: "https://bartlettanna.com/work/storybridge",
-    slides: [
-      { src: "/images/storybridge/wire-author.jpg", alt: "Mid-fidelity wireframe of the StoryBridge author page", label: "Mid-fidelity" },
-      { src: "/images/storybridge/hifi-author.png", alt: "The built StoryBridge author dashboard showing published stories, reads and drafts", label: "Built" },
-    ],
-  },
-  {
-    name: "Reader",
-    href: "https://bartlettanna.com/work/storybridge",
-    slides: [
-      { src: "/images/storybridge/wire-reader.jpg", alt: "Mid-fidelity wireframe of the StoryBridge reader page", label: "Mid-fidelity" },
-      { src: "/images/storybridge/reader-v2-browse.png", alt: "Stories for You: a featured story above a row of five story cards, each tagged with a topic and a grade band", label: "Stories for you" },
-      { src: "/images/storybridge/reader-v2-story.png", alt: "Reading The Rematch with a word-help card and tools for bigger text, read aloud and word help", label: "Reading, with word help" },
-      { src: "/images/storybridge/reader-discover.jpg", alt: "Discover Stories: a grid of stories filterable by topic and reading level", label: "Discover" },
-      { src: "/images/storybridge/reader-search.jpg", alt: "Search results for family stories filtered by theme and grade", label: "Search and filter" },
-      { src: "/images/storybridge/library.jpg", alt: "The full StoryBridge Story Library with search, genre filters and reading level filters", label: "Full library" },
-      { src: "/images/storybridge/reader-v2-components.png", alt: "The reader component sheet: tags, cards, cover colors, and the app header", label: "Reader components" },
-    ],
-  },
-  {
-    name: "Admin",
-    href: "https://bartlettanna.com/work/storybridge",
-    slides: [
-      { src: "/images/storybridge/hifi-admin.png", alt: "The built StoryBridge admin moderation overview with submission and screening counts", label: "Moderation overview" },
-    ],
-  },
-];
