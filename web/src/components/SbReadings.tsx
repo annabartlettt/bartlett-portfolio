@@ -121,7 +121,7 @@ export default function SbReadings({ bare = false }: { bare?: boolean }) {
         style={{ background: SB.green, color: SB.paper }}
       >
         <p className="mono text-[10px] tracking-widest uppercase opacity-75">The principle underneath</p>
-        <blockquote className="sb-display mx-auto mt-3 max-w-2xl text-xl leading-snug italic sm:text-2xl">
+        <blockquote className="sb-display mx-auto mt-3 max-w-2xl text-xl leading-snug sm:text-2xl">
           &ldquo;You rarely see who your students become. You teach them anyway, so
           they have the best chance. We built the AI to protect that
           relationship, never replace it.&rdquo;
