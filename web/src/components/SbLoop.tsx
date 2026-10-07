@@ -2,148 +2,245 @@
 
 import { useState, type ReactNode } from "react";
 import { SB, tint } from "@/content/storybridge-tokens";
-import { FEATURED, LEVELS } from "@/content/storybridge-stories";
+import { FEATURED, LEVELS, LIBRARY } from "@/content/storybridge-stories";
 
 /**
- * The StoryBridge loop, as one story's journey.
+ * The StoryBridge loop, as a click-through of the real screens.
  *
- * Follow "The Youngest Teacher" from prompt to reader. A dashed path carries
- * it across six stops; each stop is a person (green) or the AI (clay), and the
- * AI is never first or last. Every stop shows the story as it looks at that
- * moment, in the product's own components, so the loop is something you watch
- * happen rather than a diagram you decode.
+ * One story, "The Youngest Teacher", travels from a teacher's prompt to a
+ * young reader. Each stop is the full page someone actually sees at that
+ * moment, built from the product's own components, in a browser frame. The
+ * dashed path above is the progress bar: green stops are people, clay stops
+ * are the AI, and the AI is never first or last.
  */
-type Step = {
-  role: string;
-  title: string;
-  detail: string;
-  ai: boolean;
-  show: () => ReactNode;
-};
-
 const mono = "mono tracking-widest uppercase";
+type Role = "Author" | "Reader" | "Admin";
 
-const card = (children: ReactNode) => (
-  <div className="w-full max-w-[300px] rounded-xl bg-white p-4 text-left shadow-[0_10px_30px_-18px_rgba(0,0,0,0.5)]" style={{ color: SB.ink }}>
+/* ---------- shared chrome ---------- */
+
+function Frame({ role, children }: { role: Role; children: ReactNode }) {
+  return (
+    <div
+      className="overflow-hidden rounded-xl border bg-white shadow-[0_24px_50px_-30px_rgba(0,0,0,0.55)]"
+      style={{ borderColor: SB.line, color: SB.ink }}
+    >
+      <div className="flex items-center gap-1.5 border-b px-3 py-2" style={{ borderColor: SB.line, background: SB.surface }} aria-hidden>
+        {[0, 1, 2].map((d) => (
+          <span key={d} className="h-2.5 w-2.5 rounded-full" style={{ background: SB.line }} />
+        ))}
+        <span className="mono ml-3 rounded px-2 py-0.5 text-[10px]" style={{ background: "#fff", color: SB.muted }}>
+          storybridge.app/{role.toLowerCase()}
+        </span>
+      </div>
+      <div className="flex items-center justify-between border-b px-5 py-3" style={{ borderColor: SB.line }}>
+        <span className="sb-display text-[17px]">Storybridge</span>
+        <nav className={`${mono} flex gap-1 text-[10px]`}>
+          {(["Author", "Reader", "Admin"] as Role[]).map((r) => (
+            <span key={r} className="rounded-md px-2.5 py-1" style={r === role ? { background: SB.accent, color: SB.paper } : { color: SB.muted }}>
+              {r}
+            </span>
+          ))}
+        </nav>
+        <span className={`${mono} text-[10px]`} style={{ color: SB.muted }}>
+          {role === "Admin" ? "Ms. Rivera" : role === "Reader" ? "Maya, 4th" : "Anna B."}
+        </span>
+      </div>
+      <div className="min-h-[360px] p-5 sm:p-7" style={{ background: SB.paper }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+const Btn = ({ children, solid = true, colour = SB.accent }: { children: ReactNode; solid?: boolean; colour?: string }) => (
+  <span
+    className={`${mono} inline-block rounded-md px-3.5 py-2 text-[10.5px]`}
+    style={solid ? { background: colour, color: SB.paper } : { border: `1px solid ${SB.line}`, color: SB.ink, background: "#fff" }}
+  >
     {children}
-  </div>
+  </span>
 );
 
-const STEPS: Step[] = [
-  {
-    role: "Prompt",
-    title: "Weekly prompt",
-    ai: false,
-    detail: "A person starts it. Not an algorithm deciding what a class should write about this week.",
-    show: () =>
-      card(
-        <>
-          <p className={`${mono} text-[9.5px]`} style={{ color: SB.green }}>This week&rsquo;s prompt</p>
-          <p className="sb-display mt-2 text-[17px] leading-snug">
-            Write about a time someone younger taught you something.
-          </p>
-          <p className="mt-2 text-[11px]" style={{ color: SB.muted }}>Example prompt</p>
-        </>,
-      ),
-  },
-  {
-    role: "Author",
-    title: "A high schooler writes",
-    ai: false,
-    detail: "The story is written by a teenager for a real reader, which is the part a grade cannot substitute for.",
-    show: () =>
-      card(
-        <>
-          <span className={`${mono} rounded px-2 py-0.5 text-[9.5px]`} style={{ background: tint(SB.muted, 20), color: SB.muted }}>Draft</span>
-          <p className="sb-display mt-2 text-[18px]">{FEATURED.title}</p>
-          <div className="mt-3 space-y-1.5" aria-hidden>
-            {[100, 92, 70].map((w) => (
-              <div key={w} className="h-1.5 rounded-full" style={{ width: `${w}%`, background: SB.surface }} />
-            ))}
-          </div>
-        </>,
-      ),
-  },
-  {
-    role: "AI",
-    title: "AI moderates",
-    ai: true,
-    detail: "The first place the machine appears. It screens and flags. It does not decide, and it does not write.",
-    show: () =>
-      card(
-        <>
-          <p className="sb-display text-[16px]">{FEATURED.title}</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <span className={`${mono} rounded px-2 py-1 text-[9.5px]`} style={{ background: tint(SB.mint, 32), color: SB.green }}>AI: Clear</span>
-            <span className={`${mono} rounded px-2 py-1 text-[9.5px]`} style={{ background: tint(SB.coral, 30), color: "#9A3B40" }}>Age score: 30/100</span>
-          </div>
-          <p className="mt-3 text-[11.5px]" style={{ color: SB.muted }}>A label for a person to read, not a verdict.</p>
-        </>,
-      ),
-  },
-  {
-    role: "Teacher",
-    title: "A teacher publishes",
-    ai: false,
-    detail: "A person holds the gate. Nothing reaches a child because a score cleared a threshold on its own.",
-    show: () =>
-      card(
-        <>
-          <p className="sb-display text-[16px]">{FEATURED.title}</p>
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {["Approve", "Request changes", "Override"].map((b, i) => (
-              <span
-                key={b}
-                className={`${mono} rounded-md px-2.5 py-1.5 text-[9.5px]`}
-                style={i === 0 ? { background: SB.green, color: SB.paper } : { border: `1px solid ${SB.line}`, color: SB.muted }}
-              >
-                {b}
-              </span>
-            ))}
-          </div>
-          <span className={`${mono} mt-3 inline-block rounded px-2 py-1 text-[9.5px]`} style={{ background: SB.green, color: SB.paper }}>Published</span>
-        </>,
-      ),
-  },
-  {
-    role: "AI",
-    title: "AI adapts the level",
-    ai: true,
-    detail: "The second and last place the machine appears. It makes a version. The author's text is untouched.",
-    show: () =>
-      card(
-        <>
-          <p className={`${mono} text-[9.5px]`} style={{ color: SB.accent }}>Reading level</p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {["Original", ...LEVELS].map((l, i) => (
-              <span
-                key={l}
-                className="mono rounded-md px-2.5 py-1 text-[10.5px]"
-                style={i === 0 ? { background: SB.accent, color: SB.paper } : { background: SB.surface, color: SB.muted }}
-              >
-                {l}
-              </span>
-            ))}
-          </div>
-          <p className="mt-3 text-[11.5px]" style={{ color: SB.muted }}>Original stays the default. Bands swap words, never sentences.</p>
-        </>,
-      ),
-  },
-  {
-    role: "Reader",
-    title: "A K-8 kid reads",
-    ai: false,
-    detail: "A person ends it, reading something another person wrote. Then the loop closes back to next week's prompt.",
-    show: () => (
-      <div className="w-full max-w-[300px] rounded-xl px-5 py-4 text-left" style={{ background: SB.paper, color: SB.ink }}>
-        <p className={`${mono} text-[9.5px]`} style={{ color: SB.muted }}>Stories for you</p>
-        <div className="mt-2 rounded-lg px-4 py-3" style={{ background: SB.accent, color: SB.paper }}>
-          <p className="sb-display text-[17px] italic">{FEATURED.title}</p>
-          <p className={`${mono} mt-1 text-[9px]`}>{FEATURED.byline.join(" · ")}</p>
+const Chip = ({ children, bg = SB.surface, fg = SB.muted }: { children: ReactNode; bg?: string; fg?: string }) => (
+  <span className={`${mono} inline-block rounded px-2 py-1 text-[9.5px]`} style={{ background: bg, color: fg }}>
+    {children}
+  </span>
+);
+
+const SAMPLE = [
+  "My cousin Leo is six, and last summer he taught me how to be patient.",
+  "He wanted to learn to ride a bike, and I wanted to get it over with.",
+];
+
+/* ---------- the six pages ---------- */
+
+const PromptPage = () => (
+  <Frame role="Author">
+    <p className={`${mono} text-[10px]`} style={{ color: SB.green }}>This week&rsquo;s prompt · from Ms. Rivera</p>
+    <div className="mt-3 rounded-xl px-5 py-5" style={{ background: SB.green, color: SB.paper }}>
+      <p className="sb-display text-2xl leading-snug">Write about a time someone younger taught you something.</p>
+      <p className="mt-2 text-[12.5px] opacity-85">Due Friday · 300 to 800 words · readers in grades 3 to 8</p>
+    </div>
+    <div className="mt-5 flex flex-wrap items-center gap-3">
+      <Btn>Start writing</Btn>
+      <Btn solid={false}>Or set your own prompt</Btn>
+    </div>
+    <p className={`${mono} mt-7 text-[10px]`} style={{ color: SB.muted }}>Past prompts</p>
+    <ul className="mt-2 list-none space-y-2 p-0 text-[13px]">
+      {["A game you lost and learned from", "An object that belongs to your family"].map((t) => (
+        <li key={t} className="flex items-center justify-between rounded-lg border bg-white px-3 py-2" style={{ borderColor: SB.line }}>
+          {t}
+          <Chip>Closed</Chip>
+        </li>
+      ))}
+    </ul>
+  </Frame>
+);
+
+const WritePage = () => (
+  <Frame role="Author">
+    <div className="flex flex-wrap items-center justify-between gap-2">
+      <Chip bg={tint(SB.muted, 20)}>Draft · saved</Chip>
+      <span className="mono text-[10.5px]" style={{ color: SB.muted }}>412 words</span>
+    </div>
+    <p className="sb-display mt-4 text-3xl">{FEATURED.title}</p>
+    <div className="mt-2 flex flex-wrap gap-2">
+      <Chip>Family</Chip>
+      <Chip bg="#fff" fg={SB.muted}>+ add a tag</Chip>
+    </div>
+    <div className="mt-5 space-y-3 rounded-lg border bg-white p-4 text-[14.5px] leading-relaxed" style={{ borderColor: SB.line }}>
+      {SAMPLE.map((p) => (
+        <p key={p}>{p}</p>
+      ))}
+      <span className="inline-block h-4 w-0.5 animate-pulse align-middle" style={{ background: SB.accent }} aria-hidden />
+    </div>
+    <div className="mt-5 flex flex-wrap gap-3">
+      <Btn>Submit for review</Btn>
+      <Btn solid={false}>Save draft</Btn>
+    </div>
+  </Frame>
+);
+
+const ScreenPage = () => (
+  <Frame role="Author">
+    <Chip bg={tint(SB.accent, 18)} fg={SB.accent}>AI screening · complete</Chip>
+    <p className="sb-display mt-3 text-2xl">{FEATURED.title}</p>
+    <div className="mt-4 grid gap-2 sm:grid-cols-2">
+      {["Language", "Violence", "Sensitive topics", "Personal information"].map((c) => (
+        <div key={c} className="flex items-center justify-between rounded-lg border bg-white px-3 py-2 text-[13px]" style={{ borderColor: SB.line }}>
+          {c}
+          <Chip bg={tint(SB.mint, 32)} fg={SB.green}>Clear</Chip>
+        </div>
+      ))}
+    </div>
+    <div className="mt-4 flex flex-wrap items-center gap-2">
+      <Chip bg={tint(SB.coral, 30)} fg="#9A3B40">Age score: 30/100</Chip>
+      <span className="text-[12.5px]" style={{ color: SB.muted }}>Suitable for grade 3 and up</span>
+    </div>
+    <div className="mt-5 rounded-lg px-4 py-3 text-[13.5px]" style={{ background: SB.surface }}>
+      These are labels, not a decision. Your story has gone to <b>Ms. Rivera</b> for review.
+    </div>
+  </Frame>
+);
+
+const ReviewPage = () => (
+  <Frame role="Admin">
+    <div className="grid gap-4 md:grid-cols-[0.9fr_1.4fr]">
+      <div>
+        <p className={`${mono} text-[10px]`} style={{ color: SB.muted }}>Moderation queue · 3</p>
+        <ul className="mt-2 list-none space-y-2 p-0">
+          {[
+            { t: FEATURED.title, v: "AI: Clear", on: true },
+            { t: "The Group Chat", v: "Flagged", on: false },
+            { t: "Third Quarter", v: "AI: Clear", on: false },
+          ].map((q) => (
+            <li
+              key={q.t}
+              className="rounded-lg border px-3 py-2 text-[13px]"
+              style={{ borderColor: q.on ? SB.green : SB.line, background: q.on ? tint(SB.mint, 22) : "#fff" }}
+            >
+              <span className="sb-display block text-[14px]">{q.t}</span>
+              <span className={`${mono} text-[9px]`} style={{ color: q.v === "Flagged" ? SB.accent : SB.green }}>{q.v}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="rounded-lg border bg-white p-4" style={{ borderColor: SB.line }}>
+        <p className="sb-display text-xl">{FEATURED.title}</p>
+        <p className="mono mt-1 text-[10.5px]" style={{ color: SB.muted }}>by Anna B. · original text</p>
+        <p className="mt-3 text-[13.5px] leading-relaxed">{SAMPLE[0]}</p>
+        <p className="mt-3 rounded px-3 py-2 text-[12px]" style={{ background: SB.surface, color: SB.muted }}>
+          AI report: all categories clear · age score 30/100
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Btn colour={SB.green}>Approve</Btn>
+          <Btn solid={false}>Request changes</Btn>
+          <Btn solid={false}>Override</Btn>
         </div>
       </div>
-    ),
-  },
+    </div>
+  </Frame>
+);
+
+const LevelPage = () => (
+  <Frame role="Author">
+    <Chip bg={SB.green} fg={SB.paper}>Published</Chip>
+    <p className="sb-display mt-3 text-2xl">{FEATURED.title}</p>
+    <p className={`${mono} mt-5 text-[10px]`} style={{ color: SB.accent }}>✨ See how readers experience it</p>
+    <div className="mt-2 flex flex-wrap gap-2">
+      {["Original", ...LEVELS].map((l, i) => (
+        <span key={l} className="mono rounded-md px-3 py-1.5 text-[11px]" style={i === 1 ? { background: SB.accent, color: SB.paper } : { background: SB.surface, color: SB.muted }}>
+          {l}
+        </span>
+      ))}
+    </div>
+    <div className="mt-4 rounded-lg border bg-white p-4 text-[14.5px] leading-relaxed" style={{ borderColor: SB.line }}>
+      My cousin Leo is six, and last summer he taught me how to be{" "}
+      <mark className="rounded px-0.5" style={{ background: tint(SB.yellow, 55), color: SB.ink }}>calm</mark>.
+    </div>
+    <p className="mt-3 text-[12.5px]" style={{ color: SB.muted }}>
+      Previewing 3rd–4th: one word swapped, highlighted. Your original text is never changed. Readers start on Original.
+    </p>
+  </Frame>
+);
+
+const ReadPage = () => (
+  <Frame role="Reader">
+    <div className="rounded-xl px-5 py-5" style={{ background: SB.accent, color: SB.paper }}>
+      <p className={`${mono} text-[9.5px] opacity-80`}>New this week · picked for you</p>
+      <p className="sb-display mt-1 text-2xl italic">{FEATURED.title}</p>
+      <p className={`${mono} mt-1.5 text-[10px]`}>{FEATURED.byline.join(" · ")}</p>
+      <p className="mt-3 max-w-md text-[13px] opacity-90">A cousin learns patience from a six-year-old on a bike.</p>
+      <span className={`${mono} mt-4 inline-block rounded-md bg-white px-3.5 py-2 text-[10.5px]`} style={{ color: SB.accent }}>Read story →</span>
+    </div>
+    <p className="sb-display mt-6 text-xl">Browse Stories</p>
+    <div className="mt-3 grid grid-cols-3 gap-3">
+      {LIBRARY.slice(0, 3).map((s) => (
+        <div key={s.title} className="overflow-hidden rounded-lg border" style={{ borderColor: SB.line }}>
+          <div className="h-10" style={{ background: s.c }} />
+          <div className="bg-white px-2.5 py-2">
+            <p className="sb-display truncate text-[13px]">{s.title}</p>
+            <p className={`${mono} mt-0.5 text-[8.5px]`} style={{ color: SB.muted }}>{s.grade} · {s.tag}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Frame>
+);
+
+const STEPS = [
+  { who: "A teacher", role: "Prompt", ai: false, title: "A teacher's prompt reaches the writer", page: <PromptPage />,
+    detail: "A person starts it. Not an algorithm deciding what a class should write about this week." },
+  { who: "A high schooler", role: "Write", ai: false, title: "A high schooler writes", page: <WritePage />,
+    detail: "The story is written by a teenager for a real reader, which is the part a grade cannot substitute for." },
+  { who: "The AI", role: "Screen", ai: true, title: "The AI screens it", page: <ScreenPage />,
+    detail: "The first place the machine appears. It screens and labels. It does not decide, and it does not write." },
+  { who: "A teacher", role: "Review", ai: false, title: "A teacher approves it", page: <ReviewPage />,
+    detail: "A person holds the gate. Nothing reaches a child because a score cleared a threshold on its own." },
+  { who: "The AI", role: "Adapt", ai: true, title: "The AI offers reading levels", page: <LevelPage />,
+    detail: "The second and last place the machine appears. It swaps words for a band. The author's text is untouched." },
+  { who: "A young reader", role: "Read", ai: false, title: "A K-8 kid reads it", page: <ReadPage />,
+    detail: "A person ends it, reading something another person wrote. Then the loop closes back to next week's prompt." },
 ];
 
 export default function SbLoop() {
@@ -156,7 +253,7 @@ export default function SbLoop() {
     <div className="rounded-2xl border p-5 sm:p-8" style={{ borderColor: SB.line, background: SB.paper, color: SB.ink }}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className={`${mono} text-[10px] font-bold`} style={{ color: SB.muted }}>
-          Follow one story through the loop
+          One story, start to finish · {i + 1} of {STEPS.length}
         </p>
         <div className={`${mono} flex gap-5 text-[10px]`}>
           <span className="flex items-center gap-2">
@@ -170,8 +267,8 @@ export default function SbLoop() {
         </div>
       </div>
 
-      {/* The path: six stops on a dashed line that fills as the story travels */}
-      <div className="relative mt-8 px-2">
+      {/* Progress: a dashed path that fills as the story travels */}
+      <div className="relative mt-7 px-2">
         <div className="absolute left-6 right-6 top-[18px] border-t-2 border-dashed" style={{ borderColor: SB.line }} aria-hidden />
         <div
           className="absolute left-6 top-[18px] border-t-2 transition-all duration-500"
@@ -199,10 +296,7 @@ export default function SbLoop() {
                 >
                   {String(n + 1).padStart(2, "0")}
                 </button>
-                <span
-                  className={`${mono} mt-2 hidden text-center text-[9px] sm:block`}
-                  style={{ color: on ? c : SB.muted }}
-                >
+                <span className={`${mono} mt-2 hidden text-center text-[9px] sm:block`} style={{ color: on ? c : SB.muted }}>
                   {s.role}
                 </span>
               </li>
@@ -211,38 +305,43 @@ export default function SbLoop() {
         </ol>
       </div>
 
-      {/* The stop: the story as it looks right now, beside what is happening */}
-      <div key={i} className="sb-fade mt-8 grid gap-5 md:grid-cols-[1.1fr_1fr] md:items-center">
-        <div className="flex min-h-[230px] items-center justify-center rounded-2xl p-6" style={{ background: colour }}>
-          {step.show()}
-        </div>
-        <div>
-          <p className={`${mono} text-[10px] font-bold`} style={{ color: colour }}>
-            Step {String(i + 1).padStart(2, "0")} · {step.ai ? "The AI" : "A person"} · {step.role}
-          </p>
-          <p className="sb-display mt-2 text-2xl leading-tight">{step.title}</p>
-          <p className="mt-3 text-[15px] leading-snug">{step.detail}</p>
-          <div className="mt-5 flex gap-2">
+      {/* The slide: the caption, then the real page */}
+      <div key={i} className="sb-fade mt-7">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-xl">
+            <p className={`${mono} text-[10px] font-bold`} style={{ color: colour }}>
+              Step {String(i + 1).padStart(2, "0")} · {step.who}
+            </p>
+            <p className="sb-display mt-1.5 text-2xl leading-tight">{step.title}</p>
+            <p className="mt-2 text-[14.5px] leading-snug" style={{ color: SB.muted }}>{step.detail}</p>
+          </div>
+          <div className="flex gap-2">
             <button
               onClick={() => go(i - 1)}
+              aria-label="Previous step"
               className={`${mono} rounded-md border px-3.5 py-2 text-[10.5px]`}
               style={{ borderColor: SB.line, color: SB.muted, background: "#fff" }}
             >
-              ← Back
+              ←
             </button>
             <button
               onClick={() => go(i + 1)}
               className={`${mono} rounded-md px-3.5 py-2 text-[10.5px]`}
               style={{ background: SB.ink, color: SB.paper }}
             >
-              {i === STEPS.length - 1 ? "Back to the prompt ↺" : "Next stop →"}
+              {i === STEPS.length - 1 ? "Back to the prompt ↺" : "Next →"}
             </button>
           </div>
         </div>
+
+        <div className="mt-5 rounded-2xl p-3 sm:p-5" style={{ background: tint(colour, 16) }}>
+          {step.page}
+        </div>
       </div>
 
-      <p className="mt-7 text-center text-[13px]" style={{ color: SB.muted }}>
+      <p className="mt-6 text-center text-[13px]" style={{ color: SB.muted }}>
         Illich called this a learning web: people linked to people. The AI is the connective tissue, never the teacher.
+        <span className="block text-[11px] opacity-80">Story text, names, and prompts are sample content for the walkthrough.</span>
       </p>
     </div>
   );
