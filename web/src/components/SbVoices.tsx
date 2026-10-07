@@ -126,20 +126,30 @@ export default function SbVoices() {
           <p className={`${mono} text-[10px]`} style={{ color: group.colour }}>What they said · tap one</p>
           {group.lines.map((x, n) => {
             const on = n === l;
+            const bg = on ? group.colour : "#fff";
             return (
-              <button
-                key={x.said}
-                onClick={() => setL(n)}
-                aria-pressed={on}
-                className="block w-full rounded-xl px-4 py-3 text-left text-[14px] leading-snug transition"
-                style={
-                  on
-                    ? { background: group.colour, color: SB.paper, transform: "translateX(6px)" }
-                    : { background: "#fff", color: SB.ink }
-                }
-              >
-                {x.said}
-              </button>
+              <div key={x.said} className="flex items-end gap-2">
+                <span
+                  className="mono flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold"
+                  style={{ background: on ? group.colour : tint(group.colour, 30), color: on ? SB.paper : group.colour }}
+                  aria-hidden
+                >
+                  {group.who[0]}
+                </span>
+                <button
+                  onClick={() => setL(n)}
+                  aria-pressed={on}
+                  className="relative max-w-[88%] px-4 py-2.5 text-left text-[14px] leading-snug shadow-[0_6px_16px_-12px_rgba(0,0,0,0.45)] transition"
+                  style={{ background: bg, color: on ? SB.paper : SB.ink, borderRadius: "18px 18px 18px 4px" }}
+                >
+                  <span
+                    className="absolute -left-[5px] bottom-0 h-3 w-3"
+                    style={{ background: bg, clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
+                    aria-hidden
+                  />
+                  {x.said}
+                </button>
+              </div>
             );
           })}
         </div>
