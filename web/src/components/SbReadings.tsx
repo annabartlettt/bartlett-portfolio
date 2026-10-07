@@ -49,27 +49,31 @@ const READINGS = [
   },
 ];
 
-export default function SbReadings() {
+export default function SbReadings({ bare = false }: { bare?: boolean }) {
   return (
     <div
       className="rounded-xl border p-6 sm:p-8"
       style={{ borderColor: SB.line, background: SB.paper, color: SB.ink }}
     >
-      <p
-        className="mono text-[10px] font-bold tracking-widest uppercase"
-        style={{ color: SB.accent }}
-      >
-        Ideation · The readings
-      </p>
-      <h3 className="sb-display mt-3 text-2xl leading-snug sm:text-[28px]">
-        We didn&rsquo;t wireframe our way in. We read our way in.
-      </h3>
-      <p className="mt-2 text-[13.5px] leading-snug" style={{ color: SB.muted }}>
-        Every decision traces back to an ARTG 5000 reading. The theory was the
-        ideation stage.
-      </p>
+      {!bare && (
+        <>
+          <p
+            className="mono text-[10px] font-bold tracking-widest uppercase"
+            style={{ color: SB.accent }}
+          >
+            Ideation · The readings
+          </p>
+          <h3 className="sb-display mt-3 text-2xl leading-snug sm:text-[28px]">
+            We didn&rsquo;t wireframe our way in. We read our way in.
+          </h3>
+          <p className="mt-2 text-[13.5px] leading-snug" style={{ color: SB.muted }}>
+            Every decision traces back to an ARTG 5000 reading. The theory was the
+            ideation stage.
+          </p>
+        </>
+      )}
 
-      <div className="mt-7 grid gap-4 md:grid-cols-3">
+      <div className={`${bare ? "" : "mt-7"} grid gap-4 md:grid-cols-3`}>
         {READINGS.map((r) => (
           <article
             key={r.n}

@@ -105,6 +105,57 @@ export const SIDENOTES: SideNoteDef[] = [
     source: "Transforming Anxiety, pp. 3 and 8",
     href: `${PAPER}#page=8`,
   },
+  // StoryBridge: the research and the team's final report, beside the
+  // sentences they support. Anchors match the six-section rewrite exactly.
+  {
+    slug: "storybridge",
+    section: "01",
+    anchor: "a real audience",
+    note: "Writing for a real reader, not just a grader, is linked to better motivation and better writing. It was the project's core hypothesis for the high school side.",
+    source: "Final report, section 1",
+  },
+  {
+    slug: "storybridge",
+    section: "02",
+    anchor: "the reading list",
+    note: "ARTG 5000, Designing AI for Education, with Professor Nabeel Gillani at Northeastern, spring 2026. Team: Jahnavi, Anna, Rachel, and Cesar. The three readings are below.",
+    source: "Final report, April 22, 2026",
+  },
+  {
+    slug: "storybridge",
+    section: "02",
+    anchor: "Not \u201cHow might AI make stories easier to read?\u201d",
+    note: "Three platforms get close but none sit in the middle. Epic! is leveled but professionally published. Newsela is leveled but adult-written news. Wattpad has peer stories but no moderation for young readers. StoryBridge combines peer-authored stories, leveling, and real moderation for K-8.",
+    source: "Ecosystem analysis · final report, section 5",
+  },
+  {
+    slug: "storybridge",
+    section: "03",
+    anchor: "Adaptation means vocabulary only",
+    note: "The adaptation step asks a language model to simplify vocabulary for a chosen band (K-2, 3-4, and up), checked against reading-level frameworks like Lexile and Flesch-Kincaid. The original is stored untouched.",
+    source: "Final report, sections 6 and 7",
+  },
+  {
+    slug: "storybridge",
+    section: "03",
+    anchor: "approves, requests changes, or overrides",
+    note: "Every submission gets an automated moderation report first. A teacher then confirms or overrides it; nothing reaches a younger reader on the AI's judgment alone.",
+    source: "Final report, section 6",
+  },
+  {
+    slug: "storybridge",
+    section: "05",
+    anchor: "back-cover description",
+    note: "In early validation, a short description like the back of a book helped young readers make informed choices about what to read.",
+    source: "Final report, section 9",
+  },
+  {
+    slug: "storybridge",
+    section: "06",
+    anchor: "We have not tested with K-8 readers",
+    note: "Next step in the report: direct, hands-on feedback from K-8 students and current classroom teachers, then a teacher admin role that can curate the library and send prompts to student authors.",
+    source: "Final report, section 14",
+  },
 ];
 
 export function sidenotesFor(slug: string, section?: string) {

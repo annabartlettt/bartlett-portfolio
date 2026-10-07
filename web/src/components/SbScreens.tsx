@@ -64,9 +64,9 @@ const PIPELINE = [
   "Any flag sends it here for review",
 ];
 
-export default function SbScreens() {
+export default function SbScreens({ start = "author" }: { start?: Role }) {
   const accent = SB.accent;
-  const [role, setRole] = useState<Role>("author");
+  const [role, setRole] = useState<Role>(start);
   const [level, setLevel] = useState(0);
 
   const card = "rounded-lg border p-3";
