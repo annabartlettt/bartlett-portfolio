@@ -642,6 +642,7 @@ a.sn-src:hover { text-decoration: underline; text-underline-offset: 3px; }
 .rc-side h1 span { color: var(--ink) }
 .rc-side .rc-now { margin-bottom: 24px }
 .rc-side-link { font-family: var(--font-mono), monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid currentColor; padding-bottom: 2px }
+.rc-side-links { display: flex; flex-wrap: wrap; gap: 12px 20px; margin: 0 }
 .rc-split-work { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 28px; align-content: start }
 .rc-split-work .rc-gshot { aspect-ratio: 4/3 }
 @media (max-width: 900px) {

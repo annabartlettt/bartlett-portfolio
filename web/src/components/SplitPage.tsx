@@ -27,9 +27,17 @@ export default function SplitPage({
         <p className="rc-side-eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
         {lede && <p className="rc-side-lede">{lede}</p>}
-        <a className="rc-side-link" href="mailto:anna.bartlettt@gmail.com">
-          Say hello →
-        </a>
+        <p className="rc-side-links">
+          <a className="rc-side-link" href="mailto:anna.bartlettt@gmail.com">
+            Say hello →
+          </a>
+          <a className="rc-side-link" href="https://www.linkedin.com/in/bartlettanna" target="_blank" rel="noreferrer">
+            LinkedIn ↗
+          </a>
+          <a className="rc-side-link" href="/Anna_Bartlett_Resume.pdf" target="_blank" rel="noreferrer">
+            Resume ↗
+          </a>
+        </p>
       </aside>
       <div className="rc-split-main">{children}</div>
     </main>
