@@ -78,9 +78,9 @@ export default function AboutPage() {
               },
               {
                 t: "Small, simple interventions",
-                p: "StoryBridge",
-                href: "/work/storybridge",
-                d: "Reading levels change vocabulary only. One word moves; the writer’s sentences never do.",
+                p: "Financial Blueprint",
+                href: "/work/financial-blueprint",
+                d: "Instead of a course, five-minute, jargon-free lessons that each teach one thing, right when a student needs it.",
               },
             ].map((x, i) => (
               <li key={x.t} className="flex gap-4">
