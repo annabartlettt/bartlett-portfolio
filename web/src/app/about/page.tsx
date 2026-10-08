@@ -26,7 +26,7 @@ export default function AboutPage() {
             <p className="display text-2xl leading-tight">
               I work in the overprint.
             </p>
-            <p className="serif mt-3 text-lg leading-relaxed opacity-80">
+            <p className="mt-3 leading-relaxed opacity-85">
               Two flat things cross, and the place they cross is a third thing
               that belongs to neither of them. That is the mark, and it is also
               the claim: the work I am proudest of sits where a craft meets a
@@ -51,7 +51,7 @@ export default function AboutPage() {
           <h2 id="hcd" className="display mt-2 text-2xl leading-tight">
             Human-centered design, in four principles.
           </h2>
-          <p className="serif mt-3 text-lg leading-relaxed opacity-85">
+          <p className="mt-3 leading-relaxed opacity-85">
             Human-centered design is the future of design professions: designing
             a product or service around the people who actually use it. They are
             the champions of the final product.
@@ -150,7 +150,7 @@ export default function AboutPage() {
             SAY HELLO
           </p>
           <h2 className="display mt-3 text-3xl">Get in touch.</h2>
-          <p className="serif mt-3 max-w-xl text-lg leading-relaxed opacity-85">
+          <p className="mt-3 max-w-xl leading-relaxed opacity-85">
             For work, research, or collaboration. I read everything and reply to
             all of it.
           </p>
