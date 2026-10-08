@@ -60,18 +60,26 @@ export default function AboutPage() {
             {[
               {
                 t: "People-centered",
-                d: "StoryBridge’s core rule came from teachers who said they wouldn’t trust AI without a final human review.",
+                p: "StoryBridge",
+                href: "/work/storybridge",
+                d: "The AI’s core rule came from teachers who said they wouldn’t trust it without a final human review.",
               },
               {
                 t: "Solve the root cause",
-                d: "At the Central Co-op Office, focus groups with 25 students found where the message lost them, before anything was redesigned.",
+                p: "Central Co-op",
+                href: "/work/central-co-op",
+                d: "Focus groups with 25 students found where the co-op process lost them, before the office changed a thing.",
               },
               {
                 t: "Everything is a system",
-                d: "StoryBridge is a loop, not a screen: a prompt, a writer, the AI, a teacher, and a young reader, each one depending on the last.",
+                p: "Esplanade Interactive Park Map",
+                href: "/work/esplanade-interactive-park-map",
+                d: "Interviews with four visitor groups and a service blueprint mapped the whole park before the kiosk was designed.",
               },
               {
                 t: "Small, simple interventions",
+                p: "StoryBridge",
+                href: "/work/storybridge",
                 d: "Reading levels change vocabulary only. One word moves; the writer’s sentences never do.",
               },
             ].map((x, i) => (
@@ -81,7 +89,14 @@ export default function AboutPage() {
                 </span>
                 <div>
                   <p className="display text-lg leading-tight">{x.t}</p>
-                  <p className="mt-1.5 text-[15px] leading-relaxed opacity-80">{x.d}</p>
+                  <a
+                    href={x.href}
+                    className="mono mt-1 inline-block text-[10.5px] tracking-widest uppercase underline-offset-2 hover:underline"
+                    style={{ color: "var(--ink)" }}
+                  >
+                    {x.p} →
+                  </a>
+                  <p className="mt-1 text-[15px] leading-relaxed opacity-80">{x.d}</p>
                 </div>
               </li>
             ))}
