@@ -17,6 +17,7 @@ import SbVoices from "@/components/SbVoices";
 import SbCover from "@/components/SbCover";
 import SbStoryView from "@/components/SbStoryView";
 import SbExplorer from "@/components/SbExplorer";
+import EspBlueprint from "@/components/EspBlueprint";
 import FbVoices from "@/components/FbVoices";
 import FbRetireMap from "@/components/FbRetireMap";
 import FbPivot from "@/components/FbPivot";
@@ -358,6 +359,8 @@ export default async function ProjectPage({
             {slug === "storybridge" && (
               <StoryBridgeInside n={s.number} accent={brand.primary ?? primary} />
             )}
+
+            {slug === "esplanade-interactive-park-map" && s.number === "03" && <EspBlueprint />}
 
             {s.drawer?.label && sidenotesFor(slug, s.number).length === 0 && (
               <Drawer
