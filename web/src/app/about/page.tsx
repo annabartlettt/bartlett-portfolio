@@ -43,6 +43,54 @@ export default function AboutPage() {
           goes to tools that cost time instead of saving it. That&rsquo;s the
           problem I want to work on.
         </p>
+        {/* How she works: the four principles of human-centered design, each
+            tied to one place it shows up in the folders, so the method is
+            evidence rather than a slogan. */}
+        <section className="mt-12 max-w-3xl" aria-labelledby="hcd">
+          <p className="mono text-[11px] tracking-widest uppercase opacity-60">How I work</p>
+          <h2 id="hcd" className="display mt-2 text-2xl leading-tight">
+            Human-centered design, in four principles.
+          </h2>
+          <p className="serif mt-3 text-lg leading-relaxed opacity-85">
+            Human-centered design is the future of design professions: designing
+            a product or service around the people who actually use it. They are
+            the champions of the final product.
+          </p>
+          <ol className="mt-8 grid list-none gap-x-10 gap-y-9 p-0 sm:grid-cols-2">
+            {[
+              {
+                t: "People-centered",
+                d: "StoryBridge’s core rule came from teachers who said they wouldn’t trust AI without a final human review.",
+              },
+              {
+                t: "Solve the root cause",
+                d: "At the Central Co-op Office, focus groups with 25 students found where the message lost them, before anything was redesigned.",
+              },
+              {
+                t: "Everything is a system",
+                d: "StoryBridge is a loop, not a screen: a prompt, a writer, the AI, a teacher, and a young reader, each one depending on the last.",
+              },
+              {
+                t: "Small, simple interventions",
+                d: "Reading levels change vocabulary only. One word moves; the writer’s sentences never do.",
+              },
+            ].map((x, i) => (
+              <li key={x.t} className="flex gap-4">
+                <span className="display w-9 shrink-0 text-center text-5xl leading-none" style={{ color: "var(--ink)" }} aria-hidden>
+                  {i + 1}
+                </span>
+                <div>
+                  <p className="display text-lg leading-tight">{x.t}</p>
+                  <p className="mt-1.5 text-[15px] leading-relaxed opacity-80">{x.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p className="mono mt-6 text-[10px] tracking-widest uppercase opacity-50">
+            Principles after Don Norman
+          </p>
+        </section>
+
         <p className="mt-6 max-w-2xl leading-relaxed opacity-85">
           This site is a research cabinet, and the folders are in that order on
           purpose. The first three are learning tools: StoryBridge, an AI reading
