@@ -1,4 +1,5 @@
 import { client } from "@/sanity/client";
+import AtAGlance from "@/components/AtAGlance";
 import { PROJECT_QUERY, PROJECT_SLUGS_QUERY } from "@/sanity/queries";
 import { PortableText } from "next-sanity";
 import type { PortableTextBlock } from "next-sanity";
@@ -264,6 +265,8 @@ export default async function ProjectPage({
           )}
         </div>
       </section>
+
+      <AtAGlance glance={p.atAGlance} accent={primary} />
 
       {/* Sections */}
       {p.sections?.map((s) => (

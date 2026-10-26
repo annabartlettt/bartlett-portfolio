@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { client } from "@/sanity/client";
 import { PROJECT_QUERY } from "@/sanity/queries";
 import { urlFor } from "@/sanity/image";
+import AtAGlance from "@/components/AtAGlance";
 import Drawer from "@/components/Drawer";
 import HandDrawing from "@/components/HandDrawing";
 import SectionFolio from "@/components/SectionFolio";
@@ -164,6 +165,8 @@ export default async function TapestryPage() {
           </nav>
         </div>
       </section>
+
+      <AtAGlance glance={p.atAGlance} accent={primary} />
 
       {p.sections?.map((s) => {
         const blocks = (s.body ?? []) as Block[];
