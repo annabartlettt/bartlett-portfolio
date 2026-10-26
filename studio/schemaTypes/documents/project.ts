@@ -90,6 +90,19 @@ export const project = defineType({
     defineField({ name: "coverHeadline", type: "string" }),
     defineField({ name: "coverSub", title: "Cover subhead", type: "text", rows: 2 }),
     defineField({
+      name: "atAGlance",
+      title: "At a glance",
+      description: "The 30-second version, shown under the cover. Empty rows are hidden.",
+      type: "object",
+      fields: [
+        defineField({ name: "brief", type: "text", rows: 2 }),
+        defineField({ name: "myPart", title: "My part", type: "text", rows: 2 }),
+        defineField({ name: "made", title: "What was made (materials)", type: "text", rows: 3 }),
+        defineField({ name: "size", title: "Size", type: "string" }),
+        defineField({ name: "forWho", title: "Who it's for", type: "text", rows: 2 }),
+      ],
+    }),
+    defineField({
       name: "sections",
       title: "Case study sections",
       type: "array",

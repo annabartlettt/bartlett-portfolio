@@ -38,6 +38,14 @@ export type Section = {
   drawer?: Drawer;
 };
 
+export type Glance = {
+  brief?: string;
+  myPart?: string;
+  made?: string;
+  size?: string;
+  forWho?: string;
+};
+
 export type Project = {
   _id: string;
   title: string;
@@ -58,6 +66,7 @@ export type Project = {
   team?: string;
   coverHeadline?: string;
   coverSub?: string;
+  atAGlance?: Glance;
   notes?: unknown[];
   category?: { name?: string; slug?: string };
   methods?: string[];

@@ -45,6 +45,7 @@ export const PROJECT_QUERY = defineQuery(`
     team,
     coverHeadline,
     coverSub,
+    atAGlance,
     notes,
     "category": category->{ name, "slug": slug.current },
     "methods": methods[]->name,
