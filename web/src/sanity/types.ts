@@ -43,6 +43,7 @@ export type Project = {
   title: string;
   slug: string;
   folderNumber?: string;
+  order?: number;
   invisibleSystem?: string;
   madeTangible?: string;
   themeTags?: string[];

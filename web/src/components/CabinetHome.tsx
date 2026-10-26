@@ -233,12 +233,17 @@ export default function CabinetHome({ projects }: { projects: Project[] }) {
   useDrawersOpening(rootRef, motion);
   useDrift(rootRef, motion);
 
-  // One list, in folder order.
+  // One list, in the Studio's "order" (folder number breaks ties). A project
+  // with no picture yet stays off the grid until it has one.
   const ordered = useMemo(
     () =>
-      [...projects].sort((a, b) =>
-        (a.folderNumber ?? "").localeCompare(b.folderNumber ?? ""),
-      ),
+      projects
+        .filter((p) => p.slideImage?.asset)
+        .sort(
+          (a, b) =>
+            (a.order ?? Infinity) - (b.order ?? Infinity) ||
+            (a.folderNumber ?? "").localeCompare(b.folderNumber ?? ""),
+        ),
     [projects],
   );
 

@@ -7,6 +7,7 @@ export const PROJECTS_QUERY = defineQuery(`
     title,
     "slug": slug.current,
     folderNumber,
+    order,
     invisibleSystem,
     madeTangible,
     themeTags,
